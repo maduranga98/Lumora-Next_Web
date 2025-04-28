@@ -1,62 +1,95 @@
 @import "tailwindcss";
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 250, 250, 250;
-  --background-end-rgb: 255, 255, 255;
+  --blue-light: #e0f2fe;
+  --blue-mid: #38bdf8;
+  --blue-primary: #0284c7;
+  --blue-dark: #0c4a6e;
+  --blue-darkest: #082f49;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  color: var(--blue-darkest);
+  background: linear-gradient(to right, var(--blue-light), #f0f9ff);
+  /* light gradient background */
 }
 
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Typography */
 @layer base {
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-bold;
+  }
+
   h1 {
-    @apply text-4xl font-bold md:text-5xl;
+    @apply text-4xl md:text-5xl;
+    line-height: 1.2;
   }
 
   h2 {
-    @apply text-3xl font-bold md:text-4xl;
+    @apply text-3xl md:text-4xl mb-6;
   }
 
   h3 {
-    @apply text-2xl font-bold md:text-3xl;
+    @apply text-xl md:text-2xl;
   }
 
-  h4 {
-    @apply text-xl font-semibold md:text-2xl;
-  }
-
-  h5 {
-    @apply text-lg font-semibold;
-  }
-
-  h6 {
-    @apply text-base font-semibold;
+  p {
+    @apply leading-relaxed;
   }
 }
 
+/* Common Components */
 @layer components {
-  .btn {
-    @apply px-4 py-2 rounded font-medium transition-colors;
-  }
-
   .btn-primary {
-    @apply bg-blue-600 text-white hover:bg-blue-700;
+    @apply bg-blue-500 hover:bg-blue-600 text-white px-8 py-3 rounded-full font-medium transition-all duration-300;
   }
 
   .btn-outline {
-    @apply border border-blue-600 text-blue-600 hover:bg-blue-50;
+    @apply border border-blue-500 text-blue-500 px-8 py-3 rounded-full font-medium hover:bg-blue-50 transition-all duration-300;
   }
 
   .container {
     @apply mx-auto px-4 max-w-7xl;
   }
 
-  .section {
-    @apply py-16 md:py-24;
+  .card {
+    @apply bg-white border border-gray-200 rounded-lg p-6 hover:shadow-md transition-all duration-300;
   }
+}
+
+/* Animations */
+.fade-in {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom Background Patterns */
+.bg-dots {
+  background-image: radial-gradient(var(--blue-mid) 1px, transparent 1px);
+  background-size: 20px 20px;
+  background-position: 0 0;
+  opacity: 0.1;
 }

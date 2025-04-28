@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { Mail, Phone, Send, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Send } from "lucide-react";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
@@ -82,500 +82,249 @@ const ContactForm = () => {
 
   const contactInfo = [
     {
-      icon: <Phone size={20} style={{ color: "white" }} />,
+      icon: <Phone size={24} className="text-white" />,
       title: "Phone",
       details: "+1 (555) 123-4567",
-      gradient: "linear-gradient(135deg, #3B82F6, #60A5FA)",
+      color: "#3B82F6",
     },
     {
-      icon: <Mail size={20} style={{ color: "white" }} />,
+      icon: <Mail size={24} className="text-white" />,
       title: "Email",
       details: "info@lumoraventures.com",
-      gradient: "linear-gradient(135deg, #8B5CF6, #C084FC)",
+      color: "#3B82F6",
     },
     {
-      icon: <MapPin size={20} style={{ color: "white" }} />,
+      icon: <MapPin size={24} className="text-white" />,
       title: "Address",
       details: "123 Business Street, City, Country",
-      gradient: "linear-gradient(135deg, #EC4899, #F472B6)",
+      color: "#3B82F6",
     },
   ];
 
   return (
-    <section
-      style={{
-        padding: "100px 0",
-        background: "linear-gradient(to bottom, #1e1b4b, #0f172a)",
-        color: "white",
-      }}
-      id="contact"
-    >
-      <div className="container">
+    <section className="py-20 bg-white" id="contact">
+      <div className="container mx-auto px-4">
         {/* Section header */}
-        <div
-          style={{
-            textAlign: "center",
-            maxWidth: "800px",
-            margin: "0 auto 60px",
-          }}
-        >
-          <h2
-            style={{
-              fontSize: "36px",
-              fontWeight: "bold",
-              marginBottom: "16px",
-              background: "linear-gradient(to right, #3B82F6, #60A5FA)",
-              WebkitBackgroundClip: "text",
-              WebkitTextFillColor: "transparent",
-              backgroundClip: "text",
-            }}
-          >
+        <div className="text-center mb-16">
+          <h2 className="text-3xl font-bold text-blue-800 mb-4">
             Get In Touch
           </h2>
-          <p
-            style={{
-              fontSize: "18px",
-              color: "rgba(255, 255, 255, 0.8)",
-              lineHeight: 1.6,
-            }}
-          >
+          <p className="text-gray-600 max-w-3xl mx-auto">
             Have questions or need assistance? We're here to help! Reach out to
             us and let's discuss how we can transform your business together.
           </p>
         </div>
 
-        <div
-          style={{
-            display: "grid",
-            gridTemplateColumns: "1fr",
-            gap: "40px",
-          }}
-        >
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
           {/* Contact Information */}
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr",
-              gap: "20px",
-            }}
-          >
-            {contactInfo.map((item, index) => (
-              <div
-                key={index}
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "20px",
-                  background: "rgba(255, 255, 255, 0.05)",
-                  borderRadius: "16px",
-                  padding: "24px",
-                  boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
-                  backdropFilter: "blur(10px)",
-                  border: "1px solid rgba(255, 255, 255, 0.1)",
-                  transition: "transform 0.3s ease",
-                  cursor: "pointer",
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.transform = "translateX(10px)";
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.transform = "translateX(0)";
-                }}
-              >
-                <div
-                  style={{
-                    padding: "16px",
-                    background: item.gradient,
-                    borderRadius: "12px",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    boxShadow: "0 8px 16px rgba(0, 0, 0, 0.15)",
-                  }}
-                >
-                  {item.icon}
+          <div className="lg:col-span-2">
+            <h3 className="text-2xl font-bold text-blue-800 mb-6">
+              Contact Information
+            </h3>
+
+            <div className="space-y-6 mb-10">
+              {contactInfo.map((item, index) => (
+                <div key={index} className="flex items-start">
+                  <div
+                    className="w-12 h-12 rounded-full flex items-center justify-center mr-4 flex-shrink-0"
+                    style={{ backgroundColor: item.color }}
+                  >
+                    {item.icon}
+                  </div>
+                  <div>
+                    <h4 className="text-lg font-semibold text-primary-dark mb-1">
+                      {item.title}
+                    </h4>
+                    <p className="text-gray-600">{item.details}</p>
+                  </div>
                 </div>
-                <div>
-                  <h3
-                    style={{
-                      fontSize: "18px",
-                      fontWeight: "600",
-                      marginBottom: "4px",
-                      color: "white",
-                    }}
-                  >
-                    {item.title}
-                  </h3>
-                  <p
-                    style={{
-                      fontSize: "16px",
-                      color: "rgba(255, 255, 255, 0.8)",
-                    }}
-                  >
-                    {item.details}
-                  </p>
+              ))}
+            </div>
+
+            <div className="blue-glass-card p-6 rounded-2xl">
+              <h4 className="text-lg font-semibold text-primary-dark mb-4">
+                Business Hours
+              </h4>
+              <div className="space-y-2">
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Monday - Friday:</span>
+                  <span className="font-medium text-primary-dark">
+                    9:00 AM - 6:00 PM
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Saturday:</span>
+                  <span className="font-medium text-primary-dark">
+                    10:00 AM - 4:00 PM
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-gray-600">Sunday:</span>
+                  <span className="font-medium text-primary-dark">Closed</span>
                 </div>
               </div>
-            ))}
+            </div>
           </div>
 
           {/* Contact Form */}
-          <div
-            style={{
-              background: "rgba(255, 255, 255, 0.05)",
-              borderRadius: "16px",
-              padding: "40px",
-              boxShadow: "0 10px 30px rgba(0, 0, 0, 0.15)",
-              backdropFilter: "blur(10px)",
-              border: "1px solid rgba(255, 255, 255, 0.1)",
-            }}
-          >
-            <h2
-              style={{
-                fontSize: "24px",
-                fontWeight: "bold",
-                color: "white",
-                marginBottom: "30px",
-                textAlign: "center",
-              }}
-            >
-              Send Us a Message
-            </h2>
+          <div className="lg:col-span-3">
+            <div className="card p-8">
+              <h3 className="text-2xl font-bold text-primary-dark mb-6">
+                Send Us a Message
+              </h3>
 
-            {formStatus.isSubmitted ? (
-              <div
-                style={{
-                  background: "rgba(16, 185, 129, 0.1)",
-                  color: "#10B981",
-                  padding: "20px",
-                  borderRadius: "12px",
-                  marginBottom: "20px",
-                  border: "1px solid rgba(16, 185, 129, 0.2)",
-                  textAlign: "center",
-                }}
-              >
-                <p style={{ fontWeight: "500" }}>{formStatus.message}</p>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit}>
-                {formStatus.isError && (
-                  <div
-                    style={{
-                      background: "rgba(239, 68, 68, 0.1)",
-                      color: "#EF4444",
-                      padding: "20px",
-                      borderRadius: "12px",
-                      marginBottom: "24px",
-                      border: "1px solid rgba(239, 68, 68, 0.2)",
-                    }}
+              {formStatus.isSubmitted ? (
+                <div className="bg-green-50 text-green-600 p-6 rounded-xl border border-green-100 text-center">
+                  <svg
+                    className="w-12 h-12 text-green-500 mx-auto mb-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
-                    <p style={{ fontWeight: "500" }}>{formStatus.message}</p>
-                  </div>
-                )}
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                    />
+                  </svg>
+                  <p className="font-medium text-lg">{formStatus.message}</p>
+                  <button
+                    onClick={() =>
+                      setFormStatus({ ...formStatus, isSubmitted: false })
+                    }
+                    className="mt-4 text-primary-blue hover:text-primary-dark transition-colors font-medium"
+                  >
+                    Send another message
+                  </button>
+                </div>
+              ) : (
+                <form onSubmit={handleSubmit}>
+                  {formStatus.isError && (
+                    <div className="bg-red-50 text-red-600 p-4 rounded-lg mb-6 border border-red-100">
+                      <p>{formStatus.message}</p>
+                    </div>
+                  )}
 
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "1fr 1fr",
-                    gap: "20px",
-                    marginBottom: "20px",
-                  }}
-                >
-                  {/* Name */}
-                  <div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+                    {/* Name */}
+                    <div>
+                      <label
+                        htmlFor="name"
+                        className="block text-gray-700 mb-2 font-medium"
+                      >
+                        Name <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                        className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-primary-blue focus:ring-2 focus:ring-primary-blue/20 transition-colors focus:outline-none"
+                        placeholder="Your name"
+                      />
+                    </div>
+
+                    {/* Email */}
+                    <div>
+                      <label
+                        htmlFor="email"
+                        className="block text-gray-700 mb-2 font-medium"
+                      >
+                        Email <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                        className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-primary-blue focus:ring-2 focus:ring-primary-blue/20 transition-colors focus:outline-none"
+                        placeholder="Your email"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
+                    {/* Phone */}
+                    <div>
+                      <label
+                        htmlFor="phone"
+                        className="block text-gray-700 mb-2 font-medium"
+                      >
+                        Phone
+                      </label>
+                      <input
+                        type="tel"
+                        id="phone"
+                        name="phone"
+                        value={formData.phone}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-primary-blue focus:ring-2 focus:ring-primary-blue/20 transition-colors focus:outline-none"
+                        placeholder="Your phone number"
+                      />
+                    </div>
+
+                    {/* Subject */}
+                    <div>
+                      <label
+                        htmlFor="subject"
+                        className="block text-gray-700 mb-2 font-medium"
+                      >
+                        Subject
+                      </label>
+                      <input
+                        type="text"
+                        id="subject"
+                        name="subject"
+                        value={formData.subject}
+                        onChange={handleChange}
+                        className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-primary-blue focus:ring-2 focus:ring-primary-blue/20 transition-colors focus:outline-none"
+                        placeholder="What is this about?"
+                      />
+                    </div>
+                  </div>
+
+                  {/* Message */}
+                  <div className="mb-6">
                     <label
-                      htmlFor="name"
-                      style={{
-                        display: "block",
-                        fontSize: "14px",
-                        fontWeight: "500",
-                        color: "rgba(255, 255, 255, 0.8)",
-                        marginBottom: "8px",
-                      }}
+                      htmlFor="message"
+                      className="block text-gray-700 mb-2 font-medium"
                     >
-                      Name *
+                      Message <span className="text-red-500">*</span>
                     </label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
                       onChange={handleChange}
                       required
-                      style={{
-                        width: "100%",
-                        padding: "14px",
-                        borderRadius: "8px",
-                        background: "rgba(255, 255, 255, 0.05)",
-                        border: "1px solid rgba(255, 255, 255, 0.2)",
-                        color: "white",
-                        fontSize: "16px",
-                        transition: "border-color 0.3s ease",
-                        outline: "none",
-                      }}
-                    />
+                      rows={5}
+                      className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-primary-blue focus:ring-2 focus:ring-primary-blue/20 transition-colors focus:outline-none"
+                      placeholder="How can we help you?"
+                    ></textarea>
                   </div>
 
-                  {/* Email */}
-                  <div>
-                    <label
-                      htmlFor="email"
-                      style={{
-                        display: "block",
-                        fontSize: "14px",
-                        fontWeight: "500",
-                        color: "rgba(255, 255, 255, 0.8)",
-                        marginBottom: "8px",
-                      }}
-                    >
-                      Email *
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                      style={{
-                        width: "100%",
-                        padding: "14px",
-                        borderRadius: "8px",
-                        background: "rgba(255, 255, 255, 0.05)",
-                        border: "1px solid rgba(255, 255, 255, 0.2)",
-                        color: "white",
-                        fontSize: "16px",
-                        transition: "border-color 0.3s ease",
-                        outline: "none",
-                      }}
-                    />
-                  </div>
-                </div>
-
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: "1fr 1fr",
-                    gap: "20px",
-                    marginBottom: "20px",
-                  }}
-                >
-                  {/* Phone */}
-                  <div>
-                    <label
-                      htmlFor="phone"
-                      style={{
-                        display: "block",
-                        fontSize: "14px",
-                        fontWeight: "500",
-                        color: "rgba(255, 255, 255, 0.8)",
-                        marginBottom: "8px",
-                      }}
-                    >
-                      Phone
-                    </label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      name="phone"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      style={{
-                        width: "100%",
-                        padding: "14px",
-                        borderRadius: "8px",
-                        background: "rgba(255, 255, 255, 0.05)",
-                        border: "1px solid rgba(255, 255, 255, 0.2)",
-                        color: "white",
-                        fontSize: "16px",
-                        transition: "border-color 0.3s ease",
-                        outline: "none",
-                      }}
-                    />
-                  </div>
-
-                  {/* Subject */}
-                  <div>
-                    <label
-                      htmlFor="subject"
-                      style={{
-                        display: "block",
-                        fontSize: "14px",
-                        fontWeight: "500",
-                        color: "rgba(255, 255, 255, 0.8)",
-                        marginBottom: "8px",
-                      }}
-                    >
-                      Subject
-                    </label>
-                    <input
-                      type="text"
-                      id="subject"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      style={{
-                        width: "100%",
-                        padding: "14px",
-                        borderRadius: "8px",
-                        background: "rgba(255, 255, 255, 0.05)",
-                        border: "1px solid rgba(255, 255, 255, 0.2)",
-                        color: "white",
-                        fontSize: "16px",
-                        transition: "border-color 0.3s ease",
-                        outline: "none",
-                      }}
-                    />
-                  </div>
-                </div>
-
-                {/* Message */}
-                <div style={{ marginBottom: "30px" }}>
-                  <label
-                    htmlFor="message"
-                    style={{
-                      display: "block",
-                      fontSize: "14px",
-                      fontWeight: "500",
-                      color: "rgba(255, 255, 255, 0.8)",
-                      marginBottom: "8px",
-                    }}
+                  <button
+                    type="submit"
+                    disabled={formStatus.isSubmitting}
+                    className={`btn btn-primary w-full py-3 flex justify-center items-center gap-2 ${
+                      formStatus.isSubmitting
+                        ? "opacity-70 cursor-not-allowed"
+                        : ""
+                    }`}
                   >
-                    Message *
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={5}
-                    style={{
-                      width: "100%",
-                      padding: "14px",
-                      borderRadius: "8px",
-                      background: "rgba(255, 255, 255, 0.05)",
-                      border: "1px solid rgba(255, 255, 255, 0.2)",
-                      color: "white",
-                      fontSize: "16px",
-                      transition: "border-color 0.3s ease",
-                      outline: "none",
-                      resize: "vertical",
-                    }}
-                  ></textarea>
-                </div>
-
-                <button
-                  type="submit"
-                  disabled={formStatus.isSubmitting}
-                  style={{
-                    width: "100%",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    gap: "10px",
-                    background: "linear-gradient(to right, #3B82F6, #60A5FA)",
-                    color: "white",
-                    border: "none",
-                    borderRadius: "30px",
-                    padding: "16px",
-                    fontSize: "16px",
-                    fontWeight: "600",
-                    cursor: formStatus.isSubmitting ? "not-allowed" : "pointer",
-                    opacity: formStatus.isSubmitting ? 0.7 : 1,
-                    transition: "all 0.3s ease",
-                    boxShadow: "0 10px 20px rgba(59, 130, 246, 0.3)",
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!formStatus.isSubmitting) {
-                      e.currentTarget.style.transform = "translateY(-3px)";
-                      e.currentTarget.style.boxShadow =
-                        "0 15px 25px rgba(59, 130, 246, 0.4)";
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!formStatus.isSubmitting) {
-                      e.currentTarget.style.transform = "translateY(0)";
-                      e.currentTarget.style.boxShadow =
-                        "0 10px 20px rgba(59, 130, 246, 0.3)";
-                    }
-                  }}
-                >
-                  {formStatus.isSubmitting ? "Sending..." : "Send Message"}
-                  {!formStatus.isSubmitting && <Send size={18} />}
-                </button>
-              </form>
-            )}
+                    {formStatus.isSubmitting ? "Sending..." : "Send Message"}
+                    {!formStatus.isSubmitting && <Send size={18} />}
+                  </button>
+                </form>
+              )}
+            </div>
           </div>
-        </div>
-
-        {/* Social Links & Business Hours (Optional) */}
-        <div
-          style={{
-            marginTop: "60px",
-            textAlign: "center",
-          }}
-        >
-          <p
-            style={{
-              fontSize: "16px",
-              color: "rgba(255, 255, 255, 0.6)",
-              marginBottom: "20px",
-            }}
-          >
-            Find us on social media
-          </p>
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              gap: "16px",
-              marginBottom: "40px",
-            }}
-          >
-            {["Facebook", "Twitter", "Instagram", "LinkedIn"].map(
-              (platform, index) => (
-                <a
-                  key={index}
-                  href="#"
-                  style={{
-                    display: "inline-block",
-                    width: "40px",
-                    height: "40px",
-                    borderRadius: "50%",
-                    background: "rgba(255, 255, 255, 0.1)",
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    color: "white",
-                    fontSize: "14px",
-                    transition: "all 0.3s ease",
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background =
-                      "linear-gradient(to right, #3B82F6, #60A5FA)";
-                    e.currentTarget.style.transform = "translateY(-3px)";
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background =
-                      "rgba(255, 255, 255, 0.1)";
-                    e.currentTarget.style.transform = "translateY(0)";
-                  }}
-                >
-                  {platform.charAt(0)}
-                </a>
-              )
-            )}
-          </div>
-
-          <p
-            style={{
-              fontSize: "14px",
-              color: "rgba(255, 255, 255, 0.5)",
-            }}
-          >
-            © {new Date().getFullYear()} Lumora Ventures. All rights reserved.
-          </p>
         </div>
       </div>
     </section>

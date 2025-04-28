@@ -24,7 +24,7 @@ export default function Home() {
 
       {/* About Us Section */}
       <section id="about">
-        <div
+        {/* <div
           style={{
             background: "linear-gradient(to right, #1e40af, #3b82f6)",
             padding: "80px 0",
@@ -32,7 +32,7 @@ export default function Home() {
             color: "white",
           }}
         >
-          <div className="container">
+          {/* <div className="container">
             <h2
               style={{
                 fontSize: "36px",
@@ -53,44 +53,13 @@ export default function Home() {
               We&apos;re passionate about creating innovative solutions that
               help businesses succeed
             </p>
-          </div>
-        </div>
+          </div> *
+        </div> */}
         <AboutUs />
       </section>
 
       {/* Contact Section */}
       <section id="contact">
-        <div
-          style={{
-            background: "linear-gradient(to right, #1e40af, #3b82f6)",
-            padding: "80px 0",
-            textAlign: "center",
-            color: "white",
-          }}
-        >
-          <div className="container">
-            <h2
-              style={{
-                fontSize: "36px",
-                fontWeight: "bold",
-                marginBottom: "16px",
-              }}
-            >
-              Contact Us
-            </h2>
-            <p
-              style={{
-                fontSize: "18px",
-                maxWidth: "600px",
-                margin: "0 auto",
-                opacity: 0.9,
-              }}
-            >
-              We\&apos;d love to hear from you. Reach out to us for any
-              questions or project inquiries.
-            </p>
-          </div>
-        </div>
         <ContactForm />
       </section>
     </>

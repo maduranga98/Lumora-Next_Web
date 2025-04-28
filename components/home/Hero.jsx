@@ -2,248 +2,85 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import {
-  ArrowRight,
-  Building2,
-  Star,
-  Cog,
-  MessageSquare,
-  Facebook,
-} from "lucide-react";
-import ParticleAnimation from "@/components/animation/ParticleAnimation";
 
 const Hero = () => {
-  const services = [
-    {
-      icon: <Building2 size={20} style={{ color: "white" }} />,
-      title: "Google My Business",
-      description: "Profile management & optimization",
-    },
-    {
-      icon: (
-        <Image
-          src="/app-logo.png"
-          width={20}
-          height={20}
-          alt="App Logo"
-          style={{ objectFit: "contain" }}
-        />
-      ),
-      title: "Salon Management",
-      description: "Complete business system",
-    },
-    {
-      icon: <Cog size={20} style={{ color: "white" }} />,
-      title: "Industrial Automation",
-      description: "Smart manufacturing solutions",
-    },
-    {
-      icon: <Facebook size={20} style={{ color: "white" }} />,
-      title: "Social Media Marketing",
-      description: "Grow your online presence",
-    },
-  ];
-
   return (
-    <section
-      style={{
-        position: "relative",
-        height: "100vh",
-        width: "100%",
-        overflow: "hidden",
-        background: "linear-gradient(to bottom, #0f172a, #1e1b4b)",
-      }}
-    >
-      {/* Particle Animation */}
-      <ParticleAnimation />
+    <section className="relative bg-gradient-to-r from-blue-100 to-blue-200 pt-28 pb-16 overflow-hidden min-h-[85vh] flex items-center">
+      {/* Background decorative elements */}
+      <div className="absolute top-[10%] right-[8%] w-16 h-16 rounded-full bg-blue-300/30"></div>
+      <div className="absolute bottom-[15%] left-[10%] w-12 h-12 rounded-full bg-blue-300/30"></div>
+      <div className="absolute top-[25%] right-1/4 w-8 h-8 rounded-full bg-blue-300/30"></div>
+      <div className="absolute top-1/3 left-1/4 w-16 h-16 rounded-full bg-blue-300/20"></div>
+      <div className="absolute bottom-1/4 right-1/3 w-10 h-10 rounded-full bg-blue-300/15"></div>
 
-      {/* Content */}
-      <div
-        style={{
-          position: "relative",
-          zIndex: 10,
-          height: "100%",
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: "0 20px",
-          color: "white",
-          textAlign: "center",
-        }}
-      >
-        <h1
-          style={{
-            fontSize: "clamp(2.5rem, 6vw, 5rem)",
-            fontWeight: "bold",
-            marginBottom: "30px",
-            background: "linear-gradient(to right, #c084fc, #60a5fa)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            backgroundClip: "text",
-            textFillColor: "transparent",
-            maxWidth: "1000px",
-            lineHeight: 1.1,
-          }}
-        >
-          Innovative Solutions for Modern Businesses
-        </h1>
+      {/* Large blue circle behind illustration */}
+      <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[550px] h-[550px] rounded-full bg-blue-300/30 blur-2xl"></div>
 
-        <p
-          style={{
-            fontSize: "clamp(1.125rem, 2.5vw, 1.5rem)",
-            maxWidth: "900px",
-            marginBottom: "60px",
-            opacity: 0.9,
-            lineHeight: 1.6,
-          }}
-        >
-          We help businesses transform their digital presence with cutting-edge
-          technology and beautiful design.
-        </p>
+      {/* Content container with max-width constraint for ultrawide screens */}
+      <div className="container mx-auto px-6 md:px-8 relative max-w-7xl">
+        <div className="flex flex-col md:flex-row items-center justify-between">
+          {/* Left content */}
+          <div className="md:w-[45%] z-10">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6 leading-tight">
+              <span className="text-blue-950">Shaping the</span>
+              <br />
+              <span className="text-blue-400">Future</span>
+              <span className="text-blue-950"> of </span>
+              <br />
+              <span className="text-blue-400">Tech</span>
+              <span className="text-blue-950"> and</span>
+              <br />
+              <span className="text-blue-950">Marketing</span>
+            </h1>
 
-        {/* Service Capsules */}
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center",
-            gap: "20px",
-            maxWidth: "1000px",
-            marginBottom: "60px",
-          }}
-        >
-          {services.map((service, index) => (
-            <div
-              key={index}
-              className="service-capsule"
-              style={{
-                display: "flex",
-                alignItems: "center",
-                gap: "12px",
-                background: "rgba(30, 64, 175, 0.3)",
-                backdropFilter: "blur(8px)",
-                border: "1px solid rgba(99, 102, 241, 0.3)",
-                borderRadius: "50px",
-                padding: "12px 20px",
-                transition: "all 0.3s ease",
-                cursor: "pointer",
-                position: "relative",
-                overflow: "hidden",
-              }}
-              onMouseEnter={(e) => {
-                const description = e.currentTarget.querySelector(
-                  ".service-description"
-                );
-                if (description) {
-                  description.style.opacity = "1";
-                  description.style.transform = "translateY(0)";
-                }
-                const icon = e.currentTarget.querySelector(".service-icon");
-                if (icon) {
-                  icon.style.transform = "scale(1.2)";
-                }
-              }}
-              onMouseLeave={(e) => {
-                const description = e.currentTarget.querySelector(
-                  ".service-description"
-                );
-                if (description) {
-                  description.style.opacity = "0";
-                  description.style.transform = "translateY(10px)";
-                }
-                const icon = e.currentTarget.querySelector(".service-icon");
-                if (icon) {
-                  icon.style.transform = "scale(1)";
-                }
-              }}
+            <p className="text-blue-950 mb-8 text-base lg:text-lg">
+              At Lumora Ventures, we craft innovative technology solutions and
+              marketing strategies for the digital age.
+            </p>
+
+            <Link
+              href="/services"
+              className="inline-block bg-blue-400 hover:bg-blue-500 text-white px-8 py-3 rounded-full font-medium transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5"
             >
-              <div
-                className="service-icon"
-                style={{
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  background: "rgba(79, 70, 229, 0.8)",
-                  borderRadius: "50%",
-                  padding: "8px",
-                  transition: "transform 0.3s ease",
-                }}
-              >
-                {service.icon}
-              </div>
-              <div style={{ textAlign: "left" }}>
-                <h3
-                  style={{
-                    fontSize: "1rem",
-                    fontWeight: "600",
-                    marginBottom: "2px",
+              Explore Our Services
+            </Link>
+          </div>
+
+          {/* Right side illustration - fixed positioning for ultrawide screens */}
+          <div className="md:w-[50%] mt-10 md:mt-0">
+            {/* This wrapper maintains the image size on ultrawide screens */}
+            <div className="md:max-w-xl lg:max-w-2xl xl:max-w-3xl mx-auto">
+              <div className="relative md:scale-100 lg:scale-110 origin-center">
+                <div className="absolute -inset-2 bg-blue-200/50 rounded-full blur-xl"></div>
+                <Image
+                  src="/hero.png"
+                  width={550}
+                  height={450}
+                  alt="Technology and Marketing Solutions"
+                  className="w-full h-auto relative z-10"
+                  priority
+                  onError={(e) => {
+                    e.target.onerror = null;
+                    e.target.src = "data:image/svg+xml;base64,..."; // SVG fallback here
                   }}
-                >
-                  {service.title}
-                </h3>
-                <p
-                  className="service-description"
-                  style={{
-                    fontSize: "0.8rem",
-                    opacity: "0",
-                    transform: "translateY(10px)",
-                    transition: "opacity 0.3s ease, transform 0.3s ease",
-                  }}
-                >
-                  {service.description}
-                </p>
+                />
               </div>
             </div>
-          ))}
+          </div>
         </div>
+      </div>
 
-        {/* CTA Buttons */}
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "16px",
-            justifyContent: "center",
-          }}
+      {/* Subtle wave pattern at bottom for transition */}
+      <div className="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+          className="relative block w-full h-8"
+          style={{ fill: "#ffffff" }}
         >
-          <Link
-            href="#services"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "8px",
-              background: "linear-gradient(to right, #6366f1, #4f46e5)",
-              color: "white",
-              padding: "12px 24px",
-              borderRadius: "6px",
-              fontWeight: "500",
-              transition: "all 0.3s ease",
-            }}
-          >
-            Explore Services
-            <ArrowRight size={18} />
-          </Link>
-
-          <Link
-            href="#contact"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: "8px",
-              background: "transparent",
-              color: "white",
-              padding: "12px 24px",
-              borderRadius: "6px",
-              fontWeight: "500",
-              border: "1px solid rgba(255, 255, 255, 0.3)",
-              transition: "all 0.3s ease",
-            }}
-          >
-            Contact Us
-          </Link>
-        </div>
+          <path d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V95.8C57.1,118.92,163.11,62.63,321.39,56.44Z"></path>
+        </svg>
       </div>
     </section>
   );

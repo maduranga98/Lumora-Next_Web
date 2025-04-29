@@ -10,9 +10,9 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "Your Company Name | Modern Solutions",
+  title: "Lumora Ventures | Modern Solutions",
   description:
-    "Your company description goes here - providing innovative solutions for businesses",
+    "Lumora Ventures - providing innovative technology and marketing solutions for modern businesses",
 };
 
 export default function RootLayout({ children }) {
@@ -20,7 +20,7 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${inter.variable} scroll-smooth`}>
       <body className="flex flex-col min-h-screen bg-gray-50">
         <Navbar />
-        <main className="flex-grow pt-16">{children}</main>
+        <main className="flex-grow">{children}</main>
         <Footer />
       </body>
     </html>

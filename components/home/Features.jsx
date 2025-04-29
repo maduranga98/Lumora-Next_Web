@@ -2,84 +2,123 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Globe, Cog, ChartBar, Lightbulb, ChevronRight } from "lucide-react";
+import { Globe, Cog, BarChart, Lightbulb, ChevronRight } from "lucide-react";
 
-// Feature Card component with hover effect
-const FeatureCard = ({ title, icon, description, link }) => {
+// Feature Card component with enhanced animations
+const FeatureCard = ({ title, icon, description, id }) => {
+  const [isExpanded, setIsExpanded] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+
+  // Generate direct path based on id
+  const getPath = () => {
+    if (id === "gmb") return "/gmb";
+    if (id === "salon") return "/salon";
+    if (id === "automation") return "/automation";
+    if (id === "social") return "/social";
+    return "#";
+  };
 
   return (
     <div
-      className="relative h-80 w-full mx-auto transition-all duration-300 cursor-pointer"
+      className="bg-white rounded-2xl shadow-md h-full flex flex-col transition-all duration-300"
+      style={{
+        transform: isHovered ? "translateY(-10px)" : "translateY(0)",
+        boxShadow: isHovered
+          ? "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
+          : "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
+      }}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      onTouchStart={() => setIsHovered(!isHovered)}
     >
-      {/* Base Card (always visible) */}
-      <div
-        className={`absolute inset-0 bg-white rounded-2xl shadow-md transition-all duration-500 ${
-          isHovered ? "scale-0" : "scale-100"
-        }`}
-      >
-        {/* Icon Container */}
-        <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-          <div className="w-16 h-16 rounded-xl bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center shadow-md">
-            <div className="text-white w-8 h-8">{icon}</div>
-          </div>
-        </div>
+      {/* Top Section with Gradient Background */}
+      <div className="h-36 bg-gradient-to-r from-blue-500 to-blue-600 rounded-t-2xl relative flex items-center justify-center overflow-hidden">
+        {/* Animated background elements */}
+        <div
+          className="absolute w-40 h-40 rounded-full bg-white/10 transition-all duration-700"
+          style={{
+            top: isHovered ? "-10%" : "-30%",
+            right: isHovered ? "10%" : "-10%",
+            opacity: isHovered ? 0.2 : 0.1,
+          }}
+        ></div>
+        <div
+          className="absolute w-24 h-24 rounded-full bg-white/10 transition-all duration-700"
+          style={{
+            bottom: isHovered ? "0%" : "-20%",
+            left: isHovered ? "5%" : "-15%",
+            opacity: isHovered ? 0.2 : 0.1,
+          }}
+        ></div>
 
-        {/* Content */}
-        <div className="mt-12 p-6 text-center">
-          <h3 className="text-xl font-bold mb-3 text-blue-800">{title}</h3>
-          <div className="w-16 h-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full mx-auto mb-4"></div>
-          <p className="text-gray-600 text-sm line-clamp-3">{description}</p>
+        {/* Icon Container with animation */}
+        <div
+          className="bg-white p-3 rounded-xl shadow-md transition-all duration-300"
+          style={{
+            transform: isHovered ? "scale(1.1)" : "scale(1)",
+          }}
+        >
+          <div
+            className="text-blue-600 w-8 h-8 transition-all duration-300"
+            style={{
+              transform: isHovered ? "rotate(10deg)" : "rotate(0deg)",
+            }}
+          >
+            {icon}
+          </div>
         </div>
       </div>
 
-      {/* Expanded Card (visible on hover) */}
-      <div
-        className={`absolute inset-0 rounded-2xl shadow-lg overflow-hidden transition-all duration-500 ${
-          isHovered ? "scale-110 z-10" : "scale-0"
-        }`}
-      >
-        {/* Top Section with Background */}
-        <div className="h-1/2 bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center relative">
-          {/* Icon Container */}
-          <div className="bg-white p-2 rounded-xl">
-            <div className="text-blue-600 w-6 h-6">{icon}</div>
-          </div>
+      {/* Content Section */}
+      <div className="p-6 flex flex-col flex-grow">
+        <h3 className="text-xl font-bold mb-3 text-blue-800 text-center">
+          {title}
+        </h3>
 
-          {/* Shaped divider */}
+        <div
+          className="w-16 h-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full mx-auto mb-4 transition-all duration-300"
+          style={{
+            width: isHovered ? "80px" : "64px",
+          }}
+        ></div>
+
+        <p className="text-gray-600 text-sm mb-6 flex-grow">{description}</p>
+
+        {/* Expanded Content with animation */}
+        {isExpanded && (
           <div
-            className="absolute bottom-0 left-0 w-full overflow-hidden"
-            style={{ height: "15px" }}
+            className="mt-4 mb-4 overflow-hidden transition-all duration-500"
+            style={{
+              maxHeight: isExpanded ? "200px" : "0",
+              opacity: isExpanded ? 1 : 0,
+            }}
           >
-            <svg
-              viewBox="0 0 500 150"
-              preserveAspectRatio="none"
-              className="h-full w-full"
-            >
-              <path
-                d="M0,150 L0,80 C150,150 350,0 500,80 L500,150 Z"
-                className="fill-white"
-              ></path>
-            </svg>
-          </div>
-        </div>
-
-        {/* Bottom Section */}
-        <div className="h-1/2 bg-white p-4 flex flex-col justify-between">
-          <div>
-            <h3 className="text-lg font-bold text-blue-800">{title}</h3>
-            <p className="text-gray-600 text-sm mt-2 line-clamp-2">
-              {description}
+            <p className="text-gray-600 text-sm">
+              More details about {title} services and how they can benefit your
+              business. Our team of experts will work closely with you to
+              customize solutions that meet your specific needs and goals.
             </p>
           </div>
+        )}
+
+        <div className="mt-auto flex justify-between items-center">
+          {description.length > 150 && (
+            <button
+              onClick={() => setIsExpanded(!isExpanded)}
+              className="text-blue-500 text-sm font-medium transition-all hover:text-blue-700"
+            >
+              {isExpanded ? "Show less" : "Read more"}
+            </button>
+          )}
+
           <Link
-            href={link || "#"}
-            className="text-blue-500 font-medium text-sm flex items-center"
+            href={getPath()}
+            className="text-blue-600 font-medium text-sm flex items-center ml-auto group"
           >
-            Learn More <ChevronRight size={16} className="ml-1" />
+            Learn More
+            <ChevronRight
+              size={16}
+              className="ml-1 transition-transform duration-300 group-hover:translate-x-1"
+            />
           </Link>
         </div>
       </div>
@@ -90,32 +129,32 @@ const FeatureCard = ({ title, icon, description, link }) => {
 const Features = () => {
   const services = [
     {
+      id: "gmb",
       icon: <Globe size={32} />,
       title: "Google My Business Profile Management",
       description:
         "Optimize your online presence and local visibility with our comprehensive GMB management services. We help you improve local SEO, manage reviews, and maintain accurate business information.",
-      link: "/services#gmb",
     },
     {
-      icon: <ChartBar size={32} />,
+      id: "salon",
+      icon: <BarChart size={32} />,
       title: "Salon Management Solution",
       description:
         "Streamline your salon operations with our modern management system. Handle appointments, inventory, staff scheduling, and customer relationships all in one integrated platform.",
-      link: "/services#salon",
     },
     {
+      id: "social",
       icon: <Lightbulb size={32} />,
       title: "Social Media Marketing",
       description:
         "Boost your brand presence with strategic social media marketing. We create engaging content, manage campaigns, and drive meaningful engagement across all major platforms.",
-      link: "/services#social",
     },
     {
+      id: "automation",
       icon: <Cog size={32} />,
       title: "Industrial Automations",
       description:
         "Transform your operations with cutting-edge industrial automation solutions. We provide innovative technologies to streamline processes, increase efficiency, and reduce costs in manufacturing and other industries.",
-      link: "/services#automation",
     },
   ];
 
@@ -136,10 +175,10 @@ const Features = () => {
           {services.map((service, index) => (
             <FeatureCard
               key={index}
+              id={service.id}
               title={service.title}
               icon={service.icon}
               description={service.description}
-              link={service.link}
             />
           ))}
         </div>

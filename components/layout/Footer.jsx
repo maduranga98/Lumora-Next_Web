@@ -72,7 +72,7 @@ const Footer = () => {
   return (
     <footer>
       {/* Newsletter Section */}
-      <div className="bg-blue-light py-16">
+      {/* <div className="bg-blue-light py-16">
         <div className="container mx-auto px-4">
           <div className="bg-white rounded-2xl shadow-lg p-8 md:p-12">
             <div className="grid grid-cols-1 lg:grid-cols-5 gap-8 items-center">
@@ -104,7 +104,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* Main Footer */}
       <div className="bg-blue-800 text-white pt-16 pb-8">

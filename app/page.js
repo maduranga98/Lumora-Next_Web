@@ -2,9 +2,10 @@ import Hero from "@/components/home/Hero";
 import Features from "@/components/home/Features";
 import AboutUs from "@/components/about/AboutUs";
 import ContactForm from "@/components/contact/ContactForm";
+import ServiceCards from "@/components/home/ServiceCards";
 
 export const metadata = {
-  title: "Your Company - Innovative Solutions for Modern Businesses",
+  title: "Lumora Ventures - Innovative Solutions for Modern Businesses",
   description:
     "We help businesses transform their digital presence with cutting-edge technology and beautiful design.",
 };
@@ -15,51 +16,21 @@ export default function Home() {
       {/* Hero Section */}
       <section id="home">
         <Hero />
-      </section>
-
-      {/* Features Section */}
-      <section id="services">
-        <Features />
+        <ServiceCards />
       </section>
 
       {/* About Us Section */}
-      <section id="about">
-        {/* <div
-          style={{
-            background: "linear-gradient(to right, #1e40af, #3b82f6)",
-            padding: "80px 0",
-            textAlign: "center",
-            color: "white",
-          }}
-        >
-          {/* <div className="container">
-            <h2
-              style={{
-                fontSize: "36px",
-                fontWeight: "bold",
-                marginBottom: "16px",
-              }}
-            >
-              About Us
-            </h2>
-            <p
-              style={{
-                fontSize: "18px",
-                maxWidth: "600px",
-                margin: "0 auto",
-                opacity: 0.9,
-              }}
-            >
-              We&apos;re passionate about creating innovative solutions that
-              help businesses succeed
-            </p>
-          </div> *
-        </div> */}
+      <section id="about" className="scroll-mt-20">
         <AboutUs />
       </section>
 
+      {/* Features Section */}
+      <section id="services" className="scroll-mt-20">
+        <Features />
+      </section>
+
       {/* Contact Section */}
-      <section id="contact">
+      <section id="contact" className="scroll-mt-20">
         <ContactForm />
       </section>
     </>

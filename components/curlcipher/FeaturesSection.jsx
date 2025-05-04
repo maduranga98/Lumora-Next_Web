@@ -28,7 +28,7 @@ const FeaturesSection = () => {
   const audiences = [
     {
       title: "For Salon Owners & Professionals",
-      appLogo: "/images/curl-cipher-manager-logo.png", // Manager app logo
+      appLogo: "/manage.png", // Manager app logo
       logoText: "Curl Cipher Manager",
       colorTheme: "from-amber-400 via-yellow-500 to-orange-500",
       cardGradient: "from-black via-gray-900 to-black",
@@ -90,7 +90,7 @@ const FeaturesSection = () => {
     },
     {
       title: "For Discerning Clients",
-      appLogo: "/images/curl-cipher-app-logo.png", // Customer app logo
+      appLogo: "/customer.png", // Customer app logo
       logoText: "Curl Cipher",
       colorTheme: "from-rose-400 via-pink-500 to-purple-600",
       cardGradient: "from-black via-gray-900 to-black",

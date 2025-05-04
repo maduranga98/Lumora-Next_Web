@@ -1,14 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect } from "react";
 
 const Footer = () => {
-  const [currentYear, setCurrentYear] = useState("2024");
-
-  useEffect(() => {
-    setCurrentYear(new Date().getFullYear().toString());
-  }, []);
+  // Get current year for copyright
+  const currentYear = new Date().getFullYear();
 
   // Scroll to section function
   const scrollToSection = (e, sectionId) => {

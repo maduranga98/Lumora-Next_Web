@@ -1,6 +1,5 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
-import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 
 // Font configuration
@@ -18,8 +17,8 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${inter.variable} scroll-smooth`}>
-      <body className="flex flex-col min-h-screen bg-gray-50">
-        <Navbar />
+      <body className={`flex flex-col min-h-screen ${inter.className}`}>
+        {/* Main content without global navbar */}
         <main className="flex-grow">{children}</main>
         <Footer />
       </body>

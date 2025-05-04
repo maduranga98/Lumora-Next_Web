@@ -116,7 +116,7 @@ const HeroSection = () => {
                 <div className="absolute inset-0 bg-gradient-to-br from-amber-600 to-orange-700 rounded-[2.5rem] shadow-2xl">
                   <div className="absolute inset-1 bg-black rounded-[2.2rem] overflow-hidden">
                     <Image
-                      src="/images/curl-cipher-manager-screenshot.png"
+                      src="/manage.jpg"
                       alt="Curl Cipher Manager App"
                       fill
                       className="object-cover"
@@ -140,7 +140,7 @@ const HeroSection = () => {
                 <div className="absolute inset-0 bg-gradient-to-br from-purple-700 to-indigo-800 rounded-[2.5rem] shadow-2xl">
                   <div className="absolute inset-1 bg-black rounded-[2.2rem] overflow-hidden">
                     <Image
-                      src="/images/curl-cipher-customer-screenshot.png"
+                      src="/curlcipher.png"
                       alt="Curl Cipher Customer App"
                       fill
                       className="object-cover"

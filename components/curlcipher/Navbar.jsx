@@ -71,7 +71,15 @@ const Navbar = () => {
               <div className="relative w-10 h-10 rounded-full border border-yellow-300 p-1 transition-all duration-300 group-hover:border-yellow-200">
                 <div className="absolute inset-0 rounded-full bg-gradient-to-br from-black to-gray-900"></div>
                 <div className="relative z-10 w-full h-full rounded-full flex items-center justify-center">
-                  <Crown className="w-5 h-5 text-yellow-300" />
+                  {/* Use app logo if provided, otherwise use Crown icon */}
+
+                  <Image
+                    src="/app-logo.png"
+                    alt="App Logo"
+                    width={24}
+                    height={24}
+                    className="object-contain"
+                  />
                 </div>
               </div>
               <div className="hidden sm:block">

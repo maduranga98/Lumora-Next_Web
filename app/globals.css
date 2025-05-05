@@ -7,6 +7,15 @@
   --accent: #93c5fd;
 }
 
+/* Font settings for main page */
+.main-page {
+  @apply font-[family-name:var(--font-jakarta)];
+}
+
+.main-page-headings {
+  @apply font-[family-name:var(--font-outfit)];
+}
+
 /* Blue gradient backgrounds */
 .bg-blue-gradient {
   background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);

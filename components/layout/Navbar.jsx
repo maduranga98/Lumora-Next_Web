@@ -88,6 +88,7 @@ const Navbar = ({
   // Default navigation links
   const defaultNavLinks = [
     { href: "/", label: "Home" },
+    { href: "#about", label: "About", isScroll: true },
     {
       href: "#services",
       label: "Services",
@@ -105,7 +106,7 @@ const Navbar = ({
         },
       ],
     },
-    { href: "#about", label: "About", isScroll: true },
+
     { href: "#contact", label: "Contact", isScroll: true },
   ];
 

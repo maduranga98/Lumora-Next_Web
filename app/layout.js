@@ -1,11 +1,21 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
+import { Inter, Plus_Jakarta_Sans, Outfit } from "next/font/google";
 import Footer from "@/components/layout/Footer";
 
 // Font configuration
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+});
+
+const jakartaSans = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-jakarta",
+});
+
+const outfit = Outfit({
+  subsets: ["latin"],
+  variable: "--font-outfit",
 });
 
 export const metadata = {
@@ -16,7 +26,10 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en" className={`${inter.variable} scroll-smooth`}>
+    <html
+      lang="en"
+      className={`${inter.variable} ${jakartaSans.variable} ${outfit.variable} scroll-smooth`}
+    >
       <body className={`flex flex-col min-h-screen ${inter.className}`}>
         {/* Main content without global navbar */}
         <main className="flex-grow">{children}</main>

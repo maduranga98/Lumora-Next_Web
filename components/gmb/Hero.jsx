@@ -3,34 +3,34 @@
 
 export default function HeroSectionGMB() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-[#FFF7ED] to-[#FED7AA] py-20 lg:py-32">
+    <section className="relative overflow-hidden min-h-screen bg-gradient-to-br from-[#FFF7ED] to-[#FED7AA]">
       {/* Decorative background shapes */}
       <div className="absolute inset-0">
         <div className="absolute top-0 -left-40 w-80 h-80 bg-teal-500/10 rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 -right-40 w-80 h-80 bg-yellow-500/10 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 min-h-screen flex items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center w-full py-20">
           {/* Content */}
           <div className="text-center lg:text-left">
-            <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6 lg:mb-8 leading-tight">
               Dominate Local Search with
               <span className="text-teal-600 block mt-2">
                 Google My Business
               </span>
             </h1>
-            <p className="text-lg md:text-xl text-gray-700 mb-8 max-w-2xl">
+            <p className="text-lg md:text-xl lg:text-2xl text-gray-700 mb-8 lg:mb-10 max-w-2xl">
               Transform your local presence into a customer magnet. Our expert
               GMB management helps you rank higher, attract more customers, and
               grow your business effortlessly.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 items-center justify-center lg:justify-start">
-              <button className="bg-teal-600 text-white px-8 py-4 rounded-lg font-semibold hover:bg-teal-700 transition">
+            <div className="flex flex-col sm:flex-row gap-4 lg:gap-6 items-center justify-center lg:justify-start">
+              <button className="bg-teal-600 text-white px-8 py-4 lg:px-10 lg:py-5 rounded-lg font-semibold text-base lg:text-lg hover:bg-teal-700 transition">
                 Get Started Today
               </button>
-              <button className="border-2 border-teal-600 text-teal-600 px-8 py-4 rounded-lg font-semibold hover:bg-teal-50 transition">
+              <button className="border-2 border-teal-600 text-teal-600 px-8 py-4 lg:px-10 lg:py-5 rounded-lg font-semibold text-base lg:text-lg hover:bg-teal-50 transition">
                 Learn More
               </button>
             </div>
@@ -51,7 +51,7 @@ function GMBIllustration() {
   return (
     <svg
       viewBox="0 0 400 300"
-      className="w-full max-w-lg mx-auto"
+      className="w-full max-w-lg lg:max-w-xl mx-auto"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
     >

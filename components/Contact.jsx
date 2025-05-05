@@ -45,23 +45,23 @@ const ContactPage = () => {
   return (
     <div
       id="contact"
-      className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-24 px-4 sm:px-6 lg:px-8"
+      className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-12 px-4 sm:px-6 lg:px-8"
     >
       <div className="max-w-7xl mx-auto">
         {/* Header Section */}
         <div className="text-center mb-16">
-          <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 mb-6">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
             Get in Touch
           </h1>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Ready to take your business to the next level? Let's discuss how we
             can help you achieve your goals.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-16">
+        <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact Form */}
-          <div className="bg-white rounded-3xl shadow-xl p-8 sm:p-12">
+          <div className="bg-white rounded-2xl shadow-xl p-8">
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Name Input */}
               <div>
@@ -157,7 +157,7 @@ const ContactPage = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className={`w-full px-8 py-4 rounded-lg font-semibold text-white transition-all duration-300 ${
+                  className={`w-full px-8 py-3 rounded-lg font-semibold text-white transition-all duration-300 ${
                     isSubmitting
                       ? "bg-blue-400 cursor-not-allowed"
                       : "bg-blue-600 hover:bg-blue-700"
@@ -182,7 +182,7 @@ const ContactPage = () => {
           </div>
 
           {/* Contact Information */}
-          <div className="lg:pt-12 space-y-12">
+          <div className="lg:pt-8 space-y-8">
             {/* Illustration */}
             <div className="hidden lg:block">
               <svg
@@ -247,7 +247,7 @@ const ContactPage = () => {
             </div>
 
             {/* Contact Details */}
-            <div className="space-y-8">
+            <div className="space-y-6">
               <div className="flex items-start space-x-4">
                 <div className="flex-shrink-0">
                   <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
@@ -332,7 +332,7 @@ const ContactPage = () => {
               </div>
             </div>
 
-            {/* Social Media Links (optional) */}
+            {/* Social Media Links */}
             <div className="pt-8 border-t border-gray-200">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
                 Follow Us

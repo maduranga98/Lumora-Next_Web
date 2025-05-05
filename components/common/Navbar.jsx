@@ -2,6 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -52,13 +53,19 @@ export default function Navbar() {
           <div className="flex items-center">
             <button
               onClick={() => scrollToSection("overview")}
-              className="flex items-center gap-2"
+              className="flex items-center gap-3"
             >
-              <div className="w-8 h-8 bg-teal-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-lg">L</span>
+              <div className="relative w-10 h-10">
+                <Image
+                  src="/logo.png"
+                  alt="Lumora Ventures"
+                  fill
+                  className="object-contain"
+                  priority
+                />
               </div>
               <span
-                className={`font-bold text-lg ${
+                className={`font-bold text-lg hidden sm:block ${
                   isScrolled ? "text-gray-900" : "text-white"
                 }`}
               >

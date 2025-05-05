@@ -89,7 +89,7 @@ const ServiceSection = () => {
         </svg>
       ),
       color: "blue",
-      link: "/services/google-my-business",
+      link: "/google-my-business",
       enabled: true,
       buttonClass: "bg-blue-600 hover:bg-blue-700",
     },
@@ -139,7 +139,7 @@ const ServiceSection = () => {
         </svg>
       ),
       color: "purple",
-      link: "/services/curl-cipher",
+      link: "/curl-cipher",
       enabled: true,
       buttonClass: "bg-purple-600 hover:bg-purple-700",
     },
@@ -181,7 +181,7 @@ const ServiceSection = () => {
         </svg>
       ),
       color: "green",
-      link: "/services/industrial-automation",
+      link: "/industrial-automation",
       enabled: true,
       buttonClass: "bg-green-600 hover:bg-green-700",
     },
@@ -211,7 +211,7 @@ const ServiceSection = () => {
         </svg>
       ),
       color: "orange",
-      link: "/services/social-media-marketing",
+      link: "/social-media-marketing",
       enabled: false,
       buttonClass: "bg-orange-600 hover:bg-orange-700",
     },

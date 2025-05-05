@@ -139,7 +139,7 @@ const Footer = () => {
             <ul className="space-y-2">
               <li>
                 <Link
-                  href="/services/google-my-business"
+                  href="/google-my-business"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   Google My Business
@@ -147,7 +147,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/services/curl-cipher"
+                  href="/curl-cipher"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   Salon Management System
@@ -155,7 +155,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/services/industrial-automation"
+                  href="/industrial-automation"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   Industrial Automation
@@ -163,7 +163,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  href="/services/social-media-marketing"
+                  href="/social-media-marketing"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
                   Social Media Marketing

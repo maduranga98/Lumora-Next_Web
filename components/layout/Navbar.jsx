@@ -94,14 +94,14 @@ const Navbar = ({
       label: "Services",
       isScroll: true,
       dropdown: [
-        { href: "/services/google-my-business", label: "Google My Business" },
-        { href: "/services/curl-cipher", label: "Curl Cipher" },
+        { href: "/google-my-business", label: "Google My Business" },
+        { href: "/curl-cipher", label: "Curl Cipher" },
         {
-          href: "/services/industrial-automation",
+          href: "/industrial-automation",
           label: "Industrial Automation",
         },
         {
-          href: "/services/social-media-marketing",
+          href: "/social-media-marketing",
           label: "Social Media Marketing",
         },
       ],

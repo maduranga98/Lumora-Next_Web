@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState, useEffect } from "react";
 
 const Footer = () => {
@@ -32,8 +33,14 @@ const Footer = () => {
           {/* Company Info */}
           <div className="col-span-1 md:col-span-1">
             <div className="flex items-center space-x-2 mb-4">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center text-white font-bold text-xl">
-                LV
+              <div className="flex items-center justify-center text-white">
+                <Image
+                  src="/logo.png"
+                  alt="Lumora Ventures"
+                  width={40}
+                  height={40}
+                  className="object-contain"
+                />
               </div>
               <span className="font-bold text-xl text-white">
                 Lumora Ventures
@@ -118,11 +125,11 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="#services"
-                  onClick={(e) => scrollToSection(e, "services")}
+                  href="#solutions"
+                  onClick={(e) => scrollToSection(e, "solutions")}
                   className="text-gray-400 hover:text-white transition-colors"
                 >
-                  Services
+                  Solutions
                 </a>
               </li>
               <li>
@@ -139,7 +146,7 @@ const Footer = () => {
 
           {/* Services */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Our Services</h3>
+            <h3 className="text-lg font-semibold mb-4">Our Solutions</h3>
             <ul className="space-y-2">
               <li>
                 <Link
@@ -199,10 +206,10 @@ const Footer = () => {
                   />
                 </svg>
                 <a
-                  href="mailto:contact@lumoraventures.com"
+                  href="mailto:info@lumoraventures.com"
                   className="text-gray-400 hover:text-white transition-colors"
                 >
-                  contact@lumoraventures.com
+                  info@lumoraventures.com
                 </a>
               </li>
               <li className="flex items-start">

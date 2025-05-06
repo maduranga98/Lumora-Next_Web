@@ -71,7 +71,7 @@ const ServiceCard = ({
     <div
       className={`relative opacity-0 animation-slideUp animation-delay-${delay}`}
     >
-      <div className="group bg-white rounded-xl shadow-sm border border-gray-100 p-8 text-center transition-all duration-300 hover:shadow-lg hover:-translate-y-2 relative overflow-hidden">
+      <div className="group bg-white/70 backdrop-blur-sm rounded-xl shadow-sm border border-gray-200 p-8 text-center transition-all duration-300 hover:shadow-lg hover:-translate-y-2 relative overflow-hidden">
         {/* Animated background gradient */}
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
           <div className="absolute inset-0 bg-gradient-to-br from-blue-50/80 to-blue-100/80 rounded-xl" />
@@ -81,7 +81,7 @@ const ServiceCard = ({
           {/* Icon container with floating animation */}
           <div className="flex justify-center mb-6">
             <div className="relative">
-              <div className="p-5 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl group-hover:from-blue-100 group-hover:to-blue-200 transition-all duration-300 shadow-sm group-hover:shadow">
+              <div className="p-5 bg-gradient-to-br from-blue-200 to-blue-300 rounded-xl group-hover:from-blue-300 group-hover:to-blue-400 transition-all duration-300 shadow-sm group-hover:shadow">
                 <div className="animation-float">
                   {React.cloneElement(icon, {
                     className:
@@ -199,24 +199,38 @@ const ServiceOverview = () => {
 
   return (
     <section
-      id="services"
-      className="py-16 lg:py-24 2xl:py-32 px-4 sm:px-6 lg:px-8 bg-white relative overflow-hidden"
+      id="solutions"
+      className="py-16 lg:py-24 2xl:py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
+      style={{
+        background: "linear-gradient(180deg, #DCE9F9 0%, #F0F4F8 100%)",
+      }}
     >
       {/* Background elements */}
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute -top-24 -left-24 w-96 h-96 bg-blue-100/30 rounded-full blur-3xl" />
-        <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-blue-100/30 rounded-full blur-3xl" />
+        <div className="absolute -top-24 -left-24 w-96 h-96 bg-blue-200/40 rounded-full blur-3xl" />
+        <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-blue-200/40 rounded-full blur-3xl" />
+
+        {/* Subtle grid pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%231E40AF' fill-opacity='0.2'%3E%3Cpath d='M0 0h6v6H0V0zm10 0h6v6h-6V0zM0 10h6v6H0v-6zm10 0h6v6h-6v-6zM0 20h6v6H0v-6zm10 0h6v6h-6v-6zM0 30h6v6H0v-6zm10 0h6v6h-6v-6zM0 40h6v6H0v-6zm10 0h6v6h-6v-6zM0 50h6v6H0v-6zm10 0h6v6h-6v-6z'/%3E%3C/g%3E%3C/svg%3E")`,
+              backgroundSize: "60px 60px",
+            }}
+          />
+        </div>
       </div>
 
       <div className="max-w-7xl 2xl:max-w-[1600px] mx-auto relative">
         {/* Header with animation */}
         <div className="text-center mb-16 lg:mb-20 2xl:mb-24">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl 2xl:text-6xl font-bold text-gray-900 mb-4 2xl:mb-6 opacity-0 animation-fadeIn">
-            Our Services
+            Our Solutions
           </h2>
-          <p className="text-lg lg:text-xl 2xl:text-2xl text-gray-600 max-w-3xl 2xl:max-w-4xl mx-auto opacity-0 animation-fadeIn animation-delay-100">
-            Transform your business with our comprehensive suite of digital
-            solutions
+          <p className="text-lg lg:text-xl 2xl:text-2xl text-gray-700 max-w-3xl 2xl:max-w-4xl mx-auto opacity-0 animation-fadeIn animation-delay-100">
+            Innovative digital tools designed to streamline your business
+            operations
           </p>
         </div>
 

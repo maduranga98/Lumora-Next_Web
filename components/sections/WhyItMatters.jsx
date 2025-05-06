@@ -1,6 +1,8 @@
 // components/sections/WhyItMatters.jsx
 "use client";
 
+import { useState, useEffect } from "react";
+
 export default function WhyItMatters() {
   const benefits = [
     {
@@ -288,7 +290,10 @@ export default function WhyItMatters() {
   ];
 
   return (
-    <section className="py-16 lg:py-24 bg-gradient-to-br from-teal-600 to-teal-700 relative overflow-hidden">
+    <section
+      id="why-matters"
+      className="py-16 lg:py-24 bg-gradient-to-br from-teal-600 to-teal-700 relative overflow-hidden"
+    >
       {/* Background decoration */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-1/4 -left-24 w-96 h-96 rounded-full border-8 border-white"></div>
@@ -338,123 +343,123 @@ export default function WhyItMatters() {
           </button>
         </div>
 
-        {/* Illustration */}
-        <div className="mt-16 flex justify-center">
-          <MarketingIllustration />
+        {/* Animated Globe Illustration */}
+        <div className="mt-16">
+          <GlobeIllustration />
         </div>
       </div>
     </section>
   );
 }
 
-// Marketing Illustration Component - Fixed with hardcoded values
-function MarketingIllustration() {
+// Animated Globe Illustration Component
+const GlobeIllustration = () => {
+  // Use useEffect for client-side only code to prevent hydration mismatch
+  const [rotation, setRotation] = useState(0);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+    const interval = setInterval(() => {
+      setRotation((prev) => (prev + 0.5) % 360);
+    }, 50);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // Only render animation content on client-side
+  if (!mounted) {
+    return <div className="w-full h-64 md:h-80 lg:h-96"></div>;
+  }
+
+  // Icons orbiting the globe
+  const icons = [
+    { emoji: "🔍", label: "Search", color: "bg-yellow-400", delay: "0s" },
+    { emoji: "⭐", label: "Reviews", color: "bg-orange-300", delay: "0.1s" },
+    { emoji: "📱", label: "Contact", color: "bg-teal-300", delay: "0.2s" },
+    { emoji: "💵", label: "Revenue", color: "bg-green-300", delay: "0.3s" },
+    { emoji: "🌐", label: "Web", color: "bg-blue-300", delay: "0.4s" },
+    { emoji: "💬", label: "Engage", color: "bg-purple-300", delay: "0.5s" },
+  ];
+
   return (
-    <svg
-      viewBox="0 0 400 200"
-      className="w-full max-w-2xl"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      {/* Globe */}
-      <circle cx="200" cy="100" r="60" fill="#E6F7F7" />
-      <path
-        d="M140 100 C160 70 240 70 260 100 M140 100 C160 130 240 130 260 100"
-        stroke="#0F766E"
-        strokeWidth="2"
-      />
-      <line
-        x1="200"
-        y1="40"
-        x2="200"
-        y2="160"
-        stroke="#0F766E"
-        strokeWidth="2"
-      />
-      <line
-        x1="140"
-        y1="100"
-        x2="260"
-        y2="100"
-        stroke="#0F766E"
-        strokeWidth="2"
-      />
+    <div className="relative w-full h-64 md:h-80 lg:h-96 overflow-hidden flex items-center justify-center">
+      {/* Background elements */}
+      <div className="absolute w-16 h-16 bg-yellow-400/20 rounded-full top-10 left-10 animate-pulse"></div>
+      <div
+        className="absolute w-12 h-12 bg-teal-300/20 rounded-full bottom-12 right-20 animate-pulse"
+        style={{ animationDelay: "1s" }}
+      ></div>
+      <div
+        className="absolute w-8 h-8 bg-orange-300/20 rounded-full top-20 right-16 animate-pulse"
+        style={{ animationDelay: "1.5s" }}
+      ></div>
 
-      {/* Satellites/Icons orbiting - using fixed values instead of calculations */}
-      <g>
-        <circle cx="200" cy="18" r="12" fill="#FED7AA" />
-        <text
-          x="200"
-          y="23"
-          fontSize="16"
-          textAnchor="middle"
-          fill="#0F766E"
-          fontWeight="bold"
-        >
-          $
-        </text>
-      </g>
-      <g>
-        <circle cx="135" cy="53" r="12" fill="#FED7AA" />
-        <text
-          x="135"
-          y="58"
-          fontSize="16"
-          textAnchor="middle"
-          fill="#0F766E"
-          fontWeight="bold"
-        >
-          📱
-        </text>
-      </g>
-      <g>
-        <circle cx="265" cy="53" r="12" fill="#FED7AA" />
-        <text
-          x="265"
-          y="58"
-          fontSize="16"
-          textAnchor="middle"
-          fill="#0F766E"
-          fontWeight="bold"
-        >
-          ⭐
-        </text>
-      </g>
-      <g>
-        <circle cx="135" cy="147" r="12" fill="#FED7AA" />
-        <text
-          x="135"
-          y="152"
-          fontSize="16"
-          textAnchor="middle"
-          fill="#0F766E"
-          fontWeight="bold"
-        >
-          🔍
-        </text>
-      </g>
-      <g>
-        <circle cx="265" cy="147" r="12" fill="#FED7AA" />
-        <text
-          x="265"
-          y="152"
-          fontSize="16"
-          textAnchor="middle"
-          fill="#0F766E"
-          fontWeight="bold"
-        >
-          🌐
-        </text>
-      </g>
+      {/* Globe container - make this the absolute center reference point */}
+      <div className="relative h-80 w-80 flex items-center justify-center">
+        {/* Central globe with pulse effect */}
+        <div className="w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 bg-teal-100 rounded-full flex items-center justify-center">
+          {/* Horizontal line */}
+          <div className="absolute w-full h-0.5 bg-teal-500/50"></div>
 
-      {/* Arrow pointing up */}
-      <path d="M200 20 L190 30 L210 30 Z" fill="#EAB308" />
-      <line x1="200" y1="20" x2="200" y2="0" stroke="#EAB308" strokeWidth="2" />
+          {/* Vertical line */}
+          <div className="absolute w-0.5 h-full bg-teal-500/50"></div>
 
-      {/* Small floating elements */}
-      <circle cx="100" cy="50" r="4" fill="#EAB308" />
-      <circle cx="300" cy="150" r="4" fill="#FED7AA" />
-      <circle cx="320" cy="60" r="4" fill="#EAB308" />
-    </svg>
+          {/* Curved lines */}
+          <div
+            className="absolute w-full h-full rounded-full border-t-2 border-b-2 border-teal-500/30"
+            style={{ transform: `rotate(${rotation}deg)` }}
+          ></div>
+          <div
+            className="absolute w-full h-full rounded-full border-t-2 border-b-2 border-teal-500/30"
+            style={{ transform: `rotate(${rotation + 45}deg)` }}
+          ></div>
+          <div
+            className="absolute w-full h-full rounded-full border-l-2 border-r-2 border-teal-500/30"
+            style={{ transform: `rotate(${rotation + 22.5}deg)` }}
+          ></div>
+
+          {/* Pulse effect */}
+          <div className="absolute w-full h-full rounded-full bg-teal-400/20 animate-ping opacity-30"></div>
+        </div>
+
+        {/* Orbiting icons */}
+        {icons.map((icon, index) => {
+          const angle = (360 / icons.length) * index + rotation;
+          const radius = 100; // Distance from center - reduced for better alignment
+          const x = Math.cos((angle * Math.PI) / 180) * radius;
+          const y = Math.sin((angle * Math.PI) / 180) * radius;
+
+          return (
+            <div
+              key={index}
+              className={`absolute flex items-center justify-center w-10 h-10 rounded-full ${icon.color} shadow-lg transition-transform duration-300 hover:scale-110`}
+              style={{
+                transform: `translate(${x}px, ${y}px)`,
+                animationDelay: icon.delay,
+              }}
+            >
+              <span className="text-xl" role="img" aria-label={icon.label}>
+                {icon.emoji}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Small floating decorative elements */}
+      <div
+        className="absolute w-3 h-3 bg-yellow-400 rounded-full top-1/4 left-1/6 animate-bounce"
+        style={{ animationDuration: "3s" }}
+      ></div>
+      <div
+        className="absolute w-2 h-2 bg-teal-300 rounded-full bottom-1/3 right-1/4 animate-bounce"
+        style={{ animationDuration: "2.5s", animationDelay: "0.5s" }}
+      ></div>
+      <div
+        className="absolute w-4 h-4 bg-orange-300 rounded-full top-1/3 right-1/5 animate-bounce"
+        style={{ animationDuration: "4s", animationDelay: "1s" }}
+      ></div>
+    </div>
   );
-}
+};

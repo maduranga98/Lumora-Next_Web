@@ -39,14 +39,14 @@ if (stripeSecretKey) {
   console.log(
     "No Stripe key found in config or env, using direct initialization"
   );
-  try {
-    stripe = require("stripe")(
-      "sk_test_51QdE3AKKYKi1ENnW4OMMtHakJfOc5SHYH95yPjklSHr90FANd1TwO3myDa7LrcuwjZFIImWJZwrR1qrqq4BaOKUX00KWABIOKp"
-    );
-    console.log("Stripe initialized with direct key");
-  } catch (error) {
-    console.error("Error initializing Stripe with direct key:", error);
-  }
+  // try {
+  //   stripe = require("stripe")(
+  //     ""
+  //   );
+  //   console.log("Stripe initialized with direct key");
+  // } catch (error) {
+  //   console.error("Error initializing Stripe with direct key:", error);
+  // }
 }
 
 // Use v2 HTTPS callable function

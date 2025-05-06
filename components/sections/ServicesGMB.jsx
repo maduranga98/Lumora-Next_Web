@@ -1,7 +1,15 @@
 // components/sections/ServicesGMB.jsx
 "use client";
 
+import { useRouter } from "next/navigation";
+
 export default function ServicesGMB() {
+  const router = useRouter();
+
+  const handleGetStarted = () => {
+    router.push("/gmb-service-payments");
+  };
+
   const initialSetup = [
     "Google Business Profile creation",
     "Claiming of pre-existing profile",
@@ -161,7 +169,7 @@ export default function ServicesGMB() {
   ];
 
   return (
-    <section className="py-16 lg:py-24 bg-white">
+    <section id="services" className="py-16 lg:py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main heading */}
         <div className="text-center mb-16">
@@ -194,7 +202,10 @@ export default function ServicesGMB() {
                 <p className="text-lg mb-8">
                   Initial setup and ongoing management in one simple package
                 </p>
-                <button className="bg-yellow-400 text-teal-900 px-10 py-4 rounded-lg font-bold text-lg hover:bg-yellow-300 transition">
+                <button
+                  onClick={handleGetStarted}
+                  className="bg-yellow-400 text-teal-900 px-10 py-4 rounded-lg font-bold text-lg hover:bg-yellow-300 transition"
+                >
                   Get Started Today
                 </button>
               </div>
@@ -361,7 +372,10 @@ export default function ServicesGMB() {
             Get started today with our professional Google Business Profile
             management service and start seeing results in as little as 30 days.
           </p>
-          <button className="bg-teal-600 text-white px-12 py-5 rounded-lg font-bold text-lg hover:bg-teal-700 transition duration-300">
+          <button
+            onClick={handleGetStarted}
+            className="bg-teal-600 text-white px-12 py-5 rounded-lg font-bold text-lg hover:bg-teal-700 transition duration-300"
+          >
             Get Started Today
           </button>
         </div>

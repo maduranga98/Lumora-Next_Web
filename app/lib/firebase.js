@@ -1,5 +1,7 @@
-import { initializeApp } from "firebase/app";
+// lib/firebase.js
+import { initializeApp, getApps } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
+import { getFunctions } from "firebase/functions";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -11,5 +13,15 @@ const firebaseConfig = {
   measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
-const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app);
+// Initialize Firebase only if no apps exist
+let app;
+if (!getApps().length) {
+  app = initializeApp(firebaseConfig);
+} else {
+  app = getApps()[0]; // Use existing app
+}
+
+const db = getFirestore(app);
+const functions = getFunctions(app);
+
+export { app, db, functions };

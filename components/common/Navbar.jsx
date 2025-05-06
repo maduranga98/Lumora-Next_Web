@@ -66,7 +66,7 @@ export default function Navbar() {
               </div>
               <span
                 className={`font-bold text-lg hidden sm:block ${
-                  isScrolled ? "text-gray-900" : "text-white"
+                  isScrolled ? "text-gray-900" : "text-gray-800"
                 }`}
               >
                 Lumora Ventures
@@ -84,7 +84,7 @@ export default function Navbar() {
                   className={`font-medium transition-colors ${
                     isScrolled
                       ? "text-gray-700 hover:text-teal-600"
-                      : "text-gray-100 hover:text-white"
+                      : "text-gray-800 hover:text-teal-600"
                   }`}
                 >
                   {link.label}
@@ -104,7 +104,7 @@ export default function Navbar() {
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className={`p-2 rounded-md ${
-                isScrolled ? "text-gray-700" : "text-white"
+                isScrolled ? "text-gray-700" : "text-gray-800"
               }`}
             >
               <svg

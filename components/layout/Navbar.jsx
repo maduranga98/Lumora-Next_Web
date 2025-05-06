@@ -46,18 +46,42 @@ const Navbar = ({
 
     if (variant === "transparent") {
       return `${base} ${
-        scrolled ? "bg-white/90 backdrop-blur-lg shadow-lg" : "bg-transparent"
+        scrolled
+          ? "bg-white/90 backdrop-blur-lg shadow-lg"
+          : "bg-transparent text-white"
       }`;
     }
     if (variant === "dark") {
-      return `${base} bg-gray-900 border-b border-gray-800`;
+      return `${base} bg-gray-900 border-b border-gray-800 text-white`;
     }
     if (variant === "premium") {
       return `${base} ${
         scrolled ? "bg-black/90 backdrop-blur-lg" : "bg-black"
       } text-white`;
     }
-    return `${base} ${scrolled ? "bg-white shadow-lg" : "bg-transparent"}`;
+    return `${base} ${
+      scrolled ? "bg-white shadow-lg" : "bg-transparent text-white"
+    }`;
+  };
+
+  // Get text color based on variant and scroll state
+  const getTextColor = () => {
+    if (variant === "premium") {
+      return "text-white";
+    }
+    if (variant === "dark") {
+      return "text-white";
+    }
+    // For default and transparent variants
+    return scrolled ? "text-gray-700" : "text-white";
+  };
+
+  // Get hover text color
+  const getHoverTextColor = () => {
+    if (variant === "premium") {
+      return "hover:text-white";
+    }
+    return "hover:text-blue-600";
   };
 
   // Scroll to section function
@@ -187,17 +211,20 @@ const Navbar = ({
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             {/* Logo */}
-            <Link href="/" className="flex items-center space-x-3 group">
-              <div className="relative w-8 h-8">
+            <Link
+              href="/"
+              className={`flex items-center space-x-3 lg:space-x-4 group`}
+            >
+              <div className="relative w-8 h-8 lg:w-10 lg:h-10 xl:w-12 xl:h-12">
                 <Image
                   src="/logo.png"
                   alt="Lumora Ventures"
-                  width={32}
-                  height={32}
+                  width={48}
+                  height={48}
                   className="object-contain"
                 />
               </div>
-              <span className="font-bold text-lg text-gray-900">
+              <span className="font-bold text-lg text-white">
                 Lumora Ventures
               </span>
             </Link>
@@ -209,8 +236,8 @@ const Navbar = ({
 
   return (
     <nav className={getNavbarStyle()}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-4 2xl:px-2">
+        <div className="flex items-center justify-between h-16 xl:h-20">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-3 group">
             <div className="relative w-8 h-8">
@@ -223,8 +250,8 @@ const Navbar = ({
               />
             </div>
             <span
-              className={`font-bold text-lg ${
-                variant === "premium" ? "text-white" : "text-gray-900"
+              className={`font-bold text-lg md:text-xl xl:text-2xl 2xl:text-3xl ${
+                scrolled ? "text-gray-900" : "text-white"
               }`}
             >
               Lumora Ventures
@@ -247,17 +274,19 @@ const Navbar = ({
                 <div className="inline-flex items-center">
                   {renderLink(
                     link,
-                    `inline-flex items-center px-1 py-2 text-sm font-medium transition-colors duration-300 ${
+                    `inline-flex items-center px-1 py-2 text-sm md:text-base xl:text-lg 2xl:text-xl font-medium transition-colors duration-300 ${
                       variant === "premium"
                         ? "text-gray-300 hover:text-white"
-                        : "text-gray-700 hover:text-blue-600"
+                        : scrolled
+                        ? "text-gray-700 hover:text-blue-600"
+                        : "text-white hover:text-blue-200"
                     }`
                   )}
                   {link.dropdown && (
                     <ChevronDown
                       className={`ml-1 h-4 w-4 transition-transform duration-200 ${
                         activeDropdown === index ? "rotate-180" : ""
-                      }`}
+                      } ${scrolled ? "text-gray-700" : "text-white"}`}
                     />
                   )}
                 </div>
@@ -281,7 +310,7 @@ const Navbar = ({
                           <motion.div key={idx} variants={itemVariants}>
                             <Link
                               href={item.href}
-                              className={`block px-4 py-3 text-sm transition-colors duration-200 ${
+                              className={`block px-4 py-3 text-sm md:text-base xl:text-lg transition-colors duration-200 ${
                                 variant === "premium"
                                   ? "text-gray-300 hover:bg-gray-800 hover:text-white"
                                   : "text-gray-700 hover:bg-gray-50 hover:text-blue-600"
@@ -297,25 +326,15 @@ const Navbar = ({
                 </AnimatePresence>
               </div>
             ))}
-
-            {/* CTA Button */}
-            <Link
-              href="/contact"
-              className={`inline-flex items-center px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                variant === "premium"
-                  ? "bg-white text-black hover:bg-gray-100"
-                  : "bg-blue-600 text-white hover:bg-blue-700"
-              }`}
-            >
-              Get Started
-            </Link>
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="inline-flex items-center justify-center p-2 rounded-md focus:outline-none"
+              className={`inline-flex items-center justify-center p-2 rounded-md focus:outline-none ${
+                scrolled ? "text-gray-700" : "text-white"
+              }`}
             >
               {isOpen ? (
                 <X className="h-6 w-6" />
@@ -362,7 +381,7 @@ const Navbar = ({
               ))}
               <Link
                 href="/contact"
-                className="block w-full text-center px-3 py-2 mt-4 rounded-full bg-blue-600 text-white font-medium"
+                className="block w-full text-center px-3 py-2 mt-4 rounded-full bg-blue-600 text-white text-base md:text-lg font-medium"
                 onClick={() => setIsOpen(false)}
               >
                 Get Started

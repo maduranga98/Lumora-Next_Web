@@ -1,28 +1,18 @@
 import React from "react";
 import Image from "next/image";
-import {
-  Sparkles,
-  Gem,
-  Crown,
-  Shield,
-  Star,
-  Diamond,
-  Award,
-  Heart,
-} from "lucide-react";
 
 const FeaturesSection = () => {
-  // Luxury icons for each feature
-  const iconMapping = {
-    business: <Diamond className="w-8 h-8 text-gold" />,
-    revenue: <Star className="w-8 h-8 text-gold" />,
-    booking: <Crown className="w-8 h-8 text-gold" />,
-    inventory: <Gem className="w-8 h-8 text-gold" />,
-    customization: <Award className="w-8 h-8 text-gold" />,
-    discovery: <Sparkles className="w-8 h-8 text-rose-200" />,
-    payment: <Shield className="w-8 h-8 text-rose-200" />,
-    personal: <Heart className="w-8 h-8 text-rose-200" />,
-    beauty: <Star className="w-8 h-8 text-rose-200" />,
+  // Image mapping with correct paths
+  const imageMapping = {
+    business: "/cc-images/image1.webp",
+    revenue: "/cc-images/image2.webp",
+    booking: "/cc-images/image3.webp",
+    inventory: "/cc-images/image4.webp",
+    customization: "/cc-images/image5.webp",
+    discovery: "/cc-images/image6.webp",
+    payment: "/cc-images/image7.webp",
+    personal: "/cc-images/image8.webp",
+    beauty: "/cc-images/image9.webp",
   };
 
   const audiences = [
@@ -38,58 +28,58 @@ const FeaturesSection = () => {
       bgGlow: "bg-amber-500/10",
       features: [
         {
-          title: "Elite Business Management",
+          title: "All-in-One Business Management",
           description:
-            "Experience the pinnacle of salon management with our premium all-in-one platform designed for discerning professionals.",
-          iconKey: "business",
+            "Say goodbye to multiple apps and spreadsheets! Curl Cipher combines appointment scheduling, staff management, payroll, inventory tracking, and financial reports in a single platform.",
+          imageKey: "business",
           imagePosition: "right",
         },
         {
-          title: "Elevate Revenue & Efficiency",
+          title: "Boost Salon Efficiency & Revenue",
           description: [
-            "Streamline exclusive operations with automated luxury workflows",
-            "Oversee prestigious locations with sophisticated controls",
-            "Real-time tracking of premium services and high-end sales",
-            "Advanced analytics for premium clientele insights",
+            "Automate daily operations and reduce manual workload",
+            "Manage multiple branches and staff with ease",
+            "Track commissions, sales, and expenses in real time",
+            "Gain insights through detailed analytics and financial reports",
           ],
-          iconKey: "revenue",
+          imageKey: "revenue",
           imagePosition: "left",
         },
         {
-          title: "Premium Client Experience",
+          title: "Smarter Booking & Customer Engagement",
           description: [
-            "Curated appointment system for VIP clientele",
-            "Exclusive booking notifications and reminders",
-            "Sophisticated loyalty programs for valued patrons",
-            "Luxury retail integration for premium products",
+            "Enable real-time appointment scheduling with stylist preferences",
+            "Reduce no-shows with automated reminders and confirmations",
+            "Create and promote exclusive deals and loyalty programs",
+            "Increase product sales with an integrated online store",
           ],
-          iconKey: "booking",
+          imageKey: "booking",
           imagePosition: "right",
         },
         {
-          title: "Master Control Suite",
+          title: "Inventory & Financial Control",
           description: [
-            "Premium inventory management for luxury products",
-            "Executive-level financial reporting and insights",
-            "Prestigious staff management with incentive programs",
+            "Monitor stock levels and automate inventory management",
+            "Generate commission, tax, and cash flow reports with a single click",
+            "Track payroll, staff incentives, and salon earnings in one place",
           ],
-          iconKey: "inventory",
+          imageKey: "inventory",
           imagePosition: "left",
         },
         {
-          title: "Bespoke Solutions",
+          title: "Customization & Scalability",
           description: [
-            "Tailored for boutique salons to luxury spa estates",
-            "Customized pricing for premium service offerings",
-            "Secure cloud infrastructure with white-glove support",
+            "Suitable for small salons, high-end boutiques, and large franchises",
+            "Flexible pricing models based on gender, staff levels, and service type",
+            "Cloud-based for easy access across devices, with data security ensured",
           ],
-          iconKey: "customization",
+          imageKey: "customization",
           imagePosition: "right",
         },
       ],
     },
     {
-      title: "For Discerning Clients",
+      title: "For Customers",
       appLogo: "/customer.png", // Customer app logo
       logoText: "Curl Cipher",
       colorTheme: "from-rose-400 via-pink-500 to-purple-600",
@@ -100,43 +90,43 @@ const FeaturesSection = () => {
       bgGlow: "bg-rose-500/10",
       features: [
         {
-          title: "Discover Luxury Experiences",
+          title: "Effortless Salon Discovery & Booking",
           description: [
-            "Access curated selection of premium salons",
-            "Filter by exclusive boutiques and luxury establishments",
-            "Book coveted appointments with elite stylists",
+            "Find top-rated salons near you with detailed service listings",
+            "Filter by luxury, budget-friendly, or specialty salons",
+            "Book your favorite stylists and choose available time slots instantly",
           ],
-          iconKey: "discovery",
+          imageKey: "discovery",
           imagePosition: "left",
         },
         {
-          title: "Elegant Transactions",
+          title: "Transparent Pricing & Secure Payments",
           description: [
-            "Transparent pricing for premium services",
-            "Secure payment through prestigious channels",
-            "Receive elegant digital invoices and receipts",
+            "View upfront pricing for services before booking",
+            "Pay securely via multiple payment options or at the salon",
+            "Get instant confirmation and digital invoices for your bookings",
           ],
-          iconKey: "payment",
+          imageKey: "payment",
           imagePosition: "right",
         },
         {
-          title: "Refined Personal Service",
+          title: "Personalized Experience & Convenience",
           description: [
-            "Curate your preferred stylists and salons",
-            "Seamless rescheduling with devoted service",
-            "Receive exclusive member-only privileges",
+            "Save favorite salons & stylists for quick future bookings",
+            "Reschedule or cancel appointments with zero hassle",
+            "Get personalized offers & exclusive discounts",
           ],
-          iconKey: "personal",
+          imageKey: "personal",
           imagePosition: "left",
         },
         {
-          title: "Luxury at Your Doorstep",
+          title: "Beauty at Your Fingertips",
           description: [
-            "Premium beauty products and salon exclusives",
-            "Priority appointment reminders for VIP members",
-            "Prestige points and elite salon benefits",
+            "Order salon-recommended beauty products for home delivery",
+            "Receive appointment reminders & exclusive promotions",
+            "Earn loyalty points and unlock premium salon benefits",
           ],
-          iconKey: "beauty",
+          imageKey: "beauty",
           imagePosition: "right",
         },
       ],
@@ -145,7 +135,7 @@ const FeaturesSection = () => {
 
   return (
     <section
-      className="relative py-32 overflow-hidden"
+      className="relative py-16 md:py-20 lg:py-24 overflow-hidden"
       style={{
         background:
           "radial-gradient(circle at top left, #1a0033 0%, #000000 50%, #330a0a 100%)",
@@ -153,8 +143,8 @@ const FeaturesSection = () => {
     >
       {/* Luxury Background Elements */}
       <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-1/4 left-0 w-[600px] h-[600px] bg-amber-500 rounded-full blur-[120px]"></div>
-        <div className="absolute bottom-1/4 right-0 w-[600px] h-[600px] bg-rose-500 rounded-full blur-[120px]"></div>
+        <div className="absolute top-1/4 left-0 w-72 md:w-96 lg:w-[600px] h-72 md:h-96 lg:h-[600px] bg-amber-500 rounded-full blur-[120px]"></div>
+        <div className="absolute bottom-1/4 right-0 w-72 md:w-96 lg:w-[600px] h-72 md:h-96 lg:h-[600px] bg-rose-500 rounded-full blur-[120px]"></div>
       </div>
 
       {/* Elegant Pattern Overlay */}
@@ -171,18 +161,21 @@ const FeaturesSection = () => {
 
       <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
         {audiences.map((audience, auIdx) => (
-          <div key={auIdx} className={`mb-40 ${auIdx === 1 ? "mt-20" : ""}`}>
+          <div
+            key={auIdx}
+            className={`mb-20 lg:mb-24 ${auIdx === 1 ? "mt-16 lg:mt-20" : ""}`}
+          >
             {/* Luxury Header with Logo */}
-            <div className="flex flex-col md:flex-row items-center gap-8 mb-32">
+            <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6 lg:gap-8 mb-16 lg:mb-20">
               {/* App Logo */}
-              <div className="w-24 h-24 relative rounded-full border-2 border-gold p-1 shadow-2xl">
+              <div className="w-16 h-16 md:w-20 md:h-20 relative rounded-full border-2 border-gold p-1 shadow-xl">
                 <div className="absolute inset-0 rounded-full bg-gradient-to-br from-black to-gray-900"></div>
                 <div className="relative z-10 w-full h-full rounded-full flex items-center justify-center">
                   <Image
                     src={audience.appLogo}
                     alt={audience.logoText}
-                    width={60}
-                    height={60}
+                    width={40}
+                    height={40}
                     className="object-contain"
                   />
                 </div>
@@ -191,12 +184,12 @@ const FeaturesSection = () => {
               {/* Title */}
               <div>
                 <h2
-                  className={`text-4xl sm:text-5xl lg:text-6xl font-serif font-light mb-2 bg-clip-text text-transparent bg-gradient-to-r ${audience.textGradient}`}
+                  className={`text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-serif font-light mb-1 md:mb-2 bg-clip-text text-transparent bg-gradient-to-r ${audience.textGradient}`}
                 >
                   {audience.title}
                 </h2>
                 <p
-                  className={`text-sm uppercase tracking-wider ${audience.accentColor}`}
+                  className={`text-xs md:text-sm uppercase tracking-wider ${audience.accentColor}`}
                 >
                   {audience.logoText}
                 </p>
@@ -204,78 +197,74 @@ const FeaturesSection = () => {
             </div>
 
             {/* Premium Features */}
-            <div className="space-y-32">
+            <div className="space-y-12 md:space-y-16 lg:space-y-20">
               {audience.features.map((feature, featureIdx) => (
                 <div
                   key={featureIdx}
                   className={`relative ${
-                    feature.imagePosition === "right" ? "md:pr-16" : "md:pl-16"
+                    feature.imagePosition === "right"
+                      ? "md:pr-8 lg:pr-12"
+                      : "md:pl-8 lg:pl-12"
                   }`}
                 >
                   {/* Decorative Lines */}
-                  <div className="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-transparent via-gold/30 to-transparent hidden md:block"></div>
-                  <div className="absolute right-0 top-0 h-full w-px bg-gradient-to-b from-transparent via-gold/30 to-transparent hidden md:block"></div>
+                  <div className="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-transparent via-gold/20 to-transparent hidden md:block"></div>
+                  <div className="absolute right-0 top-0 h-full w-px bg-gradient-to-b from-transparent via-gold/20 to-transparent hidden md:block"></div>
 
                   <div
                     className={`flex flex-col ${
                       feature.imagePosition === "right"
                         ? "lg:flex-row"
                         : "lg:flex-row-reverse"
-                    } gap-16 items-center`}
+                    } gap-6 md:gap-8 lg:gap-10 items-center`}
                   >
                     {/* Content Card */}
-                    <div className="flex-1">
+                    <div className="w-full lg:w-7/12">
                       <div
-                        className={`p-12 rounded-xl border ${audience.borderColor} bg-gradient-to-br ${audience.cardGradient} shadow-2xl backdrop-blur-sm`}
+                        className={`p-5 md:p-6 lg:p-8 rounded-lg border ${audience.borderColor} bg-gradient-to-br ${audience.cardGradient} shadow-md backdrop-blur-sm`}
                       >
-                        {/* Icon Header */}
-                        <div className="flex items-center gap-6 mb-8">
-                          <div
-                            className={`p-4 rounded-lg ${audience.bgGlow} backdrop-blur-sm`}
-                          >
-                            {iconMapping[feature.iconKey]}
-                          </div>
-                          <h3 className="text-3xl font-serif text-white">
-                            {feature.title}
-                          </h3>
-                        </div>
+                        {/* Feature Title */}
+                        <h3 className="text-xl md:text-2xl lg:text-2xl font-serif text-white mb-4 md:mb-6">
+                          {feature.title}
+                        </h3>
 
                         {/* Description */}
                         {Array.isArray(feature.description) ? (
-                          <ul className="space-y-6">
+                          <ul className="space-y-3 md:space-y-4">
                             {feature.description.map((item, idx) => (
                               <li
                                 key={idx}
-                                className="flex gap-4 text-gray-300 items-start"
+                                className="flex gap-3 text-gray-300 items-start"
                               >
-                                <span className="w-2 h-2 mt-2 rounded-full bg-gold"></span>
-                                <span className="flex-1 text-lg">{item}</span>
+                                <span className="w-1.5 h-1.5 mt-1.5 rounded-full bg-gold"></span>
+                                <span className="flex-1 text-sm md:text-base">
+                                  {item}
+                                </span>
                               </li>
                             ))}
                           </ul>
                         ) : (
-                          <p className="text-gray-300 text-xl leading-relaxed">
+                          <p className="text-gray-300 text-sm md:text-base lg:text-lg leading-relaxed">
                             {feature.description}
                           </p>
                         )}
                       </div>
                     </div>
 
-                    {/* Image/Illustration */}
-                    <div className="flex-1">
+                    {/* Feature Image */}
+                    <div className="w-full lg:w-5/12">
                       <div
-                        className={`relative rounded-2xl overflow-hidden shadow-2xl border-4 ${audience.borderColor}`}
+                        className={`relative rounded-lg overflow-hidden shadow-md border ${audience.borderColor} max-w-xs mx-auto`}
                       >
-                        <div className="absolute inset-0 bg-gradient-to-br from-black to-gray-900"></div>
-                        <div className="relative p-12 flex items-center justify-center min-h-[400px]">
-                          <div className="text-center">
-                            <div className="w-32 h-32 rounded-full mx-auto mb-8 border border-gold/30 flex items-center justify-center bg-gradient-to-br from-black to-gray-900">
-                              {iconMapping[feature.iconKey]}
-                            </div>
-                            <p className="text-gray-500 text-sm">
-                              Premium Feature Showcase
-                            </p>
-                          </div>
+                        <div className="aspect-[4/3] w-full relative">
+                          <Image
+                            src={imageMapping[feature.imageKey]}
+                            alt={feature.title}
+                            fill
+                            className="object-cover"
+                            sizes="(max-width: 768px) 80vw, (max-width: 1024px) 40vw, 25vw"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-tr from-black/40 to-transparent"></div>
                         </div>
                       </div>
                     </div>
@@ -287,16 +276,16 @@ const FeaturesSection = () => {
         ))}
 
         {/* Luxury CTA */}
-        <div className="text-center pt-20">
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-8">
-            <button className="group relative px-12 py-5 text-black bg-gradient-to-r from-amber-500 to-yellow-400 font-medium rounded-lg overflow-hidden shadow-2xl hover:shadow-amber-500/25 transition-all duration-500">
+        <div className="text-center pt-10 md:pt-12 lg:pt-16">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 lg:gap-8">
+            <button className="group relative px-6 md:px-8 lg:px-10 py-3 md:py-4 text-sm md:text-base text-black bg-gradient-to-r from-amber-500 to-yellow-400 font-medium rounded-lg overflow-hidden shadow-xl hover:shadow-amber-500/25 transition-all duration-500">
               <span className="relative z-10">Experience Excellence</span>
               <div className="absolute inset-0 bg-black transform scale-0 group-hover:scale-100 transition-transform duration-500"></div>
               <span className="absolute inset-0 flex items-center justify-center text-gold opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                 Experience Excellence
               </span>
             </button>
-            <button className="group relative px-12 py-5 text-black bg-gradient-to-r from-rose-500 to-pink-400 font-medium rounded-lg overflow-hidden shadow-2xl hover:shadow-rose-500/25 transition-all duration-500">
+            <button className="group relative px-6 md:px-8 lg:px-10 py-3 md:py-4 text-sm md:text-base text-black bg-gradient-to-r from-rose-500 to-pink-400 font-medium rounded-lg overflow-hidden shadow-xl hover:shadow-rose-500/25 transition-all duration-500">
               <span className="relative z-10">Reserve Your Studio</span>
               <div className="absolute inset-0 bg-black transform scale-0 group-hover:scale-100 transition-transform duration-500"></div>
               <span className="absolute inset-0 flex items-center justify-center text-rose-300 opacity-0 group-hover:opacity-100 transition-opacity duration-500">

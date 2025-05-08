@@ -33,7 +33,8 @@ const stripePromise = loadStripe(
 );
 
 // Price ID for your subscription product in Stripe dashboard
-const PRICE_ID = "price_1R2nOQKKYKi1ENnWCnMjdSpR"; // Replace with your actual Stripe price ID
+const PRICE_ID = "price_1R2nRyKKYKi1ENnWiPY4IuMV"; // Replace with your actual Stripe price ID
+// const PRICE_ID = "price_1R2nOQKKYKi1ENnWCnMjdSpR"; // Replace with your actual Stripe price ID
 
 function CheckoutForm({ formData }) {
   const stripe = useStripe();
@@ -41,12 +42,44 @@ function CheckoutForm({ formData }) {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [firebaseReady, setFirebaseReady] = useState(false);
+  const [firebaseInstance, setFirebaseInstance] = useState(null);
+
+  // Import Firebase only on the client side
+  useEffect(() => {
+    const initFirebase = async () => {
+      try {
+        // Dynamically import Firebase
+        const firebaseModule = await import("@/app/lib/firebase");
+        setFirebaseInstance({
+          db: firebaseModule.db,
+          functions: firebaseModule.functions,
+        });
+        setFirebaseReady(true);
+      } catch (error) {
+        console.error("Error initializing Firebase:", error);
+        setErrorMessage(
+          "Could not initialize payment system. Please try again later."
+        );
+      }
+    };
+
+    initFirebase();
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!stripe || !elements) {
       // Stripe hasn't loaded yet
+      setErrorMessage(
+        "Payment system is still initializing. Please wait a moment."
+      );
+      return;
+    }
+
+    if (!firebaseReady) {
+      setErrorMessage("Firebase is still initializing. Please wait a moment.");
       return;
     }
 
@@ -54,6 +87,8 @@ function CheckoutForm({ formData }) {
     setErrorMessage("");
 
     try {
+      console.log("Creating payment method...");
+
       // Get Stripe payment method
       const { error, paymentMethod } = await stripe.createPaymentMethod({
         type: "card",
@@ -72,8 +107,10 @@ function CheckoutForm({ formData }) {
         throw new Error(error.message);
       }
 
-      // Call Firebase function to create subscription
-      const functions = getFunctions(app);
+      console.log("Payment method created:", paymentMethod.id);
+
+      // Use the functions that was already imported
+      const functions = firebaseInstance.functions || getFunctions();
       const createSubscription = httpsCallable(functions, "createSubscription");
 
       const customerData = {
@@ -85,6 +122,9 @@ function CheckoutForm({ formData }) {
         website: formData.website,
       };
 
+      // Price ID for your subscription product in Stripe dashboard
+      const PRICE_ID = "price_1R2nRyKKYKi1ENnWiPY4IuMV"; // Replace with your actual Stripe price ID
+
       // Log the data being sent to help with debugging
       console.log("Sending to Firebase function:", {
         paymentMethodId: paymentMethod.id,
@@ -92,30 +132,68 @@ function CheckoutForm({ formData }) {
         priceId: PRICE_ID,
       });
 
-      const response = await createSubscription({
-        paymentMethodId: paymentMethod.id,
-        customerData: customerData,
-        priceId: PRICE_ID,
-        packageName: "Professional GBP Management",
-        packagePrice: 150,
-      });
+      try {
+        const response = await createSubscription({
+          paymentMethodId: paymentMethod.id,
+          customerData: customerData,
+          priceId: PRICE_ID,
+          packageName: "Professional GBP Management",
+          packagePrice: 150,
+        });
 
-      console.log("Firebase function response:", response);
+        console.log("Firebase function response:", response);
 
-      const { clientSecret, subscriptionId } = response.data;
+        // Check if response data is valid
+        if (!response.data) {
+          console.error("Invalid response from Firebase function:", response);
+          throw new Error(
+            "Payment processing error: Invalid response from server"
+          );
+        }
 
-      // Confirm the subscription payment
-      const result = await stripe.confirmCardPayment(clientSecret);
+        const { clientSecret, subscriptionId, status } = response.data;
 
-      if (result.error) {
-        throw new Error(result.error.message);
+        // Check if we need to confirm the payment or if it's already successful
+        if (status === "active") {
+          // Subscription is already active, no need to confirm payment
+          alert(
+            "Payment successful! Your subscription has been activated. We'll contact you shortly to get started."
+          );
+          router.push("/");
+          return;
+        }
+
+        // Check if we have a client secret
+        if (!clientSecret) {
+          console.error("Missing client secret in response:", response.data);
+          throw new Error("Payment processing error: Missing client secret");
+        }
+
+        console.log("Confirming card payment with client secret...");
+
+        // Confirm the subscription payment
+        const result = await stripe.confirmCardPayment(clientSecret);
+
+        if (result.error) {
+          throw new Error(result.error.message);
+        }
+
+        // Subscription and payment succeeded
+        alert(
+          "Payment successful! Your subscription has been activated. We'll contact you shortly to get started."
+        );
+        router.push("/");
+      } catch (error) {
+        if (error.message && error.message.includes("payment_intent")) {
+          // Specific handling for payment intent errors
+          console.error("Payment intent error:", error);
+          setErrorMessage(
+            "There was an issue processing your payment. Please check your card details and try again."
+          );
+        } else {
+          throw error; // Re-throw other errors to be caught by the outer catch block
+        }
       }
-
-      // Subscription and payment succeeded
-      alert(
-        "Payment successful! Your subscription has been activated. We'll contact you shortly to get started."
-      );
-      router.push("/");
     } catch (err) {
       console.error("Payment error:", err);
       setErrorMessage(
@@ -280,9 +358,9 @@ function CheckoutForm({ formData }) {
       <div className="mt-8">
         <button
           type="submit"
-          disabled={!stripe || loading}
+          disabled={!stripe || loading || !firebaseReady}
           className={`w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white ${
-            !stripe || loading
+            !stripe || loading || !firebaseReady
               ? "opacity-70 cursor-not-allowed"
               : "hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
           }`}

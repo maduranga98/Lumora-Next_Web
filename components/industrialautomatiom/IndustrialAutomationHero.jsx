@@ -1,8 +1,25 @@
 import React from "react";
 
 const IndustrialAutomationHero = () => {
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const navHeight = 80; // navbar height
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.scrollY - navHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+    }
+  };
+
   return (
-    <section className="relative min-h-screen bg-black overflow-hidden">
+    <section
+      id="home"
+      className="relative min-h-screen bg-black overflow-hidden"
+    >
       {/* Background Elements */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-[150px]" />
@@ -38,7 +55,10 @@ const IndustrialAutomationHero = () => {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <button className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center gap-2 group">
+              <button
+                onClick={() => scrollToSection("contact")}
+                className="px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center gap-2 group"
+              >
                 Revolutionize Your Plant
                 <svg
                   className="w-5 h-5 transition-transform group-hover:translate-x-1"
@@ -55,7 +75,10 @@ const IndustrialAutomationHero = () => {
                 </svg>
               </button>
 
-              <button className="px-8 py-4 border border-blue-500 text-blue-500 hover:bg-blue-500/10 font-semibold rounded-lg transition-all duration-300">
+              <button
+                onClick={() => scrollToSection("automation")}
+                className="px-8 py-4 border border-blue-500 text-blue-500 hover:bg-blue-500/10 font-semibold rounded-lg transition-all duration-300"
+              >
                 Explore Solutions
               </button>
             </div>

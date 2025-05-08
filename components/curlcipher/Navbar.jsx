@@ -65,35 +65,30 @@ const Navbar = () => {
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
-          {/* Logo Section */}
+          {/* Logo Section - Adjusted size */}
           <div className="flex items-center gap-4">
             <Link href="/" className="flex items-center gap-3 group">
-              <div className="relative w-10 h-10 rounded-full border border-yellow-300 p-1 transition-all duration-300 group-hover:border-yellow-200">
+              <div className="relative w-10 h-10 md:w-12 md:h-12 xl:w-14 xl:h-14 rounded-full border border-yellow-300 p-1 transition-all duration-300 group-hover:border-yellow-200">
                 <div className="absolute inset-0 rounded-full bg-gradient-to-br from-black to-gray-900"></div>
                 <div className="relative z-10 w-full h-full rounded-full flex items-center justify-center">
-                  {/* Use app logo if provided, otherwise use Crown icon */}
-
                   <Image
                     src="/app-logo.png"
                     alt="App Logo"
                     width={24}
                     height={24}
-                    className="object-contain"
+                    className="object-contain md:w-6 md:h-6 xl:w-8 xl:h-8"
                   />
                 </div>
               </div>
               <div className="hidden sm:block">
-                <h1 className="text-xl font-serif text-white group-hover:text-yellow-300 transition-colors duration-300">
+                <h1 className="text-xl md:text-2xl xl:text-3xl font-serif text-white group-hover:text-yellow-300 transition-colors duration-300">
                   Curl Cipher
                 </h1>
-                <p className="text-xs text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
-                  Salon Management Suite
-                </p>
               </div>
             </Link>
           </div>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation - Increased font size */}
           <div className="hidden lg:flex items-center gap-12">
             {navItems.map((item, index) => (
               <Link
@@ -102,7 +97,7 @@ const Navbar = () => {
                 onClick={(e) => scrollToSection(e, item.href)}
                 className="relative group"
               >
-                <span className="flex items-center gap-2 text-sm text-gray-300 group-hover:text-white transition-colors duration-300 py-2">
+                <span className="flex items-center gap-2 text-base md:text-lg xl:text-xl text-gray-300 group-hover:text-white transition-colors duration-300 py-2">
                   {item.name}
                 </span>
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-yellow-300 group-hover:w-full transition-all duration-300"></span>
@@ -110,13 +105,8 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Right Section */}
-          <div className="flex items-center gap-6">
-            {/* CTA Button */}
-            <button className="hidden sm:block px-6 py-2.5 rounded-lg bg-gradient-to-r from-yellow-300 to-amber-500 text-black font-medium hover:shadow-lg hover:shadow-yellow-500/25 transition-all duration-300 transform hover:scale-105">
-              Start Free Trial
-            </button>
-
+          {/* Right Section - Removed "Start Free Trial" button */}
+          <div className="flex items-center">
             {/* Mobile Menu Button */}
             <button
               className="lg:hidden text-gray-300 hover:text-white transition-colors duration-300"
@@ -132,7 +122,7 @@ const Navbar = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - Increased font size and removed "Start Free Trial" button */}
       <div
         className={`lg:hidden transition-all duration-300 ${
           isMobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
@@ -145,17 +135,12 @@ const Navbar = () => {
                 key={index}
                 href={item.href}
                 onClick={(e) => scrollToSection(e, item.href)}
-                className="flex items-center gap-3 text-gray-300 hover:text-white transition-colors duration-300"
+                className="flex items-center gap-3 text-base md:text-lg xl:text-xl text-gray-300 hover:text-white transition-colors duration-300"
               >
-                <item.icon className="w-5 h-5 text-yellow-300" />
+                <item.icon className="w-5 h-5 md:w-6 md:h-6 xl:w-7 xl:h-7 text-yellow-300" />
                 <span>{item.name}</span>
               </Link>
             ))}
-
-            {/* Mobile CTA */}
-            <button className="w-full mt-6 px-6 py-3 rounded-lg bg-gradient-to-r from-yellow-300 to-amber-500 text-black font-medium">
-              Start Free Trial
-            </button>
           </div>
         </div>
       </div>

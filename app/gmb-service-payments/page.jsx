@@ -12,9 +12,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { getFunctions, httpsCallable } from "firebase/functions";
-import { initializeApp } from "firebase/app";
+import { getApps } from "firebase/app";
 
-// Initialize Firebase directly here to avoid initialization errors
+// Import Firebase config (but don't initialize here)
+// We'll use the existing app instance from lib/firebase.js instead
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -24,9 +25,6 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-
 // Initialize Stripe with your publishable key
 const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "pk_test_your_key"
@@ -34,7 +32,6 @@ const stripePromise = loadStripe(
 
 // Price ID for your subscription product in Stripe dashboard
 const PRICE_ID = "price_1R2nRyKKYKi1ENnWiPY4IuMV"; // Replace with your actual Stripe price ID
-// const PRICE_ID = "price_1R2nOQKKYKi1ENnWCnMjdSpR"; // Replace with your actual Stripe price ID
 
 function CheckoutForm({ formData }) {
   const stripe = useStripe();
@@ -121,9 +118,6 @@ function CheckoutForm({ formData }) {
         businessAddress: formData.businessAddress,
         website: formData.website,
       };
-
-      // Price ID for your subscription product in Stripe dashboard
-      const PRICE_ID = "price_1R2nRyKKYKi1ENnWiPY4IuMV"; // Replace with your actual Stripe price ID
 
       // Log the data being sent to help with debugging
       console.log("Sending to Firebase function:", {
@@ -759,7 +753,7 @@ export default function PaymentPage() {
                   Have questions before completing your purchase?
                 </p>
                 <p className="font-medium text-gray-900">
-                  Call us at (555) 123-4567 or email{" "}
+                  Call us at +94 76 916 4108 or email{" "}
                   <a
                     href="mailto:info@lumoraventures.com"
                     className="text-indigo-600 hover:text-indigo-800"

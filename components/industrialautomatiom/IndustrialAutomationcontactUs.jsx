@@ -1,4 +1,12 @@
 import React, { useState } from "react";
+// Direct imports from firebase/firestore
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  serverTimestamp,
+} from "firebase/firestore";
+import { app } from "../../app/lib/firebase";
 
 const ContactUs = () => {
   const [formData, setFormData] = useState({
@@ -6,6 +14,8 @@ const ContactUs = () => {
     email: "",
     message: "",
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState({ type: "", message: "" });
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -15,10 +25,47 @@ const ContactUs = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add form submission logic here
-    console.log("Form submitted:", formData);
+    setIsSubmitting(true);
+    setSubmitStatus({ type: "", message: "" });
+
+    try {
+      // Get Firestore instance directly (in case db is not properly exported from firebase.js)
+      const db = getFirestore(app);
+
+      // Add document to automation collection
+      await addDoc(collection(db, "automation"), {
+        name: formData.name,
+        email: formData.email,
+        message: formData.message,
+        createdAt: serverTimestamp(),
+        status: "new",
+      });
+
+      console.log("Message submitted successfully");
+
+      // Success message
+      setSubmitStatus({
+        type: "success",
+        message: "Message sent successfully! Our team will contact you soon.",
+      });
+
+      // Reset form
+      setFormData({
+        name: "",
+        email: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      setSubmitStatus({
+        type: "error",
+        message: "Failed to send message. Please try again.",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const contactInfo = [
@@ -39,7 +86,12 @@ const ContactUs = () => {
         </svg>
       ),
       label: "Phone",
-      value: "+1 (555) 123-4567",
+      value: (
+        <div>
+          <p>+94 76 916 4108</p>
+          <p className="mt-1">+94 76 620 6555</p>
+        </div>
+      ),
     },
     {
       icon: (
@@ -58,7 +110,7 @@ const ContactUs = () => {
         </svg>
       ),
       label: "Email",
-      value: "industrial@lumoraventures.com",
+      value: "info@lumoraventures.com",
     },
     {
       icon: (
@@ -83,7 +135,7 @@ const ContactUs = () => {
         </svg>
       ),
       label: "Location",
-      value: "Industrial Park, Bay Area, CA",
+      value: "Kurunegala road, Kuliyapitiya",
     },
   ];
 
@@ -119,6 +171,7 @@ const ContactUs = () => {
                   required
                   className="w-full bg-black/50 border border-blue-400/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-400 transition-colors"
                   placeholder="Your Name"
+                  disabled={isSubmitting}
                 />
               </div>
 
@@ -136,6 +189,7 @@ const ContactUs = () => {
                   required
                   className="w-full bg-black/50 border border-blue-400/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-400 transition-colors"
                   placeholder="your.email@company.com"
+                  disabled={isSubmitting}
                 />
               </div>
 
@@ -153,28 +207,71 @@ const ContactUs = () => {
                   rows="6"
                   className="w-full bg-black/50 border border-blue-400/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-400 transition-colors resize-none"
                   placeholder="Tell us about your automation needs..."
+                  disabled={isSubmitting}
                 />
               </div>
+
+              {/* Status Message */}
+              {submitStatus.message && (
+                <div
+                  className={`p-4 rounded-lg ${
+                    submitStatus.type === "success"
+                      ? "bg-green-500/20 text-green-300 border border-green-500/30"
+                      : "bg-red-500/20 text-red-300 border border-red-500/30"
+                  }`}
+                >
+                  {submitStatus.message}
+                </div>
+              )}
 
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-full px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 group"
+                className="w-full px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-[1.02] active:scale-[0.98] flex items-center justify-center gap-2 group disabled:opacity-70 disabled:cursor-not-allowed"
+                disabled={isSubmitting}
               >
-                Send Message
-                <svg
-                  className="w-5 h-5 transition-transform group-hover:translate-x-1"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
-                  />
-                </svg>
+                {isSubmitting ? (
+                  <>
+                    <svg
+                      className="animate-spin -ml-1 mr-3 h-5 w-5 text-white"
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                    >
+                      <circle
+                        className="opacity-25"
+                        cx="12"
+                        cy="12"
+                        r="10"
+                        stroke="currentColor"
+                        strokeWidth="4"
+                      ></circle>
+                      <path
+                        className="opacity-75"
+                        fill="currentColor"
+                        d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                      ></path>
+                    </svg>
+                    Processing...
+                  </>
+                ) : (
+                  <>
+                    Send Message
+                    <svg
+                      className="w-5 h-5 transition-transform group-hover:translate-x-1"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"
+                      />
+                    </svg>
+                  </>
+                )}
               </button>
             </form>
           </div>
@@ -209,7 +306,7 @@ const ContactUs = () => {
                 <p>Saturday: 9:00 AM - 1:00 PM</p>
                 <p>Sunday: Closed</p>
                 <p className="text-blue-400 mt-4">
-                  24/7 Support Line: +1 (555) 987-6543
+                  24/7 Support: +94 76 916 4108
                 </p>
               </div>
             </div>

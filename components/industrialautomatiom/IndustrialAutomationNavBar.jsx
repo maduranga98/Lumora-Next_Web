@@ -13,6 +13,7 @@ const Navigation = () => {
   useEffect(() => {
     setMounted(true);
 
+    // Safe window access after mount
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
 
@@ -51,16 +52,20 @@ const Navigation = () => {
         document.body.offsetHeight - 100
       ) {
         const lastSection = sections[sections.length - 1];
-        setActiveSection(lastSection.getAttribute("id"));
+        if (lastSection) {
+          setActiveSection(lastSection.getAttribute("id"));
+        }
       }
     };
 
-    // Run once on initial load
-    setTimeout(handleScroll, 500);
-
+    // Only add event listener after mounting
     window.addEventListener("scroll", handleScroll);
+
+    // Run once on initial load to set initial state
+    handleScroll();
+
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [mounted]);
 
   const navItems = [
     { label: "Home", href: "#home", id: "home" },
@@ -71,6 +76,8 @@ const Navigation = () => {
   ];
 
   const scrollToSection = (href) => {
+    if (!mounted) return;
+
     const element = document.querySelector(href);
     if (element) {
       const navHeight = 80; // navbar height
@@ -89,19 +96,43 @@ const Navigation = () => {
     setIsMobileMenuOpen(false);
   };
 
-  // Don't render anything on server-side
+  // Render a static version for server-side rendering
   if (!mounted) {
     return (
-      <nav className="fixed w-full z-50 h-16 md:h-20">
+      <nav className="fixed w-full z-50 h-16 md:h-20 bg-black/90">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
-            {/* Minimal placeholder content */}
+            {/* Logo */}
+            <div className="flex items-center">
+              <a href="/" className="flex items-center gap-2">
+                <div className="relative w-8 h-8 overflow-hidden">
+                  {/* Placeholder for logo image */}
+                  <div className="w-8 h-8 bg-blue-500/50 rounded-full" />
+                </div>
+                <span className="text-white font-semibold text-base md:text-xl">
+                  Lumora Ventures
+                </span>
+              </a>
+            </div>
+
+            {/* Mobile menu button placeholder */}
+            <div className="md:hidden">
+              <button className="text-gray-400 hover:text-white focus:outline-none">
+                <span className="sr-only">Open main menu</span>
+                <div className="w-6 h-6 flex flex-col justify-center space-y-1.5">
+                  <span className="block w-6 h-0.5 bg-white"></span>
+                  <span className="block w-6 h-0.5 bg-white"></span>
+                  <span className="block w-6 h-0.5 bg-white"></span>
+                </div>
+              </button>
+            </div>
           </div>
         </div>
       </nav>
     );
   }
 
+  // Full component for client-side rendering
   return (
     <nav
       className={`fixed w-full z-50 transition-all duration-300 ${
@@ -159,6 +190,8 @@ const Navigation = () => {
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="text-gray-400 hover:text-white focus:outline-none"
+              aria-expanded={isMobileMenuOpen}
+              aria-label="Toggle menu"
             >
               <svg
                 className="w-6 h-6"

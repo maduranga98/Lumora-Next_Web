@@ -6,6 +6,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useRouter, usePathname } from "next/navigation";
+// Note: Make sure to import these fonts in your layout.js or _app.js
+// import { Inter, Montserrat, Poppins } from 'next/font/google';
 
 const Navbar = ({
   variant = "default",
@@ -16,12 +18,24 @@ const Navbar = ({
   const [scrolled, setScrolled] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState(null);
   const [mounted, setMounted] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(0);
   const router = useRouter();
   const pathname = usePathname();
 
   // Ensure component is mounted before accessing window
   useEffect(() => {
     setMounted(true);
+    setWindowWidth(window.innerWidth);
+
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+      if (window.innerWidth >= 768) {
+        setIsOpen(false); // Close mobile menu when resizing to desktop
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   // Check if we're on the home page
@@ -98,7 +112,7 @@ const Navbar = ({
 
     const element = document.getElementById(sectionId);
     if (element) {
-      const navbarHeight = 80; // Approximate navbar height
+      const navbarHeight = windowWidth >= 1280 ? 80 : 64; // Adjust based on screen size
       const offsetPosition = element.offsetTop - navbarHeight;
 
       window.scrollTo({
@@ -124,13 +138,8 @@ const Navbar = ({
           href: "/industrial-automation",
           label: "Industrial Automation",
         },
-        {
-          href: "/social-media-marketing",
-          label: "Social Media Marketing",
-        },
       ],
     },
-
     { href: "#contact", label: "Contact", isScroll: true },
   ];
 
@@ -169,6 +178,8 @@ const Navbar = ({
     if (link.isScroll) {
       const sectionId = link.href.replace("#", "");
       scrollToSection(e, sectionId);
+    } else {
+      setIsOpen(false); // Close mobile menu on regular link click
     }
   };
 
@@ -186,7 +197,11 @@ const Navbar = ({
       );
     }
     return (
-      <Link href={link.href} className={className}>
+      <Link
+        href={link.href}
+        className={className}
+        onClick={() => setIsOpen(false)}
+      >
         {link.label}
       </Link>
     );
@@ -204,6 +219,12 @@ const Navbar = ({
     }
   };
 
+  // Handle dropdown click for touch devices
+  const handleDropdownClick = (e, index) => {
+    e.preventDefault();
+    setActiveDropdown(activeDropdown === index ? null : index);
+  };
+
   // Don't render until mounted to avoid hydration mismatch
   if (!mounted) {
     return (
@@ -213,18 +234,18 @@ const Navbar = ({
             {/* Logo */}
             <Link
               href="/"
-              className={`flex items-center space-x-3 lg:space-x-4 group`}
+              className={`flex items-center space-x-2 sm:space-x-3 group`}
             >
-              <div className="relative w-8 h-8 lg:w-10 lg:h-10 xl:w-12 xl:h-12">
+              <div className="relative w-8 h-8">
                 <Image
                   src="/logo.png"
                   alt="Lumora Ventures"
-                  width={48}
-                  height={48}
+                  width={32}
+                  height={32}
                   className="object-contain"
                 />
               </div>
-              <span className="font-bold text-lg text-white">
+              <span className="font-bold text-base sm:text-lg text-white">
                 Lumora Ventures
               </span>
             </Link>
@@ -234,23 +255,55 @@ const Navbar = ({
     );
   }
 
+  // Determine logo and text sizes based on screen width
+  const getLogoSize = () => {
+    if (windowWidth >= 1536) return { size: 40, width: 10, height: 10 }; // 2xl
+    if (windowWidth >= 1280) return { size: 36, width: 9, height: 9 }; // xl
+    if (windowWidth >= 1024) return { size: 32, width: 8, height: 8 }; // lg
+    if (windowWidth >= 768) return { size: 28, width: 7, height: 7 }; // md
+    return { size: 24, width: 6, height: 6 }; // sm and below
+  };
+
+  const logoSize = getLogoSize();
+
+  // Determine text sizes based on screen width
+  const getTextSize = () => {
+    if (windowWidth >= 1536) return "text-2xl"; // 2xl
+    if (windowWidth >= 1280) return "text-xl"; // xl
+    if (windowWidth >= 1024) return "text-lg"; // lg
+    if (windowWidth >= 768) return "text-base"; // md
+    return "text-sm"; // sm and below
+  };
+
+  const getNavTextSize = () => {
+    if (windowWidth >= 1536) return "text-lg"; // 2xl
+    if (windowWidth >= 1280) return "text-base"; // xl
+    if (windowWidth >= 768) return "text-sm"; // md
+    return "text-xs"; // sm and below
+  };
+
   return (
     <nav className={getNavbarStyle()}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-6 xl:px-4 2xl:px-2">
-        <div className="flex items-center justify-between h-16 xl:h-20">
+      <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3 group">
-            <div className="relative w-8 h-8">
+          <Link
+            href="/"
+            className="flex items-center space-x-2 sm:space-x-3 group"
+          >
+            <div
+              className={`relative w-${logoSize.width} h-${logoSize.height}`}
+            >
               <Image
                 src="/logo.png"
                 alt="Lumora Ventures"
-                width={32}
-                height={32}
+                width={logoSize.size}
+                height={logoSize.size}
                 className="object-contain"
               />
             </div>
             <span
-              className={`font-bold text-lg md:text-xl xl:text-2xl 2xl:text-3xl ${
+              className={`font-bold font-montserrat tracking-tight ${getTextSize()} ${
                 scrolled ? "text-gray-900" : "text-white"
               }`}
             >
@@ -259,7 +312,7 @@ const Navbar = ({
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-3 lg:space-x-6 xl:space-x-8">
             {navLinks.map((link, index) => (
               <div
                 key={index}
@@ -274,7 +327,7 @@ const Navbar = ({
                 <div className="inline-flex items-center">
                   {renderLink(
                     link,
-                    `inline-flex items-center px-1 py-2 text-sm md:text-base xl:text-lg 2xl:text-xl font-medium transition-colors duration-300 ${
+                    `inline-flex items-center px-1 py-2 ${getNavTextSize()} font-poppins font-medium tracking-wide transition-colors duration-300 ${
                       variant === "premium"
                         ? "text-gray-300 hover:text-white"
                         : scrolled
@@ -283,11 +336,16 @@ const Navbar = ({
                     }`
                   )}
                   {link.dropdown && (
-                    <ChevronDown
-                      className={`ml-1 h-4 w-4 transition-transform duration-200 ${
-                        activeDropdown === index ? "rotate-180" : ""
-                      } ${scrolled ? "text-gray-700" : "text-white"}`}
-                    />
+                    <button
+                      onClick={(e) => handleDropdownClick(e, index)}
+                      className="ml-1 focus:outline-none"
+                    >
+                      <ChevronDown
+                        className={`h-4 w-4 transition-transform duration-200 ${
+                          activeDropdown === index ? "rotate-180" : ""
+                        } ${scrolled ? "text-gray-700" : "text-white"}`}
+                      />
+                    </button>
                   )}
                 </div>
 
@@ -299,7 +357,7 @@ const Navbar = ({
                       initial="closed"
                       animate="open"
                       exit="closed"
-                      className={`absolute left-0 mt-0 w-56 rounded-lg shadow-lg overflow-hidden ${
+                      className={`absolute left-0 mt-0 w-48 sm:w-56 rounded-lg shadow-lg overflow-hidden z-50 ${
                         variant === "premium" ? "bg-gray-900" : "bg-white"
                       }`}
                       onMouseEnter={() => setActiveDropdown(index)}
@@ -310,11 +368,12 @@ const Navbar = ({
                           <motion.div key={idx} variants={itemVariants}>
                             <Link
                               href={item.href}
-                              className={`block px-4 py-3 text-sm md:text-base xl:text-lg transition-colors duration-200 ${
+                              className={`block px-4 py-2 sm:py-3 ${getNavTextSize()} font-inter transition-colors duration-200 ${
                                 variant === "premium"
                                   ? "text-gray-300 hover:bg-gray-800 hover:text-white"
                                   : "text-gray-700 hover:bg-gray-50 hover:text-blue-600"
                               }`}
+                              onClick={() => setActiveDropdown(null)}
                             >
                               {item.label}
                             </Link>
@@ -335,11 +394,13 @@ const Navbar = ({
               className={`inline-flex items-center justify-center p-2 rounded-md focus:outline-none ${
                 scrolled ? "text-gray-700" : "text-white"
               }`}
+              aria-expanded={isOpen}
+              aria-label="Toggle navigation"
             >
               {isOpen ? (
-                <X className="h-6 w-6" />
+                <X className="h-5 w-5 sm:h-6 sm:w-6" />
               ) : (
-                <Menu className="h-6 w-6" />
+                <Menu className="h-5 w-5 sm:h-6 sm:w-6" />
               )}
             </button>
           </div>
@@ -354,34 +415,61 @@ const Navbar = ({
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="md:hidden overflow-hidden bg-white"
+            className="md:hidden overflow-hidden bg-white shadow-lg"
           >
             <div className="px-2 pt-2 pb-3 space-y-1">
               {navLinks.map((link, index) => (
                 <div key={index}>
-                  {renderLink(
-                    link,
-                    "block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50"
-                  )}
-                  {link.dropdown && (
-                    <div className="ml-4 space-y-1">
-                      {link.dropdown.map((item, idx) => (
-                        <Link
-                          key={idx}
-                          href={item.href}
-                          className="block px-3 py-2 rounded-md text-sm text-gray-600 hover:text-blue-600 hover:bg-gray-50"
-                          onClick={() => setIsOpen(false)}
-                        >
-                          {item.label}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
+                  <div className="flex items-center justify-between">
+                    {renderLink(
+                      link,
+                      "block px-3 py-2 rounded-md text-sm font-poppins font-medium text-gray-700 hover:text-blue-600 hover:bg-gray-50 w-full"
+                    )}
+                    {link.dropdown && (
+                      <button
+                        onClick={(e) => handleDropdownClick(e, index)}
+                        className="px-3 py-2 text-gray-700 focus:outline-none"
+                      >
+                        <ChevronDown
+                          className={`h-4 w-4 transition-transform duration-200 ${
+                            activeDropdown === index ? "rotate-180" : ""
+                          }`}
+                        />
+                      </button>
+                    )}
+                  </div>
+
+                  {/* Mobile Dropdown */}
+                  <AnimatePresence>
+                    {link.dropdown && activeDropdown === index && (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.2 }}
+                        className="ml-4 space-y-1 mt-1 overflow-hidden"
+                      >
+                        {link.dropdown.map((item, idx) => (
+                          <Link
+                            key={idx}
+                            href={item.href}
+                            className="block px-3 py-2 rounded-md text-xs sm:text-sm font-inter text-gray-600 hover:text-blue-600 hover:bg-gray-50"
+                            onClick={() => {
+                              setActiveDropdown(null);
+                              setIsOpen(false);
+                            }}
+                          >
+                            {item.label}
+                          </Link>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               ))}
               <Link
                 href="/contact"
-                className="block w-full text-center px-3 py-2 mt-4 rounded-full bg-blue-600 text-white text-base md:text-lg font-medium"
+                className="block w-full text-center px-3 py-2 mt-4 rounded-full bg-blue-600 text-white text-sm font-montserrat font-semibold tracking-wide shadow-md hover:bg-blue-700 hover:shadow-lg transition-all duration-300"
                 onClick={() => setIsOpen(false)}
               >
                 Get Started

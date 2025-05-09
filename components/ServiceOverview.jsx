@@ -1,64 +1,5 @@
 "use client";
-import React from "react";
-
-const styles = `
-@keyframes slideUp {
-  from {
-    opacity: 0;
-    transform: translateY(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-10px);
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-
-.animation-slideUp {
-  animation: slideUp 0.8s ease-out forwards;
-}
-
-.animation-float {
-  animation: float 3s ease-in-out infinite;
-}
-
-.animation-fadeIn {
-  animation: fadeIn 0.6s ease-out forwards;
-}
-
-.animation-delay-100 {
-  animation-delay: 0.1s;
-}
-
-.animation-delay-200 {
-  animation-delay: 0.2s;
-}
-
-.animation-delay-300 {
-  animation-delay: 0.3s;
-}
-
-.animation-delay-400 {
-  animation-delay: 0.4s;
-}
-`;
+import React, { useState, useEffect } from "react";
 
 const ServiceCard = ({
   title,
@@ -66,45 +7,84 @@ const ServiceCard = ({
   icon,
   isComingSoon = false,
   delay = 0,
+  isMounted = false,
 }) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = React.useRef(null);
+
+  // Only set up intersection observer after mounting
+  useEffect(() => {
+    if (!isMounted) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            setIsVisible(true);
+          }, delay);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, [delay, isMounted]);
+
+  // Only apply animation classes after mounting
+  const animationClass =
+    isMounted && isVisible
+      ? "opacity-100 translate-y-0"
+      : "opacity-0 translate-y-12";
+  const transitionClass = isMounted
+    ? "transition-all duration-800 ease-out"
+    : "";
+
   return (
     <div
-      className={`relative opacity-0 animation-slideUp animation-delay-${delay}`}
+      ref={ref}
+      className={`${animationClass} ${transitionClass}`}
+      style={{ transitionDelay: `${delay}ms` }}
     >
-      <div className="group bg-white/70 backdrop-blur-sm rounded-xl shadow-sm border border-gray-200 p-8 text-center transition-all duration-300 hover:shadow-lg hover:-translate-y-2 relative overflow-hidden">
+      <div className="group bg-white/90 backdrop-blur-md rounded-xl shadow-md border border-blue-50 p-6 sm:p-7 md:p-8 text-center transition-all duration-300 hover:shadow-xl hover:-translate-y-2 relative overflow-hidden">
         {/* Animated background gradient */}
         <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/80 to-blue-100/80 rounded-xl" />
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-50/90 to-indigo-50/90 rounded-xl" />
         </div>
 
         <div className="relative z-10">
-          {/* Icon container with floating animation */}
+          {/* Icon container */}
           <div className="flex justify-center mb-6">
             <div className="relative">
-              <div className="p-5 bg-gradient-to-br from-blue-200 to-blue-300 rounded-xl group-hover:from-blue-300 group-hover:to-blue-400 transition-all duration-300 shadow-sm group-hover:shadow">
-                <div className="animation-float">
-                  {React.cloneElement(icon, {
-                    className:
-                      "w-8 h-8 text-blue-600 transition-transform duration-300 group-hover:scale-110",
-                  })}
-                </div>
+              <div className="p-4 sm:p-5 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl group-hover:from-blue-600 group-hover:to-indigo-700 transition-all duration-300 shadow-md group-hover:shadow-lg">
+                {React.cloneElement(icon, {
+                  className:
+                    "w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-white transition-transform duration-300 group-hover:scale-110",
+                })}
               </div>
               {/* Glow effect */}
-              <div className="absolute inset-0 rounded-xl bg-blue-400/20 blur-md opacity-0 group-hover:opacity-50 transition-opacity duration-300" />
+              <div className="absolute inset-0 rounded-xl bg-indigo-400/30 blur-md opacity-0 group-hover:opacity-70 transition-opacity duration-300" />
             </div>
           </div>
 
-          <h3 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors duration-300">
+          <h3 className="text-lg sm:text-xl md:text-xl lg:text-xl xl:text-2xl font-montserrat font-bold text-gray-900 mb-3 group-hover:text-indigo-700 transition-colors duration-300">
             {title}
           </h3>
 
-          <p className="text-sm text-gray-600 mb-4 group-hover:text-gray-700 transition-colors duration-300">
+          <p className="text-xs sm:text-sm md:text-sm lg:text-base font-inter text-gray-600 mb-4 group-hover:text-gray-700 transition-colors duration-300 px-1">
             {description}
           </p>
 
           {isComingSoon && (
-            <div className="inline-flex items-center px-3 py-1 bg-yellow-100 text-yellow-800 text-xs font-medium rounded-full group-hover:bg-yellow-200 transition-colors duration-300">
-              <span className="w-1.5 h-1.5 bg-yellow-600 rounded-full mr-2 animate-pulse" />
+            <div className="inline-flex items-center px-3 py-1 bg-orange-100 text-orange-800 text-xs font-medium rounded-full group-hover:bg-orange-200 transition-colors duration-300">
+              <span className="w-1.5 h-1.5 bg-orange-600 rounded-full mr-2 animate-pulse" />
               Coming Soon
             </div>
           )}
@@ -115,14 +95,72 @@ const ServiceCard = ({
 };
 
 const ServiceOverview = () => {
-  // Add styles to head
-  React.useEffect(() => {
-    const styleSheet = document.createElement("style");
-    styleSheet.textContent = styles;
-    document.head.appendChild(styleSheet);
-    return () => {
-      document.head.removeChild(styleSheet);
+  const [mounted, setMounted] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(0);
+
+  // Set mounted state after hydration and track window width
+  useEffect(() => {
+    setMounted(true);
+    setWindowWidth(window.innerWidth);
+
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
     };
+
+    window.addEventListener("resize", handleResize);
+
+    // Add animation styles to the document head after mounting
+    if (typeof document !== "undefined") {
+      const styleEl = document.createElement("style");
+      styleEl.textContent = `
+        @keyframes slideUp {
+          from {
+            opacity: 0;
+            transform: translateY(50px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
+        }
+
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+          }
+          to {
+            opacity: 1;
+          }
+        }
+
+        .animation-float {
+          animation: float 3s ease-in-out infinite;
+        }
+        
+        .animate-fadeIn {
+          animation: fadeIn 1s ease-out forwards;
+        }
+        
+        .dark-overlay-gradient {
+          background: linear-gradient(to bottom, rgba(30, 58, 138, 0.03), rgba(30, 58, 138, 0.08));
+        }
+      `;
+      document.head.appendChild(styleEl);
+
+      return () => {
+        document.head.removeChild(styleEl);
+        window.removeEventListener("resize", handleResize);
+      };
+    }
   }, []);
 
   const services = [
@@ -197,12 +235,19 @@ const ServiceOverview = () => {
     },
   ];
 
+  // Determine the grid columns based on screen width
+  const getGridCols = () => {
+    if (windowWidth >= 1024) return "grid-cols-4";
+    if (windowWidth >= 640) return "grid-cols-2";
+    return "grid-cols-1";
+  };
+
   return (
     <section
       id="solutions"
-      className="py-16 lg:py-24 2xl:py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
+      className="py-16 md:py-20 lg:py-24 xl:py-28 2xl:py-32 px-4 sm:px-6 lg:px-8 relative overflow-hidden"
       style={{
-        background: "linear-gradient(180deg, #DCE9F9 0%, #F0F4F8 100%)",
+        background: "linear-gradient(135deg, #EBF5FF 0%, #F5F7FA 100%)",
       }}
     >
       {/* Background elements */}
@@ -211,7 +256,7 @@ const ServiceOverview = () => {
         <div className="absolute -bottom-24 -right-24 w-96 h-96 bg-blue-200/40 rounded-full blur-3xl" />
 
         {/* Subtle grid pattern */}
-        <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0 opacity-10">
           <div
             className="absolute inset-0"
             style={{
@@ -222,20 +267,35 @@ const ServiceOverview = () => {
         </div>
       </div>
 
-      <div className="max-w-7xl 2xl:max-w-[1600px] mx-auto relative">
+      <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-[1400px] mx-auto relative">
         {/* Header with animation */}
-        <div className="text-center mb-16 lg:mb-20 2xl:mb-24">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl 2xl:text-6xl font-bold text-gray-900 mb-4 2xl:mb-6 opacity-0 animation-fadeIn">
+        <div className="text-center mb-12 md:mb-14 lg:mb-16 xl:mb-20 2xl:mb-24">
+          <h2
+            className={`font-montserrat text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-5xl 2xl:text-6xl font-bold text-gray-900 mb-4 md:mb-5 lg:mb-6 ${
+              mounted ? "animate-fadeIn" : "opacity-0"
+            }`}
+            style={{ animationDelay: "0ms" }}
+          >
             Our Solutions
           </h2>
-          <p className="text-lg lg:text-xl 2xl:text-2xl text-gray-700 max-w-3xl 2xl:max-w-4xl mx-auto opacity-0 animation-fadeIn animation-delay-100">
+          <div className="w-20 h-1 sm:w-24 md:w-28 lg:w-32 xl:w-36 2xl:w-40 xl:h-1.5 mx-auto mb-6 sm:mb-7 md:mb-8 lg:mb-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500"></div>
+          <p
+            className={`font-inter text-base sm:text-lg md:text-lg lg:text-xl xl:text-xl 2xl:text-2xl text-gray-700 max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto ${
+              mounted ? "animate-fadeIn" : "opacity-0"
+            }`}
+            style={{ animationDelay: "100ms" }}
+          >
             Innovative digital tools designed to streamline your business
             operations
           </p>
         </div>
 
         {/* Service cards grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 2xl:gap-10">
+        <div
+          className={`grid ${
+            mounted ? getGridCols() : "grid-cols-1"
+          } gap-5 sm:gap-6 md:gap-6 lg:gap-8 xl:gap-8 2xl:gap-10`}
+        >
           {services.map((service, index) => (
             <ServiceCard
               key={index}
@@ -244,10 +304,26 @@ const ServiceOverview = () => {
               icon={service.icon}
               isComingSoon={service.isComingSoon}
               delay={100 + index * 100}
+              isMounted={mounted}
             />
           ))}
         </div>
       </div>
+
+      {/* Decorative floating elements */}
+      <div className="absolute top-1/4 left-8 w-3 h-3 bg-blue-400 rounded-full opacity-30 animation-float"></div>
+      <div
+        className="absolute bottom-1/3 right-12 w-4 h-4 bg-blue-400 rounded-full opacity-30 animation-float"
+        style={{ animationDelay: "1s" }}
+      ></div>
+      <div
+        className="absolute top-2/3 left-1/4 w-2 h-2 bg-blue-400 rounded-full opacity-20 animation-float"
+        style={{ animationDelay: "1.5s" }}
+      ></div>
+      <div
+        className="absolute top-1/3 right-1/4 w-2 h-2 bg-blue-400 rounded-full opacity-20 animation-float"
+        style={{ animationDelay: "0.5s" }}
+      ></div>
     </section>
   );
 };

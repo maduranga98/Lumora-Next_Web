@@ -1,46 +1,8 @@
 "use client";
 
-import { useState } from "react";
-import { initializeApp, getApps } from "firebase/app";
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  serverTimestamp,
-} from "firebase/firestore";
-
-// Firebase configuration - In a production app, use environment variables
-const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "YOUR_API_KEY",
-  authDomain:
-    process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN || "YOUR_AUTH_DOMAIN",
-  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || "YOUR_PROJECT_ID",
-  storageBucket:
-    process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || "YOUR_STORAGE_BUCKET",
-  messagingSenderId:
-    process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID ||
-    "YOUR_MESSAGING_SENDER_ID",
-  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID || "YOUR_APP_ID",
-};
-
-// Initialize Firebase (this will only run on the client side)
-let firebaseApp;
-let db;
-
-if (typeof window !== "undefined") {
-  try {
-    // Check if Firebase app has already been initialized
-    const apps = getApps();
-    if (apps.length === 0) {
-      firebaseApp = initializeApp(firebaseConfig);
-    } else {
-      firebaseApp = apps[0];
-    }
-    db = getFirestore(firebaseApp);
-  } catch (error) {
-    console.error("Firebase initialization error:", error);
-  }
-}
+import { useState, useEffect } from "react";
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { db } from "@/app/lib/firebase";
 
 const ContactForm = () => {
   // Form state
@@ -49,12 +11,31 @@ const ContactForm = () => {
     email: "",
     service: "",
     message: "",
+    csrfToken: "", // Add CSRF token to form data
   });
 
   // Form status states
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState("");
+
+  // Generate and set CSRF token on component mount
+  useEffect(() => {
+    // Generate a random token
+    const generateCSRFToken = () => {
+      return Array(32)
+        .fill(0)
+        .map(() => Math.random().toString(36).charAt(2))
+        .join('');
+    };
+
+    // Set the token in both state and session storage
+    const csrfToken = generateCSRFToken();
+    setFormData(prev => ({ ...prev, csrfToken }));
+    
+    // Store in session storage to verify on submission
+    sessionStorage.setItem('csrfToken', csrfToken);
+  }, []);
 
   // Service options
   const serviceOptions = [
@@ -70,6 +51,7 @@ const ContactForm = () => {
     { value: "industrial-automation", label: "Industrial Automation" },
     { value: "social-media", label: "Social Media Marketing (Coming Soon)" },
     { value: "other", label: "Other / Not sure yet" },
+    
   ];
 
   // Handle form input changes
@@ -90,6 +72,14 @@ const ContactForm = () => {
     setSubmitSuccess(false);
     setSubmitError("");
 
+    // Validate CSRF token
+    const storedToken = sessionStorage.getItem('csrfToken');
+    if (formData.csrfToken !== storedToken) {
+      setSubmitError("Security validation failed. Please refresh the page and try again.");
+      setIsSubmitting(false);
+      return;
+    }
+
     // Validate form
     if (
       !formData.name ||
@@ -103,9 +93,12 @@ const ContactForm = () => {
     }
 
     try {
-      // Add document to Firestore
+      // Add document to Firestore using the imported db instance
+      // Remove the CSRF token from the data sent to Firestore
+      const { csrfToken, ...dataToSubmit } = formData;
+      
       await addDoc(collection(db, "inquiries"), {
-        ...formData,
+        ...dataToSubmit,
         timestamp: serverTimestamp(),
         source: "website",
       });
@@ -113,12 +106,20 @@ const ContactForm = () => {
       // Success
       setSubmitSuccess(true);
 
-      // Reset form
+      // Reset form but generate a new CSRF token
+      const newCsrfToken = Array(32)
+        .fill(0)
+        .map(() => Math.random().toString(36).charAt(2))
+        .join('');
+      
+      sessionStorage.setItem('csrfToken', newCsrfToken);
+      
       setFormData({
         name: "",
         email: "",
         service: "",
         message: "",
+        csrfToken: newCsrfToken,
       });
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -183,6 +184,13 @@ const ContactForm = () => {
 
       {/* Contact Form */}
       <form onSubmit={handleSubmit}>
+        {/* Hidden CSRF Token Field */}
+        <input 
+          type="hidden" 
+          name="csrfToken" 
+          value={formData.csrfToken} 
+        />
+        
         <div className="grid grid-cols-1 gap-6">
           {/* Name Field */}
           <div>
@@ -326,8 +334,8 @@ const ContactForm = () => {
                 d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
               />
             </svg>
-            <a
-              href="mailto:contact@lumoraventures.com"
+            
+              href="mailto:info@lumoraventures.com"
               className="text-indigo-600 hover:underline"
             >
               contact@lumoraventures.com
@@ -348,7 +356,7 @@ const ContactForm = () => {
                 d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
               />
             </svg>
-            <a
+            
               href="tel:+11234567890"
               className="text-indigo-600 hover:underline"
             >
@@ -360,3 +368,5 @@ const ContactForm = () => {
     </div>
   );
 };
+
+export default ContactForm;

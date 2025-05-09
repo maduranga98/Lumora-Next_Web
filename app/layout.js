@@ -30,7 +30,11 @@ export default function RootLayout({ children }) {
       lang="en"
       className={`${inter.variable} ${jakartaSans.variable} ${outfit.variable} scroll-smooth`}
     >
-      <body className={`flex flex-col min-h-screen ${inter.className}`}>
+      {/* Add suppressHydrationWarning to body element */}
+      <body
+        className={`flex flex-col min-h-screen ${inter.className}`}
+        suppressHydrationWarning={true}
+      >
         {/* Main content without global navbar */}
         <main className="flex-grow">{children}</main>
         <Footer />

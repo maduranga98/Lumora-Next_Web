@@ -7,6 +7,7 @@ import { db } from "../app/lib/firebase";
 const ContactPage = () => {
   // Use a ref to track mounted state for hydration safety
   const [isMounted, setIsMounted] = useState(false);
+  const [windowWidth, setWindowWidth] = useState(0);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -17,9 +18,17 @@ const ContactPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState("");
 
-  // Set mounted state after hydration
+  // Set mounted state after hydration and track window width
   useEffect(() => {
     setIsMounted(true);
+    setWindowWidth(window.innerWidth);
+
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const handleChange = (e) => {
@@ -64,41 +73,45 @@ const ContactPage = () => {
   return (
     <div
       id="contact"
-      className="min-h-screen bg-gradient-to-b from-gray-50 to-white py-12 px-4 sm:px-6 lg:px-8"
+      className="min-h-screen py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 2xl:py-32 px-4 sm:px-6 lg:px-8"
+      style={{
+        background: "linear-gradient(135deg, #EBF5FF 0%, #F5F7FA 100%)",
+      }}
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-[1400px] mx-auto">
         {/* Header Section */}
-        <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">
+        <div className="text-center mb-10 sm:mb-12 md:mb-14 lg:mb-16 xl:mb-20">
+          <h1 className="font-montserrat text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-5xl 2xl:text-6xl font-bold text-gray-900 mb-4 sm:mb-5 md:mb-6">
             Get in Touch
           </h1>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+          <div className="w-20 h-1 sm:w-24 md:w-28 lg:w-32 xl:w-36 2xl:w-40 xl:h-1.5 mx-auto mb-6 sm:mb-7 md:mb-8 rounded-full bg-gradient-to-r from-blue-500 to-purple-500"></div>
+          <p className="font-inter text-base sm:text-lg md:text-lg lg:text-xl xl:text-xl 2xl:text-2xl text-gray-700 max-w-xl sm:max-w-2xl md:max-w-3xl mx-auto">
             Ready to take your business to the next level? Let's discuss how we
             can help you achieve your goals.
           </p>
         </div>
 
-        <div className="grid lg:grid-cols-12 gap-8">
+        <div className="grid lg:grid-cols-12 gap-6 sm:gap-8 md:gap-10 lg:gap-12">
           {/* Left Side - Contact Info */}
           <div className="lg:col-span-4 order-2 lg:order-1">
             {/* Illustration */}
-            <div className="hidden lg:block mb-6">
+            <div className="hidden lg:block mb-6 overflow-hidden rounded-xl shadow-md">
               {isMounted && (
                 <img
                   src="/contact.png"
                   alt="Contact illustration"
-                  className="w-full h-auto rounded-lg shadow-sm"
+                  className="w-full h-auto transform hover:scale-105 transition-transform duration-500"
                 />
               )}
             </div>
 
             {/* Contact Information Card */}
-            <div className="bg-white rounded-xl shadow-sm p-6">
-              <h3 className="text-xl font-semibold text-gray-900 mb-6">
+            <div className="bg-white rounded-xl shadow-md p-5 sm:p-6 md:p-7 lg:p-8 border border-blue-50">
+              <h3 className="font-montserrat text-lg sm:text-xl md:text-xl lg:text-2xl font-semibold text-gray-900 mb-5 sm:mb-6 md:mb-7">
                 Contact Information
               </h3>
 
-              <div className="space-y-6">
+              <div className="space-y-5 sm:space-y-6 md:space-y-7">
                 {/* Email */}
                 <div className="flex items-start space-x-3">
                   <div className="flex-shrink-0">
@@ -119,10 +132,10 @@ const ContactPage = () => {
                     </div>
                   </div>
                   <div>
-                    <h4 className="text-base font-medium text-gray-900">
+                    <h4 className="font-montserrat text-base font-medium text-gray-900">
                       Email
                     </h4>
-                    <p className="text-sm text-gray-600">
+                    <p className="font-inter text-sm text-gray-600 mt-1">
                       info@lumoraventures.com
                     </p>
                   </div>
@@ -148,10 +161,12 @@ const ContactPage = () => {
                     </div>
                   </div>
                   <div>
-                    <h4 className="text-base font-medium text-gray-900">
+                    <h4 className="font-montserrat text-base font-medium text-gray-900">
                       Phone
                     </h4>
-                    <p className="text-sm text-gray-600">+1 (123) 456-7890</p>
+                    <p className="font-inter text-sm text-gray-600 mt-1">
+                      +1 (123) 456-7890
+                    </p>
                   </div>
                 </div>
 
@@ -181,10 +196,10 @@ const ContactPage = () => {
                     </div>
                   </div>
                   <div>
-                    <h4 className="text-base font-medium text-gray-900">
+                    <h4 className="font-montserrat text-base font-medium text-gray-900">
                       Address
                     </h4>
-                    <div className="text-sm text-gray-600 mt-1">
+                    <div className="font-inter text-sm text-gray-600 mt-1">
                       <p>Office 4157, 58 Peregrine Road</p>
                       <p>Hainault, Ilford, Essex</p>
                       <p>United Kingdom</p>
@@ -199,13 +214,16 @@ const ContactPage = () => {
           {/* Right Side - Form and Additional Info */}
           <div className="lg:col-span-8 order-1 lg:order-2">
             {/* Contact Form */}
-            <div className="bg-white rounded-2xl shadow-xl p-8 h-fit mb-8">
-              <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg p-5 sm:p-6 md:p-7 lg:p-8 xl:p-10 h-fit mb-5 sm:mb-6 md:mb-7 lg:mb-8 border border-blue-50">
+              <form
+                onSubmit={handleSubmit}
+                className="space-y-4 sm:space-y-5 md:space-y-6"
+              >
                 {/* Name Input */}
                 <div>
                   <label
                     htmlFor="name"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block font-montserrat text-sm font-medium text-gray-700 mb-1 sm:mb-2"
                   >
                     Name
                   </label>
@@ -216,7 +234,7 @@ const ContactPage = () => {
                     value={formData.name}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors font-inter"
                     placeholder="Your name"
                   />
                 </div>
@@ -225,7 +243,7 @@ const ContactPage = () => {
                 <div>
                   <label
                     htmlFor="email"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block font-montserrat text-sm font-medium text-gray-700 mb-1 sm:mb-2"
                   >
                     Email
                   </label>
@@ -236,7 +254,7 @@ const ContactPage = () => {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors font-inter"
                     placeholder="your@email.com"
                   />
                 </div>
@@ -245,7 +263,7 @@ const ContactPage = () => {
                 <div>
                   <label
                     htmlFor="service"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block font-montserrat text-sm font-medium text-gray-700 mb-1 sm:mb-2"
                   >
                     Service of Interest
                   </label>
@@ -255,7 +273,7 @@ const ContactPage = () => {
                     value={formData.service}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors font-inter"
                   >
                     <option value="">Select a service</option>
                     <option value="Google My Business">
@@ -278,7 +296,7 @@ const ContactPage = () => {
                 <div>
                   <label
                     htmlFor="message"
-                    className="block text-sm font-medium text-gray-700 mb-2"
+                    className="block font-montserrat text-sm font-medium text-gray-700 mb-1 sm:mb-2"
                   >
                     Message
                   </label>
@@ -289,7 +307,7 @@ const ContactPage = () => {
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-colors font-inter"
                     placeholder="Tell us about your project..."
                   />
                 </div>
@@ -299,10 +317,10 @@ const ContactPage = () => {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={`w-full px-8 py-3 rounded-lg font-semibold text-white transition-all duration-300 ${
+                    className={`w-full px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4 rounded-lg font-montserrat font-semibold text-white shadow-md transition-all duration-300 ${
                       isSubmitting
                         ? "bg-blue-400 cursor-not-allowed"
-                        : "bg-blue-600 hover:bg-blue-700"
+                        : "bg-blue-600 hover:bg-blue-700 hover:shadow-lg"
                     }`}
                   >
                     {isSubmitting ? "Sending..." : "Send Message"}
@@ -311,12 +329,12 @@ const ContactPage = () => {
 
                 {/* Status Messages */}
                 {submitStatus === "success" && (
-                  <div className="p-4 rounded-lg bg-green-50 text-green-700">
+                  <div className="p-4 rounded-lg bg-green-50 text-green-700 font-inter border border-green-200">
                     Thank you! Your message has been sent successfully.
                   </div>
                 )}
                 {submitStatus === "error" && (
-                  <div className="p-4 rounded-lg bg-red-50 text-red-700">
+                  <div className="p-4 rounded-lg bg-red-50 text-red-700 font-inter border border-red-200">
                     Something went wrong. Please try again.
                   </div>
                 )}
@@ -324,9 +342,9 @@ const ContactPage = () => {
             </div>
 
             {/* Additional Information */}
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-2 gap-5 sm:gap-6 md:gap-8">
               {/* Office Hours */}
-              <div className="bg-white rounded-xl shadow-sm p-6">
+              <div className="bg-white rounded-xl shadow-md p-5 sm:p-6 border border-blue-50">
                 <div className="flex items-start space-x-3">
                   <div className="flex-shrink-0">
                     <div className="w-10 h-10 bg-yellow-100 rounded-lg flex items-center justify-center">
@@ -346,13 +364,13 @@ const ContactPage = () => {
                     </div>
                   </div>
                   <div>
-                    <h4 className="text-base font-medium text-gray-900">
+                    <h4 className="font-montserrat text-base font-medium text-gray-900">
                       Business Hours
                     </h4>
-                    <p className="text-sm text-gray-600 mt-1">
+                    <p className="font-inter text-sm text-gray-600 mt-1">
                       Monday - Friday: 9:00 AM - 6:00 PM
                     </p>
-                    <p className="text-sm text-gray-600">
+                    <p className="font-inter text-sm text-gray-600">
                       Weekends: By appointment
                     </p>
                   </div>
@@ -360,7 +378,7 @@ const ContactPage = () => {
               </div>
 
               {/* Social Media */}
-              <div className="bg-white rounded-xl shadow-sm p-6">
+              <div className="bg-white rounded-xl shadow-md p-5 sm:p-6 border border-blue-50">
                 <div className="flex items-start space-x-3">
                   <div className="flex-shrink-0">
                     <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
@@ -380,13 +398,14 @@ const ContactPage = () => {
                     </div>
                   </div>
                   <div>
-                    <h4 className="text-base font-medium text-gray-900">
+                    <h4 className="font-montserrat text-base font-medium text-gray-900">
                       Connect With Us
                     </h4>
                     <div className="flex space-x-4 mt-2">
                       <a
                         href="#"
-                        className="text-gray-500 hover:text-blue-600 transition-colors"
+                        className="text-gray-500 hover:text-blue-600 transition-colors transform hover:scale-110 duration-300"
+                        aria-label="Facebook"
                       >
                         <svg
                           className="w-6 h-6"
@@ -398,7 +417,8 @@ const ContactPage = () => {
                       </a>
                       <a
                         href="#"
-                        className="text-gray-500 hover:text-blue-400 transition-colors"
+                        className="text-gray-500 hover:text-blue-400 transition-colors transform hover:scale-110 duration-300"
+                        aria-label="Twitter"
                       >
                         <svg
                           className="w-6 h-6"
@@ -410,7 +430,8 @@ const ContactPage = () => {
                       </a>
                       <a
                         href="#"
-                        className="text-gray-500 hover:text-blue-600 transition-colors"
+                        className="text-gray-500 hover:text-blue-600 transition-colors transform hover:scale-110 duration-300"
+                        aria-label="LinkedIn"
                       >
                         <svg
                           className="w-6 h-6"

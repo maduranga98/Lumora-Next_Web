@@ -4,9 +4,17 @@ import Link from "next/link";
 
 const AnimatedElement = ({ children, delay = 0, className = "" }) => {
   const [isVisible, setIsVisible] = React.useState(false);
+  const [isMounted, setIsMounted] = React.useState(false);
   const ref = React.useRef(null);
 
+  // Handle mounting to prevent hydration issues
   React.useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  React.useEffect(() => {
+    if (!isMounted) return;
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -27,17 +35,22 @@ const AnimatedElement = ({ children, delay = 0, className = "" }) => {
         observer.unobserve(ref.current);
       }
     };
-  }, [delay]);
+  }, [delay, isMounted]);
 
   return (
     <div
       ref={ref}
-      className={className}
-      style={{
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? "translateY(0)" : "translateY(50px)",
-        transition: "all 0.8s ease-out",
-      }}
+      className={`${className} ${
+        isMounted ? "transition-all duration-800 ease-out" : ""
+      }`}
+      style={
+        isMounted
+          ? {
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? "translateY(0)" : "translateY(50px)",
+            }
+          : { opacity: 1 } // Avoid hydration mismatch
+      }
     >
       {children}
     </div>
@@ -45,6 +58,21 @@ const AnimatedElement = ({ children, delay = 0, className = "" }) => {
 };
 
 const ServiceSection = () => {
+  const [windowWidth, setWindowWidth] = React.useState(0);
+  const [mounted, setMounted] = React.useState(false);
+
+  React.useEffect(() => {
+    setMounted(true);
+    setWindowWidth(window.innerWidth);
+
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   const services = [
     {
       title: "Google My Business Profile Management",
@@ -59,7 +87,7 @@ const ServiceSection = () => {
       ],
       icon: (
         <svg
-          className="w-12 h-12 lg:w-14 lg:h-14 text-blue-600"
+          className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 xl:w-16 xl:h-16 text-blue-600"
           viewBox="0 0 64 64"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -107,7 +135,7 @@ const ServiceSection = () => {
       ],
       icon: (
         <svg
-          className="w-12 h-12 lg:w-14 lg:h-14 text-purple-600"
+          className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 xl:w-16 xl:h-16 text-purple-600"
           viewBox="0 0 64 64"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -157,7 +185,7 @@ const ServiceSection = () => {
       ],
       icon: (
         <svg
-          className="w-12 h-12 lg:w-14 lg:h-14 text-green-600"
+          className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 xl:w-16 xl:h-16 text-green-600"
           viewBox="0 0 64 64"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -192,7 +220,7 @@ const ServiceSection = () => {
       isComingSoon: true,
       icon: (
         <svg
-          className="w-12 h-12 lg:w-14 lg:h-14 text-orange-600"
+          className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 xl:w-16 xl:h-16 text-orange-600"
           viewBox="0 0 64 64"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
@@ -217,40 +245,55 @@ const ServiceSection = () => {
     },
   ];
 
+  // Helper for responsive classes
+  const getGridCols = () => {
+    if (windowWidth >= 1536) return "grid-cols-2"; // 2xl and up
+    if (windowWidth >= 1024) return "grid-cols-2"; // lg and up
+    if (windowWidth >= 768) return "grid-cols-2"; // md and up
+    return "grid-cols-1"; // Below md
+  };
+
   return (
     <section
       id="services"
-      className="py-16 lg:py-24 2xl:py-32 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-gray-50 to-white"
+      className="py-16 sm:py-20 md:py-24 lg:py-28 xl:py-32 2xl:py-36 px-4 sm:px-6 lg:px-8"
+      style={{
+        background: "linear-gradient(to bottom, #EBF5FF 0%, #F5F7FA 100%)",
+      }}
     >
-      <div className="max-w-7xl 2xl:max-w-[1600px] mx-auto">
-        <div className="text-center mb-16 lg:mb-20 2xl:mb-24">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl 2xl:text-6xl font-bold text-gray-900 mb-6 lg:mb-8 2xl:mb-10">
+      <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-[1400px] mx-auto">
+        <div className="text-center mb-12 sm:mb-14 md:mb-16 lg:mb-20 xl:mb-24">
+          <h2 className="font-montserrat text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-5xl 2xl:text-6xl font-bold text-gray-900 mb-4 sm:mb-5 md:mb-6 lg:mb-8">
             Our Services
           </h2>
-          <div className="w-20 h-1 lg:w-24 lg:h-1 2xl:w-32 2xl:h-1.5 mx-auto mb-8 lg:mb-10 2xl:mb-12 rounded-full bg-gradient-to-r from-blue-500 to-purple-500"></div>
-          <p className="text-base sm:text-lg lg:text-xl 2xl:text-2xl text-gray-600 max-w-3xl 2xl:max-w-4xl mx-auto leading-relaxed">
+          <div className="w-20 h-1 sm:w-24 md:w-28 lg:w-32 xl:w-36 2xl:w-40 xl:h-1.5 mx-auto mb-6 sm:mb-7 md:mb-8 lg:mb-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500"></div>
+          <p className="font-inter text-base sm:text-lg md:text-lg lg:text-xl xl:text-xl 2xl:text-2xl text-gray-700 max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto leading-relaxed">
             At Lumora Ventures, we're dedicated to delivering solutions that
             drive real business value.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-8 lg:gap-12 2xl:gap-16">
+        <div
+          className={`grid ${
+            mounted ? getGridCols() : "grid-cols-1"
+          } gap-6 sm:gap-7 md:gap-8 lg:gap-10 xl:gap-12 2xl:gap-16`}
+        >
           {services.map((service, index) => (
             <AnimatedElement key={index} delay={index * 100}>
               <div
-                className={`group relative rounded-2xl p-6 lg:p-8 xl:p-10 ${
+                className={`group relative rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 xl:p-10 ${
                   service.isComingSoon
-                    ? "bg-gradient-to-br from-orange-50 to-orange-50 border-2 border-dashed border-orange-300"
+                    ? "bg-gradient-to-br from-orange-50 to-orange-100 border-2 border-dashed border-orange-300"
                     : "bg-white shadow-lg hover:shadow-xl transition-all duration-300"
                 }`}
               >
                 {service.isComingSoon && (
-                  <div className="absolute -top-3 right-8 px-4 py-1.5 bg-orange-600 text-white text-sm font-semibold rounded-full transform rotate-12">
+                  <div className="absolute -top-3 sm:-top-4 right-4 sm:right-8 px-3 sm:px-4 py-1 sm:py-1.5 bg-orange-600 text-white text-xs sm:text-sm font-semibold rounded-full transform rotate-12">
                     Coming Soon
                   </div>
                 )}
 
-                <div className="flex flex-col lg:flex-row items-start gap-6 lg:gap-8">
+                <div className="flex flex-col lg:flex-row items-start gap-4 sm:gap-5 md:gap-6 lg:gap-8">
                   <div
                     className={`flex-shrink-0 ${
                       service.isComingSoon ? "opacity-50" : ""
@@ -260,22 +303,22 @@ const ServiceSection = () => {
                   </div>
 
                   <div className="flex-1">
-                    <h3 className="text-xl lg:text-2xl xl:text-3xl font-bold text-gray-900 mb-3 lg:mb-4">
+                    <h3 className="font-montserrat text-xl sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl font-bold text-gray-900 mb-2 sm:mb-3 md:mb-4">
                       {service.title}
                     </h3>
-                    <p className="text-sm lg:text-base xl:text-lg text-gray-600 mb-6 lg:mb-8 leading-relaxed">
+                    <p className="font-inter text-sm sm:text-base md:text-base lg:text-lg xl:text-lg text-gray-600 mb-4 sm:mb-5 md:mb-6 lg:mb-8 leading-relaxed">
                       {service.description}
                     </p>
 
                     {service.benefits && (
-                      <ul className="space-y-3 lg:space-y-4 mb-8 lg:mb-10">
+                      <ul className="space-y-2 sm:space-y-2.5 md:space-y-3 lg:space-y-4 mb-6 sm:mb-7 md:mb-8 lg:mb-10">
                         {service.benefits.map((benefit, benefitIndex) => (
                           <li
                             key={benefitIndex}
-                            className="flex items-center text-sm lg:text-base text-gray-700"
+                            className="flex items-start sm:items-center text-xs sm:text-sm md:text-sm lg:text-base xl:text-base text-gray-700"
                           >
                             <svg
-                              className={`w-5 h-5 lg:w-6 lg:h-6 mr-3 text-${service.color}-600`}
+                              className={`w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 mr-2 sm:mr-3 mt-0.5 sm:mt-0 text-${service.color}-600 flex-shrink-0`}
                               fill="currentColor"
                               viewBox="0 0 20 20"
                             >
@@ -294,11 +337,11 @@ const ServiceSection = () => {
                     {!service.isComingSoon ? (
                       <Link
                         href={service.link}
-                        className={`inline-flex items-center px-6 py-3 lg:px-8 lg:py-4 rounded-lg font-semibold text-sm lg:text-base text-white ${service.buttonClass} transition-all duration-300 group`}
+                        className={`inline-flex items-center px-4 sm:px-5 md:px-6 lg:px-8 py-2 sm:py-2.5 md:py-3 lg:py-4 rounded-lg font-montserrat font-semibold text-xs sm:text-sm md:text-sm lg:text-base text-white ${service.buttonClass} transition-all duration-300 shadow-md hover:shadow-lg group`}
                       >
                         Learn More
                         <svg
-                          className="w-4 h-4 lg:w-5 lg:h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300"
+                          className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -314,11 +357,11 @@ const ServiceSection = () => {
                     ) : service.enabled ? (
                       <Link
                         href={service.link}
-                        className={`inline-flex items-center px-6 py-3 lg:px-8 lg:py-4 rounded-lg font-semibold text-sm lg:text-base text-white ${service.buttonClass} transition-all duration-300 group`}
+                        className={`inline-flex items-center px-4 sm:px-5 md:px-6 lg:px-8 py-2 sm:py-2.5 md:py-3 lg:py-4 rounded-lg font-montserrat font-semibold text-xs sm:text-sm md:text-sm lg:text-base text-white ${service.buttonClass} transition-all duration-300 shadow-md hover:shadow-lg group`}
                       >
                         Request Early Access
                         <svg
-                          className="w-4 h-4 lg:w-5 lg:h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300"
+                          className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300"
                           fill="none"
                           stroke="currentColor"
                           viewBox="0 0 24 24"
@@ -334,7 +377,7 @@ const ServiceSection = () => {
                     ) : (
                       <button
                         disabled
-                        className="inline-flex items-center px-6 py-3 lg:px-8 lg:py-4 rounded-lg font-semibold text-sm lg:text-base text-gray-400 bg-gray-200 cursor-not-allowed"
+                        className="inline-flex items-center px-4 sm:px-5 md:px-6 lg:px-8 py-2 sm:py-2.5 md:py-3 lg:py-4 rounded-lg font-montserrat font-semibold text-xs sm:text-sm md:text-sm lg:text-base text-gray-400 bg-gray-200 cursor-not-allowed"
                       >
                         Coming Soon
                       </button>

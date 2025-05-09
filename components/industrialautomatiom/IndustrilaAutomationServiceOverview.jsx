@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 const ServiceOverview = () => {
   const services = [
@@ -8,6 +9,7 @@ const ServiceOverview = () => {
       description:
         "Custom solutions with PLC programming, HMI programming, VFD programming, and panel wiring.",
       gradient: "from-blue-600 to-blue-400",
+      link: "#contact",
     },
     {
       icon: "🔬",
@@ -15,12 +17,14 @@ const ServiceOverview = () => {
       description:
         "Future-proof automation technologies and system optimization R&D.",
       gradient: "from-cyan-600 to-cyan-400",
+      link: "#contact",
     },
     {
       icon: "🛡️",
       title: "Proactive Maintenance",
       description: "24/7 monitoring and predictive maintenance agreements.",
       gradient: "from-indigo-600 to-blue-400",
+      link: "#contact",
     },
   ];
 
@@ -51,6 +55,25 @@ const ServiceOverview = () => {
                 <p className="text-gray-400 leading-relaxed">
                   {service.description}
                 </p>
+                <Link
+                  href={service.link}
+                  className="mt-4 inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors"
+                >
+                  Learn more
+                  <svg
+                    className="w-4 h-4 ml-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    />
+                  </svg>
+                </Link>
               </div>
 
               {/* Corner Decorations */}
@@ -82,7 +105,10 @@ const ServiceOverview = () => {
               </p>
             </div>
 
-            <button className="inline-flex items-center px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 group">
+            <Link
+              href="#contact"
+              className="inline-flex items-center px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 group"
+            >
               Schedule Free Consultation
               <svg
                 className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1"
@@ -97,7 +123,7 @@ const ServiceOverview = () => {
                   d="M17 8l4 4m0 0l-4 4m4-4H3"
                 />
               </svg>
-            </button>
+            </Link>
           </div>
         </div>
       </div>

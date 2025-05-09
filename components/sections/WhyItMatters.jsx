@@ -4,6 +4,13 @@
 import { useState, useEffect } from "react";
 
 export default function WhyItMatters() {
+  // Add isMounted state to prevent hydration mismatches
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const benefits = [
     {
       icon: (
@@ -289,6 +296,65 @@ export default function WhyItMatters() {
     },
   ];
 
+  // Conditional rendering based on mounted state
+  // Show a simplified skeleton when not mounted to avoid hydration mismatches
+  if (!isMounted) {
+    return (
+      <section
+        id="why-matters"
+        className="py-16 lg:py-24 bg-gradient-to-br from-teal-600 to-teal-700 relative overflow-hidden"
+      >
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <div className="inline-block px-4 py-2 rounded-full bg-yellow-400 text-teal-900 font-bold mb-6">
+              Don't Get Left Behind!
+            </div>
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+              Unlock a Flood of Local Customers: The Undeniable Importance of
+              GBP
+            </h2>
+            <p className="text-xl text-teal-100 max-w-3xl mx-auto">
+              A strong GBP is your 24/7 online storefront and customer magnet.
+            </p>
+          </div>
+
+          {/* Simplified skeleton grid */}
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {benefits.map((benefit, index) => (
+              <div
+                key={index}
+                className="bg-white/10 backdrop-blur-sm rounded-xl p-6"
+              >
+                <div className="mb-4">
+                  <div className="inline-flex items-center justify-center w-12 h-12 rounded-lg bg-white/20 text-white"></div>
+                </div>
+                <h3 className="text-lg font-semibold text-white mb-2">
+                  {benefit.title}
+                </h3>
+                <p className="text-teal-100 text-sm leading-relaxed">
+                  {benefit.description}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div className="mt-16 text-center">
+            <button className="bg-yellow-400 text-teal-900 px-10 py-4 rounded-lg font-bold text-lg">
+              Get Your GBP Optimized Now
+            </button>
+          </div>
+
+          {/* Placeholder for globe */}
+          <div className="mt-16">
+            <div className="relative w-full h-64 md:h-80 lg:h-96 overflow-hidden flex items-center justify-center">
+              <div className="w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 bg-teal-100 rounded-full"></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section
       id="why-matters"
@@ -354,25 +420,40 @@ export default function WhyItMatters() {
 
 // Animated Globe Illustration Component
 const GlobeIllustration = () => {
-  // Use useEffect for client-side only code to prevent hydration mismatch
+  // Initialize state for animation
   const [rotation, setRotation] = useState(0);
   const [mounted, setMounted] = useState(false);
 
+  // Use useEffect for client-side animation
   useEffect(() => {
     setMounted(true);
+
+    // Create animation interval after component mounts
     const interval = setInterval(() => {
       setRotation((prev) => (prev + 0.5) % 360);
     }, 50);
 
+    // Cleanup interval on unmount
     return () => clearInterval(interval);
   }, []);
 
   // Only render animation content on client-side
   if (!mounted) {
-    return <div className="w-full h-64 md:h-80 lg:h-96"></div>;
+    // Return a placeholder with consistent structure but no animation
+    return (
+      <div className="relative w-full h-64 md:h-80 lg:h-96 overflow-hidden flex items-center justify-center">
+        <div className="relative h-80 w-80 flex items-center justify-center">
+          <div className="w-32 h-32 md:w-40 md:h-40 lg:w-48 lg:h-48 bg-teal-100 rounded-full flex items-center justify-center">
+            {/* Simple placeholder lines */}
+            <div className="absolute w-full h-0.5 bg-teal-500/50"></div>
+            <div className="absolute w-0.5 h-full bg-teal-500/50"></div>
+          </div>
+        </div>
+      </div>
+    );
   }
 
-  // Icons orbiting the globe
+  // Icons orbiting the globe - moved outside JSX for better organization
   const icons = [
     { emoji: "🔍", label: "Search", color: "bg-yellow-400", delay: "0s" },
     { emoji: "⭐", label: "Reviews", color: "bg-orange-300", delay: "0.1s" },
@@ -381,6 +462,26 @@ const GlobeIllustration = () => {
     { emoji: "🌐", label: "Web", color: "bg-blue-300", delay: "0.4s" },
     { emoji: "💬", label: "Engage", color: "bg-purple-300", delay: "0.5s" },
   ];
+
+  // Calculate orbital positions once to improve performance
+  const orbitalIcons = icons.map((icon, index) => {
+    const angle = (360 / icons.length) * index + rotation;
+    const radius = 100; // Distance from center
+    const x = Math.cos((angle * Math.PI) / 180) * radius;
+    const y = Math.sin((angle * Math.PI) / 180) * radius;
+
+    // Pre-calculate transform style
+    const transformStyle = {
+      transform: `translate(${x}px, ${y}px)`,
+      animationDelay: icon.delay,
+    };
+
+    return {
+      ...icon,
+      transformStyle,
+      key: index,
+    };
+  });
 
   return (
     <div className="relative w-full h-64 md:h-80 lg:h-96 overflow-hidden flex items-center justify-center">
@@ -423,28 +524,18 @@ const GlobeIllustration = () => {
           <div className="absolute w-full h-full rounded-full bg-teal-400/20 animate-ping opacity-30"></div>
         </div>
 
-        {/* Orbiting icons */}
-        {icons.map((icon, index) => {
-          const angle = (360 / icons.length) * index + rotation;
-          const radius = 100; // Distance from center - reduced for better alignment
-          const x = Math.cos((angle * Math.PI) / 180) * radius;
-          const y = Math.sin((angle * Math.PI) / 180) * radius;
-
-          return (
-            <div
-              key={index}
-              className={`absolute flex items-center justify-center w-10 h-10 rounded-full ${icon.color} shadow-lg transition-transform duration-300 hover:scale-110`}
-              style={{
-                transform: `translate(${x}px, ${y}px)`,
-                animationDelay: icon.delay,
-              }}
-            >
-              <span className="text-xl" role="img" aria-label={icon.label}>
-                {icon.emoji}
-              </span>
-            </div>
-          );
-        })}
+        {/* Orbiting icons using pre-calculated positions */}
+        {orbitalIcons.map((icon) => (
+          <div
+            key={icon.key}
+            className={`absolute flex items-center justify-center w-10 h-10 rounded-full ${icon.color} shadow-lg transition-transform duration-300 hover:scale-110`}
+            style={icon.transformStyle}
+          >
+            <span className="text-xl" role="img" aria-label={icon.label}>
+              {icon.emoji}
+            </span>
+          </div>
+        ))}
       </div>
 
       {/* Small floating decorative elements */}

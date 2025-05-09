@@ -8,6 +8,7 @@ import WhyChooseUs from "@/components/sections/WhyChooseUs";
 import ServicesGMB from "@/components/sections/ServicesGMB";
 import QASection from "@/components/sections/QASection";
 import HeroSectionGMB from "@/components/gmb/Hero";
+import ContactSection from "@/components/sections/ContactSection";
 
 export default function GMBPage() {
   return (
@@ -36,6 +37,9 @@ export default function GMBPage() {
 
       <div id="qa">
         <QASection />
+      </div>
+      <div id="contact">
+        <ContactSection />
       </div>
 
       {/* Placeholder for Contact Us section */}

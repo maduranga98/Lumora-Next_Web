@@ -1,6 +1,16 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
+import Link from "next/link";
 
 const MaintenanceSolutions = () => {
+  // Add mounted state to control hydration
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const maintenanceFramework = [
     {
       icon: "📈",
@@ -46,6 +56,27 @@ const MaintenanceSolutions = () => {
     },
   ];
 
+  // Define CSS classes for static and interactive elements
+  const frameItemBaseClass =
+    "relative bg-black/40 backdrop-blur-sm border border-green-400/20 rounded-lg p-8 transition-all duration-300";
+  const frameItemHoverClass = isMounted
+    ? "hover:border-green-400/50 group"
+    : "";
+  const frameItemClass = `${frameItemBaseClass} ${frameItemHoverClass}`;
+
+  // Group hover class for button
+  const buttonBaseClass =
+    "inline-flex items-center px-8 py-4 bg-green-600 text-white font-semibold rounded-lg transition-all duration-300";
+  const buttonHoverClass = isMounted
+    ? "hover:bg-green-700 hover:scale-105"
+    : "";
+  const buttonClass = `${buttonBaseClass} ${buttonHoverClass}`;
+
+  // Group hover class for button SVG
+  const buttonSvgClass = `w-5 h-5 ml-2 transition-transform ${
+    isMounted ? "group-hover:translate-x-1" : ""
+  }`;
+
   return (
     <section className="relative bg-black py-20 lg:py-32 overflow-hidden">
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8">
@@ -63,10 +94,13 @@ const MaintenanceSolutions = () => {
             availability through AI-driven monitoring and rapid-response
             engineering support.
           </p>
-          <button className="inline-flex items-center px-8 py-4 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 group">
+          <Link
+            href="#contact"
+            className={`${buttonClass} ${isMounted ? "group" : ""}`}
+          >
             Secure Your Operations Now
             <svg
-              className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1"
+              className={buttonSvgClass}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -78,7 +112,7 @@ const MaintenanceSolutions = () => {
                 d="M17 8l4 4m0 0l-4 4m4-4H3"
               />
             </svg>
-          </button>
+          </Link>
         </div>
 
         {/* Smart Maintenance Framework */}
@@ -89,13 +123,14 @@ const MaintenanceSolutions = () => {
 
           <div className="grid md:grid-cols-3 gap-8">
             {maintenanceFramework.map((item, index) => (
-              <div
-                key={index}
-                className="relative group bg-black/40 backdrop-blur-sm border border-green-400/20 rounded-lg p-8 hover:border-green-400/50 transition-all duration-300"
-              >
-                {/* Gradient background on hover */}
+              <div key={index} className={frameItemClass}>
+                {/* Gradient background - controlled visibility based on mounted state */}
                 <div
-                  className={`absolute inset-0 rounded-lg bg-gradient-to-br ${item.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}
+                  className={`absolute inset-0 rounded-lg bg-gradient-to-br ${
+                    item.gradient
+                  } ${
+                    isMounted ? "opacity-0 group-hover:opacity-10" : "opacity-0"
+                  } transition-opacity duration-300`}
                 />
 
                 <div className="relative z-10">
@@ -104,7 +139,7 @@ const MaintenanceSolutions = () => {
                     {item.title}
                   </h4>
                   <p className="text-gray-400 mb-4">{item.description}</p>
-                  <div className="inline-flex items-center gap-2 text-green-400 font-semibold">
+                  <div className="inline-flex items-center gap-2 text-green-400 font-semibold mb-4">
                     <svg
                       className="w-5 h-5"
                       fill="none"
@@ -119,6 +154,28 @@ const MaintenanceSolutions = () => {
                       />
                     </svg>
                     {item.stat}
+                  </div>
+
+                  <div className="mt-2">
+                    <Link
+                      href="#contact"
+                      className="inline-flex items-center text-sm text-green-400 hover:text-green-300 transition-colors"
+                    >
+                      Get maintenance plan
+                      <svg
+                        className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M14 5l7 7m0 0l-7 7m7-7H3"
+                        />
+                      </svg>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -149,13 +206,35 @@ const MaintenanceSolutions = () => {
                   <div className="text-lg font-semibold text-blue-400 mb-1">
                     {metric.title}
                   </div>
-                  <div className="text-gray-400">{metric.description}</div>
+                  <div className="text-gray-400 mb-4">{metric.description}</div>
                 </div>
 
                 {/* Decorative corner */}
                 <div className="absolute top-0 right-0 w-24 h-24 rounded-full bg-blue-500/10 transform translate-x-12 -translate-y-12" />
               </div>
             ))}
+          </div>
+
+          <div className="text-center mt-10">
+            <Link
+              href="#contact"
+              className="inline-flex items-center px-6 py-3 border border-blue-400 hover:bg-blue-600/20 text-blue-400 font-medium rounded-lg transition-all duration-300 transform hover:scale-105 group text-sm"
+            >
+              Schedule Maintenance Consultation
+              <svg
+                className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </svg>
+            </Link>
           </div>
         </div>
 
@@ -170,9 +249,29 @@ const MaintenanceSolutions = () => {
                 <div className="h-full w-[99.95%] bg-gradient-to-r from-green-400 to-emerald-400 rounded-full" />
               </div>
             </div>
-            <p className="text-gray-400 text-lg">
+            <p className="text-gray-400 text-lg mb-8">
               That means less than 22 hours of downtime per year
             </p>
+
+            <Link
+              href="#contact"
+              className="inline-flex items-center px-8 py-4 bg-green-600 hover:bg-green-700 text-white font-medium rounded-lg transition-all duration-300 transform hover:scale-105 group"
+            >
+              Get Your Availability Guarantee
+              <svg
+                className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </svg>
+            </Link>
           </div>
 
           {/* Background elements */}

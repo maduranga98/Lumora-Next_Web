@@ -1,16 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-  Mail,
-  Phone,
-  MessageCircle,
-  MapPin,
-  Send,
-  Sparkles,
-  ArrowRight,
-  Loader2,
-} from "lucide-react";
+import { Mail, Phone, MapPin, Send, Sparkles, Loader2 } from "lucide-react";
 import { db } from "../../app/lib/firebase"; // Import Firebase db
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 
@@ -73,31 +64,33 @@ const ContactSection = () => {
     {
       icon: <Mail className="w-5 h-5 text-yellow-300" />,
       title: "Email Excellence",
-      content: "contact@curlcipher.com",
-      action: "Send Email",
+      content: "info@curlcipher.com",
     },
     {
       icon: <Phone className="w-5 h-5 text-yellow-300" />,
       title: "Premier Support",
       content: "+1 (123) 456-7890",
-      action: "Call Us",
-    },
-    {
-      icon: <MessageCircle className="w-5 h-5 text-yellow-300" />,
-      title: "Live Concierge",
-      content: "24/7 Chat Service",
-      action: "Start Chat",
     },
     {
       icon: <MapPin className="w-5 h-5 text-yellow-300" />,
       title: "Headquarters",
-      content: "Silicon Valley, CA",
-      action: "View Location",
+      content: (
+        <div className="text-gray-400 text-sm leading-relaxed">
+          Office 4157, 58 Peregrine Road
+          <br />
+          Hainault, Ilford, Essex
+          <br />
+          United Kingdom
+          <br />
+          IG6 3SZ
+        </div>
+      ),
     },
   ];
 
   return (
     <section
+      id="contact"
       className="relative py-16 md:py-20 lg:py-24 overflow-hidden"
       style={{
         background:
@@ -252,52 +245,82 @@ const ContactSection = () => {
           </div>
 
           {/* Contact Information */}
-          <div className="space-y-4 md:space-y-6 lg:space-y-8">
-            {contactInfo.map((info, index) => (
-              <div
-                key={index}
-                className="group relative overflow-hidden rounded-lg md:rounded-xl"
-              >
-                {/* Card Background */}
-                <div className="absolute inset-0 bg-gradient-to-br from-black/95 to-gray-900/95 rounded-lg md:rounded-xl"></div>
-                <div className="absolute inset-0 border border-yellow-300/10 rounded-lg md:rounded-xl group-hover:border-yellow-300/30 transition-colors duration-300"></div>
+          <div>
+            <div className="grid gap-4 md:gap-6 lg:gap-8 sm:grid-cols-2">
+              {contactInfo.map((info, index) => (
+                <div
+                  key={index}
+                  className={`group relative overflow-hidden rounded-lg md:rounded-xl ${
+                    index === 2 ? "sm:col-span-2" : ""
+                  }`}
+                >
+                  {/* Card Background */}
+                  <div className="absolute inset-0 bg-gradient-to-br from-black/95 to-gray-900/95 rounded-lg md:rounded-xl"></div>
+                  <div className="absolute inset-0 border border-yellow-300/10 rounded-lg md:rounded-xl group-hover:border-yellow-300/30 transition-colors duration-300"></div>
 
-                {/* Content */}
-                <div className="relative p-4 md:p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                  <div className="flex items-center gap-4">
-                    <div className="p-3 rounded-lg bg-gradient-to-br from-black to-gray-900 border border-yellow-300/20">
-                      {info.icon}
-                    </div>
-                    <div>
-                      <h4 className="text-base md:text-lg font-serif text-white mb-1">
-                        {info.title}
-                      </h4>
-                      <p className="text-gray-400 text-sm">{info.content}</p>
+                  {/* Content */}
+                  <div className="relative p-4 md:p-6">
+                    <div className="flex items-start gap-4">
+                      <div className="p-3 rounded-lg bg-gradient-to-br from-black to-gray-900 border border-yellow-300/20">
+                        {info.icon}
+                      </div>
+                      <div>
+                        <h4 className="text-base md:text-lg font-serif text-white mb-1">
+                          {info.title}
+                        </h4>
+                        {typeof info.content === "string" ? (
+                          <p className="text-gray-400 text-sm">
+                            {info.content}
+                          </p>
+                        ) : (
+                          info.content
+                        )}
+                      </div>
                     </div>
                   </div>
-
-                  <button className="group/btn px-4 py-2 border border-yellow-300/30 text-yellow-300 rounded-lg text-sm font-medium flex items-center gap-2 hover:bg-yellow-300/10 transition-all duration-300">
-                    {info.action}
-                    <ArrowRight className="w-3 h-3 group-hover/btn:translate-x-1 transition-transform duration-300" />
-                  </button>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
 
-            {/* Additional CTA */}
+            {/* Additional Business Information */}
             <div className="mt-8 md:mt-10">
               <div className="relative rounded-xl md:rounded-2xl overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-indigo-900 via-purple-900 to-black opacity-90"></div>
-                <div className="relative p-6 md:p-8 text-center">
+                <div className="relative p-6 md:p-8">
                   <h3 className="text-lg md:text-xl font-serif text-white mb-3 md:mb-4">
                     Elevate Your Business Today
                   </h3>
-                  <p className="text-gray-300 text-sm md:text-base mb-5 md:mb-6">
-                    Experience the premium transformation with Curl Cipher
+                  <p className="text-gray-300 text-sm md:text-base mb-4">
+                    Experience the premium transformation with Curl Cipher. Our
+                    dedicated team is ready to support your salon's success
+                    journey with innovative technology solutions.
                   </p>
-                  <button className="px-6 md:px-8 py-2.5 md:py-3 bg-gradient-to-r from-purple-500 to-indigo-500 text-white rounded-lg text-sm md:text-base font-medium hover:shadow-lg hover:shadow-purple-500/25 transition-all duration-300">
-                    Schedule Demo
-                  </button>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <h4 className="text-base font-medium text-yellow-300 mb-1">
+                        Business Hours
+                      </h4>
+                      <p className="text-gray-400 text-sm leading-relaxed">
+                        Monday - Friday: 9:00 AM - 5:00 PM
+                        <br />
+                        Saturday: 10:00 AM - 2:00 PM
+                        <br />
+                        Sunday: Closed
+                      </p>
+                    </div>
+                    <div>
+                      <h4 className="text-base font-medium text-yellow-300 mb-1">
+                        Support Hours
+                      </h4>
+                      <p className="text-gray-400 text-sm leading-relaxed">
+                        Technical Support: 24/7
+                        <br />
+                        Customer Service: 8:00 AM - 8:00 PM
+                        <br />
+                        Emergency Line Available
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

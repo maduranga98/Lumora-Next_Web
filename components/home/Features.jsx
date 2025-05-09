@@ -1,13 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Globe, Cog, BarChart, Lightbulb, ChevronRight } from "lucide-react";
 
 // Feature Card component with enhanced animations
 const FeatureCard = ({ title, icon, description, id }) => {
+  // Add isMounted state to prevent hydration mismatches
+  const [isMounted, setIsMounted] = useState(false);
   const [isExpanded, setIsExpanded] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
+
+  // Initialize client-side state after hydration
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   // Generate direct path based on id
   const getPath = () => {
@@ -18,50 +25,91 @@ const FeatureCard = ({ title, icon, description, id }) => {
     return "#";
   };
 
-  return (
-    <div
-      className="bg-white rounded-2xl shadow-md h-full flex flex-col transition-all duration-300"
-      style={{
+  // Define static and dynamic styles
+  const baseCardStyle =
+    "bg-white rounded-2xl shadow-md h-full flex flex-col transition-all duration-300";
+
+  // Only apply dynamic styles when mounted
+  const cardStyle = isMounted
+    ? {
         transform: isHovered ? "translateY(-10px)" : "translateY(0)",
         boxShadow: isHovered
           ? "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)"
           : "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)",
-      }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      }
+    : {}; // Empty object for initial render
+
+  // Background element styles
+  const bgElement1Style = isMounted
+    ? {
+        top: isHovered ? "-10%" : "-30%",
+        right: isHovered ? "10%" : "-10%",
+        opacity: isHovered ? 0.2 : 0.1,
+      }
+    : { top: "-30%", right: "-10%", opacity: 0.1 }; // Default style for server render
+
+  const bgElement2Style = isMounted
+    ? {
+        bottom: isHovered ? "0%" : "-20%",
+        left: isHovered ? "5%" : "-15%",
+        opacity: isHovered ? 0.2 : 0.1,
+      }
+    : { bottom: "-20%", left: "-15%", opacity: 0.1 }; // Default style for server render
+
+  // Icon container style
+  const iconContainerStyle = isMounted
+    ? {
+        transform: isHovered ? "scale(1.1)" : "scale(1)",
+      }
+    : {}; // Empty for server render
+
+  // Icon style
+  const iconStyle = isMounted
+    ? {
+        transform: isHovered ? "rotate(10deg)" : "rotate(0deg)",
+      }
+    : {}; // Empty for server render
+
+  // Line style
+  const lineStyle = isMounted
+    ? {
+        width: isHovered ? "80px" : "64px",
+      }
+    : { width: "64px" }; // Default width for server render
+
+  // Expanded content style
+  const expandedContentStyle = {
+    maxHeight: isExpanded ? "200px" : "0",
+    opacity: isExpanded ? 1 : 0,
+  };
+
+  return (
+    <div
+      className={baseCardStyle}
+      style={cardStyle}
+      onMouseEnter={() => isMounted && setIsHovered(true)}
+      onMouseLeave={() => isMounted && setIsHovered(false)}
     >
       {/* Top Section with Gradient Background */}
       <div className="h-36 bg-gradient-to-r from-blue-500 to-blue-600 rounded-t-2xl relative flex items-center justify-center overflow-hidden">
         {/* Animated background elements */}
         <div
           className="absolute w-40 h-40 rounded-full bg-white/10 transition-all duration-700"
-          style={{
-            top: isHovered ? "-10%" : "-30%",
-            right: isHovered ? "10%" : "-10%",
-            opacity: isHovered ? 0.2 : 0.1,
-          }}
+          style={bgElement1Style}
         ></div>
         <div
           className="absolute w-24 h-24 rounded-full bg-white/10 transition-all duration-700"
-          style={{
-            bottom: isHovered ? "0%" : "-20%",
-            left: isHovered ? "5%" : "-15%",
-            opacity: isHovered ? 0.2 : 0.1,
-          }}
+          style={bgElement2Style}
         ></div>
 
         {/* Icon Container with animation */}
         <div
           className="bg-white p-3 rounded-xl shadow-md transition-all duration-300"
-          style={{
-            transform: isHovered ? "scale(1.1)" : "scale(1)",
-          }}
+          style={iconContainerStyle}
         >
           <div
             className="text-blue-600 w-8 h-8 transition-all duration-300"
-            style={{
-              transform: isHovered ? "rotate(10deg)" : "rotate(0deg)",
-            }}
+            style={iconStyle}
           >
             {icon}
           </div>
@@ -75,22 +123,17 @@ const FeatureCard = ({ title, icon, description, id }) => {
         </h3>
 
         <div
-          className="w-16 h-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full mx-auto mb-4 transition-all duration-300"
-          style={{
-            width: isHovered ? "80px" : "64px",
-          }}
+          className="h-1 bg-gradient-to-r from-blue-500 to-blue-600 rounded-full mx-auto mb-4 transition-all duration-300"
+          style={lineStyle}
         ></div>
 
         <p className="text-gray-600 text-sm mb-6 flex-grow">{description}</p>
 
-        {/* Expanded Content with animation */}
-        {isExpanded && (
+        {/* Expanded Content with animation - only show when expanded */}
+        {isMounted && isExpanded && (
           <div
             className="mt-4 mb-4 overflow-hidden transition-all duration-500"
-            style={{
-              maxHeight: isExpanded ? "200px" : "0",
-              opacity: isExpanded ? 1 : 0,
-            }}
+            style={expandedContentStyle}
           >
             <p className="text-gray-600 text-sm">
               More details about {title} services and how they can benefit your
@@ -103,7 +146,7 @@ const FeatureCard = ({ title, icon, description, id }) => {
         <div className="mt-auto flex justify-between items-center">
           {description.length > 150 && (
             <button
-              onClick={() => setIsExpanded(!isExpanded)}
+              onClick={() => isMounted && setIsExpanded(!isExpanded)}
               className="text-blue-500 text-sm font-medium transition-all hover:text-blue-700"
             >
               {isExpanded ? "Show less" : "Read more"}
@@ -127,6 +170,13 @@ const FeatureCard = ({ title, icon, description, id }) => {
 };
 
 const Features = () => {
+  // Add mounted state to main component
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
   const services = [
     {
       id: "gmb",

@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const IndustrialAutomationControl = () => {
   const features = [
@@ -82,7 +83,10 @@ const IndustrialAutomationControl = () => {
             that combine cutting-edge automation with intelligent control
             architectures.
           </p>
-          <button className="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 group text-sm lg:text-base">
+          <Link
+            href="#contact"
+            className="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 group text-sm lg:text-base"
+          >
             Optimize Your Systems Now
             <svg
               className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1"
@@ -97,7 +101,7 @@ const IndustrialAutomationControl = () => {
                 d="M17 8l4 4m0 0l-4 4m4-4H3"
               />
             </svg>
-          </button>
+          </Link>
         </div>
 
         {/* Control Mastery Section */}
@@ -112,6 +116,25 @@ const IndustrialAutomationControl = () => {
                 delivering cyber-secure solutions with real-time analytics and
                 predictive maintenance capabilities.
               </p>
+              <Link
+                href="#contact"
+                className="mt-4 inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors"
+              >
+                Request a custom solution
+                <svg
+                  className="w-4 h-4 ml-1"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                  />
+                </svg>
+              </Link>
             </div>
 
             <div className="lg:w-1/2 grid sm:grid-cols-2 gap-4">
@@ -174,6 +197,26 @@ const IndustrialAutomationControl = () => {
                 <p className="text-gray-400 leading-relaxed text-xs lg:text-sm">
                   {brand.description}
                 </p>
+
+                <Link
+                  href="#contact"
+                  className="mt-3 inline-flex items-center text-xs text-blue-400 hover:text-blue-300 transition-colors"
+                >
+                  Get a quote
+                  <svg
+                    className="w-3 h-3 ml-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    />
+                  </svg>
+                </Link>
               </div>
             ))}
           </div>
@@ -191,11 +234,52 @@ const IndustrialAutomationControl = () => {
                 <h5 className="text-lg font-bold text-white mb-2">
                   {service.title}
                 </h5>
-                <p className="text-gray-400 leading-relaxed text-xs lg:text-sm">
+                <p className="text-gray-400 leading-relaxed text-xs lg:text-sm mb-3">
                   {service.description}
                 </p>
+                <Link
+                  href="#contact"
+                  className="inline-flex items-center text-xs text-blue-400 hover:text-blue-300 transition-colors"
+                >
+                  Learn more
+                  <svg
+                    className="w-3 h-3 ml-1"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    />
+                  </svg>
+                </Link>
               </div>
             ))}
+          </div>
+
+          <div className="flex justify-center mt-10">
+            <Link
+              href="#contact"
+              className="inline-flex items-center px-6 py-3 border border-blue-400 hover:bg-blue-600/20 text-blue-400 font-medium rounded-lg transition-all duration-300 transform hover:scale-105 group text-sm"
+            >
+              Discuss Your Automation Needs
+              <svg
+                className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </svg>
+            </Link>
           </div>
         </div>
       </div>

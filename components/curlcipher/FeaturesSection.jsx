@@ -1,5 +1,6 @@
 import React from "react";
 import Image from "next/image";
+import { IoLogoAndroid } from "react-icons/io5";
 
 const FeaturesSection = () => {
   // Image mapping with correct paths
@@ -26,6 +27,8 @@ const FeaturesSection = () => {
       borderColor: "border-amber-500/30",
       accentColor: "text-amber-300",
       bgGlow: "bg-amber-500/10",
+      appLink:
+        "https://play.google.com/store/apps/details?id=com.curl_cipher_manage.saloon_app",
       features: [
         {
           title: "All-in-One Business Management",
@@ -88,6 +91,8 @@ const FeaturesSection = () => {
       borderColor: "border-rose-500/30",
       accentColor: "text-rose-300",
       bgGlow: "bg-rose-500/10",
+      appLink:
+        "https://play.google.com/store/apps/details?id=com.curl_cipher.customer_app",
       features: [
         {
           title: "Effortless Salon Discovery & Booking",
@@ -275,23 +280,45 @@ const FeaturesSection = () => {
           </div>
         ))}
 
-        {/* Luxury CTA */}
+        {/* App Download Buttons (Replacing previous CTA buttons) */}
         <div className="text-center pt-10 md:pt-12 lg:pt-16">
+          <h3 className="text-xl md:text-2xl lg:text-3xl font-serif text-white mb-6 md:mb-8">
+            Download Our Apps
+          </h3>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 lg:gap-8">
-            <button className="group relative px-6 md:px-8 lg:px-10 py-3 md:py-4 text-sm md:text-base text-black bg-gradient-to-r from-amber-500 to-yellow-400 font-medium rounded-lg overflow-hidden shadow-xl hover:shadow-amber-500/25 transition-all duration-500">
-              <span className="relative z-10">Experience Excellence</span>
-              <div className="absolute inset-0 bg-black transform scale-0 group-hover:scale-100 transition-transform duration-500"></div>
-              <span className="absolute inset-0 flex items-center justify-center text-gold opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                Experience Excellence
-              </span>
-            </button>
-            <button className="group relative px-6 md:px-8 lg:px-10 py-3 md:py-4 text-sm md:text-base text-black bg-gradient-to-r from-rose-500 to-pink-400 font-medium rounded-lg overflow-hidden shadow-xl hover:shadow-rose-500/25 transition-all duration-500">
-              <span className="relative z-10">Reserve Your Studio</span>
-              <div className="absolute inset-0 bg-black transform scale-0 group-hover:scale-100 transition-transform duration-500"></div>
-              <span className="absolute inset-0 flex items-center justify-center text-rose-300 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                Reserve Your Studio
-              </span>
-            </button>
+            {/* Customer App Download Button */}
+            <a
+              href="https://play.google.com/store/apps/details?id=com.curl_cipher.customer_app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 lg:px-8 lg:py-4 text-sm md:text-base lg:text-lg xl:text-lg 2xl:text-xl overflow-hidden rounded-lg transition-all duration-500"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-rose-500 to-pink-400 rounded-lg"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-black to-gray-900 rounded-lg transform scale-0 group-hover:scale-100 transition-transform duration-500"></div>
+              <div className="flex items-center gap-2 relative z-10">
+                <IoLogoAndroid className="relative z-10 w-5 h-5 text-black group-hover:text-rose-300 transition-colors duration-500" />
+                <span className="relative z-10 text-black group-hover:text-rose-300 font-medium transition-colors duration-500">
+                  Download Curl Cipher
+                </span>
+              </div>
+            </a>
+
+            {/* Business App Download Button */}
+            <a
+              href="https://play.google.com/store/apps/details?id=com.curl_cipher_manage.saloon_app"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 lg:px-8 lg:py-4 text-sm md:text-base lg:text-lg xl:text-lg 2xl:text-xl overflow-hidden rounded-lg transition-all duration-500"
+            >
+              <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-yellow-400 rounded-lg"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-black to-gray-900 rounded-lg transform scale-0 group-hover:scale-100 transition-transform duration-500"></div>
+              <div className="flex items-center gap-2 relative z-10">
+                <IoLogoAndroid className="relative z-10 w-5 h-5 text-black group-hover:text-amber-300 transition-colors duration-500" />
+                <span className="relative z-10 text-black group-hover:text-amber-300 font-medium transition-colors duration-500">
+                  Download Curl Cipher Manage
+                </span>
+              </div>
+            </a>
           </div>
         </div>
       </div>

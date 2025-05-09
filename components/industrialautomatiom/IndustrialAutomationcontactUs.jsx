@@ -12,10 +12,23 @@ const ContactUs = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    service: "",
+    otherService: "",
     message: "",
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState({ type: "", message: "" });
+
+  // Available services list
+  const availableServices = [
+    "Automation",
+    "Research and Development",
+    "Maintenance",
+    "Electrical Panel Wiring",
+    "PLC & HMI Development",
+    "Hands-On PLC & HMI Training",
+    "Other",
+  ];
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -34,10 +47,22 @@ const ContactUs = () => {
       // Get Firestore instance directly (in case db is not properly exported from firebase.js)
       const db = getFirestore(app);
 
+      // Prepare service information
+      const serviceInfo =
+        formData.service === "Other"
+          ? {
+              service: formData.service,
+              otherService: formData.otherService,
+            }
+          : {
+              service: formData.service,
+            };
+
       // Add document to automation collection
       await addDoc(collection(db, "automation"), {
         name: formData.name,
         email: formData.email,
+        ...serviceInfo,
         message: formData.message,
         createdAt: serverTimestamp(),
         status: "new",
@@ -55,6 +80,8 @@ const ContactUs = () => {
       setFormData({
         name: "",
         email: "",
+        service: "",
+        otherService: "",
         message: "",
       });
     } catch (error) {
@@ -140,7 +167,10 @@ const ContactUs = () => {
   ];
 
   return (
-    <section className="relative bg-black py-20 lg:py-32 overflow-hidden">
+    <section
+      id="contact"
+      className="relative bg-black py-20 lg:py-32 overflow-hidden"
+    >
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8">
         {/* Header */}
         <div className="text-center mb-16">
@@ -192,6 +222,71 @@ const ContactUs = () => {
                   disabled={isSubmitting}
                 />
               </div>
+
+              {/* Service Selection Dropdown */}
+              <div>
+                <label htmlFor="service" className="block text-gray-400 mb-2">
+                  Service Interested In
+                </label>
+                <select
+                  id="service"
+                  name="service"
+                  value={formData.service}
+                  onChange={handleChange}
+                  required
+                  className="w-full bg-black/50 border border-blue-400/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-400 transition-colors appearance-none"
+                  disabled={isSubmitting}
+                >
+                  <option value="" disabled>
+                    Select a service
+                  </option>
+                  {availableServices.map((service, index) => (
+                    <option key={index} value={service}>
+                      {service}
+                    </option>
+                  ))}
+                </select>
+                <div className="relative">
+                  <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none">
+                    <svg
+                      className="w-5 h-5 text-blue-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M19 9l-7 7-7-7"
+                      ></path>
+                    </svg>
+                  </div>
+                </div>
+              </div>
+
+              {/* Other Service Field (conditionally shown) */}
+              {formData.service === "Other" && (
+                <div>
+                  <label
+                    htmlFor="otherService"
+                    className="block text-gray-400 mb-2"
+                  >
+                    Please Specify Service
+                  </label>
+                  <input
+                    type="text"
+                    id="otherService"
+                    name="otherService"
+                    value={formData.otherService}
+                    onChange={handleChange}
+                    required
+                    className="w-full bg-black/50 border border-blue-400/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-400 transition-colors"
+                    placeholder="Please specify your service need"
+                    disabled={isSubmitting}
+                  />
+                </div>
+              )}
 
               {/* Message Input */}
               <div>
@@ -309,6 +404,33 @@ const ContactUs = () => {
                   24/7 Support: +94 76 916 4108
                 </p>
               </div>
+            </div>
+
+            {/* Services Overview */}
+            <div className="p-6 bg-gradient-to-br from-indigo-900/20 to-blue-900/20 backdrop-blur-sm border border-blue-400/30 rounded-lg">
+              <h3 className="text-xl font-bold text-white mb-4">
+                Our Services
+              </h3>
+              <ul className="space-y-2 text-gray-400">
+                {availableServices.map((service, index) => (
+                  <li key={index} className="flex items-center">
+                    <svg
+                      className="w-4 h-4 mr-2 text-blue-400"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                      ></path>
+                    </svg>
+                    {service}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>

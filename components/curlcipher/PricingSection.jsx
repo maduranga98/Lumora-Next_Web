@@ -2,6 +2,7 @@
 
 import React from "react";
 import { Check, Crown, Star, Diamond, Shield, Sparkles } from "lucide-react";
+import { IoLogoAndroid } from "react-icons/io5";
 
 const PricingSection = () => {
   const plans = [
@@ -95,6 +96,13 @@ const PricingSection = () => {
         "Unlimited locations, staff, and clients as your business grows.",
     },
   ];
+
+  const scrollToContact = () => {
+    const contactSection = document.getElementById("contact");
+    if (contactSection) {
+      contactSection.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <section className="relative py-16 md:py-20 lg:py-24 overflow-hidden bg-gradient-to-b from-black via-indigo-950 to-black">
@@ -194,14 +202,25 @@ const PricingSection = () => {
                   ))}
                 </ul>
 
-                {/* CTA Button */}
-                <button
-                  className={`w-full py-2.5 md:py-3 rounded-lg bg-gradient-to-r ${plan.buttonGradient} text-white text-sm md:text-base font-medium hover:shadow-lg hover:scale-105 transition-all duration-300`}
-                >
-                  {plan.id === "luxury"
-                    ? "Request Elite Access"
-                    : "Start Free Trial"}
-                </button>
+                {/* CTA Button - Changed to Download button for regular plans */}
+                {plan.id === "luxury" ? (
+                  <button
+                    onClick={scrollToContact}
+                    className={`w-full py-2.5 md:py-3 rounded-lg bg-gradient-to-r ${plan.buttonGradient} text-white text-sm md:text-base font-medium hover:shadow-lg hover:scale-105 transition-all duration-300`}
+                  >
+                    Request Elite Access
+                  </button>
+                ) : (
+                  <a
+                    href="https://play.google.com/store/apps/details?id=com.curl_cipher_manage.saloon_app"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`w-full flex items-center justify-center gap-2 py-2.5 md:py-3 rounded-lg bg-gradient-to-r ${plan.buttonGradient} text-white text-sm md:text-base font-medium hover:shadow-lg hover:scale-105 transition-all duration-300`}
+                  >
+                    <IoLogoAndroid className="w-4 h-4" />
+                    <span>Download Manager App</span>
+                  </a>
+                )}
               </div>
             </div>
           ))}
@@ -239,7 +258,10 @@ const PricingSection = () => {
               Tailored solutions for large-scale operations with multiple
               locations and complex needs.
             </p>
-            <button className="px-6 md:px-8 lg:px-10 py-2.5 md:py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-sm md:text-base rounded-lg font-medium hover:shadow-lg hover:scale-105 transition-all duration-300">
+            <button
+              onClick={scrollToContact}
+              className="px-6 md:px-8 lg:px-10 py-2.5 md:py-3 bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-sm md:text-base rounded-lg font-medium hover:shadow-lg hover:scale-105 transition-all duration-300"
+            >
               Discuss Custom Requirements
             </button>
           </div>

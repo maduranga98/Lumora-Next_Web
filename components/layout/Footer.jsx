@@ -6,17 +6,32 @@ import { useState, useEffect } from "react";
 
 const Footer = () => {
   const [currentYear, setCurrentYear] = useState("2024");
+  const [windowWidth, setWindowWidth] = useState(0);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
+    setWindowWidth(window.innerWidth);
     setCurrentYear(new Date().getFullYear().toString());
+
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   // Scroll to section function
   const scrollToSection = (e, sectionId) => {
     e.preventDefault();
+
+    if (!isMounted) return;
+
     const element = document.getElementById(sectionId);
     if (element) {
-      const navbarHeight = 80; // Approximate navbar height
+      // Adjust navbar height based on screen size
+      const navbarHeight = windowWidth >= 1280 ? 80 : 64;
       const offsetPosition = element.offsetTop - navbarHeight;
 
       window.scrollTo({
@@ -27,12 +42,12 @@ const Footer = () => {
   };
 
   return (
-    <footer className="bg-gray-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer className="bg-gradient-to-br from-gray-900 to-gray-800 text-white">
+      <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14 md:py-16 lg:py-20">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-12">
           {/* Company Info */}
-          <div className="col-span-1 md:col-span-1">
-            <div className="flex items-center space-x-2 mb-4">
+          <div className="col-span-1 sm:col-span-2 lg:col-span-1">
+            <div className="flex items-center space-x-3 mb-4 sm:mb-6">
               <div className="flex items-center justify-center text-white">
                 <Image
                   src="/logo.png"
@@ -42,21 +57,21 @@ const Footer = () => {
                   className="object-contain"
                 />
               </div>
-              <span className="font-bold text-xl text-white">
+              <span className="font-montserrat font-bold text-xl md:text-2xl text-white">
                 Lumora Ventures
               </span>
             </div>
-            <p className="text-gray-400 text-sm mb-4">
+            <p className="font-inter text-gray-300 text-sm md:text-base mb-6 max-w-xs">
               Driving business growth through innovative digital and automation
               solutions.
             </p>
-            <div className="flex space-x-4">
+            <div className="flex space-x-5">
               {/* Social Media Icons */}
               <a
                 href="#"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-400 hover:text-blue-400 transition-all duration-300 transform hover:scale-110"
+                aria-label="LinkedIn"
               >
-                <span className="sr-only">LinkedIn</span>
                 <svg
                   className="h-6 w-6"
                   fill="currentColor"
@@ -68,9 +83,9 @@ const Footer = () => {
               </a>
               <a
                 href="#"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-400 hover:text-blue-400 transition-all duration-300 transform hover:scale-110"
+                aria-label="Twitter"
               >
-                <span className="sr-only">Twitter</span>
                 <svg
                   className="h-6 w-6"
                   fill="currentColor"
@@ -82,9 +97,9 @@ const Footer = () => {
               </a>
               <a
                 href="#"
-                className="text-gray-400 hover:text-white transition-colors"
+                className="text-gray-400 hover:text-blue-400 transition-all duration-300 transform hover:scale-110"
+                aria-label="Facebook"
               >
-                <span className="sr-only">Facebook</span>
                 <svg
                   className="h-6 w-6"
                   fill="currentColor"
@@ -103,13 +118,15 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
-            <ul className="space-y-2">
+            <h3 className="font-montserrat text-lg font-semibold mb-4 sm:mb-6 text-white">
+              Quick Links
+            </h3>
+            <ul className="space-y-3">
               <li>
                 <a
                   href="#home"
                   onClick={(e) => scrollToSection(e, "home")}
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="font-inter text-gray-300 hover:text-blue-300 transition-colors inline-block"
                 >
                   Home
                 </a>
@@ -118,7 +135,7 @@ const Footer = () => {
                 <a
                   href="#about"
                   onClick={(e) => scrollToSection(e, "about")}
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="font-inter text-gray-300 hover:text-blue-300 transition-colors inline-block"
                 >
                   About Us
                 </a>
@@ -127,7 +144,7 @@ const Footer = () => {
                 <a
                   href="#solutions"
                   onClick={(e) => scrollToSection(e, "solutions")}
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="font-inter text-gray-300 hover:text-blue-300 transition-colors inline-block"
                 >
                   Solutions
                 </a>
@@ -136,7 +153,7 @@ const Footer = () => {
                 <a
                   href="#contact"
                   onClick={(e) => scrollToSection(e, "contact")}
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="font-inter text-gray-300 hover:text-blue-300 transition-colors inline-block"
                 >
                   Contact
                 </a>
@@ -146,12 +163,14 @@ const Footer = () => {
 
           {/* Services */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Our Solutions</h3>
-            <ul className="space-y-2">
+            <h3 className="font-montserrat text-lg font-semibold mb-4 sm:mb-6 text-white">
+              Our Solutions
+            </h3>
+            <ul className="space-y-3">
               <li>
                 <Link
                   href="/google-my-business"
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="font-inter text-gray-300 hover:text-blue-300 transition-colors inline-block"
                 >
                   Google My Business
                 </Link>
@@ -159,7 +178,7 @@ const Footer = () => {
               <li>
                 <Link
                   href="/curl-cipher"
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="font-inter text-gray-300 hover:text-blue-300 transition-colors inline-block"
                 >
                   Salon Management System
                 </Link>
@@ -167,7 +186,7 @@ const Footer = () => {
               <li>
                 <Link
                   href="/industrial-automation"
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="font-inter text-gray-300 hover:text-blue-300 transition-colors inline-block"
                 >
                   Industrial Automation
                 </Link>
@@ -175,10 +194,10 @@ const Footer = () => {
               <li>
                 <Link
                   href="/social-media-marketing"
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="font-inter text-gray-300 hover:text-blue-300 transition-colors inline-flex items-center"
                 >
                   Social Media Marketing
-                  <span className="ml-2 text-xs font-medium px-2 py-0.5 bg-gray-700 text-gray-300 rounded-full uppercase">
+                  <span className="ml-2 text-xs font-medium px-2 py-0.5 bg-blue-900/50 text-blue-300 rounded-full uppercase">
                     Soon
                   </span>
                 </Link>
@@ -188,8 +207,10 @@ const Footer = () => {
 
           {/* Contact */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
-            <ul className="space-y-3">
+            <h3 className="font-montserrat text-lg font-semibold mb-4 sm:mb-6 text-white">
+              Contact Us
+            </h3>
+            <ul className="space-y-4">
               <li className="flex items-start">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -197,7 +218,7 @@ const Footer = () => {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-5 h-5 text-indigo-400 mr-2 mt-0.5"
+                  className="w-5 h-5 text-blue-400 mr-3 mt-0.5 flex-shrink-0"
                 >
                   <path
                     strokeLinecap="round"
@@ -207,7 +228,7 @@ const Footer = () => {
                 </svg>
                 <a
                   href="mailto:info@lumoraventures.com"
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="font-inter text-gray-300 hover:text-blue-300 transition-colors"
                 >
                   info@lumoraventures.com
                 </a>
@@ -219,7 +240,7 @@ const Footer = () => {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-5 h-5 text-indigo-400 mr-2 mt-0.5"
+                  className="w-5 h-5 text-blue-400 mr-3 mt-0.5 flex-shrink-0"
                 >
                   <path
                     strokeLinecap="round"
@@ -229,27 +250,54 @@ const Footer = () => {
                 </svg>
                 <a
                   href="tel:+11234567890"
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="font-inter text-gray-300 hover:text-blue-300 transition-colors"
                 >
                   +1 (123) 456-7890
                 </a>
+              </li>
+              <li className="flex items-start">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth={1.5}
+                  stroke="currentColor"
+                  className="w-5 h-5 text-blue-400 mr-3 mt-0.5 flex-shrink-0"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
+                  />
+                </svg>
+                <div className="font-inter text-gray-300">
+                  <p>Office 4157, 58 Peregrine Road</p>
+                  <p>Hainault, Ilford, Essex</p>
+                  <p>United Kingdom</p>
+                  <p>IG6 3SZ</p>
+                </div>
               </li>
             </ul>
           </div>
         </div>
 
         {/* Divider */}
-        <div className="border-t border-gray-800 mt-12 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-sm text-gray-400">
+        <div className="border-t border-gray-700 mt-10 sm:mt-12 md:mt-14 lg:mt-16 pt-6 sm:pt-8">
+          <div className="flex flex-col sm:flex-row justify-between items-center">
+            <p className="font-inter text-sm text-gray-400">
               © {currentYear} Lumora Ventures. All rights reserved.
             </p>
-            <div className="mt-4 md:mt-0">
+            <div className="mt-4 sm:mt-0">
               <ul className="flex space-x-6">
                 <li>
                   <Link
                     href="/privacy"
-                    className="text-sm text-gray-400 hover:text-white transition-colors"
+                    className="font-inter text-sm text-gray-400 hover:text-blue-300 transition-colors"
                   >
                     Privacy Policy
                   </Link>
@@ -257,7 +305,7 @@ const Footer = () => {
                 <li>
                   <Link
                     href="/terms"
-                    className="text-sm text-gray-400 hover:text-white transition-colors"
+                    className="font-inter text-sm text-gray-400 hover:text-blue-300 transition-colors"
                   >
                     Terms of Service
                   </Link>

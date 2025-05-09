@@ -1,30 +1,49 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Sparkles, Crown, Shield, Download } from "lucide-react";
+import { IoLogoAndroid } from "react-icons/io5";
 
 const HeroSection = () => {
+  // Using useState and useEffect to handle client-side rendering
+  const [isMounted, setIsMounted] = useState(false);
+
+  // This ensures the component only renders with full functionality on the client side
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  // Define background style constant to avoid inline style hydration mismatch
+  const backgroundStyle = {
+    background:
+      "radial-gradient(circle at top center, #1a0033 0%, #000000 40%, #0a1a3a 100%)",
+  };
+
+  // Define gold pattern style constant
+  const goldPatternStyle = {
+    backgroundImage:
+      "radial-gradient(circle at 3px 3px, gold 1px, transparent 0)",
+    backgroundSize: "72px 72px",
+  };
+
+  // If not mounted yet, return a placeholder with matching structure but no dynamic content
+  if (!isMounted) {
+    return (
+      <section className="relative overflow-hidden min-h-screen px-4 lg:px-8 bg-black" />
+    );
+  }
+
   return (
     <section
       className="relative overflow-hidden min-h-screen px-4 lg:px-8"
-      style={{
-        background:
-          "radial-gradient(circle at top center, #1a0033 0%, #000000 40%, #0a1a3a 100%)",
-      }}
+      style={backgroundStyle}
     >
       {/* Advanced Background Elements */}
       <div className="absolute inset-0">
         {/* Gold Pattern Overlay */}
         <div className="absolute inset-0 opacity-5">
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage:
-                "radial-gradient(circle at 3px 3px, gold 1px, transparent 0)",
-              backgroundSize: "72px 72px",
-            }}
-          ></div>
+          <div className="absolute inset-0" style={goldPatternStyle}></div>
         </div>
 
         {/* Luxury Lighting Effects */}
@@ -44,16 +63,18 @@ const HeroSection = () => {
               </span>
             </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-7xl font-serif font-light leading-tight">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-5xl 2xl:text-6xl font-serif font-light leading-tight">
               Redefine Salon Excellence with
               <span className="block font-medium mt-2 md:mt-3 lg:mt-4 bg-clip-text text-transparent bg-gradient-to-r from-amber-300 via-yellow-100 to-amber-300">
                 Curl Cipher
               </span>
             </h1>
 
-            <p className="text-base sm:text-lg md:text-xl lg:text-xl xl:text-2xl text-gray-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-              The pinnacle of salon management technology, seamlessly connecting
-              prestigious establishments with discerning clientele.
+            <p className="text-base sm:text-lg md:text-xl lg:text-xl xl:text-xl 2xl:text-2xl text-gray-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+              Two apps, one ecosystem: Curl Cipher (Clients) & Curl Cipher
+              Manage (Salons) — the pinnacle of salon management technology,
+              seamlessly connecting prestigious establishments with discerning
+              clientele.
             </p>
 
             {/* Luxury App Cards with App Logos */}
@@ -64,21 +85,26 @@ const HeroSection = () => {
                   <div className="flex flex-col">
                     {/* Client App Logo */}
                     <div className="flex justify-center lg:justify-start mb-2">
-                      <Image
-                        src="/customer.png" // Replace with your client app logo path
-                        alt="Client App Logo"
-                        width={70}
-                        height={70}
-                        className="w-12 h-12 md:w-16 md:h-16 lg:w-18 lg:h-18 object-contain"
-                      />
+                      {/* Use onLoad handler and placeholder to avoid hydration issues */}
+                      <div className="w-12 h-12 md:w-16 md:h-16 lg:w-18 lg:h-18 relative">
+                        <Image
+                          src="/customer.png"
+                          alt="Client App Logo"
+                          fill
+                          sizes="(max-width: 768px) 48px, (max-width: 1024px) 64px, 72px"
+                          className="object-contain"
+                          priority
+                        />
+                      </div>
                     </div>
-                    <h3 className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-serif text-white text-center lg:text-left mb-3 md:mb-4">
-                      Curl Cipher Elite
+                    <h3 className="text-lg md:text-xl lg:text-xl xl:text-xl 2xl:text-2xl font-serif text-white text-center lg:text-left mb-3 md:mb-4">
+                      Curl Cipher
                     </h3>
                   </div>
-                  <p className="text-sm md:text-base lg:text-lg xl:text-xl text-gray-400 leading-relaxed text-center lg:text-left">
-                    Premium experience for distinguished clientele to discover
-                    and book exceptional salon services
+                  <p className="text-sm md:text-base lg:text-lg xl:text-lg 2xl:text-xl text-gray-400 leading-relaxed text-center lg:text-left">
+                    Curl Cipher is our elegant customer app, designed for
+                    discerning clients who seek premium salon experiences with
+                    effortless booking and service discovery.
                   </p>
                 </div>
               </div>
@@ -89,21 +115,27 @@ const HeroSection = () => {
                   <div className="flex flex-col">
                     {/* Manager App Logo */}
                     <div className="flex justify-center lg:justify-start mb-2">
-                      <Image
-                        src="/manage.png" // Replace with your manager app logo path
-                        alt="Manager App Logo"
-                        width={70}
-                        height={70}
-                        className="w-12 h-12 md:w-16 md:h-16 lg:w-18 lg:h-18 object-contain"
-                      />
+                      {/* Use consistent sizing approach with container + fill */}
+                      <div className="w-12 h-12 md:w-16 md:h-16 lg:w-18 lg:h-18 relative">
+                        <Image
+                          src="/manage.png"
+                          alt="Manager App Logo"
+                          fill
+                          sizes="(max-width: 768px) 48px, (max-width: 1024px) 64px, 72px"
+                          className="object-contain"
+                          priority
+                        />
+                      </div>
                     </div>
-                    <h3 className="text-lg md:text-xl lg:text-2xl xl:text-3xl font-serif text-white text-center lg:text-left mb-3 md:mb-4">
+                    <h3 className="text-lg md:text-xl lg:text-xl xl:text-xl 2xl:text-2xl font-serif text-white text-center lg:text-left mb-3 md:mb-4">
                       Curl Cipher Manager
                     </h3>
                   </div>
-                  <p className="text-sm md:text-base lg:text-lg xl:text-xl text-gray-400 leading-relaxed text-center lg:text-left">
-                    Sophisticated management suite for salon owners to
-                    orchestrate operations with unparalleled precision
+                  <p className="text-sm md:text-base lg:text-lg xl:text-lg 2xl:text-xl text-gray-400 leading-relaxed text-center lg:text-left">
+                    Curl Cipher Manage is the powerful companion app for salon
+                    owners and managers, enabling real-time oversight, staff
+                    coordination, and intelligent service management — all from
+                    a sleek, user-friendly dashboard.
                   </p>
                 </div>
               </div>
@@ -111,20 +143,30 @@ const HeroSection = () => {
 
             {/* Premium CTA Buttons with Download Now */}
             <div className="flex flex-col sm:flex-row gap-4 md:gap-5 lg:gap-6 justify-center lg:justify-start mt-8 md:mt-12 lg:mt-16">
-              <button className="group relative px-6 py-3 md:px-8 md:py-4 lg:px-8 lg:py-4 text-sm md:text-base lg:text-lg xl:text-xl overflow-hidden rounded-lg transition-all duration-500">
+              <a
+                href="https://play.google.com/store/apps/details?id=com.curl_cipher.customer_app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="group relative inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 lg:px-8 lg:py-4 text-sm md:text-base lg:text-lg xl:text-lg 2xl:text-xl overflow-hidden rounded-lg transition-all duration-500"
+              >
                 <div className="absolute inset-0 bg-gradient-to-r from-amber-500 to-yellow-400 rounded-lg"></div>
                 <div className="absolute inset-0 bg-gradient-to-r from-black to-gray-900 rounded-lg transform scale-0 group-hover:scale-100 transition-transform duration-500"></div>
-                <span className="relative z-10 text-black group-hover:text-yellow-300 font-medium transition-colors duration-500">
-                  Experience Excellence
-                </span>
-              </button>
+                <div className="flex items-center gap-2 relative z-10">
+                  <IoLogoAndroid className="relative z-10 w-5 h-5 text-black group-hover:text-yellow-300 transition-colors duration-500" />
+                  <span className="relative z-10 text-black group-hover:text-yellow-300 font-medium transition-colors duration-500">
+                    Download Curl Cipher
+                  </span>
+                </div>
+              </a>
 
               <a
-                href="#"
-                className="px-6 py-3 md:px-8 md:py-4 lg:px-8 lg:py-4 text-sm md:text-base lg:text-lg xl:text-xl border-2 border-yellow-300 text-yellow-300 font-medium rounded-lg hover:bg-yellow-300/10 transition-all duration-300 flex items-center justify-center sm:justify-start gap-2"
+                href="https://play.google.com/store/apps/details?id=com.curl_cipher_manage.saloon_app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 lg:px-8 lg:py-4 text-sm md:text-base lg:text-lg xl:text-lg 2xl:text-xl border-2 border-yellow-300 text-yellow-300 font-medium rounded-lg hover:bg-yellow-300/10 transition-all duration-300 gap-2"
               >
-                <Download className="w-4 h-4 md:w-4 md:h-4 lg:w-5 lg:h-5" />
-                <span>Download for Android</span>
+                <IoLogoAndroid className="w-5 h-5" />
+                <span>Download Curl Cipher Manage</span>
               </a>
             </div>
           </div>
@@ -136,11 +178,12 @@ const HeroSection = () => {
               <div className="relative w-40 h-[340px] sm:w-48 sm:h-[390px] md:w-56 md:h-[450px] lg:w-64 lg:h-[520px] xl:w-72 xl:h-[560px] -rotate-6 hover:rotate-0 transition-transform duration-300">
                 <div className="absolute inset-0 bg-gradient-to-br from-amber-600 to-orange-700 rounded-[2rem] lg:rounded-[2.5rem] shadow-2xl">
                   <div className="absolute inset-1 bg-black rounded-[1.8rem] lg:rounded-[2.2rem] overflow-hidden">
-                    {/* Using the provided client app screenshot */}
+                    {/* Using the provided client app screenshot with priority loading */}
                     <Image
-                      src="/curlcipher.png" // Replace with your actual path to Image 1
+                      src="/curlcipher.png"
                       alt="Curl Cipher Client App"
                       fill
+                      sizes="(max-width: 640px) 160px, (max-width: 768px) 192px, (max-width: 1024px) 224px, (max-width: 1280px) 256px, 288px"
                       className="object-cover"
                       priority
                     />
@@ -149,10 +192,10 @@ const HeroSection = () => {
                 </div>
                 <div className="absolute -bottom-10 md:-bottom-12 lg:-bottom-14 left-1/2 transform -translate-x-1/2 text-white text-center">
                   <p className="font-serif text-base md:text-lg font-medium">
-                    Elite Client
+                    Client App
                   </p>
                   <p className="text-xs md:text-sm text-amber-300">
-                    For Valued Patrons
+                    For Salon Customers
                   </p>
                 </div>
               </div>
@@ -161,11 +204,12 @@ const HeroSection = () => {
               <div className="relative w-40 h-[340px] sm:w-48 sm:h-[390px] md:w-56 md:h-[450px] lg:w-64 lg:h-[520px] xl:w-72 xl:h-[560px] rotate-6 hover:rotate-0 transition-transform duration-300 mt-12 lg:mt-16">
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-700 to-indigo-800 rounded-[2rem] lg:rounded-[2.5rem] shadow-2xl">
                   <div className="absolute inset-1 bg-black rounded-[1.8rem] lg:rounded-[2.2rem] overflow-hidden">
-                    {/* Using the provided manager app screenshot */}
+                    {/* Using the provided manager app screenshot with priority loading */}
                     <Image
-                      src="/manage.jpg" // Replace with your actual path to Image 2
+                      src="/manage.jpg"
                       alt="Curl Cipher Manager App"
                       fill
+                      sizes="(max-width: 640px) 160px, (max-width: 768px) 192px, (max-width: 1024px) 224px, (max-width: 1280px) 256px, 288px"
                       className="object-cover"
                       priority
                     />
@@ -174,10 +218,10 @@ const HeroSection = () => {
                 </div>
                 <div className="absolute -bottom-10 md:-bottom-12 lg:-bottom-14 left-1/2 transform -translate-x-1/2 text-white text-center">
                   <p className="font-serif text-base md:text-lg font-medium">
-                    Elite Manager
+                    Business App
                   </p>
                   <p className="text-xs md:text-sm text-blue-300">
-                    For Distinguished Owners
+                    For Salon Owners
                   </p>
                 </div>
               </div>

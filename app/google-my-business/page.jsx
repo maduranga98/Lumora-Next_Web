@@ -1,4 +1,4 @@
-// components/pages/gmb.jsx
+// app/google-my-business/page.jsx - Fixed navigation
 "use client";
 
 import Navbar from "@/components/common/Navbar";
@@ -9,8 +9,17 @@ import ServicesGMB from "@/components/sections/ServicesGMB";
 import QASection from "@/components/sections/QASection";
 import HeroSectionGMB from "@/components/gmb/Hero";
 import ContactSection from "@/components/sections/ContactSection";
+import { useLoading } from "@/components/LoadingProvider";
+import { useEffect } from "react";
 
 export default function GMBPage() {
+  const { setIsLoading } = useLoading();
+
+  // Signal that page has loaded
+  useEffect(() => {
+    setIsLoading(false);
+  }, [setIsLoading]);
+
   return (
     <main>
       <Navbar />
@@ -41,8 +50,6 @@ export default function GMBPage() {
       <div id="contact">
         <ContactSection />
       </div>
-
-      {/* Placeholder for Contact Us section */}
     </main>
   );
 }

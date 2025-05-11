@@ -10,7 +10,10 @@ export default function CurlCipherPage() {
     <>
       <Navbar />
       <main>
-        <HeroSection />
+        <section id="home">
+          <HeroSection />
+        </section>
+
         <section id="overview">
           <AppOverviewSection />
         </section>

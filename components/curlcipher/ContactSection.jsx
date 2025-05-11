@@ -64,7 +64,7 @@ const ContactSection = () => {
     {
       icon: <Mail className="w-5 h-5 text-yellow-300" />,
       title: "Email Excellence",
-      content: "info@curlcipher.com",
+      content: "info@lumoraventures.com",
     },
     {
       icon: <Phone className="w-5 h-5 text-yellow-300" />,

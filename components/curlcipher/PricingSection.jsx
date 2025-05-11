@@ -8,7 +8,7 @@ const PricingSection = () => {
   const plans = [
     {
       id: "basic",
-      name: "Essential",
+      name: "Basic Plan",
       subtitle: "Perfect for emerging salons",
       price: 150,
       duration: "month",
@@ -30,7 +30,7 @@ const PricingSection = () => {
     },
     {
       id: "premium",
-      name: "Professional",
+      name: "Premium Plan",
       subtitle: "Ideal for growing salons",
       price: 250,
       duration: "month",
@@ -53,7 +53,7 @@ const PricingSection = () => {
     },
     {
       id: "luxury",
-      name: "Elite Enterprise",
+      name: "Luxury Plan",
       subtitle: "Ultimate sophistication",
       price: 300,
       duration: "month",

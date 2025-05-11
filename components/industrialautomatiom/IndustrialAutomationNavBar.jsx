@@ -1,7 +1,9 @@
+// components/industrialautomatiom/IndustrialAutomationNavBar.jsx
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -12,56 +14,77 @@ const Navigation = () => {
   // Only run client-side code after mount
   useEffect(() => {
     setMounted(true);
+    setWindowWidth(window.innerWidth);
 
-    // Safe window access after mount
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const [windowWidth, setWindowWidth] = useState(0);
+
+  // Handle scroll with throttling to improve performance
+  useEffect(() => {
+    if (!mounted) return;
+
+    let ticking = false;
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 50);
+          ticking = false;
 
-      // Determine active section based on scroll position
-      const sections = document.querySelectorAll("section[id]");
-      if (sections.length === 0) return;
+          // Determine active section based on scroll position
+          const sections = document.querySelectorAll("section[id], div[id]");
+          if (sections.length === 0) return;
 
-      // Create an array to store all section positions
-      let activeSectionFound = false;
-      const scrollPosition = window.scrollY + 100; // Adding offset for navbar height
+          // Create an array to store all section positions
+          let activeSectionFound = false;
+          const scrollPosition = window.scrollY + 100; // Adding offset for navbar height
 
-      // Check sections from top to bottom
-      Array.from(sections).forEach((section) => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.offsetHeight;
-        const sectionId = section.getAttribute("id");
+          // Check sections from top to bottom
+          Array.from(sections).forEach((section) => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = section.getAttribute("id");
 
-        if (
-          !activeSectionFound &&
-          scrollPosition >= sectionTop &&
-          scrollPosition < sectionTop + sectionHeight
-        ) {
-          setActiveSection(sectionId);
-          activeSectionFound = true;
-        }
-      });
+            if (
+              !activeSectionFound &&
+              scrollPosition >= sectionTop &&
+              scrollPosition < sectionTop + sectionHeight
+            ) {
+              setActiveSection(sectionId);
+              activeSectionFound = true;
+            }
+          });
 
-      // If we're at the very top of the page, set home as active
-      if (window.scrollY < 100) {
-        setActiveSection("home");
-      }
+          // If we're at the very top of the page, set home as active
+          if (window.scrollY < 100) {
+            setActiveSection("home");
+          }
 
-      // If we're at the bottom of the page, set the last section as active
-      if (
-        window.scrollY + window.innerHeight >=
-        document.body.offsetHeight - 100
-      ) {
-        const lastSection = sections[sections.length - 1];
-        if (lastSection) {
-          setActiveSection(lastSection.getAttribute("id"));
-        }
+          // If we're at the bottom of the page, set the last section as active
+          if (
+            window.scrollY + window.innerHeight >=
+            document.body.offsetHeight - 100
+          ) {
+            const lastSection = sections[sections.length - 1];
+            if (lastSection) {
+              setActiveSection(lastSection.getAttribute("id"));
+            }
+          }
+        });
+        ticking = true;
       }
     };
 
-    // Only add event listener after mounting
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
 
-    // Run once on initial load to set initial state
+    // Initial check
     handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
@@ -75,26 +98,34 @@ const Navigation = () => {
     { label: "Contact", href: "#contact", id: "contact" },
   ];
 
-  const scrollToSection = (href) => {
-    if (!mounted) return;
+  // Improved scroll to section function
+  const scrollToSection = useCallback(
+    (href) => {
+      if (!mounted) return;
 
-    const element = document.querySelector(href);
-    if (element) {
-      const navHeight = 80; // navbar height
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.scrollY - navHeight;
+      // Close mobile menu
+      setIsMobileMenuOpen(false);
 
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
+      // Handle hash navigation
+      if (href.startsWith("#")) {
+        const sectionId = href.substring(1);
+        const element = document.getElementById(sectionId);
 
-      // Set active section when clicking nav item
-      const sectionId = href.replace("#", "");
-      setActiveSection(sectionId);
-    }
-    setIsMobileMenuOpen(false);
-  };
+        if (element) {
+          const navHeight = windowWidth >= 1280 ? 80 : 64; // Adjust based on screen size
+          const offsetPosition = element.offsetTop - navHeight;
+
+          setTimeout(() => {
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: "smooth",
+            });
+          }, 100);
+        }
+      }
+    },
+    [mounted, windowWidth]
+  );
 
   // Render a static version for server-side rendering
   if (!mounted) {
@@ -103,17 +134,15 @@ const Navigation = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 md:h-20">
             {/* Logo */}
-            <div className="flex items-center">
-              <a href="/" className="flex items-center gap-2">
-                <div className="relative w-8 h-8 overflow-hidden">
-                  {/* Placeholder for logo image */}
-                  <div className="w-8 h-8 bg-blue-500/50 rounded-full" />
-                </div>
-                <span className="text-white font-semibold text-base md:text-xl">
-                  Lumora Ventures
-                </span>
-              </a>
-            </div>
+            <a href="/" className="flex items-center gap-2">
+              <div className="relative w-8 h-8 overflow-hidden">
+                {/* Placeholder for logo image */}
+                <div className="w-8 h-8 bg-blue-500/50 rounded-full" />
+              </div>
+              <span className="text-white font-semibold text-base md:text-xl">
+                Lumora Ventures
+              </span>
+            </a>
 
             {/* Mobile menu button placeholder */}
             <div className="md:hidden">
@@ -132,7 +161,6 @@ const Navigation = () => {
     );
   }
 
-  // Full component for client-side rendering
   return (
     <nav
       className={`fixed w-full z-50 transition-all duration-300 ${
@@ -145,7 +173,7 @@ const Navigation = () => {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <div className="flex items-center">
-            <a href="/" className="flex items-center gap-2">
+            <Link href="/" className="flex items-center gap-2">
               <div className="relative w-8 h-8 overflow-hidden">
                 <Image
                   src="/logo.png"
@@ -158,7 +186,7 @@ const Navigation = () => {
               <span className="text-white font-semibold text-base md:text-xl">
                 Lumora Ventures
               </span>
-            </a>
+            </Link>
           </div>
 
           {/* Desktop Navigation */}
@@ -167,7 +195,7 @@ const Navigation = () => {
               <button
                 key={index}
                 onClick={() => scrollToSection(item.href)}
-                className={`transition-colors duration-300 text-sm font-medium relative group ${
+                className={`transition-colors duration-300 text-sm font-medium relative ${
                   activeSection === item.id
                     ? "text-white"
                     : "text-gray-400 hover:text-white"
@@ -220,36 +248,35 @@ const Navigation = () => {
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      <div
-        className={`md:hidden transition-all duration-300 ${
-          isMobileMenuOpen
-            ? "max-h-96 opacity-100"
-            : "max-h-0 opacity-0 overflow-hidden"
-        }`}
-      >
-        <div className="px-4 pt-2 pb-4 space-y-2 bg-black/90 backdrop-blur-lg border-t border-blue-400/10">
-          {navItems.map((item, index) => (
-            <button
-              key={index}
-              onClick={() => scrollToSection(item.href)}
-              className={`block w-full text-left transition-colors duration-300 py-2 ${
-                activeSection === item.id ? "text-white" : "text-gray-400"
-              }`}
+      {/* Mobile Menu - Improved implementation */}
+      {isMobileMenuOpen && (
+        <div className="md:hidden bg-black/90 backdrop-blur-lg border-t border-blue-400/10">
+          <div className="px-4 pt-2 pb-3 space-y-2">
+            {navItems.map((item, index) => (
+              <button
+                key={index}
+                onClick={() => scrollToSection(item.href)}
+                className={`block w-full text-left transition-colors duration-300 py-2 ${
+                  activeSection === item.id ? "text-white" : "text-gray-400"
+                }`}
+              >
+                <div className="flex items-center">
+                  {activeSection === item.id && (
+                    <span className="w-1 h-5 bg-blue-400 rounded-full mr-2"></span>
+                  )}
+                  {item.label}
+                </div>
+              </button>
+            ))}
+            <Link
+              href="/"
+              className="block mt-4 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-all duration-300"
             >
-              <div className="flex items-center">
-                {activeSection === item.id && (
-                  <span className="w-1 h-5 bg-blue-400 rounded-full mr-2"></span>
-                )}
-                {item.label}
-              </div>
-            </button>
-          ))}
-          <button className="w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-all duration-300 mt-4">
-            Get Started
-          </button>
+              Back to Home
+            </Link>
+          </div>
         </div>
-      </div>
+      )}
     </nav>
   );
 };

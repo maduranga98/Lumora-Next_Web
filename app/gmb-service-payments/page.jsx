@@ -150,10 +150,7 @@ function CheckoutForm({ formData }) {
         // Check if we need to confirm the payment or if it's already successful
         if (status === "active") {
           // Subscription is already active, no need to confirm payment
-          alert(
-            "Payment successful! Your subscription has been activated. We'll contact you shortly to get started."
-          );
-          router.push("/");
+          showSuccessMessage();
           return;
         }
 
@@ -173,10 +170,7 @@ function CheckoutForm({ formData }) {
         }
 
         // Subscription and payment succeeded
-        alert(
-          "Payment successful! Your subscription has been activated. We'll contact you shortly to get started."
-        );
-        router.push("/");
+        showSuccessMessage();
       } catch (error) {
         if (error.message && error.message.includes("payment_intent")) {
           // Specific handling for payment intent errors
@@ -196,6 +190,26 @@ function CheckoutForm({ formData }) {
     } finally {
       setLoading(false);
     }
+  };
+
+  // Add this function to show a better success message
+  const showSuccessMessage = () => {
+    // Create a custom modal or alert with more details
+    const successMessage = `
+      Thank you for subscribing to our Professional GBP Management service!
+      
+      Your payment was successful and your subscription has been activated.
+      
+      What happens next:
+      • You'll receive an email confirmation shortly
+      • Our team will contact you within 24 hours to begin the onboarding process
+      • We'll work with you to set up and optimize your Google Business Profile
+      
+      If you have any questions, please contact us at info@lumoraventures.com
+    `;
+
+    alert(successMessage);
+    router.push("/");
   };
 
   return (

@@ -168,7 +168,7 @@ const AppOverviewSection = () => {
         </div>
 
         {/* Refined Call to Action */}
-        <div className="text-center mt-16 md:mt-20 lg:mt-24">
+        {/* <div className="text-center mt-16 md:mt-20 lg:mt-24">
           <div className="inline-flex flex-col sm:flex-row items-center gap-4 md:gap-6 lg:gap-8">
             <button className="px-8 md:px-10 lg:px-12 py-3 md:py-4 lg:py-4 rounded-lg bg-gradient-to-r from-amber-500 to-yellow-400 text-black font-medium text-base md:text-base lg:text-lg hover:shadow-2xl transition-all duration-500 hover:scale-105">
               Discover Excellence
@@ -178,7 +178,7 @@ const AppOverviewSection = () => {
               Inquire Now
             </button>
           </div>
-        </div>
+        </div> */}
       </div>
     </section>
   );

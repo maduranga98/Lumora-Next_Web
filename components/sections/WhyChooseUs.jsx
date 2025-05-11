@@ -1,6 +1,9 @@
 // components/sections/WhyChooseUs.jsx
 "use client";
 
+import { useCallback } from "react";
+import ScrollToButton from "../ScrollToButton";
+
 export default function WhyChooseUs() {
   const serviceGuarantees = [
     "Dedicated account manager for personalized support",
@@ -301,9 +304,12 @@ export default function WhyChooseUs() {
             Let our experts handle your Google Business Profile so you can focus
             on running your business.
           </p>
-          <button className="bg-teal-600 text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-teal-700 transition duration-300">
-            Get Started Today
-          </button>
+          <ScrollToButton
+            sectionId="services"
+            className="bg-teal-600 text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-teal-700 transition duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+          >
+            <span className="inline-flex items-center">Get Started Today</span>
+          </ScrollToButton>
         </div>
       </div>
     </section>

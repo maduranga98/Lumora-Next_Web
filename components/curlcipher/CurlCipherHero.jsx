@@ -180,7 +180,7 @@ const HeroSection = () => {
                   <div className="absolute inset-1 bg-black rounded-[1.8rem] lg:rounded-[2.2rem] overflow-hidden">
                     {/* Using the provided client app screenshot with priority loading */}
                     <Image
-                      src="/curlcipher.png"
+                      src="/curlcipher.webp"
                       alt="Curl Cipher Client App"
                       fill
                       sizes="(max-width: 640px) 160px, (max-width: 768px) 192px, (max-width: 1024px) 224px, (max-width: 1280px) 256px, 288px"
@@ -206,7 +206,7 @@ const HeroSection = () => {
                   <div className="absolute inset-1 bg-black rounded-[1.8rem] lg:rounded-[2.2rem] overflow-hidden">
                     {/* Using the provided manager app screenshot with priority loading */}
                     <Image
-                      src="/manage.jpg"
+                      src="/manage.webp"
                       alt="Curl Cipher Manager App"
                       fill
                       sizes="(max-width: 640px) 160px, (max-width: 768px) 192px, (max-width: 1024px) 224px, (max-width: 1280px) 256px, 288px"

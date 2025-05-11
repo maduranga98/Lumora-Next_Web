@@ -2,6 +2,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import ScrollToButton from "../ScrollToButton";
 
 export default function WhyItMatters() {
   // Add isMounted state to prevent hydration mismatches
@@ -339,6 +340,7 @@ export default function WhyItMatters() {
           </div>
 
           <div className="mt-16 text-center">
+            {/* Modified CTA Button */}
             <button className="bg-yellow-400 text-teal-900 px-10 py-4 rounded-lg font-bold text-lg">
               Get Your GBP Optimized Now
             </button>
@@ -402,11 +404,16 @@ export default function WhyItMatters() {
           ))}
         </div>
 
-        {/* CTA Section */}
+        {/* CTA Section with Scroll to Services button */}
         <div className="mt-16 text-center">
-          <button className="bg-yellow-400 text-teal-900 px-10 py-4 rounded-lg font-bold text-lg hover:bg-yellow-300 transition duration-300 transform hover:scale-105">
-            Get Your GBP Optimized Now
-          </button>
+          <ScrollToButton
+            sectionId="services"
+            className="bg-yellow-400 text-teal-900 px-10 py-4 rounded-lg font-bold text-lg hover:bg-yellow-300 transition duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 focus:ring-offset-teal-700"
+          >
+            <span className="inline-flex items-center">
+              Get Your GBP Optimized Now
+            </span>
+          </ScrollToButton>
         </div>
 
         {/* Animated Globe Illustration */}

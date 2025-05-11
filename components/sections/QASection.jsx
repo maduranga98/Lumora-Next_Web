@@ -39,11 +39,11 @@ export default function QASection() {
       answer:
         "We create and publish weekly posts highlighting your services, special offers, events, or general updates. You can provide specific content you'd like us to share, or our team can create relevant content based on your business and industry. We'll establish a content calendar and always welcome your input on what you'd like to showcase.",
     },
-    {
-      question: "Can I see what changes you're making to my profile?",
-      answer:
-        "Absolutely! Transparency is important to us. You'll receive a detailed monthly report showing all optimizations and updates made to your profile, along with performance metrics. You'll also have 24/7 access to our client dashboard where you can view your profile status, upcoming posts, recent reviews, and more in real-time.",
-    },
+    // {
+    //   question: "Can I see what changes you're making to my profile?",
+    //   answer:
+    //     "Absolutely! Transparency is important to us. You'll receive a detailed monthly report showing all optimizations and updates made to your profile, along with performance metrics. You'll also have 24/7 access to our client dashboard where you can view your profile status, upcoming posts, recent reviews, and more in real-time.",
+    // },
     {
       question: "How do you handle review management?",
       answer:

@@ -188,8 +188,8 @@ export default function AboutGMB() {
         <div className="grid md:grid-cols-2 gap-12 items-center mb-20">
           <div>
             <p className="text-lg text-gray-700 mb-6">
-              When someone searches "coffee shop near me" or your business name,
-              your GBP shows your location, contact info, hours, photos,
+              When someone searches "beauty salon near me" or your business
+              name, your GBP shows your location, contact info, hours, photos,
               reviews, and more. If you want to be found locally, GBP is
               essential.
             </p>

@@ -129,9 +129,9 @@ const ServiceSection = () => {
         "Streamlined appointment scheduling",
         "Efficient inventory management",
         "Role-based staff controls",
-        "Detailed customer profiles",
         "Financial insights dashboard",
         "Enhanced customer experience",
+        "Two Powerful Apps + a Free Website!",
       ],
       icon: (
         <svg

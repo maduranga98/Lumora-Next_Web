@@ -8,6 +8,7 @@ import {
   Suspense,
 } from "react";
 import { usePathname, useSearchParams } from "next/navigation";
+import Image from "next/image";
 
 // Create context
 const LoadingContext = createContext({
@@ -35,34 +36,69 @@ function LoadingProviderContent({ children, setIsLoading }) {
   return children;
 }
 
+// Styled Loading Component with ICO file
+function LoadingScreen() {
+  return (
+    <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white/95 backdrop-blur-md transition-all duration-300">
+      <div className="relative flex flex-col items-center">
+        {/* Logo with pulsing animation */}
+        <div className="relative w-24 h-24 md:w-32 md:h-32 animate-pulse">
+          <Image
+            src="/favicon.ico" // Using the .ico file
+            alt="Lumora Ventures"
+            width={128}
+            height={128}
+            className="object-contain"
+            priority
+            // For ICO files, we should use width/height props instead of fill
+          />
+        </div>
+
+        {/* Circular loading spinner around the logo */}
+        <div className="absolute inset-0 w-full h-full -m-2 md:-m-3">
+          <div className="w-[calc(100%+16px)] h-[calc(100%+16px)] md:w-[calc(100%+24px)] md:h-[calc(100%+24px)] rounded-full border-4 border-blue-600/20 border-t-blue-600 animate-spin"></div>
+        </div>
+
+        {/* Loading text */}
+        <div className="mt-8 text-center">
+          <p className="text-blue-600 font-medium text-lg md:text-xl">
+            Loading
+          </p>
+          <div className="flex justify-center mt-1 space-x-1">
+            <div
+              className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"
+              style={{ animationDelay: "0ms" }}
+            ></div>
+            <div
+              className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"
+              style={{ animationDelay: "150ms" }}
+            ></div>
+            <div
+              className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"
+              style={{ animationDelay: "300ms" }}
+            ></div>
+          </div>
+        </div>
+      </div>
+
+      {/* Optional subtle gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-white/50 -z-10"></div>
+    </div>
+  );
+}
+
 export function LoadingProvider({ children }) {
   const [isLoading, setIsLoading] = useState(false);
 
   return (
     <LoadingContext.Provider value={{ isLoading, setIsLoading }}>
-      <Suspense
-        fallback={
-          <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-white/80 backdrop-blur-sm">
-            <div className="flex flex-col items-center">
-              <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-              <p className="mt-4 text-blue-600 font-medium">Loading...</p>
-            </div>
-          </div>
-        }
-      >
+      <Suspense fallback={<LoadingScreen />}>
         <LoadingProviderContent setIsLoading={setIsLoading}>
           {children}
         </LoadingProviderContent>
       </Suspense>
 
-      {isLoading && (
-        <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-white/80 backdrop-blur-sm">
-          <div className="flex flex-col items-center">
-            <div className="w-16 h-16 border-4 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-            <p className="mt-4 text-blue-600 font-medium">Loading...</p>
-          </div>
-        </div>
-      )}
+      {isLoading && <LoadingScreen />}
     </LoadingContext.Provider>
   );
 }

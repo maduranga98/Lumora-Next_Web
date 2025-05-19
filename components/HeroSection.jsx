@@ -1,3 +1,4 @@
+// components/HeroSection.jsx
 "use client";
 import React, { useState, useEffect } from "react";
 
@@ -132,7 +133,6 @@ const styles = `
 }
 `;
 
-// This component also needs updated padding for large screens
 const HeroSection = () => {
   const [isMounted, setIsMounted] = useState(false);
   const [windowWidth, setWindowWidth] = useState(0);
@@ -182,21 +182,23 @@ const HeroSection = () => {
         background:
           "radial-gradient(circle at top left, #3B82F6 0%, #1E3A8A 50%, #0F172A 100%)",
       }}
+      role="banner"
+      aria-label="Business transformation solutions"
     >
-      {/* Background Geometric Patterns - Removed */}
-
       {/* Floating Gradient Orbs - Responsive sizes with animation */}
       <div
         className={`absolute -top-20 sm:-top-30 lg:-top-40 -left-20 sm:-left-30 lg:-left-40 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 xl:w-[500px] xl:h-[500px] 2xl:w-[600px] 2xl:h-[600px] bg-blue-500/20 rounded-full blur-3xl ${
           isMounted ? "animate-fadeIn" : "opacity-0"
         }`}
         style={{ animationDelay: "200ms" }}
+        aria-hidden="true"
       />
       <div
         className={`absolute -bottom-20 sm:-bottom-30 lg:-bottom-40 -right-20 sm:-right-30 lg:-right-40 w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96 xl:w-[500px] xl:h-[500px] 2xl:w-[600px] 2xl:h-[600px] bg-indigo-500/20 rounded-full blur-3xl ${
           isMounted ? "animate-fadeIn" : "opacity-0"
         }`}
         style={{ animationDelay: "300ms" }}
+        aria-hidden="true"
       />
 
       <div className="relative w-full max-w-6xl xl:max-w-7xl 2xl:max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 xl:px-6 2xl:px-0">
@@ -227,7 +229,7 @@ const HeroSection = () => {
               style={{ animationDelay: "700ms" }}
             >
               Boost your local presence, streamline operations, and drive
-              sustainable growth with our innovative solutions.
+              sustainable growth with our innovative automation solutions.
             </p>
 
             <button
@@ -236,6 +238,7 @@ const HeroSection = () => {
                 isMounted ? "animate-slideInUp" : "opacity-0"
               }`}
               style={{ animationDelay: "900ms" }}
+              aria-label="Explore our business automation solutions"
             >
               Start Your Transformation
               <svg
@@ -243,6 +246,7 @@ const HeroSection = () => {
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
+                aria-hidden="true"
               >
                 <path
                   strokeLinecap="round"
@@ -268,16 +272,19 @@ const HeroSection = () => {
                   isMounted ? "animate-scaleIn" : "opacity-0"
                 }`}
                 style={{ animationDelay: "800ms" }}
+                aria-hidden="true"
               />
 
               {/* Hero illustration image */}
               <img
                 src="/hero.png"
-                alt="Digital transformation illustration"
+                alt="Digital business transformation and automation illustration showing growth and efficiency"
                 className={`relative z-10 w-full h-auto ${
                   isMounted ? "animate-fadeIn" : "opacity-0"
                 }`}
                 style={{ animationDelay: "900ms" }}
+                width="600"
+                height="450"
               />
 
               {/* Decorative elements - scaled based on screen size with animations */}
@@ -286,12 +293,14 @@ const HeroSection = () => {
                   isMounted ? "animate-fadeIn" : "opacity-0"
                 }`}
                 style={{ animationDelay: "1000ms" }}
+                aria-hidden="true"
               />
               <div
                 className={`absolute -bottom-4 -left-4 sm:-bottom-5 sm:-left-5 md:-bottom-6 md:-left-6 lg:-bottom-8 lg:-left-8 w-10 h-10 sm:w-12 sm:h-12 md:w-16 md:h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 2xl:w-28 2xl:h-28 rounded-lg bg-cyan-300/20 backdrop-blur-sm transform -rotate-12 ${
                   isMounted ? "animate-fadeIn" : "opacity-0"
                 }`}
                 style={{ animationDelay: "1100ms" }}
+                aria-hidden="true"
               />
 
               {/* Small floating elements */}
@@ -300,12 +309,14 @@ const HeroSection = () => {
                   isMounted ? "animate-ping" : "opacity-0"
                 }`}
                 style={{ animationDelay: "1300ms" }}
+                aria-hidden="true"
               />
               <div
                 className={`absolute bottom-6 right-6 sm:bottom-8 sm:right-8 md:bottom-10 md:right-10 w-3 h-3 sm:w-4 sm:h-4 md:w-6 md:h-6 xl:w-8 xl:h-8 2xl:w-10 2xl:h-10 rounded-full bg-cyan-400/30 ${
                   isMounted ? "animate-ping animation-delay-2000" : "opacity-0"
                 }`}
                 style={{ animationDelay: "1500ms" }}
+                aria-hidden="true"
               />
             </div>
           </div>

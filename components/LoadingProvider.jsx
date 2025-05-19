@@ -36,27 +36,59 @@ function LoadingProviderContent({ children, setIsLoading }) {
   return children;
 }
 
-// Styled Loading Component with ICO file
+// Styled Loading Component with circular rotating animation around a circular logo
 function LoadingScreen() {
   return (
     <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white/95 backdrop-blur-md transition-all duration-300">
       <div className="relative flex flex-col items-center">
-        {/* Logo with pulsing animation */}
-        <div className="relative w-24 h-24 md:w-32 md:h-32 animate-pulse">
-          <Image
-            src="/favicon.ico" // Using the .ico file
-            alt="Lumora Ventures"
-            width={128}
-            height={128}
-            className="object-contain"
-            priority
-            // For ICO files, we should use width/height props instead of fill
-          />
-        </div>
+        {/* Outer rotating circle */}
+        <div className="relative w-32 h-32 md:w-40 md:h-40">
+          {/* Multiple rotating circles for a more dynamic effect */}
+          <div className="absolute inset-0 w-full h-full rounded-full border-4 border-blue-600/10 border-t-blue-600 animate-spin"></div>
+          <div
+            className="absolute inset-0 w-full h-full rounded-full border-4 border-blue-400/10 border-r-blue-400 animate-spin"
+            style={{ animationDuration: "2s", animationDirection: "reverse" }}
+          ></div>
 
-        {/* Circular loading spinner around the logo */}
-        <div className="absolute inset-0 w-full h-full -m-2 md:-m-3">
-          <div className="w-[calc(100%+16px)] h-[calc(100%+16px)] md:w-[calc(100%+24px)] md:h-[calc(100%+24px)] rounded-full border-4 border-blue-600/20 border-t-blue-600 animate-spin"></div>
+          {/* Additional dot indicators rotating around the circle */}
+          <div
+            className="absolute inset-0 w-full h-full animate-spin"
+            style={{ animationDuration: "3s" }}
+          >
+            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-blue-600 rounded-full"></div>
+          </div>
+          <div
+            className="absolute inset-0 w-full h-full animate-spin"
+            style={{ animationDuration: "3s", animationDelay: "0.75s" }}
+          >
+            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-blue-400 rounded-full"></div>
+          </div>
+          <div
+            className="absolute inset-0 w-full h-full animate-spin"
+            style={{ animationDuration: "3s", animationDelay: "1.5s" }}
+          >
+            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-blue-500 rounded-full"></div>
+          </div>
+          <div
+            className="absolute inset-0 w-full h-full animate-spin"
+            style={{ animationDuration: "3s", animationDelay: "2.25s" }}
+          >
+            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-blue-300 rounded-full"></div>
+          </div>
+
+          {/* Center circular logo with gentle pulse */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-white shadow-md flex items-center justify-center animate-pulse p-1">
+              <Image
+                src="/favicon.ico"
+                alt="Lumora Ventures"
+                width={80}
+                height={80}
+                className="object-contain rounded-full"
+                priority
+              />
+            </div>
+          </div>
         </div>
 
         {/* Loading text */}
@@ -81,7 +113,7 @@ function LoadingScreen() {
         </div>
       </div>
 
-      {/* Optional subtle gradient background */}
+      {/* Elegant gradient background */}
       <div className="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-white/50 -z-10"></div>
     </div>
   );

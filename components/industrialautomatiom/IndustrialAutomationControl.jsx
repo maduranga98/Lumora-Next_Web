@@ -168,10 +168,10 @@ const IndustrialAutomationControl = () => {
           </p>
 
           <h4 className="text-lg font-semibold text-white mb-6 text-center">
-            PLC Brands
+            PLC Brands & More
           </h4>
 
-          <div className="grid sm:grid-cols-2 gap-6 mb-10 lg:mb-12">
+          <div className="grid sm:grid-cols-2 gap-6 mb-5 lg:mb-8">
             {plcBrands.map((brand, index) => (
               <div
                 key={index}
@@ -219,6 +219,17 @@ const IndustrialAutomationControl = () => {
                 </Link>
               </div>
             ))}
+          </div>
+
+          <div className="text-center mb-10 lg:mb-12">
+            <p className="text-blue-400 text-sm font-medium">
+              We offer programming and integration for these and many more PLC
+              brands.
+            </p>
+            <p className="text-gray-400 text-xs mt-1">
+              Contact us for support with any industrial automation platform you
+              work with.
+            </p>
           </div>
 
           <h4 className="text-lg font-semibold text-white mb-6 text-center">

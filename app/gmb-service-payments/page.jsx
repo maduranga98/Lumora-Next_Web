@@ -14,8 +14,6 @@ import { useRouter } from "next/navigation";
 import { getFunctions, httpsCallable } from "firebase/functions";
 import { getApps } from "firebase/app";
 
-// Import Firebase config (but don't initialize here)
-// We'll use the existing app instance from lib/firebase.js instead
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
   authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
@@ -30,8 +28,10 @@ const stripePromise = loadStripe(
   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY || "pk_test_your_key"
 );
 
-// Price ID for your subscription product in Stripe dashboard
-const PRICE_ID = "price_1R2nRyKKYKi1ENnWiPY4IuMV"; // Replace with your actual Stripe price ID
+// production price id
+const PRICE_ID = "price_1R2nOQKKYKi1ENnWCnMjdSpR";
+// tesing price id
+// const PRICE_ID = "price_1R2nRyKKYKi1ENnWiPY4IuMV";
 
 function CheckoutForm({ formData }) {
   const stripe = useStripe();

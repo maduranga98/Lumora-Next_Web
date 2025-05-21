@@ -27,6 +27,29 @@ const ContactSection = () => {
         createdAt: serverTimestamp(),
       });
 
+      // Send email notification
+      try {
+        await fetch("/api/send-email", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            service: `Curl Cipher - ${formData.service}`,
+            message: formData.message,
+            formSource: "Curl Cipher Consultation Page",
+          }),
+        });
+      } catch (emailError) {
+        // Log email error but don't fail the submission
+        console.warn(
+          "Email notification failed but data was saved:",
+          emailError
+        );
+      }
+
       // Reset form on success
       setFormData({ name: "", email: "", service: "", message: "" });
       setSubmitStatus({

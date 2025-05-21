@@ -1,7 +1,6 @@
-// components/layout/OptimizedNavbar.jsx
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { Menu, X, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -19,6 +18,7 @@ const OptimizedNavbar = ({
   const [windowWidth, setWindowWidth] = useState(0);
   const router = useRouter();
   const pathname = usePathname();
+  const navbarRef = useRef(null);
 
   // Ensure component is mounted before accessing window
   useEffect(() => {
@@ -43,7 +43,6 @@ const OptimizedNavbar = ({
   useEffect(() => {
     if (!mounted || !scrollBackground) return;
 
-    let lastScrollY = window.scrollY;
     let ticking = false;
 
     const handleScroll = () => {
@@ -96,29 +95,72 @@ const OptimizedNavbar = ({
     return scrolled ? "text-gray-700" : "text-white";
   };
 
-  // Memoized scroll function for better performance
+  // IMPROVED: Scroll to section with reliable method
   const scrollToSection = useCallback(
     (e, sectionId) => {
       e.preventDefault();
 
       if (!mounted) return;
 
+      // Clean any hash symbols
+      const cleanSectionId = sectionId.replace(/#/g, "");
+
       if (!isHomePage) {
-        // Navigate to home page and then scroll
-        router.push(`/#${sectionId}`);
+        // Navigate to home page with hash
+        router.push(`/#${cleanSectionId}`);
         return;
       }
 
-      const element = document.getElementById(sectionId);
-      if (element) {
-        const navbarHeight = windowWidth >= 1280 ? 80 : 64; // Adjust based on screen size
-        const offsetPosition = element.offsetTop - navbarHeight;
+      // Special handling for contact section
+      if (
+        cleanSectionId === "contact" &&
+        typeof window.scrollToContact === "function"
+      ) {
+        // Use the global function defined in Home component
+        window.scrollToContact();
+        setIsOpen(false); // Close mobile menu
+        setActiveDropdown(null); // Close dropdowns
 
-        window.scrollTo({
-          top: offsetPosition,
-          behavior: "smooth",
-        });
-        setIsOpen(false); // Close mobile menu if open
+        // Update URL hash for SEO and sharing without triggering another scroll
+        const originalScrollRestoration = history.scrollRestoration;
+        history.scrollRestoration = "manual";
+        window.history.pushState(null, "", `#${cleanSectionId}`);
+        history.scrollRestoration = originalScrollRestoration;
+
+        return;
+      }
+
+      // For other sections, use standard approach
+      try {
+        const element = document.getElementById(cleanSectionId);
+
+        if (element) {
+          const navbarHeight = navbarRef.current
+            ? navbarRef.current.offsetHeight
+            : windowWidth >= 1280
+            ? 80
+            : 64;
+
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition =
+            elementPosition + window.pageYOffset - navbarHeight - 20;
+
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: "smooth",
+          });
+
+          // Update URL without triggering a scroll event
+          window.history.pushState(null, "", `#${cleanSectionId}`);
+
+          // Close mobile menu and dropdowns
+          setIsOpen(false);
+          setActiveDropdown(null);
+        } else {
+          console.warn(`Element with ID "${cleanSectionId}" not found`);
+        }
+      } catch (error) {
+        console.error("Error scrolling to section:", error);
       }
     },
     [mounted, isHomePage, router, windowWidth]
@@ -219,7 +261,7 @@ const OptimizedNavbar = ({
             >
               <div className="relative w-8 h-8">
                 <Image
-                  src="/logo.png"
+                  src="/logo.webp"
                   alt="Lumora Ventures"
                   width={32}
                   height={32}
@@ -267,7 +309,7 @@ const OptimizedNavbar = ({
       : "text-xs";
 
   return (
-    <nav className={getNavbarStyle()}>
+    <nav className={getNavbarStyle()} ref={navbarRef}>
       <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
         <div className="flex items-center justify-between h-14 sm:h-16 lg:h-20">
           {/* Logo */}
@@ -278,7 +320,7 @@ const OptimizedNavbar = ({
           >
             <div className="relative w-8 h-8">
               <Image
-                src="/logo.png"
+                src="/logo.webp"
                 alt="Lumora Ventures"
                 width={logoSize.size}
                 height={logoSize.size}

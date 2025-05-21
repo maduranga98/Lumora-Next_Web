@@ -72,7 +72,7 @@ const Navbar = () => {
                 <div className="absolute inset-0 rounded-full bg-gradient-to-br from-black to-gray-900"></div>
                 <div className="relative z-10 w-full h-full rounded-full flex items-center justify-center">
                   <Image
-                    src="/app-logo.png"
+                    src="/app-logo.webp"
                     alt="App Logo"
                     width={24}
                     height={24}

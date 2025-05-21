@@ -141,7 +141,7 @@ const AboutUs = () => {
               }}
             >
               <Image
-                src="/about.png"
+                src="/about.webp"
                 width={600}
                 height={500}
                 alt="Lumora Ventures Illustration"

@@ -68,6 +68,35 @@ const ContactUs = () => {
         status: "new",
       });
 
+      // Send email notification
+      try {
+        // Format the service for the email
+        const serviceForEmail =
+          formData.service === "Other"
+            ? `Other - ${formData.otherService}`
+            : formData.service;
+
+        await fetch("/api/send-email", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            service: `Automation - ${serviceForEmail}`,
+            message: formData.message,
+            formSource: "Automation Services Page",
+          }),
+        });
+      } catch (emailError) {
+        // Log error but don't fail the submission
+        console.warn(
+          "Email notification failed but data was saved:",
+          emailError
+        );
+      }
+
       console.log("Message submitted successfully");
 
       // Success message

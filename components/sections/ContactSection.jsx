@@ -71,6 +71,32 @@ export default function ContactSection() {
         source: "Google My Business Page",
       });
 
+      // Send email notification
+      try {
+        await fetch("/api/send-email", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            service: `${formData.service} - Business: ${formData.business}`,
+            message: `Phone: ${formData.phone || "Not provided"}\n\n${
+              formData.message || "No additional message"
+            }`,
+            // Additional metadata
+            formSource: "Google My Business Page",
+          }),
+        });
+      } catch (emailError) {
+        // Log error but don't fail the submission
+        console.warn(
+          "Email notification failed but data was saved:",
+          emailError
+        );
+      }
+
       setFormStatus({
         submitted: true,
         success: true,

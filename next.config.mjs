@@ -3,6 +3,8 @@
 const nextConfig = {
   poweredByHeader: false,
   reactStrictMode: true,
+  output: "export",
+  distDir: "out",
   images: {
     domains: [
       "firebasestorage.googleapis.com",

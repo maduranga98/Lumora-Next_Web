@@ -31,28 +31,28 @@ const IndustrialAutomationControl = () => {
   const plcBrands = [
     {
       name: "Siemens",
-      icon: "/images/siemens-logo.png",
+      icon: "/images/siemens-logo.webp",
       description:
         "Expert programming for Siemens S7-1200, S7-1500, and TIA Portal systems.",
       gradient: "from-blue-600 to-teal-500",
     },
     {
       name: "Allen-Bradley",
-      icon: "/images/allen-bradley-logo.png",
+      icon: "/images/allen-bradley-logo.webp",
       description:
         "Services for ControlLogix and CompactLogix PLCs with Studio 5000.",
       gradient: "from-red-600 to-red-500",
     },
     {
       name: "Mitsubishi",
-      icon: "/images/mitsubishi-logo.png",
+      icon: "/images/mitsubishi-logo.webp",
       description:
         "Support for Mitsubishi FX and Q-series PLCs using GX Works.",
       gradient: "from-red-600 to-indigo-600",
     },
     {
       name: "Schneider Electric",
-      icon: "/images/schneider-logo.png",
+      icon: "/images/schneider-logo.webp",
       description: "Programming for Modicon M580 and M340 with EcoStruxure.",
       gradient: "from-green-600 to-emerald-500",
     },

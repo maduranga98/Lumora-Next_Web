@@ -500,7 +500,7 @@ export default function PaymentPage() {
             </Link>
             <div className="flex items-center ml-4">
               <Image
-                src="/logo.png"
+                src="/logo.webp"
                 alt="Lumora Ventures"
                 width={24}
                 height={24}

@@ -1,83 +1,85 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { useInView } from "react-intersection-observer";
 
-const AnimatedElement = ({ children, delay = 0, className = "" }) => {
-  const [isVisible, setIsVisible] = React.useState(false);
-  const [isMounted, setIsMounted] = React.useState(false);
-  const ref = React.useRef(null);
+// Optimized animated element component using react-intersection-observer
+const AnimatedElement = ({ children, delay = 0, className = "", id = "" }) => {
+  const [ref, inView] = useInView({
+    threshold: 0.1,
+    triggerOnce: true,
+  });
 
-  // Handle mounting to prevent hydration issues
-  React.useEffect(() => {
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
     setIsMounted(true);
   }, []);
 
-  React.useEffect(() => {
-    if (!isMounted) return;
+  // Animation styles with support for reduced motion
+  const getAnimationStyle = () => {
+    if (!isMounted) return { opacity: 1 }; // Prevent hydration mismatch
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => {
-            setIsVisible(true);
-          }, delay);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (ref.current) {
-      observer.observe(ref.current);
+    // Check for reduced motion preference
+    if (
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
+    ) {
+      return { opacity: 1 };
     }
 
-    return () => {
-      if (ref.current) {
-        observer.unobserve(ref.current);
-      }
+    return {
+      opacity: inView ? 1 : 0,
+      transform: inView ? "translateY(0)" : "translateY(50px)",
+      transition: `opacity 0.8s ease-out, transform 0.8s ease-out`,
+      transitionDelay: `${delay}ms`,
     };
-  }, [delay, isMounted]);
+  };
 
   return (
-    <div
-      ref={ref}
-      className={`${className} ${
-        isMounted ? "transition-all duration-800 ease-out" : ""
-      }`}
-      style={
-        isMounted
-          ? {
-              opacity: isVisible ? 1 : 0,
-              transform: isVisible ? "translateY(0)" : "translateY(50px)",
-            }
-          : { opacity: 1 } // Avoid hydration mismatch
-      }
-    >
+    <div ref={ref} className={className} style={getAnimationStyle()} id={id}>
       {children}
     </div>
   );
 };
 
 const ServiceSection = () => {
-  const [windowWidth, setWindowWidth] = React.useState(0);
-  const [mounted, setMounted] = React.useState(false);
+  const [windowWidth, setWindowWidth] = useState(0);
+  const [mounted, setMounted] = useState(false);
+  const resizeTimerRef = useRef(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     setMounted(true);
     setWindowWidth(window.innerWidth);
 
+    // Throttled resize handler for better performance
     const handleResize = () => {
-      setWindowWidth(window.innerWidth);
+      if (resizeTimerRef.current) return;
+
+      resizeTimerRef.current = setTimeout(() => {
+        setWindowWidth(window.innerWidth);
+        resizeTimerRef.current = null;
+      }, 100);
     };
 
     window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      if (resizeTimerRef.current) {
+        clearTimeout(resizeTimerRef.current);
+      }
+    };
   }, []);
 
+  // Enhanced services data with more detail for SEO
   const services = [
     {
-      title: "Google My Business Profile Management",
+      id: "google-my-business",
+      title: "Google Business Profile Management",
       description:
-        "Maximize your local search visibility and attract more customers with our expert GMB profile management.",
+        "Maximize your local search visibility and attract more customers with our expert Google Business Profile management services.",
+      detailedDescription:
+        "Our Google Business Profile management service helps businesses improve their local search rankings, engage with customers effectively, and establish a strong online presence. We optimize your profile with accurate information, respond to reviews, and implement strategies to increase visibility.",
       benefits: [
         "Improved local search ranking",
         "Enhanced customer engagement",
@@ -87,10 +89,11 @@ const ServiceSection = () => {
       ],
       icon: (
         <svg
-          className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 xl:w-16 xl:h-16 text-blue-600"
+          className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 xl:w-14 xl:h-14 text-blue-600"
           viewBox="0 0 64 64"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
         >
           <rect
             x="4"
@@ -120,11 +123,25 @@ const ServiceSection = () => {
       link: "/google-my-business",
       enabled: true,
       buttonClass: "bg-blue-600 hover:bg-blue-700",
+      schema: {
+        "@type": "Service",
+        name: "Google Business Profile Management",
+        description:
+          "Maximize your local search visibility and attract more customers with our expert Google Business Profile management services.",
+        offers: {
+          "@type": "Offer",
+          price: "Starting from",
+          priceCurrency: "USD",
+        },
+      },
     },
     {
+      id: "curl-cipher",
       title: "Curl Cipher – Salon Management",
       description:
-        "Revolutionize your salon operations with our comprehensive management system.",
+        "Revolutionize your salon operations with our comprehensive management system designed specifically for beauty and wellness businesses.",
+      detailedDescription:
+        "Curl Cipher is a complete salon management solution that streamlines appointments, inventory, staff management, and customer relations. Our system includes mobile apps for both staff and clients, plus a free website to showcase your services.",
       benefits: [
         "Streamlined appointment scheduling",
         "Efficient inventory management",
@@ -135,10 +152,11 @@ const ServiceSection = () => {
       ],
       icon: (
         <svg
-          className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 xl:w-16 xl:h-16 text-purple-600"
+          className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 xl:w-14 xl:h-14 text-purple-600"
           viewBox="0 0 64 64"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
         >
           <rect
             x="8"
@@ -170,11 +188,25 @@ const ServiceSection = () => {
       link: "/curl-cipher",
       enabled: true,
       buttonClass: "bg-purple-600 hover:bg-purple-700",
+      schema: {
+        "@type": "Service",
+        name: "Curl Cipher Salon Management System",
+        description:
+          "Revolutionize your salon operations with our comprehensive management system designed specifically for beauty and wellness businesses.",
+        offers: {
+          "@type": "Offer",
+          price: "Starting from",
+          priceCurrency: "USD",
+        },
+      },
     },
     {
-      title: "Industrial Automation",
+      id: "industrial-automation",
+      title: "Industrial Automation Solutions",
       description:
-        "Streamline your industrial processes with our bespoke automation solutions.",
+        "Streamline your industrial processes with our bespoke automation solutions for manufacturing and production environments.",
+      detailedDescription:
+        "Our industrial automation solutions help businesses improve efficiency, reduce costs, and enhance productivity. We design and implement custom PLC/SCADA systems, IoT monitoring, and safety protocols tailored to your specific industrial requirements.",
       benefits: [
         "Seamless PLC/SCADA integration",
         "IoT-enabled monitoring systems",
@@ -185,10 +217,11 @@ const ServiceSection = () => {
       ],
       icon: (
         <svg
-          className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 xl:w-16 xl:h-16 text-green-600"
+          className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 xl:w-14 xl:h-14 text-green-600"
           viewBox="0 0 64 64"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
         >
           <rect
             x="8"
@@ -212,18 +245,33 @@ const ServiceSection = () => {
       link: "/industrial-automation",
       enabled: true,
       buttonClass: "bg-green-600 hover:bg-green-700",
+      schema: {
+        "@type": "Service",
+        name: "Industrial Automation Solutions",
+        description:
+          "Streamline your industrial processes with our bespoke automation solutions for manufacturing and production environments.",
+        offers: {
+          "@type": "Offer",
+          price: "Custom Quote",
+          priceCurrency: "USD",
+        },
+      },
     },
     {
+      id: "social-media-marketing",
       title: "Social Media Marketing",
       description:
-        "Coming soon: Elevate your brand's online presence with our strategic social media marketing services.",
+        "Coming soon: Elevate your brand's online presence with our strategic social media marketing services and content creation.",
+      detailedDescription:
+        "Our upcoming social media marketing services will help businesses build brand awareness, engage with customers, and drive conversions through strategic content creation and campaign management across all major social platforms.",
       isComingSoon: true,
       icon: (
         <svg
-          className="w-10 h-10 sm:w-12 sm:h-12 lg:w-14 lg:h-14 xl:w-16 xl:h-16 text-orange-600"
+          className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 xl:w-14 xl:h-14 text-orange-600"
           viewBox="0 0 64 64"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
         >
           <circle cx="32" cy="32" r="28" className="fill-orange-100" />
           <path
@@ -242,8 +290,52 @@ const ServiceSection = () => {
       link: "/social-media-marketing",
       enabled: false,
       buttonClass: "bg-orange-600 hover:bg-orange-700",
+      schema: {
+        "@type": "Service",
+        name: "Social Media Marketing",
+        description:
+          "Coming soon: Elevate your brand's online presence with our strategic social media marketing services and content creation.",
+        offers: {
+          "@type": "Offer",
+          price: "Coming Soon",
+          priceCurrency: "USD",
+        },
+      },
     },
   ];
+
+  // Create complete JSON-LD schema for all services
+  const servicesSchema = {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Lumora Ventures",
+    url: "https://www.lumoraventures.com",
+    logo: "https://www.lumoraventures.com/logo.webp",
+    contactPoint: {
+      "@type": "ContactPoint",
+      contactType: "Customer Support",
+      email: "info@lumoraventures.com",
+    },
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Colombo",
+      addressCountry: "LK",
+    },
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Lumora Ventures Services",
+      itemListElement: services.map((service, index) => ({
+        "@type": "Offer",
+        itemOffered: {
+          "@type": "Service",
+          name: service.title,
+          description: service.detailedDescription || service.description,
+          url: `https://www.lumoraventures.com${service.link}`,
+        },
+        position: index + 1,
+      })),
+    },
+  };
 
   // Helper for responsive classes
   const getGridCols = () => {
@@ -254,142 +346,182 @@ const ServiceSection = () => {
   };
 
   return (
-    <section
-      id="services"
-      className="py-16 sm:py-20 md:py-24 lg:py-28 xl:py-32 2xl:py-36 px-4 sm:px-6 lg:px-8"
-      style={{
-        background: "linear-gradient(to bottom, #EBF5FF 0%, #F5F7FA 100%)",
-      }}
-    >
-      <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-[1400px] mx-auto">
-        <div className="text-center mb-12 sm:mb-14 md:mb-16 lg:mb-20 xl:mb-24">
-          <h2 className="font-montserrat text-3xl sm:text-4xl md:text-4xl lg:text-5xl xl:text-5xl 2xl:text-6xl font-bold text-gray-900 mb-4 sm:mb-5 md:mb-6 lg:mb-8">
-            Our Services
-          </h2>
-          <div className="w-20 h-1 sm:w-24 md:w-28 lg:w-32 xl:w-36 2xl:w-40 xl:h-1.5 mx-auto mb-6 sm:mb-7 md:mb-8 lg:mb-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-500"></div>
-          <p className="font-inter text-base sm:text-lg md:text-lg lg:text-xl xl:text-xl 2xl:text-2xl text-gray-700 max-w-2xl md:max-w-3xl lg:max-w-4xl mx-auto leading-relaxed">
-            At Lumora Ventures, we're dedicated to delivering solutions that
-            drive real business value.
-          </p>
-        </div>
+    <>
+      {/* Add structured data for SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(servicesSchema) }}
+      />
 
-        <div
-          className={`grid ${
-            mounted ? getGridCols() : "grid-cols-1"
-          } gap-6 sm:gap-7 md:gap-8 lg:gap-10 xl:gap-12 2xl:gap-16`}
-        >
-          {services.map((service, index) => (
-            <AnimatedElement key={index} delay={index * 100}>
-              <div
-                className={`group relative rounded-xl sm:rounded-2xl p-5 sm:p-6 md:p-7 lg:p-8 xl:p-10 ${
-                  service.isComingSoon
-                    ? "bg-gradient-to-br from-orange-50 to-orange-100 border-2 border-dashed border-orange-300"
-                    : "bg-white shadow-lg hover:shadow-xl transition-all duration-300"
-                }`}
+      <section
+        id="services"
+        className="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-28 2xl:py-32 px-4 sm:px-6 lg:px-8"
+        style={{
+          background: "linear-gradient(to bottom, #EBF5FF 0%, #F5F7FA 100%)",
+        }}
+        aria-labelledby="services-heading"
+      >
+        <div className="max-w-6xl xl:max-w-7xl mx-auto">
+          {/* Section header with enhanced semantics */}
+          <header className="text-center mb-8 md:mb-12">
+            <AnimatedElement delay={100}>
+              <h2
+                id="services-heading"
+                className="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-tight tracking-tight text-gray-900"
               >
-                {service.isComingSoon && (
-                  <div className="absolute -top-3 sm:-top-4 right-4 sm:right-8 px-3 sm:px-4 py-1 sm:py-1.5 bg-orange-600 text-white text-xs sm:text-sm font-semibold rounded-full transform rotate-12">
-                    Coming Soon
-                  </div>
-                )}
+                Our Digital Services & Solutions
+              </h2>
+              <p className="mt-3 text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto">
+                We offer a comprehensive range of innovative digital solutions
+                to boost your business growth and efficiency.
+              </p>
+            </AnimatedElement>
+          </header>
 
-                <div className="flex flex-col lg:flex-row items-start gap-4 sm:gap-5 md:gap-6 lg:gap-8">
-                  <div
-                    className={`flex-shrink-0 ${
-                      service.isComingSoon ? "opacity-50" : ""
-                    }`}
+          {/* Service cards grid with proper ARIA and semantics */}
+          <div
+            className={`grid gap-4 sm:gap-6 md:gap-8 ${getGridCols()} max-w-7xl mx-auto`}
+            role="list"
+            aria-labelledby="services-heading"
+          >
+            {services.map((service, index) => {
+              // Color classes map for checkmark icon text color
+              const colorClasses = {
+                blue: "text-blue-600",
+                purple: "text-purple-600",
+                green: "text-green-600",
+                orange: "text-orange-600",
+              };
+
+              return (
+                <AnimatedElement
+                  key={service.id}
+                  delay={index * 200 + 300}
+                  className="flex flex-col h-full bg-white rounded-3xl shadow-lg p-4 sm:p-5 md:p-6"
+                  id={`service-${service.id}`}
+                >
+                  <article
+                    className="flex flex-col h-full"
+                    itemScope
+                    itemType="https://schema.org/Service"
                   >
-                    {service.icon}
-                  </div>
+                    {/* Service icon */}
+                    <div className="mb-4">{service.icon}</div>
 
-                  <div className="flex-1">
-                    <h3 className="font-montserrat text-xl sm:text-xl md:text-2xl lg:text-2xl xl:text-3xl font-bold text-gray-900 mb-2 sm:mb-3 md:mb-4">
+                    {/* Service title */}
+                    <h3
+                      className="text-lg sm:text-xl font-semibold mb-3"
+                      itemProp="name"
+                    >
                       {service.title}
                     </h3>
-                    <p className="font-inter text-sm sm:text-base md:text-base lg:text-lg xl:text-lg text-gray-600 mb-4 sm:mb-5 md:mb-6 lg:mb-8 leading-relaxed">
+
+                    {/* Service description */}
+                    <p
+                      className="text-sm text-gray-600 mb-4"
+                      itemProp="description"
+                    >
                       {service.description}
                     </p>
 
-                    {service.benefits && (
-                      <ul className="space-y-2 sm:space-y-2.5 md:space-y-3 lg:space-y-4 mb-6 sm:mb-7 md:mb-8 lg:mb-10">
-                        {service.benefits.map((benefit, benefitIndex) => (
-                          <li
-                            key={benefitIndex}
-                            className="flex items-start sm:items-center text-xs sm:text-sm md:text-sm lg:text-base xl:text-base text-gray-700"
+                    {/* Benefits list */}
+                    <ul
+                      className="mb-6 space-y-2 flex-grow"
+                      aria-label={`Benefits of ${service.title}`}
+                    >
+                      {service.benefits?.map((benefit) => (
+                        <li key={benefit} className="flex items-start">
+                          <svg
+                            className={`w-4 h-4 sm:w-4 sm:h-4 lg:w-5 lg:h-5 mr-2 mt-0.5 flex-shrink-0 ${
+                              colorClasses[service.color] || "text-gray-600"
+                            }`}
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                            aria-hidden="true"
                           >
-                            <svg
-                              className={`w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 mr-2 sm:mr-3 mt-0.5 sm:mt-0 text-${service.color}-600 flex-shrink-0`}
-                              fill="currentColor"
-                              viewBox="0 0 20 20"
-                            >
-                              <path
-                                fillRule="evenodd"
-                                d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                                clipRule="evenodd"
-                              />
-                            </svg>
+                            <path
+                              fillRule="evenodd"
+                              d="M16.707 5.293a1 1 0 010 1.414L8.414 15 5.293 11.879a1 1 0 011.414-1.414L8.414 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                          <span className="text-xs sm:text-sm text-gray-700">
                             {benefit}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
 
-                    {!service.isComingSoon ? (
-                      <Link
-                        href={service.link}
-                        className={`inline-flex items-center px-4 sm:px-5 md:px-6 lg:px-8 py-2 sm:py-2.5 md:py-3 lg:py-4 rounded-lg font-montserrat font-semibold text-xs sm:text-sm md:text-sm lg:text-base text-white ${service.buttonClass} transition-all duration-300 shadow-md hover:shadow-lg group`}
-                      >
-                        Learn More
-                        <svg
-                          className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
+                    {/* CTA Button */}
+                    <div className="mt-auto">
+                      {service.enabled ? (
+                        <Link
+                          href={service.link}
+                          className={`inline-block px-4 py-2 rounded-lg text-white text-sm font-semibold transition-all duration-300 ${service.buttonClass} hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500`}
+                          aria-label={`Learn more about ${service.title}`}
+                          itemProp="url"
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M17 8l4 4m0 0l-4 4m4-4H3"
-                          />
-                        </svg>
-                      </Link>
-                    ) : service.enabled ? (
-                      <Link
-                        href={service.link}
-                        className={`inline-flex items-center px-4 sm:px-5 md:px-6 lg:px-8 py-2 sm:py-2.5 md:py-3 lg:py-4 rounded-lg font-montserrat font-semibold text-xs sm:text-sm md:text-sm lg:text-base text-white ${service.buttonClass} transition-all duration-300 shadow-md hover:shadow-lg group`}
-                      >
-                        Request Early Access
-                        <svg
-                          className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-5 lg:h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth="2"
-                            d="M17 8l4 4m0 0l-4 4m4-4H3"
-                          />
-                        </svg>
-                      </Link>
-                    ) : (
-                      <button
-                        disabled
-                        className="inline-flex items-center px-4 sm:px-5 md:px-6 lg:px-8 py-2 sm:py-2.5 md:py-3 lg:py-4 rounded-lg font-montserrat font-semibold text-xs sm:text-sm md:text-sm lg:text-base text-gray-400 bg-gray-200 cursor-not-allowed"
-                      >
-                        Coming Soon
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
-            </AnimatedElement>
-          ))}
+                          Learn More
+                        </Link>
+                      ) : (
+                        <div className="inline-flex items-center gap-2">
+                          <span className="w-2 h-2 bg-orange-500 rounded-full animate-pulse"></span>
+                          <span
+                            className="inline-block px-4 py-2 rounded-lg bg-gray-400 text-white text-sm cursor-not-allowed"
+                            aria-disabled="true"
+                            aria-label={`${service.title} coming soon`}
+                          >
+                            Coming Soon
+                          </span>
+                        </div>
+                      )}
+                    </div>
+                  </article>
+                </AnimatedElement>
+              );
+            })}
+          </div>
+
+          {/* Added CTA section */}
+          <AnimatedElement
+            delay={800}
+            className="mt-12 sm:mt-14 md:mt-16 text-center"
+          >
+            <div className="bg-white/70 backdrop-blur-sm rounded-xl p-5 sm:p-6 md:p-7 shadow-lg">
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3">
+                Need a Customized Solution?
+              </h3>
+              <p className="text-sm sm:text-base text-gray-600 mb-4 max-w-2xl mx-auto">
+                We offer tailored digital solutions for businesses of all sizes.
+                Get in touch to discuss your specific requirements.
+              </p>
+              <Link
+                href="/contact"
+                className="inline-flex items-center px-4 py-2.5 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                aria-label="Contact us for custom solutions"
+                id="contact"
+              >
+                Contact Us
+                <svg
+                  className="ml-2 -mr-1 h-4 w-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth="2"
+                    d="M14 5l7 7m0 0l-7 7m7-7H3"
+                  />
+                </svg>
+              </Link>
+            </div>
+          </AnimatedElement>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

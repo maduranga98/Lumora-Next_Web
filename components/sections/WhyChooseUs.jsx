@@ -2,13 +2,82 @@
 "use client";
 
 import { useCallback } from "react";
-import ScrollToButton from "../ScrollToButton";
+import Link from "next/link";
+import Script from "next/script";
 
 export default function WhyChooseUs() {
+  // Schema.org structured data for service offering
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    name: "Google Business Profile Management Services by Lumora Ventures",
+    description:
+      "Expert Google Business Profile (GMB) management services with personalized support, data-driven strategies, and proven results for local businesses.",
+    provider: {
+      "@type": "Organization",
+      name: "Lumora Ventures",
+      url: "https://www.lumoraventures.com",
+    },
+    areaServed: "Local businesses",
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Google Business Profile Services",
+      itemListElement: [
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "GBP Setup & Optimization",
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Ongoing GBP Management",
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "GBP Performance Analytics",
+          },
+        },
+      ],
+    },
+  };
+
+  // HowTo schema for the process steps
+  const howToSchema = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How We Optimize Your Google Business Profile",
+    description:
+      "Our simple 3-step process for optimizing and managing your Google Business Profile to attract more local customers",
+    step: [
+      {
+        "@type": "HowToStep",
+        name: "Discovery",
+        text: "We learn about your business goals and current Google Business Profile situation",
+      },
+      {
+        "@type": "HowToStep",
+        name: "Setup & Optimization",
+        text: "We implement best practices to maximize your visibility in local search results",
+      },
+      {
+        "@type": "HowToStep",
+        name: "Ongoing Management",
+        text: "We maintain and continuously improve your Google Business Profile presence",
+      },
+    ],
+  };
+
   const serviceGuarantees = [
     "Dedicated account manager for personalized support",
     "100% transparent reporting and communication",
-    "Regular optimization updates based on performance",
+    "Regular optimization updates based on performance data",
     "Quick response times (24 hours or less)",
     "No long-term contracts — you stay because you want to",
     "Satisfaction guarantee or your money back",
@@ -22,7 +91,14 @@ export default function WhyChooseUs() {
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+          role="img"
         >
+          <title>Expertise & Experience Icon</title>
+          <desc>
+            Icon representing professional expertise in Google Business Profile
+            management
+          </desc>
           <path d="M12 14L9 11H15L12 14Z" fill="#0F766E" />
           <circle cx="12" cy="16" r="1" fill="#0F766E" />
           <circle cx="8" cy="8" r="3" fill="#0F766E" />
@@ -38,7 +114,7 @@ export default function WhyChooseUs() {
       ),
       title: "Expertise & Experience",
       description:
-        "Our team are Google Business Profile specialists with years of digital marketing experience. We know what works.",
+        "Our team are Google Business Profile specialists with years of digital marketing experience. We know what works for local SEO.",
     },
     {
       icon: (
@@ -47,7 +123,14 @@ export default function WhyChooseUs() {
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+          role="img"
         >
+          <title>Proven Results Icon</title>
+          <desc>
+            Icon representing measurable success with Google Business Profile
+            management
+          </desc>
           <path
             d="M9 12L12 15L15 10"
             stroke="#0F766E"
@@ -72,7 +155,7 @@ export default function WhyChooseUs() {
       ),
       title: "Proven Results",
       description:
-        "We have a track record of helping businesses like yours improve their local search rankings and attract more customers.",
+        "We have a track record of helping businesses like yours improve their local search rankings and attract more customers through optimized Google Business Profiles.",
     },
     {
       icon: (
@@ -81,7 +164,11 @@ export default function WhyChooseUs() {
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+          role="img"
         >
+          <title>Time Saving Icon</title>
+          <desc>Clock icon representing time and effort savings</desc>
           <circle cx="12" cy="12" r="10" stroke="#0F766E" strokeWidth="2" />
           <path
             d="M12 6V12L16 14"
@@ -94,7 +181,7 @@ export default function WhyChooseUs() {
       ),
       title: "Save Time & Effort",
       description:
-        "Managing GBP can be time-consuming. Let us handle the complexities so you can focus on running your business.",
+        "Managing Google Business Profile can be time-consuming. Let us handle the complexities so you can focus on running your business.",
     },
     {
       icon: (
@@ -103,7 +190,11 @@ export default function WhyChooseUs() {
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+          role="img"
         >
+          <title>Data-Driven Strategy Icon</title>
+          <desc>Icon representing analytics and optimization strategies</desc>
           <path
             d="M14 14H9V9"
             stroke="#0F766E"
@@ -122,7 +213,7 @@ export default function WhyChooseUs() {
       ),
       title: "Data-Driven Strategies",
       description:
-        "We use analytics and best practices to continuously optimize your GBP for maximum performance.",
+        "We use analytics and local SEO best practices to continuously optimize your Google Business Profile for maximum performance and visibility.",
     },
     {
       icon: (
@@ -131,7 +222,11 @@ export default function WhyChooseUs() {
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+          role="img"
         >
+          <title>Personalized Service Icon</title>
+          <desc>Icon representing customized service approach</desc>
           <path
             d="M12 6V12M12 12V18M12 12H6M12 12H18"
             stroke="#0F766E"
@@ -144,7 +239,7 @@ export default function WhyChooseUs() {
       ),
       title: "Personalized Service",
       description:
-        "We tailor our approach to your specific business needs and goals. You're not just another number to us.",
+        "We tailor our Google Business Profile management approach to your specific business needs and local market. You're not just another number to us.",
     },
     {
       icon: (
@@ -153,7 +248,14 @@ export default function WhyChooseUs() {
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          aria-hidden="true"
+          role="img"
         >
+          <title>Comprehensive Service Icon</title>
+          <desc>
+            Icon representing complete service packages for Google Business
+            Profile
+          </desc>
           <rect
             x="4"
             y="5"
@@ -179,7 +281,7 @@ export default function WhyChooseUs() {
       ),
       title: "Comprehensive Service Suite",
       description:
-        "From initial setup to ongoing management, we offer everything you need for GBP success.",
+        "From initial setup to ongoing management, we offer everything you need for Google Business Profile success in local search results.",
     },
   ];
 
@@ -188,135 +290,207 @@ export default function WhyChooseUs() {
       number: "1",
       title: "Discovery",
       description:
-        "We learn about your business goals and current GBP situation",
+        "We learn about your business goals and current Google Business Profile situation",
     },
     {
       number: "2",
       title: "Setup & Optimization",
-      description: "We implement best practices to maximize your visibility",
+      description:
+        "We implement best practices to maximize your visibility in local search results",
     },
     {
       number: "3",
       title: "Ongoing Management",
-      description: "We maintain and continuously improve your GBP presence",
+      description:
+        "We maintain and continuously improve your Google Business Profile presence",
     },
   ];
 
-  return (
-    <section className="py-16 lg:py-24 bg-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-            Stop Struggling with GBP - Let Lumora Ventures Take the Lead
-          </h2>
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            We Make Google Business Profile Management Simple, Effective, and
-            Results-Driven.
-          </p>
-        </div>
+  // Function to handle scroll with better SEO via URL updates
+  const scrollToSection = (sectionId, e) => {
+    if (e) e.preventDefault();
 
-        {/* Our Expert Team card */}
-        <div className="bg-teal-600 text-white rounded-2xl p-8 mb-16 text-center">
-          <div className="flex items-center justify-center gap-8">
-            <TeamIllustration />
-            <div className="text-left">
-              <h3 className="text-2xl font-bold mb-2">Our Expert Team</h3>
-              <p className="text-lg">
-                GBP specialists with deep local search experience
-              </p>
+    const element = document.getElementById(sectionId);
+    if (element) {
+      const navbarHeight = window.innerWidth >= 1280 ? 100 : 80;
+      const offsetPosition = element.offsetTop - navbarHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+
+      // Update URL hash for better SEO and analytics tracking
+      window.history.pushState(null, "", `#${sectionId}`);
+    }
+  };
+
+  return (
+    <>
+      {/* Add structured data for search engines */}
+      <Script
+        id="service-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
+      />
+      <Script
+        id="howto-schema"
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToSchema) }}
+      />
+
+      <section
+        id="why-choose"
+        className="py-16 lg:py-24 bg-white"
+        aria-labelledby="why-choose-heading"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header with semantic HTML */}
+          <header className="text-center mb-16">
+            <h2
+              id="why-choose-heading"
+              className="text-4xl md:text-5xl font-bold text-gray-900 mb-6"
+            >
+              Stop Struggling with Google Business Profile - Let Lumora Ventures
+              Take the Lead
+            </h2>
+            <p className="text-xl text-gray-700 max-w-3xl mx-auto">
+              We Make Google Business Profile Management Simple, Effective, and
+              Results-Driven for Local Businesses.
+            </p>
+          </header>
+
+          {/* Our Expert Team card */}
+          <div className="bg-teal-600 text-white rounded-2xl p-8 mb-16 text-center">
+            <div className="flex items-center justify-center gap-8">
+              <div aria-hidden="true">
+                <TeamIllustration />
+              </div>
+              <div className="text-left">
+                <h3 className="text-2xl font-bold mb-2">Our Expert Team</h3>
+                <p className="text-lg">
+                  Google Business Profile specialists with deep local search
+                  experience
+                </p>
+              </div>
             </div>
           </div>
-        </div>
 
-        {/* Service Guarantees */}
-        <div className="mb-20">
-          <h3 className="text-2xl font-bold text-gray-900 mb-8 text-center">
-            Our Service Guarantees
-          </h3>
-          <div className="grid md:grid-cols-3 gap-6">
-            {serviceGuarantees.map((guarantee, index) => (
-              <div
-                key={index}
-                className="flex items-start gap-3 bg-teal-50 p-4 rounded-lg"
-              >
-                <svg
-                  className="w-5 h-5 text-teal-600 mt-1 flex-shrink-0"
-                  viewBox="0 0 20 20"
-                  fill="currentColor"
+          {/* Service Guarantees with semantic list structure */}
+          <section aria-labelledby="guarantees-heading" className="mb-20">
+            <h3
+              id="guarantees-heading"
+              className="text-2xl font-bold text-gray-900 mb-8 text-center"
+            >
+              Our Service Guarantees
+            </h3>
+            <ul className="grid md:grid-cols-3 gap-6" role="list">
+              {serviceGuarantees.map((guarantee, index) => (
+                <li
+                  key={index}
+                  className="flex items-start gap-3 bg-teal-50 p-4 rounded-lg"
+                  role="listitem"
                 >
-                  <path
-                    fillRule="evenodd"
-                    d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
-                    clipRule="evenodd"
-                  />
-                </svg>
-                <p className="text-gray-700">{guarantee}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+                  <svg
+                    className="w-5 h-5 text-teal-600 mt-1 flex-shrink-0"
+                    viewBox="0 0 20 20"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  <p className="text-gray-700">{guarantee}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
 
-        {/* Advantages grid */}
-        <div className="mb-20">
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {advantages.map((advantage, index) => (
-              <div
-                key={index}
-                className="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-lg transition duration-300"
-              >
-                <div className="mb-4">{advantage.icon}</div>
-                <h4 className="text-lg font-semibold text-gray-900 mb-2">
-                  {advantage.title}
-                </h4>
-                <p className="text-gray-600">{advantage.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+          {/* Advantages grid with semantic article elements */}
+          <section aria-labelledby="advantages-heading" className="mb-20">
+            <h3
+              id="advantages-heading"
+              className="text-2xl font-bold text-gray-900 mb-8 text-center"
+            >
+              Why Choose Our Google Business Profile Management
+            </h3>
+            <div
+              className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6"
+              role="list"
+            >
+              {advantages.map((advantage, index) => (
+                <article
+                  key={index}
+                  className="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-lg transition duration-300"
+                  role="listitem"
+                >
+                  <div className="mb-4">{advantage.icon}</div>
+                  <h4 className="text-lg font-semibold text-gray-900 mb-2">
+                    {advantage.title}
+                  </h4>
+                  <p className="text-gray-600">{advantage.description}</p>
+                </article>
+              ))}
+            </div>
+          </section>
 
-        {/* Process section */}
-        <div className="bg-gray-50 rounded-2xl p-8 lg:p-12 mb-16">
-          <h3 className="text-3xl font-bold text-gray-900 mb-12 text-center">
-            Our Simple Process
-          </h3>
-          <div className="grid md:grid-cols-3 gap-8">
-            {processSteps.map((step, index) => (
-              <div key={index} className="text-center">
-                <div className="w-16 h-16 rounded-full bg-teal-600 text-white flex items-center justify-center text-2xl font-bold mx-auto mb-4">
-                  {step.number}
-                </div>
-                <h4 className="text-xl font-semibold text-gray-900 mb-2">
-                  {step.title}
-                </h4>
-                <p className="text-gray-600">{step.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* CTA section */}
-        <div className="text-center">
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">
-            Ready to maximize your local presence?
-          </h3>
-          <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
-            Let our experts handle your Google Business Profile so you can focus
-            on running your business.
-          </p>
-          <ScrollToButton
-            sectionId="services"
-            className="bg-teal-600 text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-teal-700 transition duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+          {/* Process section with semantic ordered list */}
+          <section
+            aria-labelledby="process-heading"
+            className="bg-gray-50 rounded-2xl p-8 lg:p-12 mb-16"
           >
-            <span className="inline-flex items-center">Get Started Today</span>
-          </ScrollToButton>
+            <h3
+              id="process-heading"
+              className="text-3xl font-bold text-gray-900 mb-12 text-center"
+            >
+              Our Simple Process
+            </h3>
+            <ol className="grid md:grid-cols-3 gap-8" role="list">
+              {processSteps.map((step, index) => (
+                <li key={index} className="text-center" role="listitem">
+                  <div className="w-16 h-16 rounded-full bg-teal-600 text-white flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+                    {step.number}
+                  </div>
+                  <h4 className="text-xl font-semibold text-gray-900 mb-2">
+                    {step.title}
+                  </h4>
+                  <p className="text-gray-600">{step.description}</p>
+                </li>
+              ))}
+            </ol>
+          </section>
+
+          {/* CTA section with proper link element */}
+          <div className="text-center">
+            <h3 className="text-2xl font-bold text-gray-900 mb-4">
+              Ready to maximize your local search presence?
+            </h3>
+            <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
+              Let our Google Business Profile experts handle your local SEO
+              optimization so you can focus on running your business and serving
+              your customers.
+            </p>
+            <Link
+              href="#services"
+              onClick={(e) => scrollToSection("services", e)}
+              className="inline-block bg-teal-600 text-white px-10 py-4 rounded-lg font-bold text-lg hover:bg-teal-700 transition duration-300 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2"
+              aria-label="Go to our Google Business Profile services"
+            >
+              <span className="inline-flex items-center">
+                Get Started Today
+              </span>
+            </Link>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 }
 
-// Team Illustration Component
+// Team Illustration Component with improved accessibility
 function TeamIllustration() {
   return (
     <svg
@@ -324,7 +498,15 @@ function TeamIllustration() {
       className="w-20 h-10"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
+      role="img"
+      aria-label="Illustration of Google Business Profile specialists team"
     >
+      <title>Team of GBP Specialists</title>
+      <desc>
+        Illustration showing a team of Google Business Profile experts with
+        checkmarks indicating expertise
+      </desc>
+
       {/* Group of people */}
       <circle cx="20" cy="16" r="8" fill="#FFF7ED" />
       <path d="M10 24 Q15 20 25 20 Q30 24 30 28" fill="#FED7AA" />

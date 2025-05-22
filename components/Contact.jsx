@@ -150,7 +150,22 @@ const ContactPage = () => {
     name: "Contact Lumora Ventures",
     description:
       "Get in touch with Lumora Ventures for innovative digital solutions for business growth.",
-    // Other schema data...
+    address: [
+      {
+        "@type": "PostalAddress",
+        streetAddress: "Office 4157, 58 Peregrine Road, Hainault",
+        addressLocality: "Ilford",
+        addressRegion: "Essex",
+        postalCode: "IG6 3SZ",
+        addressCountry: "United Kingdom",
+      },
+      {
+        "@type": "PostalAddress",
+        streetAddress: "Kurunegala road, Kuliyapitiya",
+        addressLocality: "Kurunegala",
+        addressCountry: "Sri Lanka",
+      },
+    ],
   };
 
   // Services offered - for form dropdown and schema
@@ -233,6 +248,31 @@ const ContactPage = () => {
             </p>
           </header>
 
+          {/* Contact Hero Image */}
+          <div className="mb-12 sm:mb-16 md:mb-20">
+            <div className="relative w-full h-64 sm:h-80 md:h-96 lg:h-[400px] xl:h-[450px] rounded-2xl overflow-hidden shadow-xl">
+              <Image
+                src="/contact.webp"
+                alt="Contact Lumora Ventures - Modern office workspace with digital transformation technology and professional team"
+                fill
+                className="object-cover"
+                priority
+                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-600/80 to-purple-600/80 flex items-center justify-center">
+                <div className="text-center text-white">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4">
+                    Let's Build Something Amazing Together
+                  </h2>
+                  <p className="text-lg sm:text-xl opacity-90 max-w-2xl mx-auto">
+                    Your digital transformation journey starts with a
+                    conversation
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Form Section */}
           <div className="mt-10 sm:mt-12 md:mt-16 lg:mt-20">
             <div className="bg-white rounded-2xl shadow-xl overflow-hidden">
@@ -246,7 +286,7 @@ const ContactPage = () => {
                   <div className="space-y-6">
                     <div className="flex items-start">
                       <div className="flex-shrink-0 h-6 w-6 mt-1">
-                        {/* Icon */}
+                        {/* Phone Icon */}
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -265,13 +305,14 @@ const ContactPage = () => {
                         <p className="text-white text-lg font-semibold">
                           Phone
                         </p>
-                        <p className="mt-1">+1 (800) 555-1234</p>
+                        <p className="mt-1">+94 76 916 4108</p>
+                        <p className="mt-1">+94 76 620 6555</p>
                       </div>
                     </div>
 
                     <div className="flex items-start">
                       <div className="flex-shrink-0 h-6 w-6 mt-1">
-                        {/* Icon */}
+                        {/* Email Icon */}
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -294,9 +335,10 @@ const ContactPage = () => {
                       </div>
                     </div>
 
+                    {/* UK Office */}
                     <div className="flex items-start">
                       <div className="flex-shrink-0 h-6 w-6 mt-1">
-                        {/* Icon */}
+                        {/* Location Icon */}
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -319,12 +361,50 @@ const ContactPage = () => {
                       </div>
                       <div className="ml-4">
                         <p className="text-white text-lg font-semibold">
-                          Location
+                          UK Office
                         </p>
-                        <p className="mt-1">
-                          123 Innovation Drive, Suite 500
+                        <p className="mt-1 leading-relaxed">
+                          Office 4157, 58 Peregrine Road
                           <br />
-                          San Francisco, CA 94103
+                          Hainault, Ilford, Essex
+                          <br />
+                          United Kingdom, IG6 3SZ
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Sri Lanka Office */}
+                    <div className="flex items-start">
+                      <div className="flex-shrink-0 h-6 w-6 mt-1">
+                        {/* Location Icon */}
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                          />
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                          />
+                        </svg>
+                      </div>
+                      <div className="ml-4">
+                        <p className="text-white text-lg font-semibold">
+                          Sri Lanka Office
+                        </p>
+                        <p className="mt-1 leading-relaxed">
+                          Kurunegala road, Kuliyapitiya
+                          <br />
+                          Kurunegala, Sri Lanka
                         </p>
                       </div>
                     </div>
@@ -337,6 +417,7 @@ const ContactPage = () => {
                       <a
                         href="#"
                         className="h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center hover:bg-blue-400 transition duration-300"
+                        aria-label="Follow us on Twitter"
                       >
                         <svg
                           className="h-5 w-5 text-white"
@@ -349,6 +430,7 @@ const ContactPage = () => {
                       <a
                         href="#"
                         className="h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center hover:bg-blue-400 transition duration-300"
+                        aria-label="Follow us on LinkedIn"
                       >
                         <svg
                           className="h-5 w-5 text-white"
@@ -361,6 +443,7 @@ const ContactPage = () => {
                       <a
                         href="#"
                         className="h-10 w-10 rounded-full bg-blue-500 flex items-center justify-center hover:bg-blue-400 transition duration-300"
+                        aria-label="Follow us on Facebook"
                       >
                         <svg
                           className="h-5 w-5 text-white"

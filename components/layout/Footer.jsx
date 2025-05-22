@@ -277,12 +277,12 @@ const Footer = () => {
             </nav>
           </div>
 
-          {/* Contact with proper microdata */}
+          {/* Contact with compact dual locations */}
           <div itemScope itemType="https://schema.org/Organization">
             <h2 className="font-montserrat text-lg font-semibold mb-4 sm:mb-6 text-white">
               Contact Us
             </h2>
-            <ul className="space-y-4">
+            <ul className="space-y-3">
               <li className="flex items-start">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -331,6 +331,8 @@ const Footer = () => {
                   +94 (12) 345-6789
                 </a>
               </li>
+
+              {/* Compact dual locations */}
               <li className="flex items-start">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -352,19 +354,40 @@ const Footer = () => {
                     d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
                   />
                 </svg>
-                <div
-                  className="font-inter text-gray-300"
-                  itemProp="address"
-                  itemScope
-                  itemType="https://schema.org/PostalAddress"
-                >
-                  <p itemProp="streetAddress">123 Galle Road</p>
-                  <p>
-                    <span itemProp="addressLocality">Colombo</span>,{" "}
-                    <span itemProp="addressRegion">Western Province</span>
-                  </p>
-                  <p itemProp="addressCountry">Sri Lanka</p>
-                  <p itemProp="postalCode">00100</p>
+                <div className="font-inter text-gray-300 text-sm">
+                  <div
+                    itemProp="address"
+                    itemScope
+                    itemType="https://schema.org/PostalAddress"
+                    className="mb-2"
+                  >
+                    <p className="text-blue-300 font-medium">UK Office</p>
+                    <p itemProp="streetAddress">
+                      Office 4157, 58 Peregrine Road, Hainault
+                    </p>
+                    <p>
+                      <span itemProp="addressLocality">Ilford</span>,{" "}
+                      <span itemProp="addressRegion">Essex</span>{" "}
+                      <span itemProp="postalCode">IG6 3SZ</span>
+                    </p>
+                  </div>
+
+                  <div
+                    itemProp="address"
+                    itemScope
+                    itemType="https://schema.org/PostalAddress"
+                  >
+                    <p className="text-blue-300 font-medium">
+                      Sri Lanka Office
+                    </p>
+                    <p itemProp="streetAddress">
+                      Kurunegala Road, Kuliyapitiya
+                    </p>
+                    <p>
+                      <span itemProp="addressRegion">Kurunegala</span>,{" "}
+                      <span itemProp="addressCountry">Sri Lanka</span>
+                    </p>
+                  </div>
                 </div>
               </li>
             </ul>

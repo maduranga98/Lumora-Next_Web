@@ -331,7 +331,7 @@ const ContactPage = () => {
                         <p className="text-white text-lg font-semibold">
                           Email
                         </p>
-                        <p className="mt-1">contact@lumoraventures.com</p>
+                        <p className="mt-1">info@lumoraventures.com</p>
                       </div>
                     </div>
 

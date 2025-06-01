@@ -92,7 +92,7 @@ const ContactSection = () => {
     {
       icon: <Phone className="w-5 h-5 text-yellow-300" />,
       title: "Premier Support",
-      content: "+1 (123) 456-7890",
+      content: "+1 954-338-6884",
     },
     {
       icon: <MapPin className="w-5 h-5 text-yellow-300" />,

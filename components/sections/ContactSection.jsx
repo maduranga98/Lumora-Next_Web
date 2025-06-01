@@ -234,7 +234,7 @@ export default function ContactSection() {
                     value={formData.phone}
                     onChange={handleChange}
                     className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-colors text-sm"
-                    placeholder="+1 (123) 456-7890"
+                    placeholder="+1 954-338-6884"
                   />
                 </div>
               </div>
@@ -403,7 +403,7 @@ export default function ContactSection() {
                       href="tel:+11234567890"
                       className="font-inter text-sm text-teal-600 hover:text-teal-700 transition-colors"
                     >
-                      +1 (123) 456-7890
+                      +1 954-338-6884
                     </a>
                   </div>
                 </div>

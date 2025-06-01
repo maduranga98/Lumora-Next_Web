@@ -360,7 +360,7 @@ const ContactForm = () => {
               href="tel:+11234567890"
               className="text-indigo-600 hover:underline"
             >
-              +1 (123) 456-7890
+              +1 954-338-6884
             </a>
           </div>
         </div>

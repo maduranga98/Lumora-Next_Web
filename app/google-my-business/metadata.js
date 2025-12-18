@@ -11,6 +11,9 @@ export const metadata = {
     "Business Listing",
     "Google Maps",
     "Local Marketing",
+    "Google My Business",
+    "GBP Management",
+    "Local Business Optimization",
   ],
   alternates: {
     canonical: "https://www.lumoraventures.com/google-my-business",
@@ -39,4 +42,17 @@ export const metadata = {
       "Expert Google Business Profile management to improve your local visibility and attract more customers",
     images: ["https://www.lumoraventures.com/images/gmb-twitter-image.jpg"],
   },
+  robots: {
+    index: true,
+    follow: true,
+    nocache: false,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  category: "business",
 };

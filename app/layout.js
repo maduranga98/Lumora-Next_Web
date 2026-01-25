@@ -1,4 +1,4 @@
-// app/layout.js (Optimized)
+// app/layout.js
 import "./globals.css";
 import { Inter, Plus_Jakarta_Sans, Outfit } from "next/font/google";
 import Footer from "@/components/layout/Footer";
@@ -30,35 +30,43 @@ export const metadata = {
   metadataBase: new URL("https://www.lumoraventures.com"),
   title: {
     default:
-      "Lumora Ventures | Tech & Marketing Solutions for Modern Businesses",
+      "Lumora Ventures | Complete Technology Solutions: From Apps to AI",
     template: "%s | Lumora Ventures",
   },
   description:
-    "Lumora Ventures provides smart, scalable technology and marketing solutions including Google My Business profile management, salon software, and industrial automation.",
+    "Full-spectrum technology company delivering web apps, mobile applications, AI/ML solutions, and industrial automation. From concept to deployment - 250+ projects delivered.",
   keywords: [
-    "Lumora Ventures",
-    "business technology solutions",
-    "digital marketing",
-    "GMB management",
-    "salon management software",
+    "software development",
+    "mobile apps",
+    "AI",
+    "machine learning",
+    "computer vision",
+    "IoT",
     "industrial automation",
-    "business transformation",
-    "digital solutions",
-    "tech solutions",
-    "marketing automation",
+    "web development",
+    "Flutter",
+    "React",
+    "Next.js",
+    "predictive maintenance",
+    "digital twins",
+    "custom software",
+    "SaaS development",
+    "enterprise solutions",
+    "Sri Lanka",
+    "Lumora Ventures",
   ],
   authors: [{ name: "Lumora Ventures Team" }],
   creator: "Lumora Ventures",
-  publisher: "Lumora Ventures",
+  publisher: "Lumora Ventures PVT LTD",
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
   openGraph: {
-    title: "Lumora Ventures | Tech & Marketing for Modern Businesses",
+    title: "Lumora Ventures | Complete Technology Solutions: From Apps to AI",
     description:
-      "Explore innovative business solutions in digital marketing, automation, and salon management software from Lumora Ventures.",
+      "We build everything your business needs: elegant web and mobile applications, intelligent automation systems, and advanced AI solutions that drive real results.",
     url: "https://www.lumoraventures.com/",
     siteName: "Lumora Ventures",
     images: [
@@ -66,7 +74,7 @@ export const metadata = {
         url: "/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Lumora Ventures - Business Solutions",
+        alt: "Lumora Ventures - Complete Technology Solutions",
       },
     ],
     locale: "en_US",
@@ -74,17 +82,14 @@ export const metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Lumora Ventures | Tech & Marketing",
+    title: "Lumora Ventures | Complete Technology Solutions",
     description:
-      "Grow your business with Lumora Ventures' modern solutions — from GMB to automation.",
+      "Software, Mobile, AI & Automation solutions that drive real results",
     images: ["/twitter-image.jpg"],
     creator: "@lumoraventures",
   },
   verification: {
     google: "PUM4vN_Owfm40PwBN31rUydM45YQAm5i7VONVly6w0M",
-    other: {
-      "facebook-domain-verification": "[Your-Facebook-Verification-Code]",
-    },
   },
   alternates: {
     canonical: "https://www.lumoraventures.com",
@@ -117,18 +122,58 @@ export const metadata = {
       {
         rel: "mask-icon",
         url: "/safari-pinned-tab.svg",
-        color: "#3B82F6",
+        color: "#2563EB",
       },
     ],
   },
   manifest: "/site.webmanifest",
-  // Add viewport settings at the layout level
   viewport: {
     width: "device-width",
     initialScale: 1,
     maximumScale: 5,
   },
   category: "technology",
+};
+
+// Structured data for organization
+const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "Lumora Ventures PVT LTD",
+  url: "https://www.lumoraventures.com",
+  logo: "https://www.lumoraventures.com/logo.png",
+  description:
+    "Complete technology solutions including software development, mobile applications, AI/ML, and industrial automation",
+  foundingDate: "2020",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Kandy",
+    addressRegion: "Central Province",
+    addressCountry: "LK",
+  },
+  contactPoint: {
+    "@type": "ContactPoint",
+    telephone: "+94-77-986-1174",
+    contactType: "sales",
+    email: "info@lumoraventures.com",
+    availableLanguage: ["English"],
+  },
+  sameAs: [
+    "https://www.linkedin.com/company/lumora-ventures-pvt-ltd/",
+    "https://github.com/lumoraventures",
+    "https://twitter.com/lumoraventures",
+  ],
+  knowsAbout: [
+    "Software Development",
+    "Mobile App Development",
+    "Artificial Intelligence",
+    "Machine Learning",
+    "Computer Vision",
+    "Industrial Automation",
+    "IoT",
+    "Predictive Maintenance",
+    "Digital Twins",
+  ],
 };
 
 export default function RootLayout({ children }) {
@@ -138,10 +183,15 @@ export default function RootLayout({ children }) {
       className={`${inter.variable} ${jakartaSans.variable} ${outfit.variable} scroll-smooth`}
     >
       <head>
-        <meta name="theme-color" content="#3B82F6" />
+        <meta name="theme-color" content="#2563EB" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-        {/* Add any other preconnect domains you use */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(organizationSchema),
+          }}
+        />
       </head>
       <body
         className={`flex flex-col min-h-screen ${inter.className}`}

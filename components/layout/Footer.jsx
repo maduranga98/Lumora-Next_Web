@@ -3,9 +3,10 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
+import { Linkedin, Github, Twitter, Facebook, Mail, Phone, MapPin } from "lucide-react";
 
 const Footer = () => {
-  const [currentYear, setCurrentYear] = useState("2024");
+  const [currentYear, setCurrentYear] = useState("2025");
   const [windowWidth, setWindowWidth] = useState(0);
   const [isMounted, setIsMounted] = useState(false);
   const resizeTimerRef = useRef(null);
@@ -15,7 +16,6 @@ const Footer = () => {
     setWindowWidth(window.innerWidth);
     setCurrentYear(new Date().getFullYear().toString());
 
-    // Throttled resize handler for better performance
     const handleResize = () => {
       if (resizeTimerRef.current) return;
 
@@ -35,7 +35,6 @@ const Footer = () => {
     };
   }, []);
 
-  // Scroll to section function
   const scrollToSection = (e, sectionId) => {
     e.preventDefault();
 
@@ -43,7 +42,6 @@ const Footer = () => {
 
     const element = document.getElementById(sectionId);
     if (element) {
-      // Adjust navbar height based on screen size
       const navbarHeight = windowWidth >= 1280 ? 80 : 64;
       const offsetPosition = element.offsetTop - navbarHeight;
 
@@ -54,362 +52,273 @@ const Footer = () => {
     }
   };
 
-  // Our services list with proper SEO data
-  const services = [
-    {
-      name: "Google Business Profile Management",
-      shortName: "Google Business Profile",
-      url: "/services/google-my-business",
-      label: "Learn about our Google Business Profile management services",
-    },
-    {
-      name: "Curl Cipher Salon Management System",
-      shortName: "Salon Management System",
-      url: "/services/curl-cipher",
-      label: "Explore our Curl Cipher salon management software",
-    },
-    {
-      name: "Industrial Automation Solutions",
-      shortName: "Industrial Automation",
-      url: "/services/industrial-automation",
-      label: "Discover our industrial automation services and solutions",
-    },
-    {
-      name: "Social Media Marketing Services",
-      shortName: "Social Media Marketing",
-      url: "/services/social-media-marketing",
-      label: "Learn about our upcoming social media marketing services",
-      comingSoon: true,
-    },
+  const companyLinks = [
+    { name: "About Us", href: "#about", isScroll: true },
+    { name: "Services", href: "#services", isScroll: true },
+    { name: "Products", href: "#products", isScroll: true },
+    { name: "Industries", href: "#industries", isScroll: true },
+    { name: "Case Studies", href: "#success", isScroll: true },
+    { name: "Contact", href: "#contact", isScroll: true },
   ];
 
-  // Social media links with proper SEO attributes
+  const services = [
+    { name: "Software Development", href: "#services" },
+    { name: "Mobile Apps", href: "#services" },
+    { name: "AI & Machine Learning", href: "#technology" },
+    { name: "Computer Vision", href: "#technology" },
+    { name: "Industrial Automation", href: "#services" },
+    { name: "Data Analytics", href: "#technology" },
+  ];
+
+  const products = [
+    { name: "PulsedGym", href: "#products" },
+    { name: "Curl Cipher", href: "/curl-cipher" },
+    { name: "VoxWel", href: "#products" },
+    { name: "VerseWing", href: "#products" },
+    { name: "GymNex", href: "#products" },
+  ];
+
   const socialLinks = [
     {
       name: "LinkedIn",
       url: "https://www.linkedin.com/company/lumora-ventures-pvt-ltd/",
-      label: "Follow Lumora Ventures on LinkedIn",
-      icon: (
-        <svg
-          className="h-6 w-6"
-          fill="currentColor"
-          viewBox="0 0 24 24"
-          aria-hidden="true"
-        >
-          <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" />
-        </svg>
-      ),
+      icon: Linkedin,
     },
-
+    {
+      name: "GitHub",
+      url: "https://github.com/lumoraventures",
+      icon: Github,
+    },
+    {
+      name: "Twitter",
+      url: "https://twitter.com/lumoraventures",
+      icon: Twitter,
+    },
     {
       name: "Facebook",
-      url: "https://web.facebook.com/profile.php?id=61575034203203&sk=about",
-      label: "Visit Lumora Ventures on Facebook",
-      icon: (
-        <svg
-          className="h-6 w-6"
-          fill="currentColor"
-          viewBox="0 0 24 24"
-          aria-hidden="true"
-        >
-          <path
-            fillRule="evenodd"
-            d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
-            clipRule="evenodd"
-          />
-        </svg>
-      ),
+      url: "https://web.facebook.com/profile.php?id=61575034203203",
+      icon: Facebook,
     },
   ];
 
   return (
     <footer
-      className="bg-gradient-to-br from-gray-900 to-gray-800 text-white"
+      className="bg-gray-900 text-white"
       role="contentinfo"
       itemScope
       itemType="https://schema.org/WPFooter"
     >
-      <div className="max-w-6xl xl:max-w-7xl 2xl:max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14 md:py-16 lg:py-20">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 lg:gap-12">
-          {/* Company Info with Schema.org Organization markup */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-16 lg:py-20">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12">
+          {/* Company Info - Spans 2 columns on large screens */}
           <div
-            className="col-span-1 sm:col-span-2 lg:col-span-1"
+            className="lg:col-span-2"
             itemScope
             itemType="https://schema.org/Organization"
           >
             <Link
               href="/"
-              className="flex items-center space-x-3 mb-4 sm:mb-6 group"
+              className="flex items-center space-x-3 mb-6 group"
               itemProp="url"
             >
-              <div className="flex items-center justify-center text-white">
-                <Image
-                  src="/logo.webp"
-                  alt="Lumora Ventures Logo"
-                  width={40}
-                  height={40}
-                  className="object-contain"
-                  itemProp="logo"
-                />
-              </div>
+              <Image
+                src="/logo.webp"
+                alt="Lumora Ventures Logo"
+                width={40}
+                height={40}
+                className="object-contain"
+                itemProp="logo"
+              />
               <span
-                className="font-montserrat font-bold text-xl md:text-2xl text-white group-hover:text-blue-300 transition-colors"
+                className="font-bold text-xl text-white group-hover:text-blue-400 transition-colors"
                 itemProp="name"
               >
                 Lumora Ventures
               </span>
             </Link>
             <p
-              className="font-inter text-gray-300 text-sm md:text-base mb-6 max-w-xs"
+              className="text-gray-400 text-sm mb-6 max-w-sm leading-relaxed"
               itemProp="description"
             >
-              Driving business growth through innovative digital transformation
-              and automation solutions tailored for your specific needs.
+              Complete technology solutions from apps to AI. We build software,
+              mobile applications, and intelligent automation systems that drive
+              real business results.
+            </p>
+            <p className="text-sm text-blue-400 font-medium mb-6">
+              &quot;Innovation Through Implementation&quot;
             </p>
 
-            {/* Social Media Links with proper accessibility */}
-            <div className="flex space-x-5" itemProp="sameAs">
-              {socialLinks.map((social) => (
-                <a
-                  key={social.name}
-                  href={social.url}
-                  className="text-gray-400 hover:text-blue-400 transition-all duration-300 transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 focus:ring-offset-gray-900 rounded-full p-1"
-                  aria-label={social.label}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {social.icon}
-                  <meta itemProp="sameAs" content={social.url} />
-                </a>
-              ))}
+            {/* Social Links */}
+            <div className="flex space-x-4">
+              {socialLinks.map((social) => {
+                const IconComponent = social.icon;
+                return (
+                  <a
+                    key={social.name}
+                    href={social.url}
+                    className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center text-gray-400 hover:bg-blue-600 hover:text-white transition-all duration-300"
+                    aria-label={`Follow us on ${social.name}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <IconComponent className="w-5 h-5" />
+                  </a>
+                );
+              })}
             </div>
           </div>
 
-          {/* Quick Links with nav semantic element */}
+          {/* Quick Links */}
           <div>
-            <h2 className="font-montserrat text-lg font-semibold mb-4 sm:mb-6 text-white">
-              Quick Links
-            </h2>
-            <nav aria-label="Footer quick links">
+            <h3 className="text-lg font-semibold mb-4 text-white">Company</h3>
+            <nav aria-label="Footer company links">
               <ul className="space-y-3">
-                <li>
-                  <a
-                    href="#home"
-                    onClick={(e) => scrollToSection(e, "home")}
-                    className="font-inter text-gray-300 hover:text-blue-300 transition-colors inline-block focus:outline-none focus:text-blue-300"
-                    aria-label="Go to homepage"
-                  >
-                    Home
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#about"
-                    onClick={(e) => scrollToSection(e, "about")}
-                    className="font-inter text-gray-300 hover:text-blue-300 transition-colors inline-block focus:outline-none focus:text-blue-300"
-                    aria-label="Learn about Lumora Ventures"
-                  >
-                    About Us
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#solutions"
-                    onClick={(e) => scrollToSection(e, "solutions")}
-                    className="font-inter text-gray-300 hover:text-blue-300 transition-colors inline-block focus:outline-none focus:text-blue-300"
-                    aria-label="Explore our solutions and services"
-                  >
-                    Solutions
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#contact"
-                    onClick={(e) => scrollToSection(e, "contact")}
-                    className="font-inter text-gray-300 hover:text-blue-300 transition-colors inline-block focus:outline-none focus:text-blue-300"
-                    aria-label="Contact Lumora Ventures"
-                  >
-                    Contact
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-
-          {/* Services with proper SEO-friendly links */}
-          <div>
-            <h2 className="font-montserrat text-lg font-semibold mb-4 sm:mb-6 text-white">
-              Our Solutions
-            </h2>
-            <nav aria-label="Services navigation">
-              <ul className="space-y-3">
-                {services.map((service) => (
-                  <li key={service.url}>
-                    <Link
-                      href={service.url}
-                      className="font-inter text-gray-300 hover:text-blue-300 transition-colors inline-flex items-center focus:outline-none focus:text-blue-300"
-                      aria-label={service.label}
+                {companyLinks.map((link) => (
+                  <li key={link.name}>
+                    <a
+                      href={link.href}
+                      onClick={link.isScroll ? (e) => scrollToSection(e, link.href.replace("#", "")) : undefined}
+                      className="text-gray-400 hover:text-blue-400 transition-colors text-sm"
                     >
-                      {service.shortName}
-                      {service.comingSoon && (
-                        <span className="ml-2 text-xs font-medium px-2 py-0.5 bg-blue-900/50 text-blue-300 rounded-full uppercase">
-                          Soon
-                        </span>
-                      )}
-                    </Link>
+                      {link.name}
+                    </a>
                   </li>
                 ))}
               </ul>
             </nav>
           </div>
 
-          {/* Contact with compact dual locations */}
-          <div itemScope itemType="https://schema.org/Organization">
-            <h2 className="font-montserrat text-lg font-semibold mb-4 sm:mb-6 text-white">
-              Contact Us
-            </h2>
-            <ul className="space-y-3">
-              <li className="flex items-start">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-5 h-5 text-blue-400 mr-3 mt-0.5 flex-shrink-0"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
-                  />
-                </svg>
-                <a
-                  href="mailto:info@lumoraventures.com"
-                  className="font-inter text-gray-300 hover:text-blue-300 transition-colors focus:outline-none focus:text-blue-300"
-                  itemProp="email"
-                >
-                  info@lumoraventures.com
-                </a>
-              </li>
-              <li className="flex items-start">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-5 h-5 text-blue-400 mr-3 mt-0.5 flex-shrink-0"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z"
-                  />
-                </svg>
-                <a
-                  href="tel:+94123456789"
-                  className="font-inter text-gray-300 hover:text-blue-300 transition-colors focus:outline-none focus:text-blue-300"
-                  itemProp="telephone"
-                >
-                  +1 95 433 868 84
-                </a>
-              </li>
+          {/* Services */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4 text-white">What We Do</h3>
+            <nav aria-label="Footer services links">
+              <ul className="space-y-3">
+                {services.map((service) => (
+                  <li key={service.name}>
+                    <a
+                      href={service.href}
+                      onClick={(e) => scrollToSection(e, service.href.replace("#", ""))}
+                      className="text-gray-400 hover:text-blue-400 transition-colors text-sm"
+                    >
+                      {service.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
 
-              {/* Compact dual locations */}
-              <li className="flex items-start">
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                  className="w-5 h-5 text-blue-400 mr-3 mt-0.5 flex-shrink-0"
-                  aria-hidden="true"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
-                  />
-                </svg>
-                <div className="font-inter text-gray-300 text-sm">
-                  <div
-                    itemProp="address"
-                    itemScope
-                    itemType="https://schema.org/PostalAddress"
-                    className="mb-2"
-                  >
-                    <p className="text-blue-300 font-medium">UK Office</p>
-                    <p itemProp="streetAddress">
-                      Office 4157, 58 Peregrine Road, Hainault
-                    </p>
-                    <p>
-                      <span itemProp="addressLocality">Ilford</span>,{" "}
-                      <span itemProp="addressRegion">Essex</span>{" "}
-                      <span itemProp="postalCode">IG6 3SZ</span>
-                    </p>
-                  </div>
-
-                  <div
-                    itemProp="address"
-                    itemScope
-                    itemType="https://schema.org/PostalAddress"
-                  >
-                    <p className="text-blue-300 font-medium">
-                      Sri Lanka Office
-                    </p>
-                    <p itemProp="streetAddress">
-                      Kurunegala Road, Kuliyapitiya
-                    </p>
-                    <p>
-                      <span itemProp="addressRegion">Kurunegala</span>,{" "}
-                      <span itemProp="addressCountry">Sri Lanka</span>
-                    </p>
-                  </div>
-                </div>
-              </li>
-            </ul>
+          {/* Products */}
+          <div>
+            <h3 className="text-lg font-semibold mb-4 text-white">Our Products</h3>
+            <nav aria-label="Footer products links">
+              <ul className="space-y-3">
+                {products.map((product) => (
+                  <li key={product.name}>
+                    {product.href.startsWith("/") ? (
+                      <Link
+                        href={product.href}
+                        className="text-gray-400 hover:text-blue-400 transition-colors text-sm"
+                      >
+                        {product.name}
+                      </Link>
+                    ) : (
+                      <a
+                        href={product.href}
+                        onClick={(e) => scrollToSection(e, product.href.replace("#", ""))}
+                        className="text-gray-400 hover:text-blue-400 transition-colors text-sm"
+                      >
+                        {product.name}
+                      </a>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </nav>
           </div>
         </div>
 
-        {/* Divider */}
-        <div className="border-t border-gray-700 mt-10 sm:mt-12 md:mt-14 lg:mt-16 pt-6 sm:pt-8">
-          <div className="flex flex-col sm:flex-row justify-between items-center">
-            <p className="font-inter text-sm text-gray-400">
-              © {currentYear} Lumora Ventures. All rights reserved.
-            </p>
-            <div className="mt-4 sm:mt-0">
-              <nav aria-label="Legal links">
-                <ul className="flex space-x-6">
-                  <li>
-                    <Link
-                      href="/privacy-policy"
-                      className="font-inter text-sm text-gray-400 hover:text-blue-300 transition-colors focus:outline-none focus:text-blue-300"
-                      aria-label="Read our privacy policy"
-                    >
-                      Privacy Policy
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      href="/terms-of-service"
-                      className="font-inter text-sm text-gray-400 hover:text-blue-300 transition-colors focus:outline-none focus:text-blue-300"
-                      aria-label="Read our terms of service"
-                    >
-                      Terms of Service
-                    </Link>
-                  </li>
-                </ul>
-              </nav>
+        {/* Contact Bar */}
+        <div className="mt-12 pt-8 border-t border-gray-800">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-blue-600/20 rounded-lg flex items-center justify-center">
+                <Mail className="w-5 h-5 text-blue-400" />
+              </div>
+              <div>
+                <p className="text-xs text-gray-500">Email</p>
+                <a
+                  href="mailto:info@lumoraventures.com"
+                  className="text-sm text-gray-300 hover:text-blue-400 transition-colors"
+                >
+                  info@lumoraventures.com
+                </a>
+              </div>
             </div>
+
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-blue-600/20 rounded-lg flex items-center justify-center">
+                <Phone className="w-5 h-5 text-blue-400" />
+              </div>
+              <div>
+                <p className="text-xs text-gray-500">Phone</p>
+                <a
+                  href="tel:+94779861174"
+                  className="text-sm text-gray-300 hover:text-blue-400 transition-colors"
+                >
+                  +94 77 986 1174
+                </a>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 bg-blue-600/20 rounded-lg flex items-center justify-center">
+                <MapPin className="w-5 h-5 text-blue-400" />
+              </div>
+              <div>
+                <p className="text-xs text-gray-500">Location</p>
+                <p className="text-sm text-gray-300">
+                  Kandy, Sri Lanka | Global Delivery
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom Bar */}
+        <div className="border-t border-gray-800 mt-8 pt-8">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
+            <p className="text-sm text-gray-500">
+              &copy; {currentYear} Lumora Ventures PVT LTD. All rights reserved.
+            </p>
+            <nav aria-label="Legal links">
+              <ul className="flex items-center gap-6">
+                <li>
+                  <Link
+                    href="/privacy-policy"
+                    className="text-sm text-gray-500 hover:text-blue-400 transition-colors"
+                  >
+                    Privacy Policy
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/terms-of-service"
+                    className="text-sm text-gray-500 hover:text-blue-400 transition-colors"
+                  >
+                    Terms of Service
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    href="/privacy-policy"
+                    className="text-sm text-gray-500 hover:text-blue-400 transition-colors"
+                  >
+                    Cookie Policy
+                  </Link>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
       </div>

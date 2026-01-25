@@ -1,133 +1,109 @@
 "use client";
 
-import { Suspense, useEffect, useRef } from "react";
-import HeroSection from "@/components/HeroSection";
-import ServiceOverview from "@/components/ServiceOverview";
-import AboutUsSection from "@/components/AboutUsSection";
-import ServiceSection from "@/components/ServiceSection";
-import ContactPage from "@/components/Contact";
-import OptimizedNavbar from "@/components/layout/OptimizedNavbar";
-import Loading from "./loading";
+import { useEffect, useRef, useCallback } from "react";
+import Navbar from "@/components/homepage/Navbar";
+import HeroSection from "@/components/homepage/HeroSection";
+import ServicesSection from "@/components/homepage/ServicesSection";
+import CapabilitiesSection from "@/components/homepage/CapabilitiesSection";
+import TechnologySection from "@/components/homepage/TechnologySection";
+import ProductsSection from "@/components/homepage/ProductsSection";
+import SolutionsSection from "@/components/homepage/SolutionsSection";
+import IndustriesSection from "@/components/homepage/IndustriesSection";
+import WhyChooseUsSection from "@/components/homepage/WhyChooseUsSection";
+import SuccessStoriesSection from "@/components/homepage/SuccessStoriesSection";
+import AboutSection from "@/components/homepage/AboutSection";
+import ContactSection from "@/components/homepage/ContactSection";
 
 export default function Home() {
-  // Reference for the contact section wrapper
   const contactRef = useRef(null);
 
-  // Handle hash navigation on page load and URL changes
+  // Scroll to section helper function
+  const scrollToSection = useCallback((sectionId) => {
+    const cleanId = sectionId.replace("#", "");
+    const element = document.getElementById(cleanId);
+
+    if (element) {
+      const navbarHeight = window.innerWidth >= 1280 ? 80 : 64;
+      const offsetPosition = element.getBoundingClientRect().top + window.pageYOffset - navbarHeight - 20;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth",
+      });
+
+      // Update URL hash
+      window.history.pushState(null, "", `#${cleanId}`);
+    }
+  }, []);
+
+  // Handle hash navigation on page load
   useEffect(() => {
     const handleHashNavigation = () => {
       if (typeof window === "undefined") return;
 
-      // Get hash without # symbol
       const hash = window.location.hash.replace("#", "");
 
-      if (hash === "contact") {
-        // If contact section is the target, use our ref
-        if (contactRef.current) {
-          const navbarHeight = getNavbarHeight();
-          const yOffset = -navbarHeight - 20; // 20px buffer
-
-          const y =
-            contactRef.current.getBoundingClientRect().top +
-            window.pageYOffset +
-            yOffset;
-
-          console.log("Scrolling to contact section:", y);
-
-          window.scrollTo({
-            top: y,
-            behavior: "smooth",
-          });
-        } else {
-          console.warn("Contact section reference not found");
-        }
-      } else if (hash) {
-        // For other sections, try to find them in the DOM
+      if (hash) {
+        // Small delay to ensure DOM is ready
         setTimeout(() => {
-          const element = document.getElementById(hash);
-          if (element) {
-            const navbarHeight = getNavbarHeight();
-            const yOffset = -navbarHeight - 20;
-
-            const y =
-              element.getBoundingClientRect().top +
-              window.pageYOffset +
-              yOffset;
-
-            window.scrollTo({
-              top: y,
-              behavior: "smooth",
-            });
-          } else {
-            console.warn(`Element with ID "${hash}" not found`);
-          }
-        }, 300); // Small delay to ensure DOM is ready
+          scrollToSection(hash);
+        }, 500);
       }
     };
 
-    // Helper function to calculate navbar height based on screen width
-    const getNavbarHeight = () => {
-      const width = window.innerWidth;
-      if (width >= 1280) return 80; // xl and up
-      if (width >= 1024) return 72; // lg
-      if (width >= 768) return 64; // md
-      return 56; // sm and below
-    };
-
-    // Run on initial page load with a delay to ensure components mount
-    setTimeout(handleHashNavigation, 500);
+    // Run on initial page load
+    handleHashNavigation();
 
     // Also run when hash changes
     window.addEventListener("hashchange", handleHashNavigation);
 
-    // Expose a global function that other components can call
-    window.scrollToContact = () => {
-      if (contactRef.current) {
-        const navbarHeight = getNavbarHeight();
-        const yOffset = -navbarHeight - 20;
-
-        const y =
-          contactRef.current.getBoundingClientRect().top +
-          window.pageYOffset +
-          yOffset;
-
-        console.log("Scrolling to contact section (from global):", y);
-
-        window.scrollTo({
-          top: y,
-          behavior: "smooth",
-        });
-      }
-    };
+    // Expose global scrollToSection function for navbar
+    window.scrollToSection = scrollToSection;
 
     return () => {
       window.removeEventListener("hashchange", handleHashNavigation);
-      delete window.scrollToContact;
+      delete window.scrollToSection;
     };
-  }, []);
+  }, [scrollToSection]);
 
   return (
     <>
-      <OptimizedNavbar />
-      <Suspense fallback={<Loading />}>
-        <HeroSection />
-        <ServiceOverview />
-        <AboutUsSection />
-        <ServiceSection />
+      <Navbar />
 
-        {/* This is the contact section wrapper with our ref */}
-        <div
-          id="contact-wrapper"
-          ref={contactRef}
-          style={{
-            scrollMarginTop: "100px", // Extra margin to ensure good positioning
-            position: "relative",
-            width: "100%",
-          }}
-        >
-          <ContactPage />
-        </div>
-      </Suspense>
+      {/* Section 1: Hero */}
+      <HeroSection scrollToSection={scrollToSection} />
+
+      {/* Section 2: Services Overview */}
+      <ServicesSection scrollToSection={scrollToSection} />
+
+      {/* Section 3: What We Do Best - Core Capabilities */}
+      <CapabilitiesSection />
+
+      {/* Section 4: Technology & Innovation */}
+      <TechnologySection />
+
+      {/* Section 5: Products Portfolio */}
+      <ProductsSection scrollToSection={scrollToSection} />
+
+      {/* Section 6: Solutions by Need */}
+      <SolutionsSection scrollToSection={scrollToSection} />
+
+      {/* Section 7: Industries We Serve */}
+      <IndustriesSection />
+
+      {/* Section 8: Why Choose Us */}
+      <WhyChooseUsSection />
+
+      {/* Section 9: Success Stories */}
+      <SuccessStoriesSection scrollToSection={scrollToSection} />
+
+      {/* Section 10: About Us */}
+      <AboutSection />
+
+      {/* Section 11: Get Started / Contact */}
+      <div id="contact-wrapper" ref={contactRef}>
+        <ContactSection />
+      </div>
     </>
   );
 }

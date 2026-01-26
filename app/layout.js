@@ -1,30 +1,9 @@
 // app/layout.js
 import "./globals.css";
-import { Inter, Plus_Jakarta_Sans, Outfit } from "next/font/google";
 import Footer from "@/components/layout/Footer";
 import PrefetchLinks from "@/components/PrefetchLinks";
 import { LoadingProvider } from "@/components/LoadingProvider";
 import JsonLdSchema from "@/components/JsonLdSchema";
-
-// Font configuration with preload
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-inter",
-  display: "swap",
-  preload: true,
-});
-const jakartaSans = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  variable: "--font-jakarta",
-  display: "swap",
-  preload: true,
-});
-const outfit = Outfit({
-  subsets: ["latin"],
-  variable: "--font-outfit",
-  display: "swap",
-  preload: true,
-});
 
 export const metadata = {
   metadataBase: new URL("https://www.lumoraventures.com"),
@@ -180,12 +159,10 @@ export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
-      className={`${inter.variable} ${jakartaSans.variable} ${outfit.variable} scroll-smooth`}
+      className="scroll-smooth"
     >
       <head>
         <meta name="theme-color" content="#2563EB" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -194,7 +171,7 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body
-        className={`flex flex-col min-h-screen ${inter.className}`}
+        className="flex flex-col min-h-screen font-sans"
         suppressHydrationWarning={true}
       >
         <LoadingProvider>

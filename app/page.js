@@ -4,14 +4,11 @@ import { useEffect, useRef, useCallback } from "react";
 import Navbar from "@/components/homepage/Navbar";
 import HeroSection from "@/components/homepage/HeroSection";
 import ServicesSection from "@/components/homepage/ServicesSection";
-import CapabilitiesSection from "@/components/homepage/CapabilitiesSection";
-import TechnologySection from "@/components/homepage/TechnologySection";
+import ApproachSection from "@/components/homepage/ApproachSection";
 import ProductsSection from "@/components/homepage/ProductsSection";
-import SolutionsSection from "@/components/homepage/SolutionsSection";
-import IndustriesSection from "@/components/homepage/IndustriesSection";
-import WhyChooseUsSection from "@/components/homepage/WhyChooseUsSection";
-import SuccessStoriesSection from "@/components/homepage/SuccessStoriesSection";
 import AboutSection from "@/components/homepage/AboutSection";
+import WhyChooseUsSection from "@/components/homepage/WhyChooseUsSection";
+import IndustriesSection from "@/components/homepage/IndustriesSection";
 import ContactSection from "@/components/homepage/ContactSection";
 
 export default function Home() {
@@ -73,34 +70,25 @@ export default function Home() {
       {/* Section 1: Hero */}
       <HeroSection scrollToSection={scrollToSection} />
 
-      {/* Section 2: Services Overview */}
-      <ServicesSection scrollToSection={scrollToSection} />
+      {/* Section 2: Services */}
+      <ServicesSection />
 
-      {/* Section 3: What We Do Best - Core Capabilities */}
-      <CapabilitiesSection />
+      {/* Section 3: Our Approach */}
+      <ApproachSection />
 
-      {/* Section 4: Technology & Innovation */}
-      <TechnologySection />
+      {/* Section 4: Products */}
+      <ProductsSection />
 
-      {/* Section 5: Products Portfolio */}
-      <ProductsSection scrollToSection={scrollToSection} />
-
-      {/* Section 6: Solutions by Need */}
-      <SolutionsSection scrollToSection={scrollToSection} />
-
-      {/* Section 7: Industries We Serve */}
-      <IndustriesSection />
-
-      {/* Section 8: Why Choose Us */}
-      <WhyChooseUsSection />
-
-      {/* Section 9: Success Stories */}
-      <SuccessStoriesSection scrollToSection={scrollToSection} />
-
-      {/* Section 10: About Us */}
+      {/* Section 5: About Us */}
       <AboutSection />
 
-      {/* Section 11: Get Started / Contact */}
+      {/* Section 6: Why Choose Us */}
+      <WhyChooseUsSection />
+
+      {/* Section 7: Industries */}
+      <IndustriesSection />
+
+      {/* Section 8: Contact */}
       <div id="contact-wrapper" ref={contactRef}>
         <ContactSection />
       </div>

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 const HeroSection = ({ scrollToSection }) => {
   const [mounted, setMounted] = useState(false);
@@ -10,17 +11,38 @@ const HeroSection = ({ scrollToSection }) => {
     setMounted(true);
   }, []);
 
+  const stats = [
+    { value: "250+", label: "Projects" },
+    { value: "50+", label: "Clients" },
+    { value: "99%", label: "Satisfaction" },
+  ];
+
   return (
     <section
       id="home"
       className="relative min-h-screen flex items-center overflow-hidden"
-      style={{
-        background:
-          "linear-gradient(135deg, #2563eb 0%, #1e40af 50%, #1e3a8a 100%)",
-      }}
     >
+      {/* Background Image */}
+      <Image
+        src="/hero.avif"
+        alt="Lumora Ventures hero background"
+        fill
+        priority
+        className="object-cover"
+        sizes="100vw"
+      />
+
+      {/* Gradient Overlay */}
+      <div
+        className="absolute inset-0 z-[1]"
+        style={{
+          background:
+            "linear-gradient(135deg, rgba(37,99,235,0.85) 0%, rgba(30,64,175,0.88) 50%, rgba(30,58,138,0.9) 100%)",
+        }}
+      />
+
       {/* Background decorative elements */}
-      <div className="absolute inset-0 overflow-hidden">
+      <div className="absolute inset-0 overflow-hidden z-[2]">
         <div
           className={`absolute -top-40 -left-40 w-80 h-80 md:w-[500px] md:h-[500px] bg-blue-400/20 rounded-full blur-3xl ${
             mounted ? "animate-fade-in" : "opacity-0"
@@ -64,7 +86,7 @@ const HeroSection = ({ scrollToSection }) => {
 
           {/* Single CTA */}
           <div
-            className={`mb-8 ${
+            className={`mb-10 ${
               mounted ? "animate-fade-in-up animate-delay-300" : "opacity-0"
             }`}
           >
@@ -77,19 +99,28 @@ const HeroSection = ({ scrollToSection }) => {
             </button>
           </div>
 
-          {/* Trust Indicator */}
-          <p
-            className={`text-blue-200 text-sm ${
+          {/* Statistics Bar */}
+          <div
+            className={`flex items-center justify-center gap-6 sm:gap-10 md:gap-16 ${
               mounted ? "animate-fade-in-up animate-delay-400" : "opacity-0"
             }`}
           >
-            Trusted by 50+ companies across 15 countries
-          </p>
+            {stats.map((stat, index) => (
+              <div key={index} className="text-center">
+                <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-white">
+                  {stat.value}
+                </div>
+                <div className="text-blue-200 text-sm sm:text-base mt-1">
+                  {stat.label}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
       {/* Bottom wave decoration */}
-      <div className="absolute bottom-0 left-0 right-0">
+      <div className="absolute bottom-0 left-0 right-0 z-[3]">
         <svg
           viewBox="0 0 1440 120"
           fill="none"

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { Lightbulb, Award, Handshake, Shield } from "lucide-react";
+import Image from "next/image";
 
 const AboutSection = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -65,39 +66,55 @@ const AboutSection = () => {
           </h2>
         </div>
 
-        {/* Company Overview */}
+        {/* Company Overview with Image */}
         <div
-          className={`max-w-3xl mx-auto text-center mb-16 ${
+          className={`max-w-6xl mx-auto mb-16 ${
             isVisible ? "animate-fade-in-up animate-delay-200" : "opacity-0"
           }`}
         >
-          <p className="text-lg text-gray-600 leading-relaxed mb-12">
-            Founded in 2020, Lumora Ventures is a technology company
-            specializing in software development, mobile applications, AI/ML
-            solutions, and industrial automation. We combine technical
-            excellence with deep industry understanding to deliver solutions
-            that create real business value.
-          </p>
-
-          {/* Vision & Mission */}
-          <div className="grid md:grid-cols-2 gap-8 text-left">
-            <div className="p-6 bg-blue-50 rounded-xl">
-              <h3 className="text-xl font-bold text-gray-900 mb-3">
-                Our Vision
-              </h3>
-              <p className="text-gray-700">
-                To be the leading technology partner for businesses seeking
-                innovation through intelligent software solutions.
-              </p>
+          <div className="grid md:grid-cols-2 gap-10 items-center mb-12">
+            {/* About Image */}
+            <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
+              <Image
+                src="/about.avif"
+                alt="About Lumora Ventures"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+              />
             </div>
-            <div className="p-6 bg-blue-50 rounded-xl">
-              <h3 className="text-xl font-bold text-gray-900 mb-3">
-                Our Mission
-              </h3>
-              <p className="text-gray-700">
-                Empower businesses with cutting-edge technology that drives
-                growth, efficiency, and competitive advantage.
+
+            {/* Text Content */}
+            <div>
+              <p className="text-lg text-gray-600 leading-relaxed mb-8">
+                Founded in 2020, Lumora Ventures is a technology company
+                specializing in software development, mobile applications, AI/ML
+                solutions, and industrial automation. We combine technical
+                excellence with deep industry understanding to deliver solutions
+                that create real business value.
               </p>
+
+              {/* Vision & Mission */}
+              <div className="grid gap-6">
+                <div className="p-6 bg-blue-50 rounded-xl">
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">
+                    Our Vision
+                  </h3>
+                  <p className="text-gray-700">
+                    To be the leading technology partner for businesses seeking
+                    innovation through intelligent software solutions.
+                  </p>
+                </div>
+                <div className="p-6 bg-blue-50 rounded-xl">
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">
+                    Our Mission
+                  </h3>
+                  <p className="text-gray-700">
+                    Empower businesses with cutting-edge technology that drives
+                    growth, efficiency, and competitive advantage.
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </div>

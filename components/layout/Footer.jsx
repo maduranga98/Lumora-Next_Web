@@ -56,6 +56,7 @@ const Footer = () => {
     { name: "About Us", href: "#about", isScroll: true },
     { name: "Services", href: "#services", isScroll: true },
     { name: "Products", href: "#products", isScroll: true },
+    { name: "Blog", href: "/blog", isScroll: false },
     { name: "Contact", href: "#contact", isScroll: true },
   ];
 
@@ -158,18 +159,24 @@ const Footer = () => {
               <ul className="space-y-2">
                 {companyLinks.map((link) => (
                   <li key={link.name}>
-                    <a
-                      href={link.href}
-                      onClick={
-                        link.isScroll
-                          ? (e) =>
-                              scrollToSection(e, link.href.replace("#", ""))
-                          : undefined
-                      }
-                      className="text-gray-400 hover:text-blue-400 transition-colors text-sm"
-                    >
-                      {link.name}
-                    </a>
+                    {link.isScroll ? (
+                      <a
+                        href={link.href}
+                        onClick={(e) =>
+                          scrollToSection(e, link.href.replace("#", ""))
+                        }
+                        className="text-gray-400 hover:text-blue-400 transition-colors text-sm"
+                      >
+                        {link.name}
+                      </a>
+                    ) : (
+                      <Link
+                        href={link.href}
+                        className="text-gray-400 hover:text-blue-400 transition-colors text-sm"
+                      >
+                        {link.name}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>

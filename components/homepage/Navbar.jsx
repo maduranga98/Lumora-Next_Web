@@ -95,6 +95,7 @@ const Navbar = () => {
     { href: "#products", label: "Products", isScroll: true },
     { href: "#industries", label: "Industries", isScroll: true },
     { href: "#about", label: "About", isScroll: true },
+    { href: "/blog", label: "Blog", isScroll: false },
     { href: "#contact", label: "Contact", isScroll: true },
   ];
 
@@ -175,17 +176,30 @@ const Navbar = () => {
           <div className="hidden md:flex items-center space-x-1 lg:space-x-2">
             {navLinks.map((link, index) => (
               <div key={index} className="relative">
-                <a
-                  href={link.href}
-                  onClick={(e) => scrollToSection(e, link.href)}
-                  className={`px-3 lg:px-4 py-2 text-sm lg:text-base font-medium transition-colors rounded-lg ${
-                    scrolled
-                      ? "text-gray-700 hover:text-blue-600 hover:bg-blue-50"
-                      : "text-white hover:text-blue-200"
-                  }`}
-                >
-                  {link.label}
-                </a>
+                {link.isScroll ? (
+                  <a
+                    href={link.href}
+                    onClick={(e) => scrollToSection(e, link.href)}
+                    className={`px-3 lg:px-4 py-2 text-sm lg:text-base font-medium transition-colors rounded-lg ${
+                      scrolled
+                        ? "text-gray-700 hover:text-blue-600 hover:bg-blue-50"
+                        : "text-white hover:text-blue-200"
+                    }`}
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <Link
+                    href={link.href}
+                    className={`px-3 lg:px-4 py-2 text-sm lg:text-base font-medium transition-colors rounded-lg ${
+                      scrolled
+                        ? "text-gray-700 hover:text-blue-600 hover:bg-blue-50"
+                        : "text-white hover:text-blue-200"
+                    }`}
+                  >
+                    {link.label}
+                  </Link>
+                )}
               </div>
             ))}
 
@@ -223,16 +237,27 @@ const Navbar = () => {
         }`}
       >
         <div className="bg-white shadow-lg px-4 py-4 space-y-1">
-          {navLinks.map((link, index) => (
-            <a
-              key={index}
-              href={link.href}
-              onClick={(e) => scrollToSection(e, link.href)}
-              className="block px-4 py-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg font-medium transition-colors"
-            >
-              {link.label}
-            </a>
-          ))}
+          {navLinks.map((link, index) =>
+            link.isScroll ? (
+              <a
+                key={index}
+                href={link.href}
+                onClick={(e) => scrollToSection(e, link.href)}
+                className="block px-4 py-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg font-medium transition-colors"
+              >
+                {link.label}
+              </a>
+            ) : (
+              <Link
+                key={index}
+                href={link.href}
+                className="block px-4 py-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg font-medium transition-colors"
+                onClick={() => setIsOpen(false)}
+              >
+                {link.label}
+              </Link>
+            )
+          )}
           <a
             href="#contact"
             onClick={(e) => scrollToSection(e, "#contact")}

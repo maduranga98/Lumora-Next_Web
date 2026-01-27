@@ -11,6 +11,7 @@ import WhyChooseUsSection from "@/components/homepage/WhyChooseUsSection";
 import IndustriesSection from "@/components/homepage/IndustriesSection";
 import ContactSection from "@/components/homepage/ContactSection";
 import FAQSection from "@/components/homepage/FAQSection";
+import BlogPreviewSection from "@/components/homepage/BlogPreviewSection";
 
 export default function Home() {
   const contactRef = useRef(null);
@@ -92,7 +93,10 @@ export default function Home() {
       {/* Section 8: FAQ */}
       <FAQSection />
 
-      {/* Section 9: Contact */}
+      {/* Section 9: Blog */}
+      <BlogPreviewSection />
+
+      {/* Section 10: Contact */}
       <div id="contact-wrapper" ref={contactRef}>
         <ContactSection />
       </div>

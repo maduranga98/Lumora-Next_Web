@@ -5,21 +5,23 @@ import { Menu, X, ChevronDown } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter, usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState(null);
+  const [productsOpen, setProductsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
   const navbarRef = useRef(null);
+  const productsRef = useRef(null);
+  const productsTimeoutRef = useRef(null);
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Handle scroll
   useEffect(() => {
     if (!mounted) return;
 
@@ -39,7 +41,6 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [mounted]);
 
-  // Close mobile menu on resize
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
@@ -51,9 +52,19 @@ const Navbar = () => {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (productsRef.current && !productsRef.current.contains(e.target)) {
+        setProductsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   const isHomePage = mounted ? pathname === "/" : false;
 
-  // Scroll to section
   const scrollToSection = useCallback(
     (e, sectionId) => {
       e.preventDefault();
@@ -85,30 +96,47 @@ const Navbar = () => {
       }
 
       setIsOpen(false);
-      setActiveDropdown(null);
+      setProductsOpen(false);
     },
     [mounted, isHomePage, router]
   );
 
   const navLinks = [
     { href: "#services", label: "Services", isScroll: true },
-    { href: "#products", label: "Products", isScroll: true },
+    { href: "#products", label: "Products", isScroll: true, hasDropdown: true },
     { href: "#industries", label: "Industries", isScroll: true },
     { href: "#about", label: "About", isScroll: true },
     { href: "/blog", label: "Blog", isScroll: false },
     { href: "#contact", label: "Contact", isScroll: true },
   ];
 
-  const handleDropdownHover = useCallback((index, isEntering) => {
-    if (isEntering) {
-      setActiveDropdown(index);
-    } else {
-      const timer = setTimeout(() => {
-        setActiveDropdown(null);
-      }, 100);
-      return () => clearTimeout(timer);
+  const productLinks = [
+    {
+      name: "Curl Cipher",
+      desc: "Salon management platform",
+      href: "/curl-cipher",
+      color: "bg-amber-500",
+    },
+    {
+      name: "Industrial Automation",
+      desc: "Smart factory solutions",
+      href: "/industrial-automation",
+      color: "bg-emerald-500",
+    },
+  ];
+
+  const handleProductsHover = (entering) => {
+    if (productsTimeoutRef.current) {
+      clearTimeout(productsTimeoutRef.current);
     }
-  }, []);
+    if (entering) {
+      setProductsOpen(true);
+    } else {
+      productsTimeoutRef.current = setTimeout(() => {
+        setProductsOpen(false);
+      }, 150);
+    }
+  };
 
   if (!mounted) {
     return (
@@ -139,9 +167,9 @@ const Navbar = () => {
   return (
     <nav
       ref={navbarRef}
-      className={`fixed w-full z-50 transition-all duration-300 ${
+      className={`fixed w-full z-50 transition-all duration-500 ${
         scrolled
-          ? "bg-white shadow-lg"
+          ? "bg-white/95 backdrop-blur-md shadow-lg shadow-black/[0.03]"
           : "bg-transparent"
       }`}
     >
@@ -175,8 +203,68 @@ const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1 lg:space-x-2">
             {navLinks.map((link, index) => (
-              <div key={index} className="relative">
-                {link.isScroll ? (
+              <div key={index} className="relative" ref={link.hasDropdown ? productsRef : null}>
+                {link.hasDropdown ? (
+                  <div
+                    onMouseEnter={() => handleProductsHover(true)}
+                    onMouseLeave={() => handleProductsHover(false)}
+                  >
+                    <a
+                      href={link.href}
+                      onClick={(e) => scrollToSection(e, link.href)}
+                      className={`px-3 lg:px-4 py-2 text-sm lg:text-base font-medium transition-colors rounded-lg inline-flex items-center gap-1 ${
+                        scrolled
+                          ? "text-gray-700 hover:text-blue-600 hover:bg-blue-50"
+                          : "text-white hover:text-blue-200"
+                      }`}
+                    >
+                      {link.label}
+                      <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-200 ${productsOpen ? "rotate-180" : ""}`} />
+                    </a>
+
+                    <AnimatePresence>
+                      {productsOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, y: 8, scale: 0.96 }}
+                          animate={{ opacity: 1, y: 0, scale: 1 }}
+                          exit={{ opacity: 0, y: 8, scale: 0.96 }}
+                          transition={{ duration: 0.15 }}
+                          className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-64 bg-white rounded-xl shadow-xl shadow-black/[0.08] border border-gray-100 overflow-hidden"
+                        >
+                          <div className="p-2">
+                            {productLinks.map((product) => (
+                              <Link
+                                key={product.name}
+                                href={product.href}
+                                className="flex items-start gap-3 p-3 rounded-lg hover:bg-gray-50 transition-colors group"
+                                onClick={() => setProductsOpen(false)}
+                              >
+                                <div className={`w-2 h-2 rounded-full mt-1.5 ${product.color}`} />
+                                <div>
+                                  <p className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+                                    {product.name}
+                                  </p>
+                                  <p className="text-xs text-gray-500 mt-0.5">
+                                    {product.desc}
+                                  </p>
+                                </div>
+                              </Link>
+                            ))}
+                          </div>
+                          <div className="border-t border-gray-100 p-2">
+                            <a
+                              href="#products"
+                              onClick={(e) => scrollToSection(e, "#products")}
+                              className="flex items-center justify-center gap-1 p-2 text-xs font-medium text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                            >
+                              View All Products
+                            </a>
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
+                ) : link.isScroll ? (
                   <a
                     href={link.href}
                     onClick={(e) => scrollToSection(e, link.href)}
@@ -203,7 +291,6 @@ const Navbar = () => {
               </div>
             ))}
 
-            {/* CTA Button */}
             <a
               href="#contact"
               onClick={(e) => scrollToSection(e, "#contact")}
@@ -231,42 +318,70 @@ const Navbar = () => {
       </div>
 
       {/* Mobile Navigation */}
-      <div
-        className={`md:hidden overflow-hidden transition-all duration-300 ${
-          isOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-        }`}
-      >
-        <div className="bg-white shadow-lg px-4 py-4 space-y-1">
-          {navLinks.map((link, index) =>
-            link.isScroll ? (
-              <a
-                key={index}
-                href={link.href}
-                onClick={(e) => scrollToSection(e, link.href)}
-                className="block px-4 py-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg font-medium transition-colors"
-              >
-                {link.label}
-              </a>
-            ) : (
-              <Link
-                key={index}
-                href={link.href}
-                className="block px-4 py-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg font-medium transition-colors"
-                onClick={() => setIsOpen(false)}
-              >
-                {link.label}
-              </Link>
-            )
-          )}
-          <a
-            href="#contact"
-            onClick={(e) => scrollToSection(e, "#contact")}
-            className="block w-full text-center mt-4 px-4 py-3 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-700 transition-colors"
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            transition={{ duration: 0.2 }}
+            className="md:hidden overflow-hidden"
           >
-            Get Started
-          </a>
-        </div>
-      </div>
+            <div className="bg-white shadow-lg px-4 py-4 space-y-1">
+              {navLinks.map((link, index) =>
+                link.hasDropdown ? (
+                  <div key={index}>
+                    <a
+                      href={link.href}
+                      onClick={(e) => scrollToSection(e, link.href)}
+                      className="block px-4 py-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg font-medium transition-colors"
+                    >
+                      {link.label}
+                    </a>
+                    <div className="pl-6 space-y-1">
+                      {productLinks.map((product) => (
+                        <Link
+                          key={product.name}
+                          href={product.href}
+                          className="block px-4 py-2 text-sm text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                          onClick={() => setIsOpen(false)}
+                        >
+                          {product.name}
+                        </Link>
+                      ))}
+                    </div>
+                  </div>
+                ) : link.isScroll ? (
+                  <a
+                    key={index}
+                    href={link.href}
+                    onClick={(e) => scrollToSection(e, link.href)}
+                    className="block px-4 py-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg font-medium transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                ) : (
+                  <Link
+                    key={index}
+                    href={link.href}
+                    className="block px-4 py-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg font-medium transition-colors"
+                    onClick={() => setIsOpen(false)}
+                  >
+                    {link.label}
+                  </Link>
+                )
+              )}
+              <a
+                href="#contact"
+                onClick={(e) => scrollToSection(e, "#contact")}
+                className="block w-full text-center mt-4 px-4 py-3 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-700 transition-colors"
+              >
+                Get Started
+              </a>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };

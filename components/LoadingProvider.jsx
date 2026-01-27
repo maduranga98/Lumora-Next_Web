@@ -25,7 +25,6 @@ function LoadingProviderContent({ children, setIsLoading }) {
   useEffect(() => {
     setIsLoading(true);
 
-    // Set short timeout to simulate navigation delay
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 500);
@@ -36,85 +35,112 @@ function LoadingProviderContent({ children, setIsLoading }) {
   return children;
 }
 
-// Styled Loading Component with circular rotating animation around a circular logo
+// Professional Loading Screen
 function LoadingScreen() {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          return 100;
+        }
+        return prev + Math.random() * 15 + 5;
+      });
+    }, 100);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-white/95 backdrop-blur-md transition-all duration-300">
+    <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-gradient-to-br from-slate-50 via-white to-blue-50 transition-all duration-300">
+      {/* Subtle background decoration */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden="true">
+        <div className="absolute top-1/4 -left-16 w-56 h-56 bg-blue-100/30 rounded-full blur-3xl animate-morph-blob" />
+        <div className="absolute bottom-1/4 -right-16 w-64 h-64 bg-cyan-100/20 rounded-full blur-3xl animate-morph-blob" style={{ animationDelay: "2s" }} />
+      </div>
+
       <div className="relative flex flex-col items-center">
-        {/* Outer rotating circle */}
-        <div className="relative w-32 h-32 md:w-40 md:h-40">
-          {/* Multiple rotating circles for a more dynamic effect */}
-          <div className="absolute inset-0 w-full h-full rounded-full border-4 border-blue-600/10 border-t-blue-600 animate-spin"></div>
-          <div
-            className="absolute inset-0 w-full h-full rounded-full border-4 border-blue-400/10 border-r-blue-400 animate-spin"
-            style={{ animationDuration: "2s", animationDirection: "reverse" }}
-          ></div>
+        {/* SVG ring animation */}
+        <div className="relative w-28 h-28 md:w-36 md:h-36">
+          {/* Background ring */}
+          <svg className="absolute inset-0 w-full h-full" viewBox="0 0 100 100">
+            <circle
+              cx="50"
+              cy="50"
+              r="45"
+              fill="none"
+              stroke="#e0e7ff"
+              strokeWidth="2.5"
+            />
+          </svg>
 
-          {/* Additional dot indicators rotating around the circle */}
-          <div
-            className="absolute inset-0 w-full h-full animate-spin"
-            style={{ animationDuration: "3s" }}
-          >
-            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-blue-600 rounded-full"></div>
-          </div>
-          <div
-            className="absolute inset-0 w-full h-full animate-spin"
-            style={{ animationDuration: "3s", animationDelay: "0.75s" }}
-          >
-            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-blue-400 rounded-full"></div>
-          </div>
-          <div
-            className="absolute inset-0 w-full h-full animate-spin"
-            style={{ animationDuration: "3s", animationDelay: "1.5s" }}
-          >
-            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-blue-500 rounded-full"></div>
-          </div>
-          <div
-            className="absolute inset-0 w-full h-full animate-spin"
-            style={{ animationDuration: "3s", animationDelay: "2.25s" }}
-          >
-            <div className="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-3 h-3 bg-blue-300 rounded-full"></div>
-          </div>
+          {/* Animated ring 1 */}
+          <svg className="absolute inset-0 w-full h-full loading-ring" viewBox="0 0 100 100">
+            <circle
+              cx="50"
+              cy="50"
+              r="45"
+              fill="none"
+              stroke="url(#loadingGradient)"
+              strokeWidth="3"
+              strokeLinecap="round"
+              strokeDasharray="283"
+              className="loading-dash"
+            />
+            <defs>
+              <linearGradient id="loadingGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                <stop offset="0%" stopColor="#2563eb" />
+                <stop offset="100%" stopColor="#06b6d4" />
+              </linearGradient>
+            </defs>
+          </svg>
 
-          {/* Center circular logo with gentle pulse */}
+          {/* Animated ring 2 (reverse) */}
+          <svg className="absolute inset-2 w-[calc(100%-1rem)] h-[calc(100%-1rem)] loading-ring-reverse" viewBox="0 0 100 100">
+            <circle
+              cx="50"
+              cy="50"
+              r="45"
+              fill="none"
+              stroke="#93c5fd"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeDasharray="60 223"
+            />
+          </svg>
+
+          {/* Center logo */}
           <div className="absolute inset-0 flex items-center justify-center">
-            <div className="w-20 h-20 md:w-24 md:h-24 rounded-full bg-white shadow-md flex items-center justify-center animate-pulse p-1">
+            <div className="w-14 h-14 md:w-16 md:h-16 rounded-full bg-white shadow-lg shadow-blue-100/50 flex items-center justify-center p-1">
               <Image
-                src="/favicon.ico"
+                src="/logo.webp"
                 alt="Lumora Ventures"
-                width={80}
-                height={80}
-                className="object-contain rounded-full"
+                width={48}
+                height={48}
+                className="object-contain"
                 priority
               />
             </div>
           </div>
         </div>
 
-        {/* Loading text */}
+        {/* Brand text and progress */}
         <div className="mt-8 text-center">
-          <p className="text-blue-600 font-medium text-lg md:text-xl">
-            Loading
+          <p className="text-lg font-semibold text-gradient">
+            Lumora Ventures
           </p>
-          <div className="flex justify-center mt-1 space-x-1">
+
+          {/* Progress bar */}
+          <div className="mt-4 w-48 h-1 bg-gray-100 rounded-full overflow-hidden">
             <div
-              className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"
-              style={{ animationDelay: "0ms" }}
-            ></div>
-            <div
-              className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"
-              style={{ animationDelay: "150ms" }}
-            ></div>
-            <div
-              className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"
-              style={{ animationDelay: "300ms" }}
-            ></div>
+              className="h-full bg-gradient-to-r from-blue-600 to-cyan-500 rounded-full transition-all duration-200 ease-out"
+              style={{ width: `${Math.min(progress, 100)}%` }}
+            />
           </div>
         </div>
       </div>
-
-      {/* Elegant gradient background */}
-      <div className="absolute inset-0 bg-gradient-to-b from-blue-50/50 to-white/50 -z-10"></div>
     </div>
   );
 }

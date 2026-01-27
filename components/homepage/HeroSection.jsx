@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
+import { motion } from "framer-motion";
 
 const HeroSection = ({ scrollToSection }) => {
   const [mounted, setMounted] = useState(false);
@@ -37,58 +38,75 @@ const HeroSection = ({ scrollToSection }) => {
         className="absolute inset-0 z-[1]"
         style={{
           background:
-            "linear-gradient(135deg, rgba(37,99,235,0.85) 0%, rgba(30,64,175,0.88) 50%, rgba(30,58,138,0.9) 100%)",
+            "linear-gradient(135deg, rgba(37,99,235,0.88) 0%, rgba(30,64,175,0.9) 50%, rgba(30,58,138,0.92) 100%)",
         }}
       />
 
       {/* Background decorative elements */}
       <div className="absolute inset-0 overflow-hidden z-[2]">
-        <div
-          className={`absolute -top-40 -left-40 w-80 h-80 md:w-[500px] md:h-[500px] bg-blue-400/20 rounded-full blur-3xl ${
-            mounted ? "animate-fade-in" : "opacity-0"
-          }`}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.5, ease: "easeOut" }}
+          className="absolute -top-40 -left-40 w-80 h-80 md:w-[500px] md:h-[500px] bg-blue-400/20 rounded-full blur-3xl"
         />
-        <div
-          className={`absolute -bottom-40 -right-40 w-80 h-80 md:w-[500px] md:h-[500px] bg-cyan-400/20 rounded-full blur-3xl ${
-            mounted ? "animate-fade-in animate-delay-200" : "opacity-0"
-          }`}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 1.5, delay: 0.3, ease: "easeOut" }}
+          className="absolute -bottom-40 -right-40 w-80 h-80 md:w-[500px] md:h-[500px] bg-cyan-400/20 rounded-full blur-3xl"
         />
-        <div
-          className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] md:w-[800px] md:h-[800px] bg-indigo-500/10 rounded-full blur-3xl ${
-            mounted ? "animate-fade-in animate-delay-300" : "opacity-0"
-          }`}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 2, delay: 0.5 }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] md:w-[800px] md:h-[800px] bg-indigo-500/10 rounded-full blur-3xl"
         />
       </div>
 
       <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-24 lg:py-32">
         <div className="text-center">
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={mounted ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="inline-flex items-center gap-2 px-4 py-1.5 mb-8 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm"
+          >
+            <span className="w-2 h-2 bg-emerald-400 rounded-full animate-pulse" />
+            <span className="text-sm text-blue-100 font-medium">Full-Spectrum Technology Partner</span>
+          </motion.div>
+
           {/* Main Heading */}
-          <h1
-            className={`text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight ${
-              mounted ? "animate-fade-in-up" : "opacity-0"
-            }`}
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={mounted ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight"
           >
             Technology That
             <span className="block mt-2 text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 to-blue-200">
               Transforms Business
             </span>
-          </h1>
+          </motion.h1>
 
           {/* Subheading */}
-          <p
-            className={`text-lg md:text-xl lg:text-2xl text-blue-100 mb-12 max-w-2xl mx-auto leading-relaxed ${
-              mounted ? "animate-fade-in-up animate-delay-200" : "opacity-0"
-            }`}
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={mounted ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.4 }}
+            className="text-lg md:text-xl lg:text-2xl text-blue-100 mb-12 max-w-2xl mx-auto leading-relaxed"
           >
             We build intelligent software solutions — from web and mobile apps
             to advanced AI systems and industrial automation.
-          </p>
+          </motion.p>
 
           {/* Single CTA */}
-          <div
-            className={`mb-10 ${
-              mounted ? "animate-fade-in-up animate-delay-300" : "opacity-0"
-            }`}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={mounted ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.6 }}
+            className="mb-14"
           >
             <button
               onClick={() => scrollToSection("contact")}
@@ -97,16 +115,20 @@ const HeroSection = ({ scrollToSection }) => {
               Let&apos;s Talk About Your Project
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
-          </div>
+          </motion.div>
 
           {/* Statistics Bar */}
-          <div
-            className={`flex items-center justify-center gap-6 sm:gap-10 md:gap-16 ${
-              mounted ? "animate-fade-in-up animate-delay-400" : "opacity-0"
-            }`}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={mounted ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.7, delay: 0.8 }}
+            className="flex items-center justify-center gap-8 sm:gap-12 md:gap-16"
           >
             {stats.map((stat, index) => (
-              <div key={index} className="text-center">
+              <div key={index} className="text-center relative">
+                {index > 0 && (
+                  <div className="absolute -left-4 sm:-left-6 md:-left-8 top-1/2 -translate-y-1/2 w-px h-10 bg-white/20" />
+                )}
                 <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-white">
                   {stat.value}
                 </div>
@@ -115,7 +137,7 @@ const HeroSection = ({ scrollToSection }) => {
                 </div>
               </div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </div>
 

@@ -3,15 +3,13 @@
 import { useEffect, useRef, useCallback } from "react";
 import Navbar from "@/components/homepage/Navbar";
 import HeroSection from "@/components/homepage/HeroSection";
-import ServicesSection from "@/components/homepage/ServicesSection";
-import ApproachSection from "@/components/homepage/ApproachSection";
+import WhoWeAreSection from "@/components/homepage/WhoWeAreSection";
+import WhatWeDoSection from "@/components/homepage/WhatWeDoSection";
 import ProductsSection from "@/components/homepage/ProductsSection";
-import AboutSection from "@/components/homepage/AboutSection";
-import WhyChooseUsSection from "@/components/homepage/WhyChooseUsSection";
 import IndustriesSection from "@/components/homepage/IndustriesSection";
+import InnovationSection from "@/components/homepage/InnovationSection";
+import CTASection from "@/components/homepage/CTASection";
 import ContactSection from "@/components/homepage/ContactSection";
-import FAQSection from "@/components/homepage/FAQSection";
-import BlogPreviewSection from "@/components/homepage/BlogPreviewSection";
 
 export default function Home() {
   const contactRef = useRef(null);
@@ -70,33 +68,27 @@ export default function Home() {
       <Navbar />
 
       {/* Section 1: Hero */}
-      <HeroSection scrollToSection={scrollToSection} />
+      <HeroSection />
 
-      {/* Section 2: Services */}
-      <ServicesSection />
+      {/* Section 2: Who We Are */}
+      <WhoWeAreSection />
 
-      {/* Section 3: Our Approach */}
-      <ApproachSection />
+      {/* Section 3: What We Do */}
+      <WhatWeDoSection />
 
-      {/* Section 4: Products */}
+      {/* Section 4: Our Products */}
       <ProductsSection />
 
-      {/* Section 5: About Us */}
-      <AboutSection />
-
-      {/* Section 6: Why Choose Us */}
-      <WhyChooseUsSection />
-
-      {/* Section 7: Industries */}
+      {/* Section 5: Industries We Serve */}
       <IndustriesSection />
 
-      {/* Section 8: FAQ */}
-      <FAQSection />
+      {/* Section 6: Innovation Highlights */}
+      <InnovationSection />
 
-      {/* Section 9: Blog */}
-      <BlogPreviewSection />
+      {/* Section 7: Call to Action */}
+      <CTASection />
 
-      {/* Section 10: Contact */}
+      {/* Section 8: Contact */}
       <div id="contact-wrapper" ref={contactRef}>
         <ContactSection />
       </div>

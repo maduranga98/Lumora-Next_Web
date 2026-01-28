@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
 import { Linkedin, Github, Facebook, Mail, Phone, MapPin } from "lucide-react";
+import { FaTiktok } from "react-icons/fa";
 
 const Footer = () => {
   const [currentYear, setCurrentYear] = useState("2025");
@@ -81,6 +82,11 @@ const Footer = () => {
       name: "Facebook",
       url: "https://web.facebook.com/profile.php?id=61575034203203",
       icon: Facebook,
+    },
+    {
+      name: "TikTok",
+      url: "https://www.tiktok.com/@lumoraventures",
+      icon: FaTiktok,
     },
   ];
 

@@ -4,6 +4,10 @@ import React from "react";
 import Head from "next/head";
 import { Check, Crown, Star, Diamond, Shield, Sparkles } from "lucide-react";
 import { IoLogoAndroid } from "react-icons/io5";
+import AnimatedSection, {
+  StaggerContainer,
+  StaggerItem,
+} from "@/components/animation/AnimatedSection";
 
 const PricingSection = () => {
   const plans = [
@@ -191,7 +195,7 @@ const PricingSection = () => {
 
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Header */}
-          <header className="text-center mb-12 md:mb-16 lg:mb-20">
+          <AnimatedSection as="header" className="text-center mb-12 md:mb-16 lg:mb-20">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-serif font-light text-white mb-4 md:mb-6">
               Salon Management Software Pricing
             </h2>
@@ -200,19 +204,19 @@ const PricingSection = () => {
               business to unprecedented heights with Curl Cipher's comprehensive
               solutions
             </p>
-          </header>
+          </AnimatedSection>
 
           {/* Pricing Cards */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 lg:gap-6 mb-16 md:mb-20 lg:mb-24">
+          <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5 lg:gap-6 mb-16 md:mb-20 lg:mb-24" staggerDelay={0.15}>
             {plans.map((plan, index) => (
-              <article
-                key={plan.id}
-                className={`relative rounded-xl md:rounded-2xl overflow-hidden shadow-lg transition-all duration-500 ${
-                  plan.isPopular ? "lg:scale-105 z-10" : "hover:scale-105"
-                }`}
-                itemScope
-                itemType="https://schema.org/PriceSpecification"
-              >
+              <StaggerItem key={plan.id} variant="scaleUp">
+                <article
+                  className={`relative rounded-xl md:rounded-2xl overflow-hidden shadow-lg transition-all duration-500 ${
+                    plan.isPopular ? "lg:scale-105 z-10" : "hover:scale-105"
+                  }`}
+                  itemScope
+                  itemType="https://schema.org/PriceSpecification"
+                >
                 {/* Popular Badge */}
                 {plan.isPopular && (
                   <div className="absolute top-0 right-0 bg-gradient-to-r from-blue-400 to-indigo-400 text-black px-4 md:px-6 py-1 rounded-bl-lg md:rounded-bl-xl text-xs md:text-sm font-medium">
@@ -313,36 +317,40 @@ const PricingSection = () => {
                     </a>
                   )}
                 </div>
-              </article>
+                </article>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
 
           {/* Key Features Section */}
           <section
             aria-labelledby="key-features-heading"
             className="max-w-6xl mx-auto"
           >
-            <h3
-              id="key-features-heading"
-              className="text-xl sm:text-2xl md:text-3xl font-serif text-center text-white mb-8 md:mb-10 lg:mb-12"
-            >
-              Essential Features Included in All Salon Plans
-            </h3>
+            <AnimatedSection>
+              <h3
+                id="key-features-heading"
+                className="text-xl sm:text-2xl md:text-3xl font-serif text-center text-white mb-8 md:mb-10 lg:mb-12"
+              >
+                Essential Features Included in All Salon Plans
+              </h3>
+            </AnimatedSection>
 
-            <div className="grid md:grid-cols-3 gap-4 md:gap-6">
+            <StaggerContainer className="grid md:grid-cols-3 gap-4 md:gap-6" staggerDelay={0.12}>
               {keyFeatures.map((feature, index) => (
-                <article
-                  key={index}
-                  className="p-5 md:p-6 lg:p-7 rounded-xl bg-gradient-to-br from-black to-gray-900 border border-gray-700 hover:border-yellow-300/30 transition-all duration-300"
-                >
-                  <div className="mb-3">{feature.icon}</div>
-                  <h4 className="text-base md:text-lg font-semibold text-white mb-2">
-                    {feature.title}
-                  </h4>
-                  <p className="text-gray-400 text-sm">{feature.description}</p>
-                </article>
+                <StaggerItem key={index}>
+                  <article
+                    className="p-5 md:p-6 lg:p-7 rounded-xl bg-gradient-to-br from-black to-gray-900 border border-gray-700 hover:border-yellow-300/30 transition-all duration-300"
+                  >
+                    <div className="mb-3">{feature.icon}</div>
+                    <h4 className="text-base md:text-lg font-semibold text-white mb-2">
+                      {feature.title}
+                    </h4>
+                    <p className="text-gray-400 text-sm">{feature.description}</p>
+                  </article>
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerContainer>
           </section>
 
           {/* Enterprise Option */}

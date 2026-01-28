@@ -1,6 +1,12 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import AnimatedSection, {
+  StaggerContainer,
+  StaggerItem,
+} from "@/components/animation/AnimatedSection";
 
 const IndustrialAutomationControl = () => {
   const features = [
@@ -74,40 +80,42 @@ const IndustrialAutomationControl = () => {
     <section className="relative bg-black py-16 lg:py-24 overflow-hidden">
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
-        <div className="text-center mb-12 lg:mb-16">
-          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 lg:mb-6">
-            Precision Automation Engineered for Peak Performance
-          </h2>
-          <p className="text-base lg:text-lg text-gray-400 max-w-3xl mx-auto mb-6 lg:mb-8">
-            Transform your industrial operations with cyber-physical systems
-            that combine cutting-edge automation with intelligent control
-            architectures.
-          </p>
-          <Link
-            href="#contact"
-            className="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 group text-sm lg:text-base"
-          >
-            Optimize Your Systems Now
-            <svg
-              className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
+        <AnimatedSection>
+          <div className="text-center mb-12 lg:mb-16">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 lg:mb-6">
+              Precision Automation Engineered for Peak Performance
+            </h2>
+            <p className="text-base lg:text-lg text-gray-400 max-w-3xl mx-auto mb-6 lg:mb-8">
+              Transform your industrial operations with cyber-physical systems
+              that combine cutting-edge automation with intelligent control
+              architectures.
+            </p>
+            <Link
+              href="#contact"
+              className="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 group text-sm lg:text-base"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M17 8l4 4m0 0l-4 4m4-4H3"
-              />
-            </svg>
-          </Link>
-        </div>
+              Optimize Your Systems Now
+              <svg
+                className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M17 8l4 4m0 0l-4 4m4-4H3"
+                />
+              </svg>
+            </Link>
+          </div>
+        </AnimatedSection>
 
         {/* Control Mastery Section */}
         <div className="mb-16 lg:mb-20">
           <div className="flex flex-col lg:flex-row lg:items-center lg:gap-12 mb-12 lg:mb-16">
-            <div className="lg:w-1/2 mb-6 lg:mb-0">
+            <AnimatedSection variant="slideLeft" className="lg:w-1/2 mb-6 lg:mb-0">
               <h3 className="text-xl lg:text-2xl font-bold text-white mb-4">
                 Industrial Control Mastery
               </h3>
@@ -135,46 +143,49 @@ const IndustrialAutomationControl = () => {
                   />
                 </svg>
               </Link>
-            </div>
+            </AnimatedSection>
 
-            <div className="lg:w-1/2 grid sm:grid-cols-2 gap-4">
+            <StaggerContainer className="lg:w-1/2 grid sm:grid-cols-2 gap-4">
               {features.map((feature, index) => (
-                <div
-                  key={index}
-                  className="bg-black/40 backdrop-blur-sm border border-blue-400/20 rounded-lg p-4 hover:border-blue-400/50 transition-all duration-300 group"
-                >
-                  <div className="text-2xl mb-2">{feature.icon}</div>
-                  <h4 className="text-base font-semibold text-white mb-1">
-                    {feature.title}
-                  </h4>
-                  <p className="text-gray-400 text-xs lg:text-sm">
-                    {feature.description}
-                  </p>
-                </div>
+                <StaggerItem key={index}>
+                  <div
+                    className="bg-black/40 backdrop-blur-sm border border-blue-400/20 rounded-lg p-4 hover:border-blue-400/50 transition-all duration-300 group"
+                  >
+                    <div className="text-2xl mb-2">{feature.icon}</div>
+                    <h4 className="text-base font-semibold text-white mb-1">
+                      {feature.title}
+                    </h4>
+                    <p className="text-gray-400 text-xs lg:text-sm">
+                      {feature.description}
+                    </p>
+                  </div>
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerContainer>
           </div>
         </div>
 
         {/* PLC Brands Section */}
         <div className="mb-16 lg:mb-20">
-          <h3 className="text-xl lg:text-2xl font-bold text-white text-center mb-8 lg:mb-12">
-            Supported PLC Brands and Automation Services
-          </h3>
-          <p className="text-gray-400 text-center max-w-3xl mx-auto mb-8 lg:mb-10 text-sm lg:text-base">
-            Lumora Ventures specializes in programming and servicing leading PLC
-            brands and offers advanced automation solutions tailored to your
-            industry.
-          </p>
+          <AnimatedSection>
+            <h3 className="text-xl lg:text-2xl font-bold text-white text-center mb-8 lg:mb-12">
+              Supported PLC Brands and Automation Services
+            </h3>
+            <p className="text-gray-400 text-center max-w-3xl mx-auto mb-8 lg:mb-10 text-sm lg:text-base">
+              Lumora Ventures specializes in programming and servicing leading PLC
+              brands and offers advanced automation solutions tailored to your
+              industry.
+            </p>
+          </AnimatedSection>
 
           <h4 className="text-lg font-semibold text-white mb-6 text-center">
             PLC Brands & More
           </h4>
 
-          <div className="grid sm:grid-cols-2 gap-6 mb-5 lg:mb-8">
+          <StaggerContainer className="grid sm:grid-cols-2 gap-6 mb-5 lg:mb-8">
             {plcBrands.map((brand, index) => (
+              <StaggerItem key={index}>
               <div
-                key={index}
                 className="relative bg-black/40 backdrop-blur-sm border border-blue-400/20 rounded-lg p-6 hover:border-blue-400/50 transition-all duration-300 overflow-hidden group"
               >
                 <div
@@ -218,8 +229,9 @@ const IndustrialAutomationControl = () => {
                   </svg>
                 </Link>
               </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
 
           <div className="text-center mb-10 lg:mb-12">
             <p className="text-blue-400 text-sm font-medium">
@@ -236,10 +248,10 @@ const IndustrialAutomationControl = () => {
             Additional Services
           </h4>
 
-          <div className="grid sm:grid-cols-2 gap-6">
+          <StaggerContainer className="grid sm:grid-cols-2 gap-6">
             {additionalServices.map((service, index) => (
+              <StaggerItem key={index}>
               <div
-                key={index}
                 className="bg-gradient-to-br from-blue-900/20 to-indigo-900/20 backdrop-blur-sm border border-blue-400/20 rounded-lg p-6 hover:border-blue-400/50 transition-all duration-300"
               >
                 <h5 className="text-lg font-bold text-white mb-2">
@@ -268,8 +280,9 @@ const IndustrialAutomationControl = () => {
                   </svg>
                 </Link>
               </div>
+              </StaggerItem>
             ))}
-          </div>
+          </StaggerContainer>
 
           <div className="flex justify-center mt-10">
             <Link

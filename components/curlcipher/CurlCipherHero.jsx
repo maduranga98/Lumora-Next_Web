@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Head from "next/head";
+import { motion } from "framer-motion";
 import { Sparkles, Crown, Shield, Download } from "lucide-react";
 import { IoLogoAndroid } from "react-icons/io5";
 
@@ -152,32 +153,54 @@ const HeroSection = () => {
               className="flex-1 text-white space-y-6 md:space-y-8 lg:space-y-10 text-center lg:text-left"
             >
               {/* Premium Badge */}
-              <div className="inline-flex items-center gap-2 px-3 md:px-4 lg:px-5 py-1.5 rounded-full border border-yellow-300/30 bg-black/40 backdrop-blur-sm">
-                <Crown className="w-3.5 h-3.5 md:w-4 md:h-4 lg:w-5 lg:h-5 text-yellow-300" />
-                <span className="text-xs md:text-sm font-medium text-yellow-300">
-                  Premier Salon Management Platform
-                </span>
-              </div>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+              >
+                <div className="inline-flex items-center gap-2 px-3 md:px-4 lg:px-5 py-1.5 rounded-full border border-yellow-300/30 bg-black/40 backdrop-blur-sm">
+                  <Crown className="w-3.5 h-3.5 md:w-4 md:h-4 lg:w-5 lg:h-5 text-yellow-300" />
+                  <span className="text-xs md:text-sm font-medium text-yellow-300">
+                    Premier Salon Management Platform
+                  </span>
+                </div>
+              </motion.div>
 
               {/* SEO Optimized H1 */}
-              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-5xl 2xl:text-6xl font-serif font-light leading-tight">
-                Elevate Your Salon Business with
-                <span className="block font-medium mt-2 md:mt-3 lg:mt-4 bg-clip-text text-transparent bg-gradient-to-r from-amber-300 via-yellow-100 to-amber-300">
-                  Curl Cipher Salon Management
-                </span>
-              </h1>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.15, ease: [0.25, 0.1, 0.25, 1] }}
+              >
+                <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-5xl 2xl:text-6xl font-serif font-light leading-tight">
+                  Elevate Your Salon Business with
+                  <span className="block font-medium mt-2 md:mt-3 lg:mt-4 bg-clip-text text-transparent bg-gradient-to-r from-amber-300 via-yellow-100 to-amber-300">
+                    Curl Cipher Salon Management
+                  </span>
+                </h1>
+              </motion.div>
 
               {/* SEO Optimized Description */}
-              <p className="text-base sm:text-lg md:text-xl lg:text-xl xl:text-xl 2xl:text-2xl text-gray-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                The ultimate salon management ecosystem featuring Curl Cipher
-                (for Clients) & Curl Cipher Manage (for Salon Owners) —
-                connecting premium salons with discerning clientele through
-                intuitive booking, smart scheduling, and comprehensive business
-                analytics.
-              </p>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3, ease: [0.25, 0.1, 0.25, 1] }}
+              >
+                <p className="text-base sm:text-lg md:text-xl lg:text-xl xl:text-xl 2xl:text-2xl text-gray-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                  The ultimate salon management ecosystem featuring Curl Cipher
+                  (for Clients) & Curl Cipher Manage (for Salon Owners) —
+                  connecting premium salons with discerning clientele through
+                  intuitive booking, smart scheduling, and comprehensive business
+                  analytics.
+                </p>
+              </motion.div>
 
               {/* Luxury App Cards with App Logos */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 my-8 lg:my-12">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.45, ease: [0.25, 0.1, 0.25, 1] }}
+                className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 my-8 lg:my-12">
                 <article className="relative rounded-2xl overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-br from-amber-700/5 to-orange-700/10 backdrop-blur-sm"></div>
                   <div className="relative p-4 md:p-6 lg:p-8 border border-yellow-300/20">
@@ -238,10 +261,14 @@ const HeroSection = () => {
                     </p>
                   </div>
                 </article>
-              </div>
+              </motion.div>
 
               {/* Premium CTA Buttons with Download Now */}
-              <div className="flex flex-col sm:flex-row gap-4 md:gap-5 lg:gap-6 justify-center lg:justify-start mt-8 md:mt-12 lg:mt-16">
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+                className="flex flex-col sm:flex-row gap-4 md:gap-5 lg:gap-6 justify-center lg:justify-start mt-8 md:mt-12 lg:mt-16">
                 <a
                   href="https://play.google.com/store/apps/details?id=com.curl_cipher.customer_app"
                   target="_blank"
@@ -267,11 +294,15 @@ const HeroSection = () => {
                   <IoLogoAndroid className="w-5 h-5" />
                   <span>Download Salon Management App</span>
                 </a>
-              </div>
+              </motion.div>
             </div>
 
             {/* App Mockups Using Actual Screenshots */}
-            <div className="flex-1 relative mt-12 lg:mt-0">
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
+              className="flex-1 relative mt-12 lg:mt-0">
               <div className="relative flex justify-center items-center gap-6 md:gap-8 lg:gap-10">
                 {/* Client App (Gold Theme) */}
                 <div className="relative w-40 h-[340px] sm:w-48 sm:h-[390px] md:w-56 md:h-[450px] lg:w-64 lg:h-[520px] xl:w-72 xl:h-[560px] -rotate-6 hover:rotate-0 transition-transform duration-300">
@@ -330,7 +361,7 @@ const HeroSection = () => {
                 <div className="absolute -right-8 -bottom-8 md:-right-10 md:-bottom-10 lg:-right-12 lg:-bottom-12 w-20 md:w-24 lg:w-32 h-20 md:h-24 lg:h-32 bg-blue-400/15 rounded-full blur-2xl"></div>
                 <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 md:w-48 lg:w-60 h-40 md:h-48 lg:h-60 bg-yellow-400/5 rounded-full blur-3xl"></div>
               </div>
-            </div>
+            </motion.div>
           </div>
 
           {/* Luxury Bottom Gradient */}

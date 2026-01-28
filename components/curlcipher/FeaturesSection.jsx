@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Head from "next/head";
 import { IoLogoAndroid } from "react-icons/io5";
+import AnimatedSection from "@/components/animation/AnimatedSection";
 
 const FeaturesSection = () => {
   // Image mapping with correct paths and SEO-optimized alt text descriptions
@@ -298,52 +299,58 @@ const FeaturesSection = () => {
               aria-labelledby={`audience-heading-${auIdx}`}
             >
               {/* Luxury Header with Logo */}
-              <header className="flex flex-col md:flex-row items-center gap-4 md:gap-6 lg:gap-8 mb-16 lg:mb-20">
-                {/* App Logo */}
-                <div className="w-16 h-16 md:w-20 md:h-20 relative rounded-full border-2 border-gold p-1 shadow-xl">
-                  <div className="absolute inset-0 rounded-full bg-gradient-to-br from-black to-gray-900"></div>
-                  <div className="relative z-10 w-full h-full rounded-full flex items-center justify-center">
-                    <Image
-                      src={audience.appLogo}
-                      alt={
-                        auIdx === 0
-                          ? "Curl Cipher Manager App Logo for Salon Owners"
-                          : "Curl Cipher Client App Logo for Salon Customers"
-                      }
-                      width={40}
-                      height={40}
-                      className="object-contain"
-                    />
+              <AnimatedSection>
+                <header className="flex flex-col md:flex-row items-center gap-4 md:gap-6 lg:gap-8 mb-16 lg:mb-20">
+                  {/* App Logo */}
+                  <div className="w-16 h-16 md:w-20 md:h-20 relative rounded-full border-2 border-gold p-1 shadow-xl">
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-br from-black to-gray-900"></div>
+                    <div className="relative z-10 w-full h-full rounded-full flex items-center justify-center">
+                      <Image
+                        src={audience.appLogo}
+                        alt={
+                          auIdx === 0
+                            ? "Curl Cipher Manager App Logo for Salon Owners"
+                            : "Curl Cipher Client App Logo for Salon Customers"
+                        }
+                        width={40}
+                        height={40}
+                        className="object-contain"
+                      />
+                    </div>
                   </div>
-                </div>
 
-                {/* Title */}
-                <div>
-                  <h2
-                    id={`audience-heading-${auIdx}`}
-                    className={`text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-serif font-light mb-1 md:mb-2 bg-clip-text text-transparent bg-gradient-to-r ${audience.textGradient}`}
-                  >
-                    {audience.title}
-                  </h2>
-                  <p
-                    className={`text-xs md:text-sm uppercase tracking-wider ${audience.accentColor}`}
-                  >
-                    {audience.logoText}
-                  </p>
-                </div>
-              </header>
+                  {/* Title */}
+                  <div>
+                    <h2
+                      id={`audience-heading-${auIdx}`}
+                      className={`text-2xl sm:text-3xl md:text-4xl lg:text-4xl font-serif font-light mb-1 md:mb-2 bg-clip-text text-transparent bg-gradient-to-r ${audience.textGradient}`}
+                    >
+                      {audience.title}
+                    </h2>
+                    <p
+                      className={`text-xs md:text-sm uppercase tracking-wider ${audience.accentColor}`}
+                    >
+                      {audience.logoText}
+                    </p>
+                  </div>
+                </header>
+              </AnimatedSection>
 
               {/* Premium Features */}
               <div className="space-y-12 md:space-y-16 lg:space-y-20">
                 {audience.features.map((feature, featureIdx) => (
-                  <article
+                  <AnimatedSection
                     key={featureIdx}
-                    className={`relative ${
-                      feature.imagePosition === "right"
-                        ? "md:pr-8 lg:pr-12"
-                        : "md:pl-8 lg:pl-12"
-                    }`}
+                    variant={featureIdx % 2 === 0 ? "slideLeft" : "slideRight"}
+                    delay={featureIdx * 0.1}
                   >
+                    <article
+                      className={`relative ${
+                        feature.imagePosition === "right"
+                          ? "md:pr-8 lg:pr-12"
+                          : "md:pl-8 lg:pl-12"
+                      }`}
+                    >
                     {/* Decorative Lines */}
                     <div className="absolute left-0 top-0 h-full w-px bg-gradient-to-b from-transparent via-gold/20 to-transparent hidden md:block"></div>
                     <div className="absolute right-0 top-0 h-full w-px bg-gradient-to-b from-transparent via-gold/20 to-transparent hidden md:block"></div>
@@ -406,14 +413,15 @@ const FeaturesSection = () => {
                         </div>
                       </div>
                     </div>
-                  </article>
+                    </article>
+                  </AnimatedSection>
                 ))}
               </div>
             </section>
           ))}
 
           {/* App Download Buttons (with SEO optimized text) */}
-          <div className="text-center pt-10 md:pt-12 lg:pt-16">
+          <AnimatedSection className="text-center pt-10 md:pt-12 lg:pt-16">
             <h3 className="text-xl md:text-2xl lg:text-3xl font-serif text-white mb-6 md:mb-8">
               Download Our Salon Management Apps
             </h3>
@@ -460,10 +468,10 @@ const FeaturesSection = () => {
                 </div>
               </a>
             </div>
-          </div>
+          </AnimatedSection>
 
           {/* Added SEO-rich text section */}
-          <div className="mt-16 max-w-4xl mx-auto text-gray-300 text-center">
+          <AnimatedSection className="mt-16 max-w-4xl mx-auto text-gray-300 text-center" delay={0.1}>
             <h4 className="text-xl font-serif text-white mb-4">
               Why Choose Curl Cipher for Your Salon?
             </h4>
@@ -482,7 +490,7 @@ const FeaturesSection = () => {
               salon apps today and experience the difference that purpose-built
               salon technology can make for your beauty business.
             </p>
-          </div>
+          </AnimatedSection>
         </div>
       </section>
     </>

@@ -1,6 +1,12 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import Script from "next/script";
+import AnimatedSection, {
+  StaggerContainer,
+  StaggerItem,
+} from "@/components/animation/AnimatedSection";
 
 const ServiceOverview = () => {
   // Schema.org structured data for services
@@ -130,27 +136,29 @@ const ServiceOverview = () => {
         />
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8">
-          <header className="mb-12 text-center">
-            <h2
-              id="services-heading"
-              className="text-3xl md:text-4xl font-bold text-white mb-4"
-            >
-              Industrial Automation Services
-            </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-              Comprehensive automation solutions designed to transform
-              manufacturing operations and drive operational excellence.
-            </p>
-          </header>
+          <AnimatedSection>
+            <header className="mb-12 text-center">
+              <h2
+                id="services-heading"
+                className="text-3xl md:text-4xl font-bold text-white mb-4"
+              >
+                Industrial Automation Services
+              </h2>
+              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+                Comprehensive automation solutions designed to transform
+                manufacturing operations and drive operational excellence.
+              </p>
+            </header>
+          </AnimatedSection>
 
           {/* Services Grid with semantic list structure */}
-          <ul className="grid md:grid-cols-3 gap-8 mb-20" role="list">
+          <StaggerContainer className="grid md:grid-cols-3 gap-8 mb-20">
             {services.map((service, index) => (
-              <li
-                key={index}
-                className="group relative bg-black/40 backdrop-blur-sm border border-blue-400/20 rounded-lg p-8 hover:border-blue-400/50 transition-all duration-300 hover:translate-y-[-4px]"
-                role="listitem"
-              >
+              <StaggerItem key={index}>
+                <li
+                  className="group relative bg-black/40 backdrop-blur-sm border border-blue-400/20 rounded-lg p-8 hover:border-blue-400/50 transition-all duration-300 hover:translate-y-[-4px]"
+                  role="listitem"
+                >
                 {/* Gradient Background on Hover */}
                 <div
                   className={`absolute inset-0 rounded-lg bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}
@@ -205,10 +213,12 @@ const ServiceOverview = () => {
                   <div className="absolute top-[-8px] right-[-8px] w-8 h-8 bg-blue-400/10 rounded-full transform rotate-45" />
                 </div>
               </li>
+              </StaggerItem>
             ))}
-          </ul>
+          </StaggerContainer>
 
           {/* CTA Section with better semantic structure */}
+          <AnimatedSection variant="fadeUp" delay={0.2}>
           <div className="relative bg-gradient-to-br from-blue-900/80 via-indigo-900/60 to-black/80 backdrop-blur-sm border border-blue-400/30 rounded-lg p-8 lg:p-12 overflow-hidden">
             {/* Decorative Elements */}
             <div
@@ -260,6 +270,7 @@ const ServiceOverview = () => {
               </Link>
             </div>
           </div>
+          </AnimatedSection>
         </div>
 
         {/* Circuit Pattern - marked as decorative */}

@@ -1,10 +1,10 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
+import AnimatedSection from "@/components/animation/AnimatedSection";
 
 const ContactSection = () => {
-  const [isVisible, setIsVisible] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -13,24 +13,6 @@ const ContactSection = () => {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -72,30 +54,21 @@ const ContactSection = () => {
   };
 
   return (
-    <section
-      id="contact"
-      ref={sectionRef}
-      className="py-20 md:py-24 bg-gray-50"
-    >
+    <section id="contact" className="py-20 md:py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div
-          className={`text-center mb-12 ${
-            isVisible ? "animate-fade-in-up" : "opacity-0"
-          }`}
-        >
+        <AnimatedSection className="text-center mb-12">
+          <p className="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-3">
+            Get In Touch
+          </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Let&apos;s Build Something Great Together
           </h2>
-        </div>
+        </AnimatedSection>
 
         <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
           {/* Contact Info */}
-          <div
-            className={`space-y-6 ${
-              isVisible ? "animate-fade-in-up animate-delay-200" : "opacity-0"
-            }`}
-          >
+          <AnimatedSection variant="slideLeft" delay={0.2} className="space-y-6">
             <div className="flex items-start gap-4">
               <Mail className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
               <div>
@@ -136,14 +109,10 @@ const ContactSection = () => {
                 Friday, 9 AM – 6 PM IST
               </p>
             </div>
-          </div>
+          </AnimatedSection>
 
           {/* Contact Form */}
-          <div
-            className={`${
-              isVisible ? "animate-fade-in-up animate-delay-300" : "opacity-0"
-            }`}
-          >
+          <AnimatedSection variant="slideRight" delay={0.3}>
             <form
               onSubmit={handleSubmit}
               className="bg-white rounded-xl shadow-lg p-8 space-y-4"
@@ -221,7 +190,7 @@ const ContactSection = () => {
                 </div>
               )}
             </form>
-          </div>
+          </AnimatedSection>
         </div>
       </div>
     </section>

@@ -1,30 +1,13 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
 import { Lightbulb, Award, Handshake, Shield } from "lucide-react";
 import Image from "next/image";
+import AnimatedSection, {
+  StaggerContainer,
+  StaggerItem,
+} from "@/components/animation/AnimatedSection";
 
 const AboutSection = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
   const values = [
     {
       icon: Lightbulb,
@@ -49,29 +32,20 @@ const AboutSection = () => {
   ];
 
   return (
-    <section
-      id="about"
-      ref={sectionRef}
-      className="py-20 md:py-24 bg-white"
-    >
+    <section id="about" className="py-20 md:py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div
-          className={`text-center mb-12 ${
-            isVisible ? "animate-fade-in-up" : "opacity-0"
-          }`}
-        >
+        <AnimatedSection className="text-center mb-12">
+          <p className="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-3">
+            Who We Are
+          </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             About Lumora Ventures
           </h2>
-        </div>
+        </AnimatedSection>
 
         {/* Company Overview with Image */}
-        <div
-          className={`max-w-6xl mx-auto mb-16 ${
-            isVisible ? "animate-fade-in-up animate-delay-200" : "opacity-0"
-          }`}
-        >
+        <AnimatedSection className="max-w-6xl mx-auto mb-16" delay={0.2}>
           <div className="grid md:grid-cols-2 gap-10 items-center mb-12">
             {/* About Image */}
             <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
@@ -117,18 +91,14 @@ const AboutSection = () => {
               </div>
             </div>
           </div>
-        </div>
+        </AnimatedSection>
 
         {/* Core Values */}
-        <div
-          className={`grid md:grid-cols-4 gap-6 ${
-            isVisible ? "animate-fade-in-up animate-delay-400" : "opacity-0"
-          }`}
-        >
+        <StaggerContainer className="grid md:grid-cols-4 gap-6" staggerDelay={0.1}>
           {values.map((value, index) => {
             const IconComponent = value.icon;
             return (
-              <div key={index} className="text-center p-6">
+              <StaggerItem key={index} className="text-center p-6">
                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-4">
                   <IconComponent className="w-6 h-6 text-blue-600" />
                 </div>
@@ -136,10 +106,10 @@ const AboutSection = () => {
                   {value.title}
                 </h3>
                 <p className="text-sm text-gray-600">{value.desc}</p>
-              </div>
+              </StaggerItem>
             );
           })}
-        </div>
+        </StaggerContainer>
       </div>
     </section>
   );

@@ -1,29 +1,12 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
 import { Search, Hammer, Rocket } from "lucide-react";
+import AnimatedSection, {
+  StaggerContainer,
+  StaggerItem,
+} from "@/components/animation/AnimatedSection";
 
 const ApproachSection = () => {
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
   const steps = [
     {
       icon: Search,
@@ -46,35 +29,27 @@ const ApproachSection = () => {
   ];
 
   return (
-    <section
-      id="approach"
-      ref={sectionRef}
-      className="py-20 md:py-24 bg-gray-50"
-    >
+    <section id="approach" className="py-20 md:py-24 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div
-          className={`text-center mb-16 ${
-            isVisible ? "animate-fade-in-up" : "opacity-0"
-          }`}
-        >
+        <AnimatedSection className="text-center mb-16">
+          <p className="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-3">
+            Our Process
+          </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             How We Work
           </h2>
-        </div>
+        </AnimatedSection>
 
         {/* Steps */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <StaggerContainer
+          className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto"
+          staggerDelay={0.15}
+        >
           {steps.map((item, index) => {
             const IconComponent = item.icon;
             return (
-              <div
-                key={index}
-                className={`text-center ${
-                  isVisible ? "animate-fade-in-up" : "opacity-0"
-                }`}
-                style={{ animationDelay: `${index * 150 + 200}ms` }}
-              >
+              <StaggerItem key={index} className="text-center">
                 <div className="w-16 h-16 bg-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg">
                   <IconComponent className="w-8 h-8 text-white" />
                 </div>
@@ -85,10 +60,10 @@ const ApproachSection = () => {
                   {item.title}
                 </h3>
                 <p className="text-gray-600">{item.desc}</p>
-              </div>
+              </StaggerItem>
             );
           })}
-        </div>
+        </StaggerContainer>
       </div>
     </section>
   );

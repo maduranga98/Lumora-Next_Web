@@ -1,4 +1,7 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import Script from "next/script";
 
@@ -80,23 +83,36 @@ const IndustrialAutomationHero = () => {
           <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center w-full">
             {/* Text Content with semantic structure */}
             <div className="text-center lg:text-left">
-              <h1
+              <motion.h1
                 id="hero-heading"
                 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight"
+                initial={{ opacity: 0, y: 30 }}
+                animate={isMounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                transition={{ duration: 0.6, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
               >
                 Industrial Evolution Through{" "}
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
                   Smart Automation Solutions
                 </span>
-              </h1>
+              </motion.h1>
 
-              <p className="text-base sm:text-lg md:text-xl lg:text-xl xl:text-xl xl:text-2xl text-gray-400 mb-6 sm:mb-8 max-w-xl lg:max-w-2xl mx-auto lg:mx-0">
+              <motion.p
+                className="text-base sm:text-lg md:text-xl lg:text-xl xl:text-xl xl:text-2xl text-gray-400 mb-6 sm:mb-8 max-w-xl lg:max-w-2xl mx-auto lg:mx-0"
+                initial={{ opacity: 0, y: 30 }}
+                animate={isMounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                transition={{ duration: 0.6, delay: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
+              >
                 Lumora Ventures delivers cutting-edge industrial automation
                 solutions that redefine productivity, efficiency, and
                 operational excellence for manufacturing facilities.
-              </p>
+              </motion.p>
 
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+              <motion.div
+                className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+                initial={{ opacity: 0, y: 30 }}
+                animate={isMounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
+                transition={{ duration: 0.6, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
+              >
                 <Link
                   href="#contact"
                   onClick={(e) => scrollToSection("contact", e)}
@@ -128,14 +144,17 @@ const IndustrialAutomationHero = () => {
                 >
                   Explore Solutions
                 </Link>
-              </div>
+              </motion.div>
             </div>
 
             {/* Illustration - with semantic description */}
-            <div
+            <motion.div
               className="relative h-[280px] sm:h-[320px] md:h-[400px] lg:h-[500px] xl:h-[600px] 2xl:h-[700px] mx-auto lg:mx-0 max-w-[500px] xl:max-w-[600px] 2xl:max-w-[700px] w-full mt-8 lg:mt-0"
               role="img"
               aria-label="Industrial automation dashboard visualization showing performance metrics, network connectivity, and IoT device integration"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={isMounted ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.8, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
             >
               {/* Bar Chart Dashboard */}
               <div className="absolute top-0 left-0 w-40 sm:w-48 md:w-56 lg:w-64 xl:w-72 2xl:w-80 h-32 sm:h-36 md:h-40 lg:h-48 xl:h-52 2xl:h-56 bg-black/40 backdrop-blur-lg border border-blue-400/30 rounded-lg p-3 sm:p-4 transform -rotate-6 transition-transform hover:rotate-3">
@@ -240,7 +259,7 @@ const IndustrialAutomationHero = () => {
                   strokeDasharray="5,5"
                 />
               </svg>
-            </div>
+            </motion.div>
           </div>
         </div>
 

@@ -1,6 +1,12 @@
+"use client";
+
 import React from "react";
 import Link from "next/link";
 import Script from "next/script";
+import AnimatedSection, {
+  StaggerContainer,
+  StaggerItem,
+} from "@/components/animation/AnimatedSection";
 
 const RDDevelopment = () => {
   // Schema.org structured data for R&D services
@@ -212,42 +218,46 @@ const RDDevelopment = () => {
       >
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8">
           {/* Hero Section with semantic HTML */}
-          <header className="text-center mb-20">
-            <h2
-              id="rd-heading"
-              className="text-3xl lg:text-5xl font-bold text-white mb-6"
-            >
-              Industrial Control Systems Innovation
-              <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
-                Where Industrial Automation Meets Tomorrow's Manufacturing
-              </span>
-            </h2>
-            <p className="text-lg lg:text-xl text-gray-400 max-w-4xl mx-auto">
-              Pioneering next-generation control architectures through advanced
-              research and development in industrial automation, cyber-physical
-              systems, and intelligent process optimization for manufacturing
-              excellence.
-            </p>
-          </header>
+          <AnimatedSection>
+            <header className="text-center mb-20">
+              <h2
+                id="rd-heading"
+                className="text-3xl lg:text-5xl font-bold text-white mb-6"
+              >
+                Industrial Control Systems Innovation
+                <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
+                  Where Industrial Automation Meets Tomorrow's Manufacturing
+                </span>
+              </h2>
+              <p className="text-lg lg:text-xl text-gray-400 max-w-4xl mx-auto">
+                Pioneering next-generation control architectures through advanced
+                research and development in industrial automation, cyber-physical
+                systems, and intelligent process optimization for manufacturing
+                excellence.
+              </p>
+            </header>
+          </AnimatedSection>
 
           {/* Advanced Control Technologies - with semantic list structure */}
           <section aria-labelledby="advanced-tech-heading" className="mb-24">
-            <h3
-              id="advanced-tech-heading"
-              className="text-2xl lg:text-3xl font-bold text-white mb-4 text-center"
-            >
-              Advanced Industrial Control Technologies
-            </h3>
-            <p className="text-lg text-gray-400 text-center mb-12">
-              Our industrial automation R&D lab develops adaptive control
-              systems featuring:
-            </p>
+            <AnimatedSection>
+              <h3
+                id="advanced-tech-heading"
+                className="text-2xl lg:text-3xl font-bold text-white mb-4 text-center"
+              >
+                Advanced Industrial Control Technologies
+              </h3>
+              <p className="text-lg text-gray-400 text-center mb-12">
+                Our industrial automation R&D lab develops adaptive control
+                systems featuring:
+              </p>
+            </AnimatedSection>
 
-            <ul className="grid md:grid-cols-3 gap-8" role="list">
+            <StaggerContainer className="grid md:grid-cols-3 gap-8">
               {advancedTechnologies.map((tech, index) => (
+                <StaggerItem key={index}>
                 <li
-                  key={index}
                   className="relative group bg-black/40 backdrop-blur-sm border border-blue-400/20 rounded-lg p-8 hover:border-blue-400/50 transition-all duration-300"
                   role="listitem"
                 >
@@ -270,8 +280,9 @@ const RDDevelopment = () => {
                     <p className="text-gray-400">{tech.description}</p>
                   </div>
                 </li>
+                </StaggerItem>
               ))}
-            </ul>
+            </StaggerContainer>
           </section>
 
           {/* Innovation Metrics - with better semantic structure */}

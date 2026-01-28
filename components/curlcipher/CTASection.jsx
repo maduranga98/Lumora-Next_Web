@@ -2,12 +2,24 @@
 
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 import AnimatedSection from "@/components/animation/AnimatedSection";
 
 const CTASection = () => {
   return (
     <section className="py-20 bg-blue-900 relative overflow-hidden">
-      {/* Background patterns */}
+      {/* Background Image - Updated */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/curl cipher/salon-active-professional.avif"
+          alt="Active Professional Salon"
+          fill
+          className="object-cover opacity-20"
+        />
+        <div className="absolute inset-0 bg-blue-900/80 mix-blend-multiply" />
+      </div>
+
+      {/* Decorative gradients */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0">
         <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl"></div>
         <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-80 h-80 bg-blue-600/30 rounded-full blur-3xl"></div>

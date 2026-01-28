@@ -9,6 +9,7 @@ import {
   ShieldCheck,
   Smartphone,
 } from "lucide-react";
+import Image from "next/image";
 
 const features = [
   {
@@ -39,6 +40,7 @@ const features = [
     colSpan: "lg:col-span-6",
     bg: "bg-gradient-to-br from-blue-900 to-blue-800 text-white",
     dark: true,
+    hasImage: true, // Marker for image
   },
   {
     title: "Mobile POS",
@@ -79,21 +81,36 @@ const FeaturesGrid = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className={`${feature.colSpan} rounded-3xl p-8 ${feature.bg} ${feature.dark ? "text-white" : "text-gray-900"} hover:shadow-lg transition-shadow duration-300`}
+                className={`relative overflow-hidden ${feature.colSpan} rounded-3xl p-8 ${feature.bg} ${feature.dark ? "text-white" : "text-gray-900"} hover:shadow-lg transition-shadow duration-300 group`}
               >
-                <div
-                  className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 ${feature.dark ? "bg-white/10" : "bg-white shadow-sm"}`}
-                >
-                  <Icon
-                    className={`w-6 h-6 ${feature.dark ? "text-white" : "text-blue-600"}`}
-                  />
+                <div className="relative z-10">
+                  <div
+                    className={`w-12 h-12 rounded-2xl flex items-center justify-center mb-6 ${feature.dark ? "bg-white/10" : "bg-white shadow-sm"}`}
+                  >
+                    <Icon
+                      className={`w-6 h-6 ${feature.dark ? "text-white" : "text-blue-600"}`}
+                    />
+                  </div>
+                  <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
+                  <p
+                    className={`${feature.dark ? "text-blue-100" : "text-gray-600"} leading-relaxed max-w-sm`}
+                  >
+                    {feature.desc}
+                  </p>
                 </div>
-                <h3 className="text-xl font-bold mb-3">{feature.title}</h3>
-                <p
-                  className={`${feature.dark ? "text-blue-100" : "text-gray-600"} leading-relaxed`}
-                >
-                  {feature.desc}
-                </p>
+
+                {/* Integration Image for CRM Card */}
+                {feature.hasImage && (
+                  <div className="absolute right-0 bottom-0 w-1/2 h-full opacity-20 group-hover:opacity-30 transition-opacity duration-500">
+                    <Image
+                      src="/curl cipher/technology-salon-integration.avif"
+                      alt="Technology Integration"
+                      fill
+                      className="object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-r from-blue-900 to-transparent"></div>
+                  </div>
+                )}
               </motion.div>
             );
           })}

@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import AnimatedSection from "@/components/animation/AnimatedSection";
+import emailjs from "@emailjs/browser";
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -26,27 +27,43 @@ const ContactSection = () => {
     setIsSubmitting(true);
     setSubmitStatus(null);
 
-    try {
-      const response = await fetch("/api/send-email", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(formData),
-      });
+    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+    const autoReplyTemplateId =
+      process.env.NEXT_PUBLIC_EMAILJS_AUTOREPLY_TEMPLATE_ID;
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
 
-      if (response.ok) {
-        setSubmitStatus("success");
-        setFormData({
-          name: "",
-          email: "",
-          company: "",
-          message: "",
-        });
-      } else {
-        setSubmitStatus("error");
+    const templateParams = {
+      from_name: formData.name,
+      from_email: formData.email,
+      company: formData.company || "Not provided",
+      message: formData.message,
+      to_name: "Lumora Ventures Team",
+    };
+
+    try {
+      // 1. Send Admin Notification
+      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+
+      // 2. Send Auto-Reply (Only if the ID exists in .env)
+      if (autoReplyTemplateId) {
+        await emailjs.send(
+          serviceId,
+          autoReplyTemplateId,
+          templateParams,
+          publicKey,
+        );
       }
-    } catch {
+
+      setSubmitStatus("success");
+      setFormData({
+        name: "",
+        email: "",
+        company: "",
+        message: "",
+      });
+    } catch (error) {
+      console.error("EmailJS Error:", error);
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);
@@ -54,7 +71,6 @@ const ContactSection = () => {
   };
 
   return (
-    // Added overflow-hidden to prevent horizontal scroll during animation
     <section id="contact" className="py-20 md:py-24 bg-gray-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
@@ -72,15 +88,17 @@ const ContactSection = () => {
           <AnimatedSection
             variant="slideLeft"
             delay={0.2}
-            className="space-y-6"
+            className="space-y-8"
           >
             <div className="flex items-start gap-4">
-              <Mail className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
+              <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
+                <Mail className="w-5 h-5 text-blue-900" />
+              </div>
               <div>
                 <h3 className="font-bold text-gray-900 mb-1">Email</h3>
                 <a
                   href="mailto:info@lumoraventures.com"
-                  className="text-blue-600 hover:text-blue-700"
+                  className="text-blue-600 hover:text-blue-700 transition-colors"
                 >
                   info@lumoraventures.com
                 </a>
@@ -88,12 +106,14 @@ const ContactSection = () => {
             </div>
 
             <div className="flex items-start gap-4">
-              <Phone className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
+              <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
+                <Phone className="w-5 h-5 text-blue-900" />
+              </div>
               <div>
                 <h3 className="font-bold text-gray-900 mb-1">Phone</h3>
                 <a
                   href="tel:+94779861174"
-                  className="text-blue-600 hover:text-blue-700"
+                  className="text-blue-600 hover:text-blue-700 transition-colors"
                 >
                   +94 77 986 1174
                 </a>
@@ -101,14 +121,32 @@ const ContactSection = () => {
             </div>
 
             <div className="flex items-start gap-4">
-              <MapPin className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
-              <div>
-                <h3 className="font-bold text-gray-900 mb-1">Location</h3>
-                <p className="text-gray-600">Kandy, Sri Lanka</p>
+              <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center flex-shrink-0">
+                <MapPin className="w-5 h-5 text-blue-900" />
+              </div>
+              <div className="space-y-6 w-full">
+                <div>
+                  <h3 className="font-bold text-gray-900 mb-2">
+                    United Kingdom
+                  </h3>
+                  <div className="text-gray-600 text-sm leading-relaxed">
+                    <p>Office 4157, 58 Peregrine Road</p>
+                    <p>Hainault, Ilford, Essex</p>
+                    <p>IG6 3SZ</p>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="font-bold text-gray-900 mb-2">Sri Lanka</h3>
+                  <div className="text-gray-600 text-sm leading-relaxed">
+                    <p>Kurunegala Road</p>
+                    <p>Kuliyapitiya, 60200</p>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <div className="pt-4">
+            <div className="pt-4 border-t border-gray-200">
               <p className="text-sm text-gray-500">
                 <span className="font-medium">Office Hours:</span> Monday –
                 Friday, 9 AM – 6 PM IST

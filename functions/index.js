@@ -25,14 +25,14 @@ async function initializeStripe() {
   // In 2nd Gen functions, use process.env directly
   const stripeSecretKey = process.env.STRIPE_SECRET_KEY;
   logger.info(
-    "Checking for Stripe key: " + (stripeSecretKey ? "Found" : "Not found")
+    "Checking for Stripe key: " + (stripeSecretKey ? "Found" : "Not found"),
   );
 
   if (!stripeSecretKey) {
     logger.error("Stripe secret key not found in environment variables");
     throw new HttpsError(
       "failed-precondition",
-      "Stripe secret key is not configured"
+      "Stripe secret key is not configured",
     );
   }
 
@@ -42,14 +42,14 @@ async function initializeStripe() {
     logger.info(
       "Stripe initialized successfully with key prefix: " +
         stripeSecretKey.substring(0, 7) +
-        "..."
+        "...",
     );
     return stripe;
   } catch (error) {
     logger.error("Error initializing Stripe:", error);
     throw new HttpsError(
       "internal",
-      "Failed to initialize Stripe: " + error.message
+      "Failed to initialize Stripe: " + error.message,
     );
   }
 }
@@ -61,7 +61,7 @@ const createTransporter = async () => {
   const emailPass = process.env.EMAIL_PASS;
 
   logger.info(
-    "Email credentials retrieved: " + (emailUser && emailPass ? "Yes" : "No")
+    "Email credentials retrieved: " + (emailUser && emailPass ? "Yes" : "No"),
   );
 
   if (!emailUser || !emailPass) {
@@ -211,7 +211,7 @@ exports.createSubscription = onCall(
         if (!priceId) missingFields.push("priceId");
         throw new HttpsError(
           "invalid-argument",
-          `Missing required fields: ${missingFields.join(", ")}`
+          `Missing required fields: ${missingFields.join(", ")}`,
         );
       }
 
@@ -225,7 +225,7 @@ exports.createSubscription = onCall(
       try {
         logger.info(
           "Checking for existing customer with email:",
-          customerData.email
+          customerData.email,
         );
         const existingCustomers = await stripe.customers.list({
           email: customerData.email,
@@ -263,7 +263,7 @@ exports.createSubscription = onCall(
         logger.error("Error creating/updating customer:", error);
         throw new HttpsError(
           "internal",
-          `Error with customer: ${error.message}`
+          `Error with customer: ${error.message}`,
         );
       }
 
@@ -273,13 +273,13 @@ exports.createSubscription = onCall(
       try {
         price = await stripe.prices.retrieve(priceId);
         logger.info(
-          `Retrieved price: ${price.id}, amount: ${price.unit_amount}`
+          `Retrieved price: ${price.id}, amount: ${price.unit_amount}`,
         );
       } catch (error) {
         logger.error("Error retrieving price:", error);
         throw new HttpsError(
           "not-found",
-          `Price ID ${priceId} not found: ${error.message}`
+          `Price ID ${priceId} not found: ${error.message}`,
         );
       }
 
@@ -302,13 +302,13 @@ exports.createSubscription = onCall(
           },
         });
         logger.info(
-          `Payment intent created: ${paymentIntent.id}, status: ${paymentIntent.status}`
+          `Payment intent created: ${paymentIntent.id}, status: ${paymentIntent.status}`,
         );
       } catch (error) {
         logger.error("Error creating payment intent:", error);
         throw new HttpsError(
           "internal",
-          `Error creating payment: ${error.message}`
+          `Error creating payment: ${error.message}`,
         );
       }
 
@@ -325,13 +325,13 @@ exports.createSubscription = onCall(
           },
         });
         logger.info(
-          `Subscription created: ${subscription.id}, status: ${subscription.status}`
+          `Subscription created: ${subscription.id}, status: ${subscription.status}`,
         );
       } catch (error) {
         logger.error("Error creating subscription:", error);
         throw new HttpsError(
           "internal",
-          `Error creating subscription: ${error.message}`
+          `Error creating subscription: ${error.message}`,
         );
       }
 
@@ -366,7 +366,7 @@ exports.createSubscription = onCall(
       // Store subscription data if authenticated
       if (request.auth?.uid) {
         logger.info(
-          "Storing subscription data in Firestore for authenticated user"
+          "Storing subscription data in Firestore for authenticated user",
         );
         try {
           await admin
@@ -380,7 +380,7 @@ exports.createSubscription = onCall(
               priceId: priceId,
               paymentIntentId: paymentIntent.id,
               currentPeriodEnd: new Date(
-                subscription.current_period_end * 1000
+                subscription.current_period_end * 1000,
               ),
               createdAt: admin.firestore.FieldValue.serverTimestamp(),
             });
@@ -404,7 +404,7 @@ exports.createSubscription = onCall(
       try {
         const emailSent = await sendSubscriptionEmail(
           customerData,
-          subscriptionDetails
+          subscriptionDetails,
         );
         if (!emailSent) {
           logger.warn("Could not send subscription notification email");
@@ -428,10 +428,10 @@ exports.createSubscription = onCall(
       logger.error("Error in createSubscription function:", error);
       throw new HttpsError(
         error.code || "internal",
-        error.message || "An unknown error occurred"
+        error.message || "An unknown error occurred",
       );
     }
-  }
+  },
 );
 
 // Health check function with secrets access
@@ -464,5 +464,5 @@ exports.healthCheck = onCall(
           : "Not found",
       },
     };
-  }
+  },
 );

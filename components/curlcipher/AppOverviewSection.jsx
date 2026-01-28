@@ -5,6 +5,10 @@ import Head from "next/head";
 import { Diamond, Shield, Crown, Gem, Star, Award } from "lucide-react";
 import { IoLogoAndroid } from "react-icons/io";
 import { FaAppStoreIos } from "react-icons/fa";
+import AnimatedSection, {
+  StaggerContainer,
+  StaggerItem,
+} from "@/components/animation/AnimatedSection";
 
 const AppOverviewSection = () => {
   // SEO-optimized features with targeted keywords
@@ -175,7 +179,7 @@ const AppOverviewSection = () => {
 
         <div className="relative container mx-auto px-4 sm:px-6 lg:px-8">
           {/* Elegant Section Header - SEO optimized */}
-          <div className="text-center mb-16 md:mb-20 lg:mb-24">
+          <AnimatedSection className="text-center mb-16 md:mb-20 lg:mb-24">
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl font-serif font-light mb-6 md:mb-8 lg:mb-10 text-white">
               The Complete Salon Management System:{" "}
               <span className="text-yellow-300">Curl Cipher</span>
@@ -187,7 +191,7 @@ const AppOverviewSection = () => {
               prestigious establishments with their distinguished clientele
               through intelligent booking and business management.
             </p>
-          </div>
+          </AnimatedSection>
 
           {/* Premium Features Grid - SEO optimized with semantic HTML */}
           <section
@@ -197,32 +201,33 @@ const AppOverviewSection = () => {
             <h3 id="features-heading" className="sr-only">
               Salon Management Features
             </h3>
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            <StaggerContainer className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8" staggerDelay={0.12}>
               {features.map((feature, index) => (
-                <article
-                  key={index}
-                  className="group relative overflow-hidden rounded-xl md:rounded-2xl lg:rounded-3xl p-6 md:p-8 transition-all duration-500 hover:transform hover:-translate-y-2 hover:shadow-2xl border border-amber-500/20 bg-gradient-to-br from-black to-gray-900"
-                >
-                  {/* Feature Icon */}
-                  <div className="mb-5 md:mb-6 transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
-                    <div className="w-12 h-12 md:w-14 md:h-14 rounded-full border border-yellow-300/30 flex items-center justify-center bg-gradient-to-br from-black to-gray-900">
-                      {feature.icon}
+                <StaggerItem key={index}>
+                  <article
+                    className="group relative overflow-hidden rounded-xl md:rounded-2xl lg:rounded-3xl p-6 md:p-8 transition-all duration-500 hover:transform hover:-translate-y-2 hover:shadow-2xl border border-amber-500/20 bg-gradient-to-br from-black to-gray-900"
+                  >
+                    {/* Feature Icon */}
+                    <div className="mb-5 md:mb-6 transform transition-transform duration-500 group-hover:scale-110 group-hover:rotate-3">
+                      <div className="w-12 h-12 md:w-14 md:h-14 rounded-full border border-yellow-300/30 flex items-center justify-center bg-gradient-to-br from-black to-gray-900">
+                        {feature.icon}
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Feature Content - SEO optimized */}
-                  <h4 className="text-lg md:text-xl lg:text-xl font-serif text-white mb-3 md:mb-4">
-                    {feature.title}
-                  </h4>
-                  <p className="text-gray-400 leading-relaxed text-sm md:text-base">
-                    {feature.description}
-                  </p>
+                    {/* Feature Content - SEO optimized */}
+                    <h4 className="text-lg md:text-xl lg:text-xl font-serif text-white mb-3 md:mb-4">
+                      {feature.title}
+                    </h4>
+                    <p className="text-gray-400 leading-relaxed text-sm md:text-base">
+                      {feature.description}
+                    </p>
 
-                  {/* Subtle Hover Effect */}
-                  <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-yellow-300 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                </article>
+                    {/* Subtle Hover Effect */}
+                    <div className="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-yellow-300 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  </article>
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerContainer>
           </section>
 
           {/* Premium Platforms Section - SEO optimized */}
@@ -233,43 +238,46 @@ const AppOverviewSection = () => {
             {/* Background Glow */}
             <div className="absolute top-0 left-1/2 w-72 md:w-96 lg:w-[600px] h-48 md:h-64 lg:h-[300px] bg-amber-500/10 rounded-full blur-[100px] transform -translate-x-1/2 -translate-y-1/2"></div>
 
-            <h3
-              id="platforms-heading"
-              className="text-xl sm:text-2xl md:text-2xl lg:text-3xl font-serif text-center mb-8 md:mb-10 lg:mb-12 text-white"
-            >
-              Salon Management Apps Available on All Devices
-            </h3>
+            <AnimatedSection>
+              <h3
+                id="platforms-heading"
+                className="text-xl sm:text-2xl md:text-2xl lg:text-3xl font-serif text-center mb-8 md:mb-10 lg:mb-12 text-white"
+              >
+                Salon Management Apps Available on All Devices
+              </h3>
+            </AnimatedSection>
 
-            <div className="relative grid sm:grid-cols-2 gap-6 md:gap-8 lg:gap-10 max-w-4xl mx-auto">
+            <StaggerContainer className="relative grid sm:grid-cols-2 gap-6 md:gap-8 lg:gap-10 max-w-4xl mx-auto" staggerDelay={0.15}>
               {platforms.map((platform, index) => (
-                <article
-                  key={index}
-                  className={`group rounded-xl md:rounded-2xl lg:rounded-3xl p-6 md:p-8 lg:p-10 text-center transition-all duration-500 ${platform.bgHover} border border-yellow-300/10 hover:border-yellow-300/30 hover:shadow-2xl relative overflow-hidden bg-gradient-to-br ${platform.gradient}`}
-                >
-                  {/* Platform Icon */}
-                  <div className="inline-flex justify-center mb-4 md:mb-5 transform transition-transform duration-500 group-hover:scale-110">
-                    <div className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-full border border-yellow-300/30 flex items-center justify-center">
-                      {platform.icon}
+                <StaggerItem key={index}>
+                  <article
+                    className={`group rounded-xl md:rounded-2xl lg:rounded-3xl p-6 md:p-8 lg:p-10 text-center transition-all duration-500 ${platform.bgHover} border border-yellow-300/10 hover:border-yellow-300/30 hover:shadow-2xl relative overflow-hidden bg-gradient-to-br ${platform.gradient}`}
+                  >
+                    {/* Platform Icon */}
+                    <div className="inline-flex justify-center mb-4 md:mb-5 transform transition-transform duration-500 group-hover:scale-110">
+                      <div className="w-12 h-12 md:w-14 md:h-14 lg:w-16 lg:h-16 rounded-full border border-yellow-300/30 flex items-center justify-center">
+                        {platform.icon}
+                      </div>
                     </div>
-                  </div>
 
-                  {/* Platform Details - SEO optimized */}
-                  <h4 className="text-lg md:text-xl lg:text-xl font-serif text-white mb-2 md:mb-3">
-                    {platform.name}
-                  </h4>
-                  <p className="text-gray-400 text-sm md:text-base">
-                    {platform.description}
-                  </p>
+                    {/* Platform Details - SEO optimized */}
+                    <h4 className="text-lg md:text-xl lg:text-xl font-serif text-white mb-2 md:mb-3">
+                      {platform.name}
+                    </h4>
+                    <p className="text-gray-400 text-sm md:text-base">
+                      {platform.description}
+                    </p>
 
-                  {/* Decorative Line */}
-                  <div className="absolute bottom-0 left-1/2 w-24 md:w-28 lg:w-32 h-px bg-gradient-to-r from-transparent via-yellow-300 to-transparent transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                </article>
+                    {/* Decorative Line */}
+                    <div className="absolute bottom-0 left-1/2 w-24 md:w-28 lg:w-32 h-px bg-gradient-to-r from-transparent via-yellow-300 to-transparent transform -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                  </article>
+                </StaggerItem>
               ))}
-            </div>
+            </StaggerContainer>
           </section>
 
           {/* Added SEO-focused text block */}
-          <div className="mt-16 max-w-4xl mx-auto text-center">
+          <AnimatedSection className="mt-16 max-w-4xl mx-auto text-center" delay={0.1}>
             <h3 className="text-xl md:text-2xl font-serif text-yellow-300 mb-4">
               Why Choose Curl Cipher for Your Salon Business?
             </h3>
@@ -282,7 +290,7 @@ const AppOverviewSection = () => {
               locations, Curl Cipher provides the sophisticated tools needed to
               elevate your salon operations and enhance client satisfaction.
             </p>
-          </div>
+          </AnimatedSection>
         </div>
       </section>
     </>

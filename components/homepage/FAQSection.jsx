@@ -1,7 +1,11 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { ChevronDown } from "lucide-react";
+import AnimatedSection, {
+  StaggerContainer,
+  StaggerItem,
+} from "@/components/animation/AnimatedSection";
 
 const faqs = [
   {
@@ -68,67 +72,40 @@ const FAQItem = ({ question, answer, isOpen, onToggle }) => {
 
 const FAQSection = () => {
   const [openIndex, setOpenIndex] = useState(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
 
   const handleToggle = (index) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <section
-      id="faq"
-      ref={sectionRef}
-      className="py-20 md:py-24 bg-gray-50"
-    >
+    <section id="faq" className="py-20 md:py-24 bg-gray-50">
       <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div
-          className={`text-center mb-12 ${
-            isVisible ? "animate-fade-in-up" : "opacity-0"
-          }`}
-        >
+        <AnimatedSection className="text-center mb-12">
+          <p className="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-3">
+            Got Questions?
+          </p>
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
             Frequently Asked Questions
           </h2>
           <p className="text-lg text-gray-600 max-w-xl mx-auto">
             Everything you need to know about working with us
           </p>
-        </div>
+        </AnimatedSection>
 
         {/* FAQ List */}
-        <div
-          className={`flex flex-col gap-4 ${
-            isVisible ? "animate-fade-in-up animate-delay-200" : "opacity-0"
-          }`}
-        >
+        <StaggerContainer className="flex flex-col gap-4" staggerDelay={0.08}>
           {faqs.map((faq, index) => (
-            <FAQItem
-              key={index}
-              question={faq.question}
-              answer={faq.answer}
-              isOpen={openIndex === index}
-              onToggle={() => handleToggle(index)}
-            />
+            <StaggerItem key={index}>
+              <FAQItem
+                question={faq.question}
+                answer={faq.answer}
+                isOpen={openIndex === index}
+                onToggle={() => handleToggle(index)}
+              />
+            </StaggerItem>
           ))}
-        </div>
+        </StaggerContainer>
       </div>
     </section>
   );

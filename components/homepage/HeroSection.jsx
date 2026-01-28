@@ -54,7 +54,7 @@ const HeroSection = () => {
             we create software that solves real problems.
           </p>
 
-          <Link
+          {/* <Link
             href="#about"
             onClick={(e) => {
               e.preventDefault();
@@ -70,7 +70,7 @@ const HeroSection = () => {
           >
             Read More
             <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-          </Link>
+          </Link> */}
         </motion.div>
       </div>
     </section>

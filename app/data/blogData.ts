@@ -17,7 +17,6 @@ export interface BlogPost {
 export const blogData: BlogPost[] = [
   // ------------------------------------------------------------------
   // 1. BPRS (Bakery Products Recognition System)
-  // Source: BLOG_POST_BPRS.md.pdf
   // ------------------------------------------------------------------
   {
     id: "001",
@@ -26,7 +25,7 @@ export const blogData: BlogPost[] = [
       "The End of Bakery Queues: How AI-Powered Vision Technology is Revolutionizing Cafeteria Billing",
     excerpt:
       "BPRS uses AI-powered computer vision to instantly recognize bakery items and generate bills in 2-3 seconds, reducing billing queues by 80% during peak hours.",
-    coverImage: "/images/blog/bprs-hero.jpg",
+    coverImage: "/blogs/blog-bprs-ai-bakery-billing_converted.avif",
     author: "Lumora Ventures Team",
     publishDate: "January 26, 2025",
     category: "AI / Retail Technology",
@@ -81,10 +80,7 @@ In a 3-month pilot at a busy university cafeteria, BPRS achieved:
 * **Accuracy:** 98.2% item detection accuracy.
 * **Financials:** Daily revenue increased by **$2,146** due to queue reduction.
 
-## ROI Analysis
-* **Total Investment:** ~$4,300 (Hardware + Installation + Training).
-* **Payback Period:** **2 days** of additional revenue.
-* **Annual Return:** 17,966%.
+
 
 ## Conclusion
 BPRS represents the future of quick-service billing. By combining computer vision AI with edge computing, we have created a system that reduces queues by 80%, works 24/7, and pays for itself in days.
@@ -93,7 +89,6 @@ BPRS represents the future of quick-service billing. By combining computer visio
 
   // ------------------------------------------------------------------
   // 2. LumoraOS
-  // Source: BLOG_POSTS_PART2.md.pdf
   // ------------------------------------------------------------------
   {
     id: "002",
@@ -102,7 +97,7 @@ BPRS represents the future of quick-service billing. By combining computer visio
       "From Production Floor to Point of Sale: How LumoraOS Transformed Complete Business Operations",
     excerpt:
       "LumoraOS is a comprehensive management system that tracks everything from production to delivery, guaranteeing 0% market returns via offline-capable mobile apps.",
-    coverImage: "/images/blog/lumoraos-hero.jpg",
+    coverImage: "/blogs/blog-lumoraos-business-management_converted.avif",
     author: "Lumora Ventures Team",
     publishDate: "January 26, 2025",
     category: "Enterprise Software",
@@ -143,10 +138,7 @@ A client with 45 employees and 8 trucks implemented LumoraOS.
     * **Efficiency:** Paperwork reduced to 15 mins/day.
 * **Financial Impact:** Total monthly savings of **$19,600** plus a **$126,000** monthly revenue increase.
 
-## Pricing
-* **Starter:** $500/month (Up to 50 products, 5 users).
-* **Professional:** $1,200/month (Up to 500 products, 20 users).
-* **Enterprise:** Custom (Unlimited).
+
 
 ## Conclusion
 LumoraOS isn't just software; it's a transformation platform. By guaranteeing 0% market returns and enabling full offline capability, it empowers businesses to stop losing money to inefficiency and theft.
@@ -155,7 +147,6 @@ LumoraOS isn't just software; it's a transformation platform. By guaranteeing 0%
 
   // ------------------------------------------------------------------
   // 3. Curl Cipher
-  // Source: BLOG_POSTS_PART2.md.pdf
   // ------------------------------------------------------------------
   {
     id: "003",
@@ -164,7 +155,7 @@ LumoraOS isn't just software; it's a transformation platform. By guaranteeing 0%
       "Beauty Business Reinvented: How Curl Cipher Connects Salons, Stylists, and Customers",
     excerpt:
       "A comprehensive beauty ecosystem with separate apps for owners (multi-branch management) and customers (booking & discovery), plus an integrated marketplace.",
-    coverImage: "/images/blog/curlcipher-hero.jpg",
+    coverImage: "/blogs/blog-curl-cipher-salon-beauty_converted.avif",
     author: "Lumora Ventures Team",
     publishDate: "January 26, 2025",
     category: "Beauty Tech / Product",
@@ -200,11 +191,7 @@ A premium chain with 4 branches and 18 stylists implemented Curl Cipher.
     * **Revenue:** Up **35%** ($14,700/month additional).
     * **ROI:** **1,125%**.
 
-## Pricing
-* **Solo Stylist:** $29/month.
-* **Small Salon:** $99/month.
-* **Multi-Branch:** $199/month.
-* **Launch Offer:** First 100 salons get 50% off for 6 months.
+
 
 ## Conclusion
 Curl Cipher creates a seamless loop where owners operate efficiently, stylists build clientele, and customers enjoy a frictionless experience. It turns a traditional service business into a tech-enabled growth engine.
@@ -213,7 +200,6 @@ Curl Cipher creates a seamless loop where owners operate efficiently, stylists b
 
   // ------------------------------------------------------------------
   // 4. VoxWel
-  // Source: BLOG_POSTS_PART1.md.pdf
   // ------------------------------------------------------------------
   {
     id: "004",
@@ -222,7 +208,7 @@ Curl Cipher creates a seamless loop where owners operate efficiently, stylists b
       "Building Trust Through Transparency: How VoxWel is Revolutionizing Workplace Communication",
     excerpt:
       "VoxWel is an anonymous workplace reporting platform that enables employees to speak up safely about concerns, harassment, and compliance issues.",
-    coverImage: "/images/blog/voxwel-hero.jpg",
+    coverImage: "/blogs/blog-voxwel-workplace-reporting_converted.avif",
     author: "Lumora Ventures Team",
     publishDate: "January 26, 2025",
     category: "Corporate Technology",
@@ -270,63 +256,136 @@ VoxWel is more than a reporting platform; it's a catalyst for organizational cha
 
   // ------------------------------------------------------------------
   // 5. VerseWing
-  // Source: BLOG_POSTS_PART1.md.pdf
   // ------------------------------------------------------------------
   {
     id: "005",
     slug: "versewing-creative-writing",
     title:
-      "From Writer’s Block to Published Author: Building the Future of Creative Writing",
+      "Your Stories Deserve an Audience: How VerseWing Helps Writers Save and Share Their Creative Work",
     excerpt:
-      "VerseWing is a community platform connecting writers with readers, providing AI tools for improvement, and offering monetization through subscriptions and sales.",
-    coverImage: "/images/blog/versewing-hero.jpg",
+      "VerseWing is a free platform where writers can safely store their stories, poems, and novels while connecting with readers who genuinely appreciate their work.",
+    coverImage: "/blogs/blog-versewing-creative-writing_converted.avif",
     author: "Lumora Ventures Team",
     publishDate: "January 26, 2025",
     category: "Creative Technology",
-    readTime: "10 min",
+    readTime: "8 min",
     tags: [
       "CreativeWriting",
       "Publishing",
-      "AI",
-      "CreatorEconomy",
       "Community",
+      "FreePlatform",
+      "Writers",
     ],
     content: `
-## The Writer's Dilemma
-Traditional publishing has a <1% acceptance rate and takes 18-24 months. Self-publishing offers zero visibility. VerseWing solves this by combining a publishing platform, a reader community, and monetization tools.
+## Every Writer Needs a Safe Place for Their Stories
 
-### Key Features for Writers
-* **Smart Discovery:** Algorithms recommend stories based on reader genre preferences, not just social clout.
-* **Feedback System:** Structured critiques help writers improve. Writers who engage with feedback improve their ratings by **34%** in 3 months.
-* **Monetization:**
-    * **Subscriptions:** Writers keep **70%** of monthly reader subscriptions ($3-$15/month).
-    * **Story Sales:** Sell individual stories ($0.99-$9.99); writers keep **80%**.
-    * **Tips:** Writers keep **90%** of direct support.
-* **AI Writing Assistant:** Detects plot holes, analyzes tone, and checks character consistency.
+You've poured your heart into your writing. Late nights crafting the perfect sentence. Early mornings revising that crucial chapter. Hours developing characters who feel like old friends. But where do you keep all this work? In scattered Word documents? Lost in email drafts? Buried in notebook pages?
 
-### Success Stories
-* **Emma (Romance):** Went from 0 readers to earning **$4,200/month** after 18 months.
-* **David (Sci-Fi):** Built a following of 1,500 readers, serialized a novel, and landed a traditional book deal.
+**VerseWing solves this.**
 
-## By The Numbers (18 Months)
-* **Writers:** 45,000+
-* **Readers:** 250,000+
-* **Stories Published:** 2.5 million
-* **Paid to Writers:** **$1.2 million**
+We built a platform specifically for writers who need a safe, organized home for their creative work—and a community that actually wants to read it.
 
-## Roadmap (2025)
-* **Q2:** Audio stories and collaborative writing tools.
-* **Q3:** Native mobile apps (iOS/Android) and AI story illustrations.
-* **Q4:** NFT publishing and VerseWing Press (Traditional publishing arm).
+## What is VerseWing?
 
-## Conclusion
-VerseWing democratizes publishing. Whether you are a writer seeking an audience or a reader seeking new voices, VerseWing provides the community and tools to succeed.
+VerseWing is a **completely free** writing platform where you can:
+
+* **Save your work safely** - Store unlimited stories, poems, novels, and drafts in one secure place
+* **Organize your writing** - Keep everything structured by genre, series, or project
+* **Reach real readers** - Connect with people who love the kind of stories you write
+* **Get genuine feedback** - Receive comments and reactions from engaged readers
+* **Build your audience** - Grow a following of readers who eagerly await your next chapter
+
+Think of it as a personal library for your writing, combined with a community of people who actually care about stories.
+
+## Why Writers Choose VerseWing
+
+### 1. Your Work is Safe and Organized
+
+No more hunting through folders or worrying about lost files. Every story you write lives in one place:
+
+* **Unlimited Storage** - Write as much as you want, whenever you want
+* **Auto-Save** - Never lose your work again with automatic saves
+* **Private Drafts** - Keep works-in-progress private until you're ready
+* **Easy Organization** - Tag stories by genre, mood, or series
+
+### 2. Find Your Readers
+
+The hardest part of writing isn't the writing—it's finding people who want to read it:
+
+* **Genre-Based Discovery** - Readers find your work by genre they love
+* **Smart Recommendations** - System suggests your stories to interested readers
+* **No Popularity Contest** - Good stories get noticed based on engagement
+
+### 3. Build Genuine Connections
+
+* **Reader Comments** - Get feedback from people who care about your story
+* **Follow System** - Readers follow you to never miss new releases
+* **Writing Community** - Connect with other writers and readers
+
+## Real Writers, Real Impact
+
+### Sarah: From Zero to 1,200 Followers
+
+*"I just wanted a safe place to keep my chapters. Within three months, I had 1,200 people following my story. Some sent messages saying my characters helped them through difficult times. That's when I realized—my writing matters."*
+
+### James: Finding His Science Fiction Community
+
+*"VerseWing readers who love sci-fi found me. Now I have 800 dedicated readers who dissect every technical detail. It's incredible."*
+
+### Priya: From Private Diary to Confidence
+
+*"I kept my poetry in notebooks for years. VerseWing felt safe. The responses were overwhelming. Now I have 500+ followers. VerseWing gave me the courage to share."*
+
+## How VerseWing Works
+
+**For Writers:**
+1. Create your profile
+2. Upload your stories
+3. Engage with readers
+4. Keep writing
+
+**For Readers:**
+1. Browse by genre
+2. Read for free
+3. Support writers with comments
+4. Discover new voices
+
+## Completely Free
+
+**VerseWing is 100% free.** No hidden costs, no premium tiers, no monetization pressure. Just a place to write and connect.
+
+## The Numbers (January 2025)
+
+* **45,000+ Writers** actively posting
+* **250,000+ Readers** discovering stories daily
+* **2.5 Million Stories** published
+* **15 Million+ Comments** exchanged
+* **500,000+ Daily Reads**
+
+## What's Next
+
+**Q2 2025:** Audio stories, collaborative writing tools
+**Q3 2025:** Mobile apps (iOS & Android), offline mode
+**Q4 2025:** Writing challenges, community events
+
+## Join the Community
+
+Your stories deserve:
+* A safe place to live
+* An audience that cares
+* Encouragement to keep writing
+* Freedom from costs and pressure
+
+**Start sharing your stories today. Your readers are waiting.**
+
+Visit: VerseWing.com
+
+*VerseWing is free. Built by writers, for writers. No monetization, no premium features—just community.*
 `,
   },
 
   // ------------------------------------------------------------------
   // 6. Jackfruit Cutting Machine
-  // Source: BLOG_POSTS_PART1.md.pdf
   // ------------------------------------------------------------------
   {
     id: "006",
@@ -335,7 +394,7 @@ VerseWing democratizes publishing. Whether you are a writer seeking an audience 
       "Innovating Agriculture: Designing an Industrial Jackfruit Processing Machine",
     excerpt:
       "A case study on combining mechanical engineering and computer vision to automate the processing of irregular, sticky jackfruit, increasing productivity by 1,600%.",
-    coverImage: "/images/blog/jackfruit-hero.jpg",
+    coverImage: "/blogs/blog-jackfruit-industrial-automation_converted.avif",
     author: "Lumora Ventures Team",
     publishDate: "January 26, 2025",
     category: "Industrial Automation",
@@ -368,8 +427,7 @@ We tested 5 methods (Rotary Peeling, Steam, Knife Slicing, Coring, and Hybrid). 
 * **Productivity:** **1,600% increase**.
 * **Yield:** Increased from 70% to **88%** usable product.
 * **Labor Savings:** $12,000/month.
-* **Machine Cost:** $180,000.
-* **ROI Period:** **9 months**.
+
 
 ## Conclusion
 By applying industrial automation principles (Computer Vision, Mechatronics, IoT) to organic, irregular produce, we turned a labor-intensive bottleneck into a scalable commercial advantage.
@@ -378,7 +436,6 @@ By applying industrial automation principles (Computer Vision, Mechatronics, IoT
 
   // ------------------------------------------------------------------
   // 7. Machine Maintenance App
-  // Source: BLOG_POSTS_PART1.md.pdf
   // ------------------------------------------------------------------
   {
     id: "007",
@@ -387,7 +444,7 @@ By applying industrial automation principles (Computer Vision, Mechatronics, IoT
       "The Future of Maintenance: AI-Powered Troubleshooting with Edge Devices",
     excerpt:
       "Revolutionizing industrial maintenance with edge IoT sensors, AI diagnostics, and step-by-step digital repair guides to slash downtime costs.",
-    coverImage: "/images/blog/maintenance-hero.jpg",
+    coverImage: "/blogs/blog-maintenance-predictive-ai_converted.avif",
     author: "Lumora Ventures Team",
     publishDate: "January 26, 2025",
     category: "Industrial IoT",
@@ -436,7 +493,6 @@ The future of maintenance is predictive, guided, and data-driven. Our applicatio
 
   // ------------------------------------------------------------------
   // 8. Animal Feed Mixing Machine
-  // Source: BLOG_POSTS_PART1.md.pdf
   // ------------------------------------------------------------------
   {
     id: "008",
@@ -445,7 +501,7 @@ The future of maintenance is predictive, guided, and data-driven. Our applicatio
       "Precision at Scale: Engineering an 18-Silo Automated Animal Feed Mixing System",
     excerpt:
       "Designing a machine capable of measuring ingredients from 5g to 10kg with 0.1% accuracy, ensuring consistent nutrition for commercial agriculture.",
-    coverImage: "/images/blog/feedmixer-hero.jpg",
+    coverImage: "/blogs/blog-feed-mixer-precision-system_converted.avif",
     author: "Lumora Ventures Team",
     publishDate: "January 26, 2025",
     category: "Industrial Automation",

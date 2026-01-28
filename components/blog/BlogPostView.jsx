@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   Calendar,
   Clock,
@@ -81,25 +82,33 @@ const BlogPostView = ({ post, relatedPosts }) => {
       </div>
 
       {/* Hero Section */}
-      <section className="relative pt-20 overflow-hidden">
-        <div
-          className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-90`}
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-white/5 rounded-full blur-3xl" />
-          <div className="absolute bottom-10 right-10 w-96 h-96 bg-white/5 rounded-full blur-3xl" />
-        </div>
+      <section className="relative pt-20 overflow-hidden min-h-[550px] flex items-center">
+        {/* Background Image */}
+        {post.coverImage ? (
+          <div className="absolute inset-0 z-0">
+            <Image
+              src={post.coverImage}
+              alt={post.title}
+              fill
+              className="object-cover"
+              priority
+            />
+            {/* Dark Overlay for Readability */}
+            <div className="absolute inset-0 bg-gray-900/70" />
+            <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-gray-900/40" />
+          </div>
+        ) : (
+          <div
+            className={`absolute inset-0 bg-gradient-to-br ${gradient} opacity-90`}
+          />
+        )}
 
-        <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
           {/* Breadcrumb */}
           <nav aria-label="Breadcrumb" className="mb-8">
-            <ol className="flex items-center gap-2 text-sm text-white/70">
+            <ol className="flex items-center gap-2 text-sm text-white/80">
               <li>
-                <Link
-                  href="/"
-                  className="hover:text-white transition-colors"
-                >
+                <Link href="/" className="hover:text-white transition-colors">
                   Home
                 </Link>
               </li>
@@ -122,31 +131,31 @@ const BlogPostView = ({ post, relatedPosts }) => {
           {/* Back Link */}
           <Link
             href="/blog"
-            className="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors mb-6 text-sm font-medium"
+            className="inline-flex items-center gap-2 text-white/90 hover:text-white transition-colors mb-6 text-sm font-medium"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Blog
           </Link>
 
           {/* Category Badge */}
-          <div className="mb-4">
-            <span className="inline-flex items-center px-3 py-1.5 bg-white/20 backdrop-blur-sm rounded-full text-sm font-medium text-white">
+          <div className="mb-6">
+            <span className="inline-flex items-center px-3 py-1.5 bg-white/20 backdrop-blur-md rounded-full text-sm font-bold text-white border border-white/20">
               {post.category}
             </span>
           </div>
 
           {/* Title */}
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight drop-shadow-sm">
             {post.title}
           </h1>
 
           {/* Excerpt */}
-          <p className="text-lg text-white/80 mb-8 max-w-3xl leading-relaxed">
+          <p className="text-lg text-white/90 mb-8 max-w-3xl leading-relaxed font-medium drop-shadow-sm">
             {post.excerpt}
           </p>
 
           {/* Meta Info */}
-          <div className="flex flex-wrap items-center gap-6 text-white/70 text-sm">
+          <div className="flex flex-wrap items-center gap-6 text-white/80 text-sm font-medium">
             <span className="flex items-center gap-2">
               <User className="w-4 h-4" />
               {post.author}
@@ -161,7 +170,7 @@ const BlogPostView = ({ post, relatedPosts }) => {
             </span>
             <button
               onClick={shareArticle}
-              className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer"
+              className="flex items-center gap-2 hover:text-white transition-colors cursor-pointer ml-auto sm:ml-0"
               aria-label="Share this article"
             >
               <Share2 className="w-4 h-4" />
@@ -214,7 +223,7 @@ const BlogPostView = ({ post, relatedPosts }) => {
 
       {/* Related Posts */}
       {relatedPosts.length > 0 && (
-        <section className="bg-gray-50 py-16">
+        <section className="bg-gray-50 py-16 border-t border-gray-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex items-center justify-between mb-8">
               <div>

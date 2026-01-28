@@ -21,6 +21,16 @@ module.exports = {
           900: "#1e3a8a",
           950: "#172554",
         },
+        cyan: {
+          400: "#22d3ee",
+          500: "#06b6d4",
+          600: "#0891b2",
+        },
+        brand: {
+          primary: "#1E3A8A",
+          accent: "#06B6D4",
+          link: "#2563EB",
+        },
       },
       boxShadow: {
         sm: "0 1px 2px 0 rgba(0, 0, 0, 0.05)",

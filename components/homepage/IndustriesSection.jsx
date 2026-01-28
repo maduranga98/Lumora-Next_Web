@@ -2,67 +2,97 @@
 
 import {
   Dumbbell,
-  Sparkles,
   Factory,
-  ShoppingBag,
   Heart,
-  Zap,
   Building,
-  Leaf,
-  Palette,
+  ShoppingBag,
+  UtensilsCrossed,
+  Sparkles,
+  ArrowRight,
 } from "lucide-react";
-import AnimatedSection, {
-  StaggerContainer,
-  StaggerItem,
-} from "@/components/animation/AnimatedSection";
+import Image from "next/image";
+import Link from "next/link";
+import AnimatedSection from "@/components/animation/AnimatedSection";
 
 const IndustriesSection = () => {
   const industries = [
     { icon: Dumbbell, name: "Fitness & Wellness" },
-    { icon: Sparkles, name: "Beauty & Spa" },
-    { icon: Factory, name: "Manufacturing" },
-    { icon: ShoppingBag, name: "Retail & E-commerce" },
-    { icon: Heart, name: "Healthcare" },
-    { icon: Zap, name: "Energy & Utilities" },
-    { icon: Building, name: "Corporate & Enterprise" },
-    { icon: Leaf, name: "Agriculture" },
-    { icon: Palette, name: "Creative & Media" },
+    { icon: Factory, name: "Manufacturing & Automation" },
+    { icon: Heart, name: "Healthcare & Corporate" },
+    { icon: ShoppingBag, name: "Retail & Distribution" },
+    { icon: UtensilsCrossed, name: "Food & Hospitality" },
+    { icon: Sparkles, name: "Beauty & Personal Care" },
   ];
 
   return (
     <section id="industries" className="py-20 md:py-24 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <AnimatedSection className="text-center mb-16">
-          <p className="text-sm font-semibold text-blue-600 uppercase tracking-wider mb-3">
-            Diverse Expertise
-          </p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            Industries We Serve
-          </h2>
-        </AnimatedSection>
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="grid md:grid-cols-5 gap-10 lg:gap-16 items-center">
+          {/* Image - 40% */}
+          <AnimatedSection variant="slideLeft" className="md:col-span-2">
+            <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-lg bg-gradient-to-br from-blue-50 to-cyan-50 flex items-center justify-center">
+              <div className="grid grid-cols-3 gap-4 p-8">
+                {industries.map((industry) => {
+                  const IconComponent = industry.icon;
+                  return (
+                    <div
+                      key={industry.name}
+                      className="w-16 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center"
+                    >
+                      <IconComponent className="w-7 h-7 text-blue-900" />
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </AnimatedSection>
 
-        {/* Industry Badges Grid */}
-        <StaggerContainer
-          className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl mx-auto"
-          staggerDelay={0.06}
-        >
-          {industries.map((industry, index) => {
-            const IconComponent = industry.icon;
-            return (
-              <StaggerItem key={index}>
-                <div className="flex items-center gap-3 bg-white rounded-xl p-4 shadow-sm hover:shadow-md border border-gray-100 hover:border-blue-200 transition-all duration-300 card-hover">
-                  <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <IconComponent className="w-5 h-5 text-blue-600" />
-                  </div>
-                  <span className="text-sm font-medium text-gray-900">
-                    {industry.name}
-                  </span>
-                </div>
-              </StaggerItem>
-            );
-          })}
-        </StaggerContainer>
+          {/* Text - 60% */}
+          <AnimatedSection variant="slideRight" delay={0.15} className="md:col-span-3">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-blue-900 mb-6">
+              Industries We Serve
+            </h2>
+
+            <p className="text-lg text-gray-700 leading-relaxed mb-8">
+              We partner with organizations across diverse sectors, delivering
+              tailored technology solutions that address unique industry
+              challenges.
+            </p>
+
+            <ul className="space-y-3 mb-8">
+              {industries.map((industry) => {
+                const IconComponent = industry.icon;
+                return (
+                  <li
+                    key={industry.name}
+                    className="flex items-center gap-3 text-gray-700"
+                  >
+                    <div className="w-2 h-2 rounded-full bg-cyan-500 flex-shrink-0" />
+                    <span className="text-lg">{industry.name}</span>
+                  </li>
+                );
+              })}
+            </ul>
+
+            <Link
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                const el = document.getElementById("contact");
+                if (el) {
+                  const navbarHeight = window.innerWidth >= 1280 ? 80 : 64;
+                  const offset = el.getBoundingClientRect().top + window.pageYOffset - navbarHeight - 20;
+                  window.scrollTo({ top: offset, behavior: "smooth" });
+                  window.history.pushState(null, "", "#contact");
+                }
+              }}
+              className="group inline-flex items-center gap-2 text-blue-600 font-semibold text-lg hover:text-blue-800 transition-colors"
+            >
+              See Case Studies
+              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+            </Link>
+          </AnimatedSection>
+        </div>
       </div>
     </section>
   );

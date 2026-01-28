@@ -115,13 +115,13 @@ const Navbar = () => {
       name: "Curl Cipher",
       desc: "Salon management platform",
       href: "/curl-cipher",
-      color: "bg-amber-500",
+      color: "bg-cyan-500",
     },
     {
       name: "Industrial Automation",
       desc: "Smart factory solutions",
       href: "/industrial-automation",
-      color: "bg-emerald-500",
+      color: "bg-blue-900",
     },
   ];
 
@@ -193,7 +193,7 @@ const Navbar = () => {
             </div>
             <span
               className={`font-bold text-xl tracking-tight transition-colors ${
-                scrolled ? "text-gray-900" : "text-white"
+                scrolled ? "text-blue-900" : "text-white"
               }`}
             >
               Lumora Ventures
@@ -214,7 +214,7 @@ const Navbar = () => {
                       onClick={(e) => scrollToSection(e, link.href)}
                       className={`px-3 lg:px-4 py-2 text-sm lg:text-base font-medium transition-colors rounded-lg inline-flex items-center gap-1 ${
                         scrolled
-                          ? "text-gray-700 hover:text-blue-600 hover:bg-blue-50"
+                          ? "text-gray-700 hover:text-blue-900 hover:bg-blue-50"
                           : "text-white hover:text-blue-200"
                       }`}
                     >
@@ -241,7 +241,7 @@ const Navbar = () => {
                               >
                                 <div className={`w-2 h-2 rounded-full mt-1.5 ${product.color}`} />
                                 <div>
-                                  <p className="text-sm font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
+                                  <p className="text-sm font-semibold text-gray-900 group-hover:text-blue-900 transition-colors">
                                     {product.name}
                                   </p>
                                   <p className="text-xs text-gray-500 mt-0.5">
@@ -270,7 +270,7 @@ const Navbar = () => {
                     onClick={(e) => scrollToSection(e, link.href)}
                     className={`px-3 lg:px-4 py-2 text-sm lg:text-base font-medium transition-colors rounded-lg ${
                       scrolled
-                        ? "text-gray-700 hover:text-blue-600 hover:bg-blue-50"
+                        ? "text-gray-700 hover:text-blue-900 hover:bg-blue-50"
                         : "text-white hover:text-blue-200"
                     }`}
                   >
@@ -281,7 +281,7 @@ const Navbar = () => {
                     href={link.href}
                     className={`px-3 lg:px-4 py-2 text-sm lg:text-base font-medium transition-colors rounded-lg ${
                       scrolled
-                        ? "text-gray-700 hover:text-blue-600 hover:bg-blue-50"
+                        ? "text-gray-700 hover:text-blue-900 hover:bg-blue-50"
                         : "text-white hover:text-blue-200"
                     }`}
                   >
@@ -294,7 +294,7 @@ const Navbar = () => {
             <a
               href="#contact"
               onClick={(e) => scrollToSection(e, "#contact")}
-              className="ml-4 px-6 py-2.5 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-700 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
+              className="ml-4 px-6 py-2.5 bg-blue-900 text-white font-semibold rounded-full hover:bg-blue-800 transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl"
             >
               Get Started
             </a>
@@ -334,7 +334,7 @@ const Navbar = () => {
                     <a
                       href={link.href}
                       onClick={(e) => scrollToSection(e, link.href)}
-                      className="block px-4 py-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg font-medium transition-colors"
+                      className="block px-4 py-3 text-gray-700 hover:text-blue-900 hover:bg-blue-50 rounded-lg font-medium transition-colors"
                     >
                       {link.label}
                     </a>
@@ -343,7 +343,7 @@ const Navbar = () => {
                         <Link
                           key={product.name}
                           href={product.href}
-                          className="block px-4 py-2 text-sm text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                          className="block px-4 py-2 text-sm text-gray-500 hover:text-blue-900 hover:bg-blue-50 rounded-lg transition-colors"
                           onClick={() => setIsOpen(false)}
                         >
                           {product.name}
@@ -356,7 +356,7 @@ const Navbar = () => {
                     key={index}
                     href={link.href}
                     onClick={(e) => scrollToSection(e, link.href)}
-                    className="block px-4 py-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg font-medium transition-colors"
+                    className="block px-4 py-3 text-gray-700 hover:text-blue-900 hover:bg-blue-50 rounded-lg font-medium transition-colors"
                   >
                     {link.label}
                   </a>
@@ -364,7 +364,7 @@ const Navbar = () => {
                   <Link
                     key={index}
                     href={link.href}
-                    className="block px-4 py-3 text-gray-700 hover:text-blue-600 hover:bg-blue-50 rounded-lg font-medium transition-colors"
+                    className="block px-4 py-3 text-gray-700 hover:text-blue-900 hover:bg-blue-50 rounded-lg font-medium transition-colors"
                     onClick={() => setIsOpen(false)}
                   >
                     {link.label}
@@ -374,7 +374,7 @@ const Navbar = () => {
               <a
                 href="#contact"
                 onClick={(e) => scrollToSection(e, "#contact")}
-                className="block w-full text-center mt-4 px-4 py-3 bg-blue-600 text-white font-semibold rounded-full hover:bg-blue-700 transition-colors"
+                className="block w-full text-center mt-4 px-4 py-3 bg-blue-900 text-white font-semibold rounded-full hover:bg-blue-800 transition-colors"
               >
                 Get Started
               </a>

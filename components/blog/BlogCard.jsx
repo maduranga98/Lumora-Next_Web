@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { Calendar, Clock, ArrowRight, Tag } from "lucide-react";
 
 const categoryColors = {
@@ -34,22 +35,33 @@ const BlogCard = ({ post, index = 0, featured = false }) => {
       <Link href={`/blog/${post.slug}`} className="group block">
         <article className="relative overflow-hidden rounded-2xl bg-white shadow-lg hover:shadow-2xl transition-all duration-500 group-hover:-translate-y-1">
           <div className="grid md:grid-cols-2 gap-0">
-            {/* Image / Gradient */}
-            <div
-              className={`relative h-64 md:h-full min-h-[320px] bg-gradient-to-br ${gradient} flex items-center justify-center p-8`}
-            >
-              <div className="text-center text-white">
-                <div className="w-16 h-16 mx-auto mb-4 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-                  <Tag className="w-8 h-8" />
-                </div>
-                <span className="text-sm font-medium uppercase tracking-wider opacity-90">
-                  {post.category}
+            {/* Image Side */}
+            <div className="relative h-64 md:h-full min-h-[320px] overflow-hidden">
+              {post.coverImage ? (
+                <Image
+                  src={post.coverImage}
+                  alt={post.title}
+                  fill
+                  className="object-cover transition-transform duration-700 group-hover:scale-105"
+                  sizes="(max-width: 768px) 100vw, 50vw"
+                  priority
+                />
+              ) : (
+                // Fallback gradient if no image
+                <div
+                  className={`absolute inset-0 bg-gradient-to-br ${gradient}`}
+                />
+              )}
+
+              {/* Category Overlay (Mobile only or if preferred) */}
+              <div className="absolute top-4 left-4 md:hidden">
+                <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-white/90 text-gray-800 backdrop-blur-md">
+                  Featured
                 </span>
               </div>
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
             </div>
 
-            {/* Content */}
+            {/* Content Side */}
             <div className="p-8 flex flex-col justify-center">
               <div className="flex items-center gap-3 mb-4">
                 <span
@@ -57,7 +69,7 @@ const BlogCard = ({ post, index = 0, featured = false }) => {
                 >
                   {post.category}
                 </span>
-                <span className="text-xs text-gray-400 font-medium uppercase tracking-wide">
+                <span className="text-xs text-gray-400 font-medium uppercase tracking-wide hidden md:inline-block">
                   Featured
                 </span>
               </div>
@@ -70,7 +82,7 @@ const BlogCard = ({ post, index = 0, featured = false }) => {
                 {post.excerpt}
               </p>
 
-              <div className="flex items-center justify-between">
+              <div className="flex items-center justify-between mt-auto">
                 <div className="flex items-center gap-4 text-sm text-gray-500">
                   <span className="flex items-center gap-1.5">
                     <Calendar className="w-4 h-4" />
@@ -94,36 +106,42 @@ const BlogCard = ({ post, index = 0, featured = false }) => {
     );
   }
 
+  // Regular Card
   return (
     <Link href={`/blog/${post.slug}`} className="group block h-full">
       <article
         className="relative h-full overflow-hidden rounded-2xl bg-white shadow-md hover:shadow-xl transition-all duration-500 group-hover:-translate-y-1 flex flex-col"
         style={{ animationDelay: `${index * 100}ms` }}
       >
-        {/* Image / Gradient Header */}
-        <div
-          className={`relative h-48 bg-gradient-to-br ${gradient} flex items-center justify-center overflow-hidden`}
-        >
-          <div className="text-center text-white">
-            <div className="w-12 h-12 mx-auto mb-2 bg-white/20 rounded-xl flex items-center justify-center backdrop-blur-sm">
-              <Tag className="w-6 h-6" />
+        {/* Image Header */}
+        <div className="relative h-56 overflow-hidden bg-gray-100">
+          {post.coverImage ? (
+            <Image
+              src={post.coverImage}
+              alt={post.title}
+              fill
+              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            />
+          ) : (
+            <div
+              className={`absolute inset-0 bg-gradient-to-br ${gradient} flex items-center justify-center`}
+            >
+              <Tag className="w-8 h-8 text-white/50" />
             </div>
-            <span className="text-xs font-medium uppercase tracking-wider opacity-80">
+          )}
+
+          {/* Category Overlay */}
+          <div className="absolute top-4 left-4">
+            <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-white/95 text-gray-800 backdrop-blur-sm shadow-sm">
               {post.category}
             </span>
           </div>
-          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-500" />
         </div>
 
         {/* Content */}
         <div className="p-6 flex flex-col flex-grow">
-          <span
-            className={`self-start inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold mb-3 ${categoryColor}`}
-          >
-            {post.category}
-          </span>
-
-          <h3 className="text-lg font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors leading-snug line-clamp-2">
+          <h3 className="text-lg font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors leading-snug line-clamp-2">
             {post.title}
           </h3>
 

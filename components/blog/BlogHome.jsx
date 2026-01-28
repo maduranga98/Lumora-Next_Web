@@ -10,16 +10,12 @@ import {
   BookOpen,
   TrendingUp,
   Lightbulb,
-  ChevronLeft,
 } from "lucide-react";
 import { blogData } from "@/app/data/blogData";
 import BlogCard from "./BlogCard";
 import Navbar from "@/components/homepage/Navbar";
 
-const categories = [
-  "All",
-  ...new Set(blogData.map((post) => post.category)),
-];
+const categories = ["All", ...new Set(blogData.map((post) => post.category))];
 
 const BlogHome = () => {
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -40,7 +36,7 @@ const BlogHome = () => {
         post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
         post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
         post.tags.some((tag) =>
-          tag.toLowerCase().includes(searchQuery.toLowerCase())
+          tag.toLowerCase().includes(searchQuery.toLowerCase()),
         );
       return matchesCategory && matchesSearch;
     });
@@ -50,7 +46,7 @@ const BlogHome = () => {
   const regularPosts = filteredPosts.filter((p) =>
     selectedCategory === "All" && searchQuery === ""
       ? p.id !== featuredPost.id
-      : true
+      : true,
   );
 
   return (
@@ -58,28 +54,33 @@ const BlogHome = () => {
       <Navbar />
 
       {/* Hero Section */}
-      <section className="relative pt-20 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-blue-900 to-gray-900" />
-        <div className="absolute inset-0">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 rounded-full blur-3xl" />
-          <div className="absolute bottom-10 right-10 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-blue-600/5 rounded-full blur-3xl" />
+      <section className="relative pt-20 pb-20 md:pb-28 overflow-hidden min-h-[500px] flex items-center">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="/blogs/blog-hero-technology_converted.avif"
+            alt="Technology Innovation and Insights"
+            fill
+            className="object-cover"
+            priority
+          />
+          {/* Overlays for text readability */}
+          <div className="absolute inset-0 bg-blue-900/80 mix-blend-multiply" />
+          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent" />
         </div>
 
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 md:py-28">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Breadcrumb */}
           <nav aria-label="Breadcrumb" className="mb-8">
-            <ol className="flex items-center gap-2 text-sm text-gray-400">
+            <ol className="flex items-center gap-2 text-sm text-gray-300">
               <li>
-                <Link
-                  href="/"
-                  className="hover:text-white transition-colors"
-                >
+                <Link href="/" className="hover:text-white transition-colors">
                   Home
                 </Link>
               </li>
               <li>/</li>
-              <li className="text-blue-400 font-medium">Blog</li>
+              <li className="text-blue-300 font-medium">Blog</li>
             </ol>
           </nav>
 
@@ -91,22 +92,22 @@ const BlogHome = () => {
             }`}
           >
             <div className="flex items-center gap-3 mb-6">
-              <div className="p-2 bg-blue-500/20 rounded-lg">
-                <BookOpen className="w-6 h-6 text-blue-400" />
+              <div className="p-2 bg-white/10 backdrop-blur-sm rounded-lg">
+                <BookOpen className="w-6 h-6 text-blue-300" />
               </div>
-              <span className="text-blue-400 font-semibold text-sm uppercase tracking-wider">
+              <span className="text-blue-200 font-semibold text-sm uppercase tracking-wider">
                 Lumora Ventures Blog
               </span>
             </div>
 
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight drop-shadow-md">
               Insights & Innovation in{" "}
-              <span className="bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-cyan-300">
                 Technology
               </span>
             </h1>
 
-            <p className="text-lg md:text-xl text-gray-300 mb-10 leading-relaxed max-w-2xl">
+            <p className="text-lg md:text-xl text-gray-200 mb-10 leading-relaxed max-w-2xl drop-shadow-sm">
               Explore our latest case studies, technical deep-dives, and
               industry insights in AI, automation, and software development.
             </p>
@@ -114,40 +115,40 @@ const BlogHome = () => {
             {/* Stats Row */}
             <div className="flex flex-wrap items-center gap-8">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-blue-500/10 rounded-lg">
-                  <BookOpen className="w-5 h-5 text-blue-400" />
+                <div className="p-2 bg-white/10 rounded-lg backdrop-blur-sm">
+                  <BookOpen className="w-5 h-5 text-blue-300" />
                 </div>
                 <div>
                   <span className="block text-2xl font-bold text-white">
                     {blogData.length}
                   </span>
-                  <span className="text-xs text-gray-400 uppercase tracking-wide">
+                  <span className="text-xs text-gray-300 uppercase tracking-wide">
                     Articles
                   </span>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-cyan-500/10 rounded-lg">
-                  <TrendingUp className="w-5 h-5 text-cyan-400" />
+                <div className="p-2 bg-white/10 rounded-lg backdrop-blur-sm">
+                  <TrendingUp className="w-5 h-5 text-cyan-300" />
                 </div>
                 <div>
                   <span className="block text-2xl font-bold text-white">
                     {categories.length - 1}
                   </span>
-                  <span className="text-xs text-gray-400 uppercase tracking-wide">
+                  <span className="text-xs text-gray-300 uppercase tracking-wide">
                     Categories
                   </span>
                 </div>
               </div>
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-purple-500/10 rounded-lg">
-                  <Lightbulb className="w-5 h-5 text-purple-400" />
+                <div className="p-2 bg-white/10 rounded-lg backdrop-blur-sm">
+                  <Lightbulb className="w-5 h-5 text-purple-300" />
                 </div>
                 <div>
                   <span className="block text-2xl font-bold text-white">
                     Real-World
                   </span>
-                  <span className="text-xs text-gray-400 uppercase tracking-wide">
+                  <span className="text-xs text-gray-300 uppercase tracking-wide">
                     Case Studies
                   </span>
                 </div>
@@ -157,7 +158,7 @@ const BlogHome = () => {
         </div>
 
         {/* Wave divider */}
-        <div className="absolute bottom-0 left-0 right-0">
+        <div className="absolute bottom-0 left-0 right-0 z-10">
           <svg
             viewBox="0 0 1440 60"
             fill="none"

@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import AnimatedSection, {
@@ -13,33 +14,79 @@ const ProductsSection = () => {
       name: "PulsedGym",
       desc: "Gym management with face recognition attendance",
       href: null,
+      image: "/images/products/product-pulsedgym.avif",
     },
     {
       name: "VoxWel",
       desc: "Anonymous workplace reporting platform",
       href: null,
+      image: "/images/products/product-voxwel.avif",
     },
     {
       name: "Curl Cipher",
       desc: "Comprehensive salon management system",
       href: "/curl-cipher",
+      image: "/images/products/product-curl-cipher.avif",
     },
     {
       name: "VerseWing",
       desc: "Creative writing and publishing platform",
       href: null,
+      image: "/images/products/product-versewing.avif",
     },
     {
       name: "LumoraOS",
       desc: "Complete business management suite",
       href: null,
+      image: "/images/products/product-lumoraos.avif",
     },
     {
       name: "BPRS",
       desc: "Bakery AI-powered billing and recognition",
       href: null,
+      image: "/images/products/product-bprs.avif",
     },
   ];
+
+  const ProductCard = ({ product, isLink }) => {
+    const content = (
+      <>
+        <div className="relative w-full aspect-[4/3] overflow-hidden">
+          <Image
+            src={product.image}
+            alt={product.name}
+            fill
+            className="object-cover group-hover:scale-105 transition-transform duration-300"
+            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          />
+        </div>
+        <div className="p-6">
+          <h3 className={`text-xl font-bold mb-2 transition-colors ${isLink ? "text-gray-900 group-hover:text-blue-900" : "text-gray-900"}`}>
+            {product.name}
+          </h3>
+          <p className="text-gray-600 leading-relaxed mb-4">
+            {product.desc}
+          </p>
+          <span className={`inline-flex items-center gap-1.5 text-blue-600 font-medium text-sm ${isLink ? "group-hover:gap-2.5" : ""} transition-all`}>
+            Learn More
+            <ArrowRight className="w-4 h-4" />
+          </span>
+        </div>
+      </>
+    );
+
+    const cardClass = "bg-white rounded-xl border border-gray-200 hover:border-blue-300 transition-all duration-300 card-hover h-full overflow-hidden";
+
+    if (isLink) {
+      return (
+        <Link href={product.href} className={`group block ${cardClass}`}>
+          {content}
+        </Link>
+      );
+    }
+
+    return <div className={`group ${cardClass}`}>{content}</div>;
+  };
 
   return (
     <section id="products" className="py-20 md:py-24 bg-white">
@@ -61,38 +108,7 @@ const ProductsSection = () => {
         >
           {products.map((product) => (
             <StaggerItem key={product.name}>
-              {product.href ? (
-                <Link
-                  href={product.href}
-                  className="group block bg-white p-8 rounded-xl border border-gray-200 hover:border-blue-300 transition-all duration-300 card-hover h-full"
-                >
-                  <div className="w-10 h-1 rounded-full bg-cyan-500 mb-5" />
-                  <h3 className="text-xl font-bold text-gray-900 group-hover:text-blue-900 transition-colors mb-3">
-                    {product.name}
-                  </h3>
-                  <p className="text-gray-600 leading-relaxed mb-5">
-                    {product.desc}
-                  </p>
-                  <span className="inline-flex items-center gap-1.5 text-blue-600 font-medium text-sm group-hover:gap-2.5 transition-all">
-                    Learn More
-                    <ArrowRight className="w-4 h-4" />
-                  </span>
-                </Link>
-              ) : (
-                <div className="bg-white p-8 rounded-xl border border-gray-200 hover:border-blue-300 transition-all duration-300 card-hover h-full">
-                  <div className="w-10 h-1 rounded-full bg-cyan-500 mb-5" />
-                  <h3 className="text-xl font-bold text-gray-900 mb-3">
-                    {product.name}
-                  </h3>
-                  <p className="text-gray-600 leading-relaxed mb-5">
-                    {product.desc}
-                  </p>
-                  <span className="inline-flex items-center gap-1.5 text-blue-600 font-medium text-sm">
-                    Learn More
-                    <ArrowRight className="w-4 h-4" />
-                  </span>
-                </div>
-              )}
+              <ProductCard product={product} isLink={!!product.href} />
             </StaggerItem>
           ))}
         </StaggerContainer>

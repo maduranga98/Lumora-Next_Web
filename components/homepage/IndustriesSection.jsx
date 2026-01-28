@@ -30,20 +30,14 @@ const IndustriesSection = () => {
         <div className="grid md:grid-cols-5 gap-10 lg:gap-16 items-center">
           {/* Image - 40% */}
           <AnimatedSection variant="slideLeft" className="md:col-span-2">
-            <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-lg bg-gradient-to-br from-blue-50 to-cyan-50 flex items-center justify-center">
-              <div className="grid grid-cols-3 gap-4 p-8">
-                {industries.map((industry) => {
-                  const IconComponent = industry.icon;
-                  return (
-                    <div
-                      key={industry.name}
-                      className="w-16 h-16 bg-white rounded-xl shadow-sm flex items-center justify-center"
-                    >
-                      <IconComponent className="w-7 h-7 text-blue-900" />
-                    </div>
-                  );
-                })}
-              </div>
+            <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
+              <Image
+                src="/images/industries-collage.avif"
+                alt="Industries served by Lumora Ventures"
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 40vw"
+              />
             </div>
           </AnimatedSection>
 

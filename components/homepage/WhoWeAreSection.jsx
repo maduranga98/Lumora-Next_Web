@@ -7,7 +7,8 @@ import AnimatedSection from "@/components/animation/AnimatedSection";
 
 const WhoWeAreSection = () => {
   return (
-    <section id="about" className="py-20 md:py-24 bg-white">
+    // Added overflow-hidden to prevent horizontal scroll during animation
+    <section id="about" className="py-20 md:py-24 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid md:grid-cols-5 gap-10 lg:gap-16 items-center">
           {/* Image - 40% */}
@@ -24,7 +25,11 @@ const WhoWeAreSection = () => {
           </AnimatedSection>
 
           {/* Text - 60% */}
-          <AnimatedSection variant="slideRight" delay={0.15} className="md:col-span-3">
+          <AnimatedSection
+            variant="slideRight"
+            delay={0.15}
+            className="md:col-span-3"
+          >
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-blue-900 mb-6">
               Who We Are
             </h2>
@@ -36,8 +41,9 @@ const WhoWeAreSection = () => {
             </p>
 
             <p className="text-lg text-gray-600 leading-relaxed mb-8">
-              We build custom technology that drives business growth, operational
-              efficiency, and competitive advantage across multiple industries.
+              We build custom technology that drives business growth,
+              operational efficiency, and competitive advantage across multiple
+              industries.
             </p>
 
             <Link
@@ -47,7 +53,11 @@ const WhoWeAreSection = () => {
                 const el = document.getElementById("contact");
                 if (el) {
                   const navbarHeight = window.innerWidth >= 1280 ? 80 : 64;
-                  const offset = el.getBoundingClientRect().top + window.pageYOffset - navbarHeight - 20;
+                  const offset =
+                    el.getBoundingClientRect().top +
+                    window.pageYOffset -
+                    navbarHeight -
+                    20;
                   window.scrollTo({ top: offset, behavior: "smooth" });
                   window.history.pushState(null, "", "#contact");
                 }

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
-import { Linkedin, Github, Facebook } from "lucide-react";
+import { Linkedin, Github, Facebook, Mail, Phone, MapPin } from "lucide-react";
 
 const Footer = () => {
   const [currentYear, setCurrentYear] = useState("2025");
@@ -64,12 +64,6 @@ const Footer = () => {
     { name: "Mobile Apps", href: "#services", isScroll: true },
     { name: "AI/ML Solutions", href: "#services", isScroll: true },
     { name: "Automation", href: "#services", isScroll: true },
-  ];
-
-  const contactInfo = [
-    { label: "info@lumoraventures.com", href: "mailto:info@lumoraventures.com" },
-    { label: "+94 77 986 1174", href: "tel:+94779861174" },
-    { label: "Kandy, Sri Lanka", href: null },
   ];
 
   const socialLinks = [
@@ -186,21 +180,53 @@ const Footer = () => {
             <h3 className="text-sm font-semibold text-blue-900 uppercase tracking-wider mb-5">
               Contact
             </h3>
-            <ul className="space-y-3">
-              {contactInfo.map((info) => (
-                <li key={info.label}>
-                  {info.href ? (
-                    <a
-                      href={info.href}
-                      className="text-gray-600 hover:text-blue-900 transition-colors text-sm"
-                    >
-                      {info.label}
-                    </a>
-                  ) : (
-                    <span className="text-gray-600 text-sm">{info.label}</span>
-                  )}
-                </li>
-              ))}
+            <ul className="space-y-4">
+              {/* Email */}
+              <li className="flex items-start gap-3">
+                <Mail className="w-4 h-4 text-blue-900 mt-1 shrink-0" />
+                <a
+                  href="mailto:info@lumoraventures.com"
+                  className="text-gray-600 hover:text-blue-900 transition-colors text-sm"
+                >
+                  info@lumoraventures.com
+                </a>
+              </li>
+
+              {/* Phone */}
+              <li className="flex items-start gap-3">
+                <Phone className="w-4 h-4 text-blue-900 mt-1 shrink-0" />
+                <a
+                  href="tel:+94779861174"
+                  className="text-gray-600 hover:text-blue-900 transition-colors text-sm"
+                >
+                  +94 77 986 1174
+                </a>
+              </li>
+
+              {/* UK Address */}
+              <li className="flex items-start gap-3">
+                <MapPin className="w-4 h-4 text-blue-900 mt-1 shrink-0" />
+                <div className="text-sm text-gray-600">
+                  <span className="font-semibold text-gray-900 block mb-0.5">
+                    United Kingdom
+                  </span>
+                  <p>Office 4157, 58 Peregrine Road</p>
+                  <p>Hainault, Ilford, Essex</p>
+                  <p>IG6 3SZ</p>
+                </div>
+              </li>
+
+              {/* Sri Lanka Address */}
+              <li className="flex items-start gap-3">
+                <MapPin className="w-4 h-4 text-blue-900 mt-1 shrink-0" />
+                <div className="text-sm text-gray-600">
+                  <span className="font-semibold text-gray-900 block mb-0.5">
+                    Sri Lanka
+                  </span>
+                  <p>Kurunegala Road</p>
+                  <p>Kuliyapitiya, 60200</p>
+                </div>
+              </li>
             </ul>
           </div>
         </div>

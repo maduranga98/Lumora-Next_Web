@@ -7,21 +7,30 @@ import Link from "next/link";
 
 const HeroSection = () => {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-blue-50/50 to-white pt-16 pb-20 lg:pt-24 lg:pb-32">
-      {/* Background Decor */}
-      <div className="absolute top-0 right-0 -mr-20 -mt-20 h-[500px] w-[500px] rounded-full bg-cyan-400/10 blur-[100px]" />
-      <div className="absolute bottom-0 left-0 -ml-20 -mb-20 h-[500px] w-[500px] rounded-full bg-blue-600/10 blur-[100px]" />
+    <section className="relative min-h-[85vh] flex items-center pt-20 overflow-hidden">
+      {/* Background Cover Image */}
+      <div className="absolute inset-0 z-0">
+        <Image
+          src="/curl cipher/hero-salon-professional.avif"
+          alt="Professional Salon Environment"
+          fill
+          className="object-cover"
+          priority
+        />
+        {/* Dual Overlay for better text readability */}
+        <div className="absolute inset-0 bg-blue-900/80 mix-blend-multiply" />
+        <div className="absolute inset-0 bg-black/40" />
+      </div>
 
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-8 items-center">
-          {/* Text Content */}
+      <div className="container relative z-10 mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-4xl mx-auto text-center">
           <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.6 }}
-            className="max-w-2xl"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
           >
-            <div className="inline-flex items-center gap-2 rounded-full bg-cyan-50 px-3 py-1 text-sm font-medium text-cyan-700 mb-6 border border-cyan-100">
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-3 py-1 text-sm font-medium text-blue-100 mb-8 border border-white/20 backdrop-blur-md">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
@@ -29,76 +38,49 @@ const HeroSection = () => {
               v2.0 Now Live
             </div>
 
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-blue-900 mb-6">
+            {/* Main Headline */}
+            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold tracking-tight text-white mb-6 leading-tight drop-shadow-sm">
               The Modern OS for <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-200">
                 Forward-Thinking Salons
               </span>
             </h1>
 
-            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+            {/* Subheadline */}
+            <p className="text-lg sm:text-xl text-blue-100 mb-10 leading-relaxed max-w-2xl mx-auto drop-shadow-sm">
               Streamline appointments, manage inventory, and delight customers
               with an all-in-one platform designed for salons, spas, and barber
               shops.
             </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 mb-10">
+            {/* CTAs */}
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
               <Link
                 href="#contact"
-                className="inline-flex justify-center items-center gap-2 px-8 py-3.5 bg-blue-900 text-white rounded-full font-semibold hover:bg-blue-800 transition-all hover:scale-105 shadow-lg shadow-blue-900/20"
+                className="inline-flex justify-center items-center gap-2 px-8 py-4 bg-cyan-500 text-white rounded-full font-semibold hover:bg-cyan-400 transition-all hover:scale-105 shadow-lg shadow-cyan-500/30 w-full sm:w-auto"
               >
                 Get Started Free
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-5 h-5" />
               </Link>
-              <button className="inline-flex justify-center items-center gap-2 px-8 py-3.5 bg-white text-gray-700 border border-gray-200 rounded-full font-semibold hover:bg-gray-50 transition-all hover:border-gray-300">
-                <PlayCircle className="w-5 h-5 text-gray-400" />
+              <button className="inline-flex justify-center items-center gap-2 px-8 py-4 bg-white/10 text-white border border-white/20 rounded-full font-semibold hover:bg-white/20 transition-all backdrop-blur-sm w-full sm:w-auto">
+                <PlayCircle className="w-5 h-5 text-cyan-400" />
                 Watch Demo
               </button>
             </div>
 
-            <div className="flex items-center gap-6 text-sm text-gray-500 font-medium">
+            {/* Trust Indicators */}
+            <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-3 text-sm text-blue-100/90 font-medium">
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-cyan-500" />
+                <CheckCircle2 className="w-5 h-5 text-cyan-400" />
                 <span>No credit card required</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-cyan-500" />
+                <CheckCircle2 className="w-5 h-5 text-cyan-400" />
                 <span>14-day free trial</span>
               </div>
-            </div>
-          </motion.div>
-
-          {/* Hero Image/Mockup */}
-          <motion.div
-            initial={{ opacity: 0, y: 40 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative"
-          >
-            <div className="relative rounded-2xl bg-gray-900/5 p-2 lg:p-4 backdrop-blur-sm border border-white/20">
-              <div className="relative rounded-xl overflow-hidden shadow-2xl bg-white aspect-[4/3]">
-                <Image
-                  src="/images/products/product-curl-cipher.avif" // Ensure this path matches your file
-                  alt="Curl Cipher Dashboard"
-                  fill
-                  className="object-cover"
-                  priority
-                />
-
-                {/* Floating Badge Example */}
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 1, duration: 0.5 }}
-                  className="absolute bottom-6 left-6 bg-white/90 backdrop-blur-md p-4 rounded-xl shadow-lg border border-gray-100 max-w-[200px]"
-                >
-                  <p className="text-xs text-gray-500 mb-1">Total Revenue</p>
-                  <p className="text-xl font-bold text-blue-900">$12,450.00</p>
-                  <div className="mt-1 flex items-center gap-1 text-[10px] text-green-600 bg-green-50 px-2 py-0.5 rounded-full w-fit">
-                    <span>+12.5%</span>
-                    <span>vs last month</span>
-                  </div>
-                </motion.div>
+              <div className="flex items-center gap-2">
+                <CheckCircle2 className="w-5 h-5 text-cyan-400" />
+                <span>Cancel anytime</span>
               </div>
             </div>
           </motion.div>

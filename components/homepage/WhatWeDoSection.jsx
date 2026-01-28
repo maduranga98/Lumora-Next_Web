@@ -14,11 +14,18 @@ const WhatWeDoSection = () => {
   ];
 
   return (
-    <section id="services" className="py-20 md:py-24 bg-gray-50">
+    // Added overflow-hidden to prevent horizontal scroll during animation
+    <section
+      id="services"
+      className="py-20 md:py-24 bg-gray-50 overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid md:grid-cols-5 gap-10 lg:gap-16 items-center">
           {/* Text - 60% */}
-          <AnimatedSection variant="slideLeft" className="md:col-span-3 order-2 md:order-1">
+          <AnimatedSection
+            variant="slideLeft"
+            className="md:col-span-3 order-2 md:order-1"
+          >
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-blue-900 mb-6">
               What We Do
             </h2>
@@ -58,7 +65,11 @@ const WhatWeDoSection = () => {
                 const el = document.getElementById("products");
                 if (el) {
                   const navbarHeight = window.innerWidth >= 1280 ? 80 : 64;
-                  const offset = el.getBoundingClientRect().top + window.pageYOffset - navbarHeight - 20;
+                  const offset =
+                    el.getBoundingClientRect().top +
+                    window.pageYOffset -
+                    navbarHeight -
+                    20;
                   window.scrollTo({ top: offset, behavior: "smooth" });
                   window.history.pushState(null, "", "#products");
                 }
@@ -71,7 +82,11 @@ const WhatWeDoSection = () => {
           </AnimatedSection>
 
           {/* Image - 40% */}
-          <AnimatedSection variant="slideRight" delay={0.15} className="md:col-span-2 order-1 md:order-2">
+          <AnimatedSection
+            variant="slideRight"
+            delay={0.15}
+            className="md:col-span-2 order-1 md:order-2"
+          >
             <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
               <Image
                 src="/images/code-on-screen.avif"

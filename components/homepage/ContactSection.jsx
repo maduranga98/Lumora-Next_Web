@@ -54,7 +54,8 @@ const ContactSection = () => {
   };
 
   return (
-    <section id="contact" className="py-20 md:py-24 bg-gray-50">
+    // Added overflow-hidden to prevent horizontal scroll during animation
+    <section id="contact" className="py-20 md:py-24 bg-gray-50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <AnimatedSection className="text-center mb-12">
@@ -68,7 +69,11 @@ const ContactSection = () => {
 
         <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
           {/* Contact Info */}
-          <AnimatedSection variant="slideLeft" delay={0.2} className="space-y-6">
+          <AnimatedSection
+            variant="slideLeft"
+            delay={0.2}
+            className="space-y-6"
+          >
             <div className="flex items-start gap-4">
               <Mail className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
               <div>

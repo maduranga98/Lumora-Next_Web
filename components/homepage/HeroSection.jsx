@@ -16,12 +16,12 @@ const HeroSection = () => {
   return (
     <section
       id="home"
-      className="relative flex items-center overflow-hidden"
-      style={{ height: "70vh", minHeight: "500px" }}
+      className="relative flex items-center overflow-hidden pt-20"
+      style={{ minHeight: "100vh" }}
     >
       {/* Full-width hero background image */}
       <Image
-        src="/hero.avif"
+        src="/images/hero-tech-team.avif"
         alt="Professional tech team working at Lumora Ventures"
         fill
         priority

@@ -14,7 +14,7 @@ const WhoWeAreSection = () => {
           <AnimatedSection variant="slideLeft" className="md:col-span-2">
             <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
               <Image
-                src="/about.avif"
+                src="/images/team-collaboration.avif"
                 alt="Lumora Ventures team collaboration"
                 fill
                 className="object-cover"

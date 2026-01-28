@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowRight } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import AnimatedSection, {
   StaggerContainer,
@@ -15,6 +16,8 @@ const InnovationSection = () => {
       metric: "80% queue reduction",
       status: "Beta Testing",
       statusColor: "bg-yellow-100 text-yellow-800",
+      image: "/images/innovation-bprs.avif",
+      imageAlt: "BPRS bakery AI recognition system",
     },
     {
       name: "GymNex - Smart Gym System",
@@ -22,6 +25,8 @@ const InnovationSection = () => {
       metric: "Attendance automation",
       status: "Active Deployments",
       statusColor: "bg-green-100 text-green-800",
+      image: "/images/innovation-gymnex.avif",
+      imageAlt: "GymNex face recognition attendance system",
     },
   ];
 
@@ -42,26 +47,37 @@ const InnovationSection = () => {
         >
           {innovations.map((item) => (
             <StaggerItem key={item.name}>
-              <div className="bg-white p-8 rounded-xl border border-gray-200 hover:border-blue-300 transition-all duration-300 card-hover h-full">
-                <div className="flex items-start justify-between mb-4">
-                  <h3 className="text-xl font-bold text-gray-900">
-                    {item.name}
-                  </h3>
-                  <span
-                    className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold ${item.statusColor}`}
-                  >
-                    {item.status}
-                  </span>
+              <div className="bg-white rounded-xl border border-gray-200 hover:border-blue-300 transition-all duration-300 card-hover h-full overflow-hidden">
+                <div className="relative w-full aspect-[3/2]">
+                  <Image
+                    src={item.image}
+                    alt={item.imageAlt}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 768px) 100vw, 50vw"
+                  />
                 </div>
+                <div className="p-8">
+                  <div className="flex items-start justify-between mb-4">
+                    <h3 className="text-xl font-bold text-gray-900">
+                      {item.name}
+                    </h3>
+                    <span
+                      className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold whitespace-nowrap ml-3 ${item.statusColor}`}
+                    >
+                      {item.status}
+                    </span>
+                  </div>
 
-                <p className="text-gray-600 leading-relaxed mb-4">
-                  {item.description}
-                </p>
+                  <p className="text-gray-600 leading-relaxed mb-4">
+                    {item.description}
+                  </p>
 
-                <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-lg">
-                  <span className="text-sm font-semibold text-blue-900">
-                    {item.metric}
-                  </span>
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-blue-50 rounded-lg">
+                    <span className="text-sm font-semibold text-blue-900">
+                      {item.metric}
+                    </span>
+                  </div>
                 </div>
               </div>
             </StaggerItem>

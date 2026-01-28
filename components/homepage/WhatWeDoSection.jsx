@@ -74,7 +74,7 @@ const WhatWeDoSection = () => {
           <AnimatedSection variant="slideRight" delay={0.15} className="md:col-span-2 order-1 md:order-2">
             <div className="relative w-full aspect-[4/3] rounded-2xl overflow-hidden shadow-lg">
               <Image
-                src="/contact.webp"
+                src="/images/code-on-screen.avif"
                 alt="Developer working on code at Lumora Ventures"
                 fill
                 className="object-cover"

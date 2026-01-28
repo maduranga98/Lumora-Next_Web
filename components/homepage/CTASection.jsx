@@ -13,7 +13,7 @@ const CTASection = () => {
     >
       {/* Full-width background image */}
       <Image
-        src="/hero.avif"
+        src="/images/modern-office-cta.avif"
         alt="Modern office technology background"
         fill
         className="object-cover"

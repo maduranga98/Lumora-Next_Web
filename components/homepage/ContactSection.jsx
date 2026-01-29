@@ -118,12 +118,6 @@ const ContactSection = () => {
                   >
                     +94 71 999 8500
                   </a>
-                  <a
-                    href="tel:+94779861174"
-                    className="text-blue-600 hover:text-blue-700 transition-colors block"
-                  >
-                    +94 77 986 1174
-                  </a>
                 </div>
               </div>
             </div>

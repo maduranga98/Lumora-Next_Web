@@ -13,9 +13,18 @@ import QASection from "@/components/sections/QASection";
 import HeroSectionGMB from "@/components/gmb/Hero";
 import ContactSection from "@/components/sections/ContactSection";
 import { useLoading } from "@/components/LoadingProvider";
+import { usePageView } from "../lib/usePageView";
 
 export default function GMBPage() {
   const { setIsLoading } = useLoading();
+
+  // Track page view with Facebook Conversions API
+  usePageView({
+    contentName: 'Google Business Profile Management Services',
+    contentCategory: 'Service Page',
+    contentIds: ['gmb-services'],
+    value: 0
+  });
 
   // Schema.org structured data for the entire page
   const pageSchema = {

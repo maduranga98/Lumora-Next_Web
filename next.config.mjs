@@ -73,6 +73,8 @@ const nextConfig = {
     NEXT_PUBLIC_FIREBASE_APP_ID: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
     EMAIL_USER: process.env.EMAIL_USER,
     EMAIL_PASS: process.env.EMAIL_PASS,
+    NEXT_PUBLIC_FB_PIXEL_ID: process.env.NEXT_PUBLIC_FB_PIXEL_ID,
+    NEXT_PUBLIC_FB_ACCESS_TOKEN: process.env.NEXT_PUBLIC_FB_ACCESS_TOKEN,
   },
 
   // NOTE: headers() and redirects() are commented out because they don't work with output: "export"

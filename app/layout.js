@@ -130,13 +130,22 @@ const organizationSchema = {
     addressRegion: "Central Province",
     addressCountry: "LK",
   },
-  contactPoint: {
-    "@type": "ContactPoint",
-    telephone: "+94-77-986-1174",
-    contactType: "sales",
-    email: "info@lumoraventures.com",
-    availableLanguage: ["English"],
-  },
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      telephone: "+94-71-999-8500",
+      contactType: "customer service",
+      email: "info@lumoraventures.com",
+      availableLanguage: ["English"],
+    },
+    {
+      "@type": "ContactPoint",
+      telephone: "+94-77-986-1174",
+      contactType: "sales",
+      email: "info@lumoraventures.com",
+      availableLanguage: ["English"],
+    },
+  ],
   sameAs: [
     "https://www.linkedin.com/company/lumora-ventures-pvt-ltd/",
     "https://github.com/lumoraventures",

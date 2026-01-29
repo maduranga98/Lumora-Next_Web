@@ -111,12 +111,20 @@ const ContactSection = () => {
               </div>
               <div>
                 <h3 className="font-bold text-gray-900 mb-1">Phone</h3>
-                <a
-                  href="tel:+94779861174"
-                  className="text-blue-600 hover:text-blue-700 transition-colors"
-                >
-                  +94 77 986 1174
-                </a>
+                <div className="space-y-1">
+                  <a
+                    href="tel:+94719998500"
+                    className="text-blue-600 hover:text-blue-700 transition-colors block"
+                  >
+                    +94 71 999 8500
+                  </a>
+                  <a
+                    href="tel:+94779861174"
+                    className="text-blue-600 hover:text-blue-700 transition-colors block"
+                  >
+                    +94 77 986 1174
+                  </a>
+                </div>
               </div>
             </div>
 

@@ -10,9 +10,18 @@ import IndustriesSection from "@/components/homepage/IndustriesSection";
 import InnovationSection from "@/components/homepage/InnovationSection";
 import CTASection from "@/components/homepage/CTASection";
 import ContactSection from "@/components/homepage/ContactSection";
+import { usePageView } from "./lib/usePageView";
 
 export default function Home() {
   const contactRef = useRef(null);
+
+  // Track page view with Facebook Conversions API
+  usePageView({
+    contentName: 'Lumora Ventures Homepage',
+    contentCategory: 'Homepage',
+    contentIds: ['homepage'],
+    value: 0
+  });
 
   // Scroll to section helper function
   const scrollToSection = useCallback((sectionId) => {

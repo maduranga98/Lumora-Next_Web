@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import AnimatedSection from "@/components/animation/AnimatedSection";
 import emailjs from "@emailjs/browser";
+import { trackLead } from "../../app/lib/conversionsApi";
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -53,6 +54,22 @@ const ContactSection = () => {
           templateParams,
           publicKey,
         );
+      }
+
+      // Track Lead conversion event
+      try {
+        const nameParts = formData.name.trim().split(' ');
+        await trackLead({
+          email: formData.email,
+          phone: null,
+          firstName: nameParts[0] || null,
+          lastName: nameParts.length > 1 ? nameParts.slice(1).join(' ') : null,
+          value: 0,
+          currency: 'USD',
+          contentName: 'Homepage Contact Lead',
+        });
+      } catch (conversionError) {
+        console.warn('Conversion API tracking failed:', conversionError);
       }
 
       setSubmitStatus("success");

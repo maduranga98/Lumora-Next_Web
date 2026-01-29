@@ -4,6 +4,7 @@
 import React, { useState, useEffect } from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { db } from "../../app/lib/firebase"; // Adjust path to your Firebase config
+import { trackLead } from "../../app/lib/conversionsApi";
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
@@ -95,6 +96,22 @@ export default function ContactSection() {
           "Email notification failed but data was saved:",
           emailError
         );
+      }
+
+      // Track Lead conversion event
+      try {
+        const nameParts = formData.name.trim().split(' ');
+        await trackLead({
+          email: formData.email,
+          phone: formData.phone || null,
+          firstName: nameParts[0] || null,
+          lastName: nameParts.length > 1 ? nameParts.slice(1).join(' ') : null,
+          value: 0,
+          currency: 'USD',
+          contentName: 'Google My Business Lead',
+        });
+      } catch (conversionError) {
+        console.warn('Conversion API tracking failed:', conversionError);
       }
 
       setFormStatus({

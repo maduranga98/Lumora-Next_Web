@@ -13,6 +13,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { getFunctions, httpsCallable } from "firebase/functions";
 import { getApps } from "firebase/app";
+import { trackCompleteRegistration } from "../lib/conversionsApi";
+import { usePageView } from "../lib/usePageView";
 
 const firebaseConfig = {
   apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
@@ -193,18 +195,34 @@ function CheckoutForm({ formData }) {
   };
 
   // Add this function to show a better success message
-  const showSuccessMessage = () => {
+  const showSuccessMessage = async () => {
+    // Track CompleteRegistration conversion event
+    try {
+      const nameParts = formData.fullName.trim().split(' ');
+      await trackCompleteRegistration({
+        email: formData.email,
+        phone: formData.phone || null,
+        firstName: nameParts[0] || null,
+        lastName: nameParts.length > 1 ? nameParts.slice(1).join(' ') : null,
+        value: 150,
+        currency: 'USD',
+        status: 'completed',
+      });
+    } catch (conversionError) {
+      console.warn('Conversion API tracking failed:', conversionError);
+    }
+
     // Create a custom modal or alert with more details
     const successMessage = `
       Thank you for subscribing to our Professional GBP Management service!
-      
+
       Your payment was successful and your subscription has been activated.
-      
+
       What happens next:
       • You'll receive an email confirmation shortly
       • Our team will contact you within 24 hours to begin the onboarding process
       • We'll work with you to set up and optimize your Google Business Profile
-      
+
       If you have any questions, please contact us at info@lumoraventures.com
     `;
 
@@ -447,6 +465,14 @@ export default function PaymentPage() {
     businessName: "",
     businessAddress: "",
     website: "",
+  });
+
+  // Track page view with Facebook Conversions API
+  usePageView({
+    contentName: 'GBP Service Payment Page',
+    contentCategory: 'Checkout',
+    contentIds: ['gbp-subscription'],
+    value: 150
   });
 
   // Only render full content after component has mounted on client

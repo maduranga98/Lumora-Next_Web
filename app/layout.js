@@ -69,6 +69,9 @@ export const metadata = {
   },
   verification: {
     google: "PUM4vN_Owfm40PwBN31rUydM45YQAm5i7VONVly6w0M",
+    other: {
+      "facebook-domain-verification": ["haw9zmc996l7up42l8cg2h651q27iv"],
+    },
   },
   alternates: {
     canonical: "https://www.lumoraventures.com",

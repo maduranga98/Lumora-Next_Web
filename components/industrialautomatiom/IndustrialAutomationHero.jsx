@@ -58,25 +58,13 @@ const IndustrialAutomationHero = () => {
 
       <section
         id="home"
-        className="relative min-h-screen bg-black overflow-hidden"
+        className="relative min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-slate-900 overflow-hidden"
         aria-labelledby="hero-heading"
       >
         {/* Background Elements - marked as decorative */}
         <div className="absolute inset-0" aria-hidden="true">
-          <div className="absolute top-1/4 left-1/4 w-48 sm:w-64 md:w-80 lg:w-96 h-48 sm:h-64 md:h-80 lg:h-96 bg-blue-500/20 rounded-full blur-[100px] md:blur-[150px]" />
+          <div className="absolute top-1/4 left-1/4 w-48 sm:w-64 md:w-80 lg:w-96 h-48 sm:h-64 md:h-80 lg:h-96 bg-blue-400/20 rounded-full blur-[100px] md:blur-[150px]" />
           <div className="absolute bottom-1/4 right-1/4 w-32 sm:w-40 md:w-52 lg:w-64 h-32 sm:h-40 md:h-52 lg:h-64 bg-cyan-400/20 rounded-full blur-[80px] md:blur-[100px]" />
-        </div>
-
-        {/* Grid Background - marked as decorative */}
-        <div className="absolute inset-0 opacity-10" aria-hidden="true">
-          <div
-            className="h-full w-full"
-            style={{
-              backgroundImage: `linear-gradient(to right, rgb(34, 197, 94, 0.1) 1px, transparent 1px),
-                            linear-gradient(to bottom, rgb(34, 197, 94, 0.1) 1px, transparent 1px)`,
-              backgroundSize: "4rem 4rem",
-            }}
-          />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-24 flex items-center min-h-screen">

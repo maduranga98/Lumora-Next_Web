@@ -122,29 +122,19 @@ const ServiceOverview = () => {
 
       <section
         id="service-overview"
-        className="relative bg-black py-20 lg:py-32 overflow-hidden"
+        className="relative bg-white py-20 lg:py-32 overflow-hidden"
         aria-labelledby="services-heading"
       >
-        {/* Background Elements - marked as decorative */}
-        <div
-          className="absolute top-1/4 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-[150px]"
-          aria-hidden="true"
-        />
-        <div
-          className="absolute bottom-1/4 left-1/4 w-72 h-72 bg-blue-500/10 rounded-full blur-[120px]"
-          aria-hidden="true"
-        />
-
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8">
           <AnimatedSection>
             <header className="mb-12 text-center">
               <h2
                 id="services-heading"
-                className="text-3xl md:text-4xl font-bold text-white mb-4"
+                className="text-3xl md:text-4xl font-bold text-blue-900 mb-4"
               >
                 Industrial Automation Services
               </h2>
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
                 Comprehensive automation solutions designed to transform
                 manufacturing operations and drive operational excellence.
               </p>
@@ -156,15 +146,9 @@ const ServiceOverview = () => {
             {services.map((service, index) => (
               <StaggerItem key={index}>
                 <li
-                  className="group relative bg-black/40 backdrop-blur-sm border border-blue-400/20 rounded-lg p-8 hover:border-blue-400/50 transition-all duration-300 hover:translate-y-[-4px]"
+                  className="group relative bg-white border border-gray-200 rounded-xl p-8 hover:border-blue-300 hover:shadow-lg transition-all duration-300 hover:translate-y-[-4px]"
                   role="listitem"
                 >
-                {/* Gradient Background on Hover */}
-                <div
-                  className={`absolute inset-0 rounded-lg bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}
-                  aria-hidden="true"
-                />
-
                 <div className="relative z-10">
                   <span
                     className="text-4xl mb-4"
@@ -173,10 +157,10 @@ const ServiceOverview = () => {
                   >
                     {service.icon}
                   </span>
-                  <h3 className="text-xl font-bold text-white mb-3">
+                  <h3 className="text-xl font-bold text-gray-900 mb-3">
                     {service.title}
                   </h3>
-                  <p className="text-gray-400 leading-relaxed">
+                  <p className="text-gray-600 leading-relaxed">
                     {service.description}
                   </p>
                   <Link
@@ -184,7 +168,7 @@ const ServiceOverview = () => {
                     onClick={(e) =>
                       scrollToSection(service.link.substring(1), e)
                     }
-                    className="mt-4 inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors"
+                    className="mt-4 inline-flex items-center text-blue-600 hover:text-blue-700 transition-colors"
                     aria-label={service.ariaLabel}
                   >
                     Learn more
@@ -204,42 +188,20 @@ const ServiceOverview = () => {
                     </svg>
                   </Link>
                 </div>
-
-                {/* Corner Decorations */}
-                <div
-                  className="absolute top-0 right-0 w-16 h-16 overflow-hidden"
-                  aria-hidden="true"
-                >
-                  <div className="absolute top-[-8px] right-[-8px] w-8 h-8 bg-blue-400/10 rounded-full transform rotate-45" />
-                </div>
               </li>
               </StaggerItem>
             ))}
           </StaggerContainer>
 
-          {/* CTA Section with better semantic structure */}
+          {/* CTA Section */}
           <AnimatedSection variant="fadeUp" delay={0.2}>
-          <div className="relative bg-gradient-to-br from-blue-900/80 via-indigo-900/60 to-black/80 backdrop-blur-sm border border-blue-400/30 rounded-lg p-8 lg:p-12 overflow-hidden">
-            {/* Decorative Elements */}
-            <div
-              className="absolute top-0 left-0 w-32 h-32 overflow-hidden"
-              aria-hidden="true"
-            >
-              <div className="absolute top-[-16px] left-[-16px] w-16 h-16 bg-cyan-400/10 rounded-full" />
-            </div>
-            <div
-              className="absolute bottom-0 right-0 w-48 h-48 overflow-hidden"
-              aria-hidden="true"
-            >
-              <div className="absolute bottom-[-24px] right-[-24px] w-24 h-24 bg-blue-400/10 rounded-full" />
-            </div>
-
+          <div className="relative bg-blue-900 rounded-xl p-8 lg:p-12 overflow-hidden">
             <div className="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between">
               <div className="mb-8 lg:mb-0">
                 <h2 className="text-2xl lg:text-3xl font-bold text-white mb-4">
                   Ready for Industry 5.0 Automation Transformation?
                 </h2>
-                <p className="text-lg text-gray-300 max-w-2xl">
+                <p className="text-lg text-blue-100 max-w-2xl">
                   Partner with Lumora Ventures to implement industrial
                   automation solutions that deliver up to 200% ROI within 18
                   months for your manufacturing facility.
@@ -249,7 +211,7 @@ const ServiceOverview = () => {
               <Link
                 href="#contact"
                 onClick={(e) => scrollToSection("contact", e)}
-                className="inline-flex items-center px-8 py-4 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 group"
+                className="inline-flex items-center px-8 py-4 bg-white text-blue-900 font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 hover:bg-blue-50 group"
                 aria-label="Schedule a free industrial automation consultation"
               >
                 Schedule Free Consultation
@@ -272,40 +234,6 @@ const ServiceOverview = () => {
           </div>
           </AnimatedSection>
         </div>
-
-        {/* Circuit Pattern - marked as decorative */}
-        <svg
-          className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none"
-          viewBox="0 0 1000 1000"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-        >
-          <title>Circuit Pattern Background</title>
-          <desc>
-            Decorative circuit board pattern representing industrial automation
-            technology
-          </desc>
-          <defs>
-            <pattern
-              id="circuit"
-              x="0"
-              y="0"
-              width="100"
-              height="100"
-              patternUnits="userSpaceOnUse"
-            >
-              <path
-                d="M0 50h50v50h50M50 0v50h50"
-                stroke="currentColor"
-                strokeWidth="2"
-                className="text-blue-400"
-                fill="none"
-              />
-              <circle cx="50" cy="50" r="5" className="fill-cyan-400" />
-            </pattern>
-          </defs>
-          <rect x="0" y="0" width="1000" height="1000" fill="url(#circuit)" />
-        </svg>
       </section>
     </>
   );

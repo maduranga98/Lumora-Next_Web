@@ -142,9 +142,9 @@ const MaintenanceSolutions = () => {
 
   // Define CSS classes for static and interactive elements
   const frameItemBaseClass =
-    "relative bg-black/40 backdrop-blur-sm border border-green-400/20 rounded-lg p-8 transition-all duration-300";
+    "relative bg-white border border-gray-200 rounded-xl p-8 transition-all duration-300";
   const frameItemHoverClass = isMounted
-    ? "hover:border-green-400/50 group"
+    ? "hover:border-green-400 hover:shadow-lg group"
     : "";
   const frameItemClass = `${frameItemBaseClass} ${frameItemHoverClass}`;
 
@@ -176,23 +176,23 @@ const MaintenanceSolutions = () => {
 
       <section
         id="maintenance"
-        className="relative bg-black py-20 lg:py-32 overflow-hidden"
+        className="relative bg-white py-20 lg:py-32 overflow-hidden"
         aria-labelledby="maintenance-heading"
       >
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8">
-          {/* Hero Section with semantic HTML */}
+          {/* Hero Section */}
           <header className="text-center mb-16 lg:mb-24">
             <h2
               id="maintenance-heading"
-              className="text-3xl lg:text-5xl font-bold text-white mb-6"
+              className="text-3xl lg:text-5xl font-bold text-blue-900 mb-6"
             >
               Zero Downtime Guarantee for Industrial Automation
               <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-300">
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-500 to-emerald-600">
                 Proactive Maintenance for Continuous Manufacturing Operations
               </span>
             </h2>
-            <p className="text-lg lg:text-xl text-gray-400 max-w-4xl mx-auto mb-8">
+            <p className="text-lg lg:text-xl text-gray-600 max-w-4xl mx-auto mb-8">
               Our predictive maintenance ecosystem ensures 99.95% system
               availability through AI-driven monitoring and rapid-response
               engineering support for industrial control systems and
@@ -222,11 +222,11 @@ const MaintenanceSolutions = () => {
             </Link>
           </header>
 
-          {/* Smart Maintenance Framework - with semantic list structure */}
+          {/* Smart Maintenance Framework */}
           <section aria-labelledby="framework-heading" className="mb-24">
             <h3
               id="framework-heading"
-              className="text-2xl lg:text-3xl font-bold text-white mb-16 text-center"
+              className="text-2xl lg:text-3xl font-bold text-blue-900 mb-16 text-center"
             >
               Industrial Automation Smart Maintenance Framework
             </h3>
@@ -254,11 +254,11 @@ const MaintenanceSolutions = () => {
                     >
                       {item.icon}
                     </span>
-                    <h4 className="text-xl font-bold text-white mb-3">
+                    <h4 className="text-xl font-bold text-gray-900 mb-3">
                       {item.title}
                     </h4>
-                    <p className="text-gray-400 mb-4">{item.description}</p>
-                    <div className="inline-flex items-center gap-2 text-green-400 font-semibold mb-4">
+                    <p className="text-gray-600 mb-4">{item.description}</p>
+                    <div className="inline-flex items-center gap-2 text-green-600 font-semibold mb-4">
                       <svg
                         className="w-5 h-5"
                         fill="none"
@@ -280,7 +280,7 @@ const MaintenanceSolutions = () => {
                       <Link
                         href="#contact"
                         onClick={(e) => scrollToSection("contact", e)}
-                        className="inline-flex items-center text-sm text-green-400 hover:text-green-300 transition-colors"
+                        className="inline-flex items-center text-sm text-green-600 hover:text-green-700 transition-colors"
                         aria-label={`Get industrial maintenance plan for ${
                           item.title.split(" ")[0]
                         } ${item.title.split(" ")[1]}`}
@@ -308,15 +308,15 @@ const MaintenanceSolutions = () => {
             </ul>
           </section>
 
-          {/* Response Performance - with better semantic structure */}
+          {/* Response Performance */}
           <section aria-labelledby="performance-heading" className="mb-12">
             <h3
               id="performance-heading"
-              className="text-2xl lg:text-3xl font-bold text-white mb-4 text-center"
+              className="text-2xl lg:text-3xl font-bold text-blue-900 mb-4 text-center"
             >
               Industrial Automation Response Performance
             </h3>
-            <p className="text-gray-400 text-center mb-16">
+            <p className="text-gray-600 text-center mb-16">
               Our commitment to continuous manufacturing operations and
               minimizing downtime
             </p>
@@ -325,7 +325,7 @@ const MaintenanceSolutions = () => {
               {responseMetrics.map((metric, index) => (
                 <li
                   key={index}
-                  className="relative bg-gradient-to-br from-gray-900/80 to-black/80 backdrop-blur-sm border border-blue-400/30 rounded-lg p-8 text-center overflow-hidden"
+                  className="relative bg-blue-900 rounded-xl p-8 text-center overflow-hidden"
                   role="listitem"
                 >
                   <div className="relative z-10">
@@ -339,19 +339,13 @@ const MaintenanceSolutions = () => {
                     <div className="text-4xl lg:text-5xl font-bold text-white mb-2">
                       {metric.value}
                     </div>
-                    <div className="text-lg font-semibold text-blue-400 mb-1">
+                    <div className="text-lg font-semibold text-blue-200 mb-1">
                       {metric.title}
                     </div>
-                    <div className="text-gray-400 mb-4">
+                    <div className="text-blue-300 mb-4">
                       {metric.description}
                     </div>
                   </div>
-
-                  {/* Decorative corner - marked as decorative */}
-                  <div
-                    className="absolute top-0 right-0 w-24 h-24 rounded-full bg-blue-500/10 transform translate-x-12 -translate-y-12"
-                    aria-hidden="true"
-                  />
                 </li>
               ))}
             </ul>
@@ -360,7 +354,7 @@ const MaintenanceSolutions = () => {
               <Link
                 href="#contact"
                 onClick={(e) => scrollToSection("contact", e)}
-                className="inline-flex items-center px-6 py-3 border border-blue-400 hover:bg-blue-600/20 text-blue-400 font-medium rounded-lg transition-all duration-300 transform hover:scale-105 group text-sm"
+                className="inline-flex items-center px-6 py-3 bg-blue-900 hover:bg-blue-800 text-white font-medium rounded-lg transition-all duration-300 transform hover:scale-105 group text-sm"
                 aria-label="Schedule an industrial automation maintenance consultation"
               >
                 Schedule Industrial Maintenance Consultation
@@ -382,15 +376,15 @@ const MaintenanceSolutions = () => {
             </div>
           </section>
 
-          {/* Availability Guarantee Visualization - with better semantic structure */}
+          {/* Availability Guarantee */}
           <section
             aria-labelledby="availability-heading"
-            className="relative bg-gradient-to-br from-green-900/20 to-emerald-900/20 backdrop-blur-sm border border-green-400/30 rounded-lg p-8 lg:p-12 mt-24 overflow-hidden"
+            className="relative bg-green-50 border border-green-200 rounded-xl p-8 lg:p-12 mt-24 overflow-hidden"
           >
             <div className="relative z-10 text-center">
               <h3
                 id="availability-heading"
-                className="text-2xl lg:text-3xl font-bold text-white mb-6"
+                className="text-2xl lg:text-3xl font-bold text-gray-900 mb-6"
               >
                 99.95% Industrial Automation System Availability
               </h3>
@@ -402,11 +396,11 @@ const MaintenanceSolutions = () => {
                 aria-valuemax="100"
                 aria-label="System availability percentage"
               >
-                <div className="h-2 w-full max-w-2xl bg-gray-700 rounded-full overflow-hidden">
-                  <div className="h-full w-[99.95%] bg-gradient-to-r from-green-400 to-emerald-400 rounded-full" />
+                <div className="h-2 w-full max-w-2xl bg-gray-200 rounded-full overflow-hidden">
+                  <div className="h-full w-[99.95%] bg-gradient-to-r from-green-500 to-emerald-500 rounded-full" />
                 </div>
               </div>
-              <p className="text-gray-400 text-lg mb-8">
+              <p className="text-gray-600 text-lg mb-8">
                 That means less than 22 hours of manufacturing downtime per year
                 for your industrial control systems
               </p>
@@ -446,45 +440,6 @@ const MaintenanceSolutions = () => {
             />
           </section>
         </div>
-
-        {/* Background Elements - marked as decorative */}
-        <div
-          className="absolute top-0 right-0 w-96 h-96 bg-green-500/10 rounded-full blur-[150px]"
-          aria-hidden="true"
-        />
-        <div
-          className="absolute bottom-0 left-0 w-72 h-72 bg-emerald-500/10 rounded-full blur-[120px]"
-          aria-hidden="true"
-        />
-
-        {/* Heartbeat Pattern - with accessibility improvements */}
-        <svg
-          className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none"
-          viewBox="0 0 1200 1200"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-          role="presentation"
-        >
-          <title>Industrial System Heartbeat Pattern</title>
-          <desc>
-            Decorative heartbeat line pattern representing industrial system
-            uptime monitoring
-          </desc>
-          <path
-            d="M0,600 L200,600 C220,600 240,580 260,560 C280,540 300,560 320,580 C340,600 360,620 380,620 L600,620"
-            className="stroke-green-400"
-            strokeWidth="6"
-            fill="none"
-            opacity="0.7"
-          />
-          <path
-            d="M600,620 L800,620 C820,620 840,600 860,580 C880,560 900,580 920,600 C940,620 960,640 980,640 L1200,640"
-            className="stroke-emerald-400"
-            strokeWidth="6"
-            fill="none"
-            opacity="0.7"
-          />
-        </svg>
       </section>
     </>
   );

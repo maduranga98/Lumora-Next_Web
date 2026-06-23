@@ -439,7 +439,6 @@ exports.sendContactEmail = onCall(
   {
     region: "us-central1",
     timeoutSeconds: 60,
-    secrets: ["EMAIL_USER", "EMAIL_PASS"],
   },
   async (request) => {
     const { name, email, service, message, formSource } = request.data || {};

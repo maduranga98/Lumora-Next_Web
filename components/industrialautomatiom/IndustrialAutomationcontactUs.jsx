@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-// Direct imports from firebase/firestore
 import {
   getFirestore,
   collection,
   addDoc,
   serverTimestamp,
 } from "firebase/firestore";
+import { getFunctions, httpsCallable } from "firebase/functions";
 import { app } from "../../app/lib/firebase";
 
 const ContactUs = () => {
@@ -68,29 +68,23 @@ const ContactUs = () => {
         status: "new",
       });
 
-      // Send email notification
+      // Send email notification via Firebase Function
       try {
-        // Format the service for the email
         const serviceForEmail =
           formData.service === "Other"
             ? `Other - ${formData.otherService}`
             : formData.service;
 
-        await fetch("/api/send-email", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            name: formData.name,
-            email: formData.email,
-            service: `Automation - ${serviceForEmail}`,
-            message: formData.message,
-            formSource: "Automation Services Page",
-          }),
+        const functions = getFunctions(app);
+        const sendContactEmail = httpsCallable(functions, "sendContactEmail");
+        await sendContactEmail({
+          name: formData.name,
+          email: formData.email,
+          service: `Automation - ${serviceForEmail}`,
+          message: formData.message,
+          formSource: "Automation Services Page",
         });
       } catch (emailError) {
-        // Log error but don't fail the submission
         console.warn(
           "Email notification failed but data was saved:",
           emailError

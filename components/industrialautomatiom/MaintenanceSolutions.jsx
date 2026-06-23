@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Script from "next/script";
+import { TrendingUp, Zap, Search, Activity, Clock, Shield } from "lucide-react";
 
 const MaintenanceSolutions = () => {
   // Add mounted state to control hydration
@@ -69,7 +70,7 @@ const MaintenanceSolutions = () => {
 
   const maintenanceFramework = [
     {
-      icon: "📈",
+      icon: <TrendingUp className="w-6 h-6 text-green-600" />,
       title: "Predictive HMI Care for Industrial Controls",
       description:
         "AI-optimized interface health monitoring for manufacturing automation systems",
@@ -78,7 +79,7 @@ const MaintenanceSolutions = () => {
       ariaLabel: "Predictive HMI Care statistics",
     },
     {
-      icon: "⚡",
+      icon: <Zap className="w-6 h-6 text-blue-600" />,
       title: "VFD Longevity Programs for Manufacturing",
       description:
         "Motor control optimization cycles for industrial equipment maintenance",
@@ -87,7 +88,7 @@ const MaintenanceSolutions = () => {
       ariaLabel: "VFD Longevity Programs statistics",
     },
     {
-      icon: "🔍",
+      icon: <Search className="w-6 h-6 text-indigo-600" />,
       title: "Panel Integrity Checks for Control Systems",
       description:
         "Thermal imaging & connection diagnostics for industrial automation reliability",
@@ -102,21 +103,21 @@ const MaintenanceSolutions = () => {
       value: "2h",
       title: "Critical Response for Industrial Systems",
       description: "Avg. Onsite Time for Manufacturing Equipment",
-      icon: "🚀",
+      icon: <Activity className="w-7 h-7 text-white" />,
       ariaLabel: "Critical Response Time icon",
     },
     {
       value: "15m",
       title: "Remote Support for Automation Issues",
       description: "First Response to Industrial Control Failures",
-      icon: "⏱️",
+      icon: <Clock className="w-7 h-7 text-white" />,
       ariaLabel: "Remote Support Time icon",
     },
     {
       value: "365",
       title: "Days/Year Industrial Coverage",
       description: "Complete Manufacturing Maintenance Coverage",
-      icon: "🛡️",
+      icon: <Shield className="w-7 h-7 text-white" />,
       ariaLabel: "Year-round Coverage icon",
     },
   ];
@@ -247,13 +248,9 @@ const MaintenanceSolutions = () => {
                   />
 
                   <div className="relative z-10">
-                    <span
-                      className="text-4xl mb-4 block"
-                      role="img"
-                      aria-label={item.ariaLabel}
-                    >
+                    <div className="w-12 h-12 rounded-xl bg-green-100 flex items-center justify-center mb-4">
                       {item.icon}
-                    </span>
+                    </div>
                     <h4 className="text-xl font-bold text-gray-900 mb-3">
                       {item.title}
                     </h4>
@@ -329,13 +326,9 @@ const MaintenanceSolutions = () => {
                   role="listitem"
                 >
                   <div className="relative z-10">
-                    <span
-                      className="text-4xl mb-4 block"
-                      role="img"
-                      aria-label={metric.ariaLabel}
-                    >
+                    <div className="flex justify-center mb-4" aria-hidden="true">
                       {metric.icon}
-                    </span>
+                    </div>
                     <div className="text-4xl lg:text-5xl font-bold text-white mb-2">
                       {metric.value}
                     </div>

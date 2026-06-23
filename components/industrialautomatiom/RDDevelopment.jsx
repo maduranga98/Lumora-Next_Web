@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import Script from "next/script";
+import { Brain, Bot, Globe } from "lucide-react";
 import AnimatedSection, {
   StaggerContainer,
   StaggerItem,
@@ -91,25 +92,22 @@ const RDDevelopment = () => {
 
   const advancedTechnologies = [
     {
-      icon: "🧠",
+      icon: <Brain className="w-6 h-6 text-blue-600" />,
       title: "Cognitive HMI Systems",
       description:
         "Self-optimizing interfaces with predictive analytics for manufacturing process optimization and operator efficiency",
-      ariaLabel: "Cognitive HMI Systems icon",
     },
     {
-      icon: "🤖",
+      icon: <Bot className="w-6 h-6 text-blue-600" />,
       title: "AI-Driven VFD Controllers",
       description:
         "Neural network-optimized motor control algorithms for industrial efficiency and energy consumption reduction",
-      ariaLabel: "AI-Driven VFD Controllers icon",
     },
     {
-      icon: "🌐",
+      icon: <Globe className="w-6 h-6 text-blue-600" />,
       title: "Cyber-Physical Prototypes",
       description:
         "Digital twin-integrated control architectures for advanced industrial automation and smart manufacturing",
-      ariaLabel: "Cyber-Physical Prototypes icon",
     },
   ];
 
@@ -262,13 +260,9 @@ const RDDevelopment = () => {
                   role="listitem"
                 >
                   <div className="relative z-10">
-                    <span
-                      className="text-4xl mb-4"
-                      role="img"
-                      aria-label={tech.ariaLabel}
-                    >
+                    <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mb-4">
                       {tech.icon}
-                    </span>
+                    </div>
                     <h4 className="text-xl font-bold text-gray-900 mb-3">
                       {tech.title}
                     </h4>

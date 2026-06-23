@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import Script from "next/script";
 
 const IndustrialAutomationHero = () => {
@@ -58,13 +59,20 @@ const IndustrialAutomationHero = () => {
 
       <section
         id="home"
-        className="relative min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-slate-900 overflow-hidden"
+        className="relative min-h-screen overflow-hidden"
         aria-labelledby="hero-heading"
       >
-        {/* Background Elements - marked as decorative */}
+        {/* Background Image */}
         <div className="absolute inset-0" aria-hidden="true">
-          <div className="absolute top-1/4 left-1/4 w-48 sm:w-64 md:w-80 lg:w-96 h-48 sm:h-64 md:h-80 lg:h-96 bg-blue-400/20 rounded-full blur-[100px] md:blur-[150px]" />
-          <div className="absolute bottom-1/4 right-1/4 w-32 sm:w-40 md:w-52 lg:w-64 h-32 sm:h-40 md:h-52 lg:h-64 bg-cyan-400/20 rounded-full blur-[80px] md:blur-[100px]" />
+          <Image
+            src="/images/hero-industrial-automation.webp"
+            alt=""
+            fill
+            priority
+            className="object-cover"
+          />
+          {/* Dark overlay for text readability */}
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-900/85 via-blue-800/80 to-slate-900/90" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-32 md:pt-36 pb-12 sm:pb-16 md:pb-20 lg:pb-24 flex items-center min-h-screen">

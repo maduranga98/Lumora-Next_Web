@@ -3,6 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import Script from "next/script";
+import { Zap, FlaskConical, Shield } from "lucide-react";
 import AnimatedSection, {
   StaggerContainer,
   StaggerItem,
@@ -64,7 +65,7 @@ const ServiceOverview = () => {
 
   const services = [
     {
-      icon: "⚡",
+      icon: <Zap className="w-6 h-6 text-blue-600" />,
       title: "Industrial Automation & Control Systems",
       description:
         "Custom automation solutions with advanced PLC programming, HMI implementation, VFD integration, and comprehensive control panel design and wiring for manufacturing facilities.",
@@ -73,7 +74,7 @@ const ServiceOverview = () => {
       ariaLabel: "Learn more about our Industrial Automation & Control Systems",
     },
     {
-      icon: "🔬",
+      icon: <FlaskConical className="w-6 h-6 text-cyan-600" />,
       title: "R&D Innovation Labs",
       description:
         "Future-proof industrial automation technologies and system optimization research and development for improved manufacturing efficiency and productivity.",
@@ -82,7 +83,7 @@ const ServiceOverview = () => {
       ariaLabel: "Learn more about our R&D Innovation Labs",
     },
     {
-      icon: "🛡️",
+      icon: <Shield className="w-6 h-6 text-indigo-600" />,
       title: "Proactive Maintenance Solutions",
       description:
         "24/7 industrial equipment monitoring, predictive maintenance agreements, and real-time diagnostics to minimize downtime and extend equipment lifespan.",
@@ -150,13 +151,9 @@ const ServiceOverview = () => {
                   role="listitem"
                 >
                 <div className="relative z-10">
-                  <span
-                    className="text-4xl mb-4"
-                    role="img"
-                    aria-label={`${service.title} icon`}
-                  >
+                  <div className="w-12 h-12 rounded-xl bg-blue-50 flex items-center justify-center mb-5">
                     {service.icon}
-                  </span>
+                  </div>
                   <h3 className="text-xl font-bold text-gray-900 mb-3">
                     {service.title}
                   </h3>

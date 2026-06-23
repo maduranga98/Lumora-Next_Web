@@ -3,6 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { Cpu, Monitor, Zap, Settings } from "lucide-react";
 import AnimatedSection, {
   StaggerContainer,
   StaggerItem,
@@ -11,24 +12,24 @@ import AnimatedSection, {
 const IndustrialAutomationControl = () => {
   const features = [
     {
-      icon: "🔄",
+      icon: <Cpu className="w-5 h-5 text-blue-600" />,
       title: "PLC Programming",
       description:
         "Advanced ladder logic with modular programming and remote diagnostics capabilities",
     },
     {
-      icon: "💻",
+      icon: <Monitor className="w-5 h-5 text-blue-600" />,
       title: "HMI Programming",
       description:
         "Context-aware interfaces with augmented reality integration",
     },
     {
-      icon: "⚡",
+      icon: <Zap className="w-5 h-5 text-blue-600" />,
       title: "VFD Optimization",
       description: "AI-driven motor control with energy consumption analytics",
     },
     {
-      icon: "🔧",
+      icon: <Settings className="w-5 h-5 text-blue-600" />,
       title: "Panel Engineering",
       description: "IIoT-ready control panels with embedded diagnostics",
     },
@@ -151,7 +152,9 @@ const IndustrialAutomationControl = () => {
                   <div
                     className="bg-white border border-gray-200 rounded-lg p-4 hover:border-blue-300 hover:shadow-md transition-all duration-300 group"
                   >
-                    <div className="text-2xl mb-2">{feature.icon}</div>
+                    <div className="w-10 h-10 rounded-lg bg-blue-100 flex items-center justify-center mb-3">
+                      {feature.icon}
+                    </div>
                     <h4 className="text-base font-semibold text-gray-900 mb-1">
                       {feature.title}
                     </h4>

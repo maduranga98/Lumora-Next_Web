@@ -67,7 +67,7 @@ const IndustrialAutomationHero = () => {
           <div className="absolute bottom-1/4 right-1/4 w-32 sm:w-40 md:w-52 lg:w-64 h-32 sm:h-40 md:h-52 lg:h-64 bg-cyan-400/20 rounded-full blur-[80px] md:blur-[100px]" />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 md:py-20 lg:py-24 flex items-center min-h-screen">
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-32 md:pt-36 pb-12 sm:pb-16 md:pb-20 lg:pb-24 flex items-center min-h-screen">
           <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center w-full">
             {/* Text Content with semantic structure */}
             <div className="text-center lg:text-left">
@@ -85,7 +85,7 @@ const IndustrialAutomationHero = () => {
               </motion.h1>
 
               <motion.p
-                className="text-base sm:text-lg md:text-xl lg:text-xl xl:text-xl xl:text-2xl text-gray-400 mb-6 sm:mb-8 max-w-xl lg:max-w-2xl mx-auto lg:mx-0"
+                className="text-base sm:text-lg md:text-xl lg:text-xl xl:text-xl xl:text-2xl text-blue-100 mb-6 sm:mb-8 max-w-xl lg:max-w-2xl mx-auto lg:mx-0"
                 initial={{ opacity: 0, y: 30 }}
                 animate={isMounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
                 transition={{ duration: 0.6, delay: 0.25, ease: [0.25, 0.1, 0.25, 1] }}

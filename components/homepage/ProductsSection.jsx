@@ -148,22 +148,6 @@ const ProductsSection = () => {
       status: "ACTIVE",
       metrics: ["0% Returns", "Zero Theft", "99.5% Inventory Accuracy"],
     },
-    {
-      name: "BPRS",
-      shortDesc: "Bakery AI-powered billing and recognition",
-      fullDesc:
-        "Revolutionary edge computing device that recognizes bakery items and generates bills in 2-3 seconds using computer vision. Transform peak-hour chaos into seamless service with 80% queue reduction and instant billing.",
-      image: "/images/products/product-bprs.avif",
-      features: [
-        "2-3 second billing with AI recognition",
-        "98%+ product identification accuracy",
-        "Works completely offline (edge computing)",
-        "Handles 200+ product categories",
-      ],
-      audience: "Bakeries, cafeterias, food courts, QSR",
-      status: "BETA TESTING",
-      metrics: ["2-3 Seconds", "98% Accuracy", "80% Queue Reduction"],
-    },
   ];
 
   return (

@@ -213,24 +213,24 @@ const RDDevelopment = () => {
 
       <section
         id="rd"
-        className="relative bg-black py-20 lg:py-32 overflow-hidden"
+        className="relative bg-gray-50 py-20 lg:py-32 overflow-hidden"
         aria-labelledby="rd-heading"
       >
         <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8">
-          {/* Hero Section with semantic HTML */}
+          {/* Hero Section */}
           <AnimatedSection>
             <header className="text-center mb-20">
               <h2
                 id="rd-heading"
-                className="text-3xl lg:text-5xl font-bold text-white mb-6"
+                className="text-3xl lg:text-5xl font-bold text-blue-900 mb-6"
               >
                 Industrial Control Systems Innovation
                 <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
                   Where Industrial Automation Meets Tomorrow's Manufacturing
                 </span>
               </h2>
-              <p className="text-lg lg:text-xl text-gray-400 max-w-4xl mx-auto">
+              <p className="text-lg lg:text-xl text-gray-600 max-w-4xl mx-auto">
                 Pioneering next-generation control architectures through advanced
                 research and development in industrial automation, cyber-physical
                 systems, and intelligent process optimization for manufacturing
@@ -239,16 +239,16 @@ const RDDevelopment = () => {
             </header>
           </AnimatedSection>
 
-          {/* Advanced Control Technologies - with semantic list structure */}
+          {/* Advanced Control Technologies */}
           <section aria-labelledby="advanced-tech-heading" className="mb-24">
             <AnimatedSection>
               <h3
                 id="advanced-tech-heading"
-                className="text-2xl lg:text-3xl font-bold text-white mb-4 text-center"
+                className="text-2xl lg:text-3xl font-bold text-blue-900 mb-4 text-center"
               >
                 Advanced Industrial Control Technologies
               </h3>
-              <p className="text-lg text-gray-400 text-center mb-12">
+              <p className="text-lg text-gray-600 text-center mb-12">
                 Our industrial automation R&D lab develops adaptive control
                 systems featuring:
               </p>
@@ -258,14 +258,9 @@ const RDDevelopment = () => {
               {advancedTechnologies.map((tech, index) => (
                 <StaggerItem key={index}>
                 <li
-                  className="relative group bg-black/40 backdrop-blur-sm border border-blue-400/20 rounded-lg p-8 hover:border-blue-400/50 transition-all duration-300"
+                  className="relative group bg-white border border-gray-200 rounded-xl p-8 hover:border-blue-300 hover:shadow-lg transition-all duration-300"
                   role="listitem"
                 >
-                  <div
-                    className="absolute inset-0 rounded-lg bg-gradient-to-br from-blue-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                    aria-hidden="true"
-                  />
-
                   <div className="relative z-10">
                     <span
                       className="text-4xl mb-4"
@@ -274,10 +269,10 @@ const RDDevelopment = () => {
                     >
                       {tech.icon}
                     </span>
-                    <h4 className="text-xl font-bold text-white mb-3">
+                    <h4 className="text-xl font-bold text-gray-900 mb-3">
                       {tech.title}
                     </h4>
-                    <p className="text-gray-400">{tech.description}</p>
+                    <p className="text-gray-600">{tech.description}</p>
                   </div>
                 </li>
                 </StaggerItem>
@@ -285,11 +280,11 @@ const RDDevelopment = () => {
             </StaggerContainer>
           </section>
 
-          {/* Innovation Metrics - with better semantic structure */}
+          {/* Innovation Metrics */}
           <section aria-labelledby="metrics-heading" className="mb-24">
             <h3
               id="metrics-heading"
-              className="text-2xl lg:text-3xl font-bold text-white mb-16 text-center"
+              className="text-2xl lg:text-3xl font-bold text-blue-900 mb-16 text-center"
             >
               Industrial Automation Innovation Metrics
             </h3>
@@ -298,30 +293,25 @@ const RDDevelopment = () => {
               {innovationMetrics.map((metric, index) => (
                 <li
                   key={index}
-                  className="relative bg-black/60 backdrop-blur-sm border border-blue-400/30 rounded-lg p-8 text-center overflow-hidden"
+                  className="relative bg-blue-900 rounded-xl p-8 text-center overflow-hidden"
                   role="listitem"
                 >
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-br ${metric.gradient} opacity-10`}
-                    aria-hidden="true"
-                  />
-
                   <div className="relative z-10">
                     <div className="text-4xl lg:text-5xl font-bold text-white mb-3">
                       {metric.value}
                     </div>
-                    <div className="text-gray-400">{metric.label}</div>
+                    <div className="text-blue-200">{metric.label}</div>
                   </div>
                 </li>
               ))}
             </ul>
           </section>
 
-          {/* R&D Methodology - with semantic list and proper labeling */}
+          {/* R&D Methodology */}
           <section aria-labelledby="methodology-heading" className="mb-24">
             <h3
               id="methodology-heading"
-              className="text-2xl lg:text-3xl font-bold text-white mb-16 text-center"
+              className="text-2xl lg:text-3xl font-bold text-blue-900 mb-16 text-center"
             >
               Industrial Automation R&D Methodology
             </h3>
@@ -330,7 +320,7 @@ const RDDevelopment = () => {
               {methodology.map((step, index) => (
                 <li
                   key={index}
-                  className="relative bg-gradient-to-br from-blue-900/20 to-indigo-900/20 backdrop-blur-sm border border-blue-400/20 rounded-lg p-6 hover:border-blue-400/50 transition-all duration-300"
+                  className="relative bg-white border border-gray-200 rounded-xl p-6 hover:border-blue-300 hover:shadow-md transition-all duration-300"
                   role="listitem"
                 >
                   <div className="flex items-start gap-4">
@@ -341,10 +331,10 @@ const RDDevelopment = () => {
                       <span className="text-white font-bold">{step.phase}</span>
                     </div>
                     <div>
-                      <h4 className="text-lg font-bold text-white mb-2">
+                      <h4 className="text-lg font-bold text-gray-900 mb-2">
                         {step.title}
                       </h4>
-                      <p className="text-gray-400 text-sm">
+                      <p className="text-gray-600 text-sm">
                         {step.description}
                       </p>
                     </div>
@@ -354,11 +344,11 @@ const RDDevelopment = () => {
             </ol>
           </section>
 
-          {/* Industry Impact - with better semantic structure and links */}
+          {/* Industry Impact */}
           <section aria-labelledby="industry-impact-heading" className="mb-12">
             <h3
               id="industry-impact-heading"
-              className="text-2xl lg:text-3xl font-bold text-white mb-16 text-center"
+              className="text-2xl lg:text-3xl font-bold text-blue-900 mb-16 text-center"
             >
               Industrial Automation R&D Impact by Sector
             </h3>
@@ -370,7 +360,7 @@ const RDDevelopment = () => {
               {industryImpact.map((impact, index) => (
                 <li
                   key={index}
-                  className="group relative bg-black/50 backdrop-blur-sm border border-cyan-400/20 rounded-lg p-6 hover:border-cyan-400/50 transition-all duration-300 overflow-hidden"
+                  className="group relative bg-white border border-gray-200 rounded-xl p-6 hover:border-blue-300 hover:shadow-md transition-all duration-300 overflow-hidden"
                   role="listitem"
                 >
                   <div
@@ -379,14 +369,14 @@ const RDDevelopment = () => {
                   />
 
                   <div className="relative z-10">
-                    <h4 className="text-lg font-bold text-white mb-3">
+                    <h4 className="text-lg font-bold text-gray-900 mb-3">
                       {impact.sector} Industrial Applications
                     </h4>
-                    <p className="text-gray-400">{impact.solution}</p>
+                    <p className="text-gray-600">{impact.solution}</p>
                     <Link
                       href="#contact"
                       onClick={(e) => scrollToSection("contact", e)}
-                      className="mt-4 inline-flex items-center text-xs text-blue-400 hover:text-blue-300 transition-colors"
+                      className="mt-4 inline-flex items-center text-xs text-blue-600 hover:text-blue-700 transition-colors"
                       aria-label={`Learn more about ${impact.solution} for ${impact.sector} applications`}
                     >
                       Explore {impact.sector} solutions
@@ -406,12 +396,6 @@ const RDDevelopment = () => {
                       </svg>
                     </Link>
                   </div>
-
-                  {/* Hover Effect - marked as decorative */}
-                  <div
-                    className="absolute -bottom-4 -right-4 w-24 h-24 rounded-full bg-cyan-400/5 transform scale-0 group-hover:scale-100 transition-transform duration-300"
-                    aria-hidden="true"
-                  />
                 </li>
               ))}
             </ul>
@@ -442,59 +426,6 @@ const RDDevelopment = () => {
             </div>
           </section>
         </div>
-
-        {/* Background Elements - marked as decorative */}
-        <div
-          className="absolute top-0 right-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-[150px]"
-          aria-hidden="true"
-        />
-        <div
-          className="absolute bottom-0 left-0 w-72 h-72 bg-blue-500/10 rounded-full blur-[120px]"
-          aria-hidden="true"
-        />
-
-        {/* DNA Helix Pattern - with accessibility attributes */}
-        <svg
-          className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none"
-          viewBox="0 0 1200 1200"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-          role="presentation"
-        >
-          <title>DNA Helix Pattern</title>
-          <desc>
-            Decorative DNA double helix pattern representing innovation and
-            research in industrial automation
-          </desc>
-          <path
-            d="M0,600 C200,500 400,700 600,600 C800,500 1000,700 1200,600"
-            fill="none"
-            stroke="url(#helixGradient)"
-            strokeWidth="40"
-            className="stroke-blue-500"
-          />
-          <path
-            d="M0,600 C200,700 400,500 600,600 C800,700 1000,500 1200,600"
-            fill="none"
-            stroke="url(#helixGradient)"
-            strokeWidth="40"
-            className="stroke-cyan-400"
-            transform="translate(0, 100)"
-          />
-          <defs>
-            <linearGradient
-              id="helixGradient"
-              x1="0%"
-              y1="0%"
-              x2="100%"
-              y2="0%"
-            >
-              <stop offset="0%" stopColor="currentColor" stopOpacity="0" />
-              <stop offset="50%" stopColor="currentColor" stopOpacity="0.3" />
-              <stop offset="100%" stopColor="currentColor" stopOpacity="0" />
-            </linearGradient>
-          </defs>
-        </svg>
       </section>
     </>
   );

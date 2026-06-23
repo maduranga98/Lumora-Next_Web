@@ -11,22 +11,13 @@ import AnimatedSection, {
 const InnovationSection = () => {
   const innovations = [
     {
-      name: "BPRS - Bakery AI Recognition",
-      description: "2-3 second billing with computer vision",
-      metric: "80% queue reduction",
-      status: "Beta Testing",
-      statusColor: "bg-yellow-100 text-yellow-800",
-      image: "/images/innovation-bprs.avif",
-      imageAlt: "BPRS bakery AI recognition system",
-    },
-    {
-      name: "GymNex - Smart Gym System",
+      name: "PulsedGym - Smart Gym System",
       description: "ESP32-CAM face recognition attendance",
       metric: "Attendance automation",
       status: "Active Deployments",
       statusColor: "bg-green-100 text-green-800",
       image: "/images/innovation-gymnex.avif",
-      imageAlt: "GymNex face recognition attendance system",
+      imageAlt: "PulsedGym face recognition attendance system",
     },
   ];
 
@@ -42,7 +33,7 @@ const InnovationSection = () => {
 
         {/* 2-column innovation cards */}
         <StaggerContainer
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-12"
+          className="grid grid-cols-1 gap-8 max-w-2xl mx-auto mb-12"
           staggerDelay={0.15}
         >
           {innovations.map((item) => (

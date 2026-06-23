@@ -198,15 +198,15 @@ const ContactUs = () => {
   return (
     <section
       id="contact"
-      className="relative bg-black py-20 lg:py-32 overflow-hidden"
+      className="relative bg-gray-50 py-20 lg:py-32 overflow-hidden"
     >
       <div className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8">
         {/* Header */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-5xl font-bold text-white mb-6">
+          <h2 className="text-3xl lg:text-5xl font-bold text-blue-900 mb-6">
             Ready to Transform Your Operations?
           </h2>
-          <p className="text-lg lg:text-xl text-gray-400 max-w-3xl mx-auto">
+          <p className="text-lg lg:text-xl text-gray-600 max-w-3xl mx-auto">
             Get in touch with our automation experts and discover how we can
             revolutionize your industrial processes.
           </p>
@@ -214,11 +214,11 @@ const ContactUs = () => {
 
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Contact Form */}
-          <div className="relative bg-black/40 backdrop-blur-sm border border-blue-400/20 rounded-lg p-8 lg:p-10">
+          <div className="relative bg-white border border-gray-200 rounded-xl shadow-sm p-8 lg:p-10">
             <form onSubmit={handleSubmit} className="space-y-6">
               {/* Name Input */}
               <div>
-                <label htmlFor="name" className="block text-gray-400 mb-2">
+                <label htmlFor="name" className="block text-gray-600 mb-2">
                   Name
                 </label>
                 <input
@@ -228,7 +228,7 @@ const ContactUs = () => {
                   value={formData.name}
                   onChange={handleChange}
                   required
-                  className="w-full bg-black/50 border border-blue-400/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-400 transition-colors"
+                  className="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-colors"
                   placeholder="Your Name"
                   disabled={isSubmitting}
                 />
@@ -236,7 +236,7 @@ const ContactUs = () => {
 
               {/* Email Input */}
               <div>
-                <label htmlFor="email" className="block text-gray-400 mb-2">
+                <label htmlFor="email" className="block text-gray-600 mb-2">
                   Email
                 </label>
                 <input
@@ -246,7 +246,7 @@ const ContactUs = () => {
                   value={formData.email}
                   onChange={handleChange}
                   required
-                  className="w-full bg-black/50 border border-blue-400/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-400 transition-colors"
+                  className="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-colors"
                   placeholder="your.email@company.com"
                   disabled={isSubmitting}
                 />
@@ -254,7 +254,7 @@ const ContactUs = () => {
 
               {/* Service Selection Dropdown */}
               <div>
-                <label htmlFor="service" className="block text-gray-400 mb-2">
+                <label htmlFor="service" className="block text-gray-600 mb-2">
                   Service Interested In
                 </label>
                 <select
@@ -263,7 +263,7 @@ const ContactUs = () => {
                   value={formData.service}
                   onChange={handleChange}
                   required
-                  className="w-full bg-black/50 border border-blue-400/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-400 transition-colors appearance-none"
+                  className="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-colors appearance-none"
                   disabled={isSubmitting}
                 >
                   <option value="" disabled>
@@ -299,7 +299,7 @@ const ContactUs = () => {
                 <div>
                   <label
                     htmlFor="otherService"
-                    className="block text-gray-400 mb-2"
+                    className="block text-gray-600 mb-2"
                   >
                     Please Specify Service
                   </label>
@@ -310,7 +310,7 @@ const ContactUs = () => {
                     value={formData.otherService}
                     onChange={handleChange}
                     required
-                    className="w-full bg-black/50 border border-blue-400/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-400 transition-colors"
+                    className="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-colors"
                     placeholder="Please specify your service need"
                     disabled={isSubmitting}
                   />
@@ -319,7 +319,7 @@ const ContactUs = () => {
 
               {/* Message Input */}
               <div>
-                <label htmlFor="message" className="block text-gray-400 mb-2">
+                <label htmlFor="message" className="block text-gray-600 mb-2">
                   Message
                 </label>
                 <textarea
@@ -329,7 +329,7 @@ const ContactUs = () => {
                   onChange={handleChange}
                   required
                   rows="6"
-                  className="w-full bg-black/50 border border-blue-400/30 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-blue-400 transition-colors resize-none"
+                  className="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-colors resize-none"
                   placeholder="Tell us about your automation needs..."
                   disabled={isSubmitting}
                 />
@@ -406,14 +406,14 @@ const ContactUs = () => {
             {contactInfo.map((info, index) => (
               <div
                 key={index}
-                className="flex items-center gap-4 p-6 bg-black/40 backdrop-blur-sm border border-blue-400/20 rounded-lg hover:border-blue-400/50 transition-all duration-300"
+                className="flex items-center gap-4 p-6 bg-white border border-gray-200 rounded-xl hover:border-blue-300 hover:shadow-md transition-all duration-300"
               >
-                <div className="w-12 h-12 rounded-lg bg-blue-600/20 flex items-center justify-center text-blue-400">
+                <div className="w-12 h-12 rounded-lg bg-blue-100 flex items-center justify-center text-blue-600">
                   {info.icon}
                 </div>
                 <div>
-                  <div className="text-gray-400 text-sm">{info.label}</div>
-                  <div className="text-white text-lg font-semibold">
+                  <div className="text-gray-500 text-sm">{info.label}</div>
+                  <div className="text-gray-900 text-lg font-semibold">
                     {info.value}
                   </div>
                 </div>
@@ -421,30 +421,30 @@ const ContactUs = () => {
             ))}
 
             {/* Business Hours */}
-            <div className="p-6 bg-gradient-to-br from-blue-900/20 to-indigo-900/20 backdrop-blur-sm border border-blue-400/30 rounded-lg">
-              <h3 className="text-xl font-bold text-white mb-4">
+            <div className="p-6 bg-blue-50 border border-blue-100 rounded-xl">
+              <h3 className="text-xl font-bold text-blue-900 mb-4">
                 Business Hours
               </h3>
-              <div className="space-y-2 text-gray-400">
+              <div className="space-y-2 text-gray-600">
                 <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
                 <p>Saturday: 9:00 AM - 1:00 PM</p>
                 <p>Sunday: Closed</p>
-                <p className="text-blue-400 mt-4">
+                <p className="text-blue-600 mt-4">
                   24/7 Support: +94 76 916 4108
                 </p>
               </div>
             </div>
 
             {/* Services Overview */}
-            <div className="p-6 bg-gradient-to-br from-indigo-900/20 to-blue-900/20 backdrop-blur-sm border border-blue-400/30 rounded-lg">
-              <h3 className="text-xl font-bold text-white mb-4">
+            <div className="p-6 bg-blue-50 border border-blue-100 rounded-xl">
+              <h3 className="text-xl font-bold text-blue-900 mb-4">
                 Our Services
               </h3>
-              <ul className="space-y-2 text-gray-400">
+              <ul className="space-y-2 text-gray-600">
                 {availableServices.map((service, index) => (
                   <li key={index} className="flex items-center">
                     <svg
-                      className="w-4 h-4 mr-2 text-blue-400"
+                      className="w-4 h-4 mr-2 text-blue-600"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -465,43 +465,6 @@ const ContactUs = () => {
         </div>
       </div>
 
-      {/* Background Elements */}
-      <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-[150px]" />
-      <div className="absolute bottom-0 left-0 w-72 h-72 bg-indigo-500/10 rounded-full blur-[120px]" />
-
-      {/* Network Pattern */}
-      <svg
-        className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none"
-        viewBox="0 0 1200 1200"
-        preserveAspectRatio="none"
-      >
-        <pattern
-          id="contact-pattern"
-          x="0"
-          y="0"
-          width="100"
-          height="100"
-          patternUnits="userSpaceOnUse"
-        >
-          <circle cx="50" cy="50" r="2" className="fill-blue-400" />
-          <circle cx="0" cy="0" r="2" className="fill-blue-400" />
-          <circle cx="100" cy="100" r="2" className="fill-blue-400" />
-          <path
-            d="M0 50h50m0 0h50m0 0l-50 50M50 0v50m0 0v50"
-            stroke="currentColor"
-            strokeWidth="1"
-            className="text-blue-400/50"
-            fill="none"
-          />
-        </pattern>
-        <rect
-          x="0"
-          y="0"
-          width="1200"
-          height="1200"
-          fill="url(#contact-pattern)"
-        />
-      </svg>
     </section>
   );
 };

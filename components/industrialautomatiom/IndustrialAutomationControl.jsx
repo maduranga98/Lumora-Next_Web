@@ -77,15 +77,15 @@ const IndustrialAutomationControl = () => {
   ];
 
   return (
-    <section className="relative bg-black py-16 lg:py-24 overflow-hidden">
+    <section className="relative bg-gray-50 py-16 lg:py-24 overflow-hidden">
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Hero Section */}
         <AnimatedSection>
           <div className="text-center mb-12 lg:mb-16">
-            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-4 lg:mb-6">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-blue-900 mb-4 lg:mb-6">
               Precision Automation Engineered for Peak Performance
             </h2>
-            <p className="text-base lg:text-lg text-gray-400 max-w-3xl mx-auto mb-6 lg:mb-8">
+            <p className="text-base lg:text-lg text-gray-600 max-w-3xl mx-auto mb-6 lg:mb-8">
               Transform your industrial operations with cyber-physical systems
               that combine cutting-edge automation with intelligent control
               architectures.
@@ -116,17 +116,17 @@ const IndustrialAutomationControl = () => {
         <div className="mb-16 lg:mb-20">
           <div className="flex flex-col lg:flex-row lg:items-center lg:gap-12 mb-12 lg:mb-16">
             <AnimatedSection variant="slideLeft" className="lg:w-1/2 mb-6 lg:mb-0">
-              <h3 className="text-xl lg:text-2xl font-bold text-white mb-4">
+              <h3 className="text-xl lg:text-2xl font-bold text-blue-900 mb-4">
                 Industrial Control Mastery
               </h3>
-              <p className="text-base text-gray-400 leading-relaxed">
+              <p className="text-base text-gray-600 leading-relaxed">
                 We architect automation ecosystems that merge OT and IT,
                 delivering cyber-secure solutions with real-time analytics and
                 predictive maintenance capabilities.
               </p>
               <Link
                 href="#contact"
-                className="mt-4 inline-flex items-center text-blue-400 hover:text-blue-300 transition-colors"
+                className="mt-4 inline-flex items-center text-blue-600 hover:text-blue-700 transition-colors"
               >
                 Request a custom solution
                 <svg
@@ -149,13 +149,13 @@ const IndustrialAutomationControl = () => {
               {features.map((feature, index) => (
                 <StaggerItem key={index}>
                   <div
-                    className="bg-black/40 backdrop-blur-sm border border-blue-400/20 rounded-lg p-4 hover:border-blue-400/50 transition-all duration-300 group"
+                    className="bg-white border border-gray-200 rounded-lg p-4 hover:border-blue-300 hover:shadow-md transition-all duration-300 group"
                   >
                     <div className="text-2xl mb-2">{feature.icon}</div>
-                    <h4 className="text-base font-semibold text-white mb-1">
+                    <h4 className="text-base font-semibold text-gray-900 mb-1">
                       {feature.title}
                     </h4>
-                    <p className="text-gray-400 text-xs lg:text-sm">
+                    <p className="text-gray-600 text-xs lg:text-sm">
                       {feature.description}
                     </p>
                   </div>
@@ -168,17 +168,17 @@ const IndustrialAutomationControl = () => {
         {/* PLC Brands Section */}
         <div className="mb-16 lg:mb-20">
           <AnimatedSection>
-            <h3 className="text-xl lg:text-2xl font-bold text-white text-center mb-8 lg:mb-12">
+            <h3 className="text-xl lg:text-2xl font-bold text-blue-900 text-center mb-8 lg:mb-12">
               Supported PLC Brands and Automation Services
             </h3>
-            <p className="text-gray-400 text-center max-w-3xl mx-auto mb-8 lg:mb-10 text-sm lg:text-base">
+            <p className="text-gray-600 text-center max-w-3xl mx-auto mb-8 lg:mb-10 text-sm lg:text-base">
               Lumora Ventures specializes in programming and servicing leading PLC
               brands and offers advanced automation solutions tailored to your
               industry.
             </p>
           </AnimatedSection>
 
-          <h4 className="text-lg font-semibold text-white mb-6 text-center">
+          <h4 className="text-lg font-semibold text-gray-900 mb-6 text-center">
             PLC Brands & More
           </h4>
 
@@ -186,7 +186,7 @@ const IndustrialAutomationControl = () => {
             {plcBrands.map((brand, index) => (
               <StaggerItem key={index}>
               <div
-                className="relative bg-black/40 backdrop-blur-sm border border-blue-400/20 rounded-lg p-6 hover:border-blue-400/50 transition-all duration-300 overflow-hidden group"
+                className="relative bg-white border border-gray-200 rounded-lg p-6 hover:border-blue-300 hover:shadow-md transition-all duration-300 overflow-hidden group"
               >
                 <div
                   className={`absolute top-0 left-0 w-full h-1 bg-gradient-to-r ${brand.gradient}`}
@@ -194,7 +194,7 @@ const IndustrialAutomationControl = () => {
 
                 {/* Brand Logo */}
                 <div className="flex items-center gap-4 mb-3">
-                  <div className="w-14 h-14 bg-white rounded-lg flex items-center justify-center p-2 relative">
+                  <div className="w-14 h-14 bg-gray-50 border border-gray-200 rounded-lg flex items-center justify-center p-2 relative">
                     <Image
                       src={brand.icon}
                       alt={`${brand.name} logo`}
@@ -202,16 +202,16 @@ const IndustrialAutomationControl = () => {
                       className="object-contain p-1"
                     />
                   </div>
-                  <h5 className="text-lg font-bold text-white">{brand.name}</h5>
+                  <h5 className="text-lg font-bold text-gray-900">{brand.name}</h5>
                 </div>
 
-                <p className="text-gray-400 leading-relaxed text-xs lg:text-sm">
+                <p className="text-gray-600 leading-relaxed text-xs lg:text-sm">
                   {brand.description}
                 </p>
 
                 <Link
                   href="#contact"
-                  className="mt-3 inline-flex items-center text-xs text-blue-400 hover:text-blue-300 transition-colors"
+                  className="mt-3 inline-flex items-center text-xs text-blue-600 hover:text-blue-700 transition-colors"
                 >
                   Get a quote
                   <svg
@@ -234,17 +234,17 @@ const IndustrialAutomationControl = () => {
           </StaggerContainer>
 
           <div className="text-center mb-10 lg:mb-12">
-            <p className="text-blue-400 text-sm font-medium">
+            <p className="text-blue-600 text-sm font-medium">
               We offer programming and integration for these and many more PLC
               brands.
             </p>
-            <p className="text-gray-400 text-xs mt-1">
+            <p className="text-gray-500 text-xs mt-1">
               Contact us for support with any industrial automation platform you
               work with.
             </p>
           </div>
 
-          <h4 className="text-lg font-semibold text-white mb-6 text-center">
+          <h4 className="text-lg font-semibold text-gray-900 mb-6 text-center">
             Additional Services
           </h4>
 
@@ -252,17 +252,17 @@ const IndustrialAutomationControl = () => {
             {additionalServices.map((service, index) => (
               <StaggerItem key={index}>
               <div
-                className="bg-gradient-to-br from-blue-900/20 to-indigo-900/20 backdrop-blur-sm border border-blue-400/20 rounded-lg p-6 hover:border-blue-400/50 transition-all duration-300"
+                className="bg-blue-50 border border-blue-100 rounded-lg p-6 hover:border-blue-300 hover:shadow-md transition-all duration-300"
               >
-                <h5 className="text-lg font-bold text-white mb-2">
+                <h5 className="text-lg font-bold text-blue-900 mb-2">
                   {service.title}
                 </h5>
-                <p className="text-gray-400 leading-relaxed text-xs lg:text-sm mb-3">
+                <p className="text-gray-600 leading-relaxed text-xs lg:text-sm mb-3">
                   {service.description}
                 </p>
                 <Link
                   href="#contact"
-                  className="inline-flex items-center text-xs text-blue-400 hover:text-blue-300 transition-colors"
+                  className="inline-flex items-center text-xs text-blue-600 hover:text-blue-700 transition-colors"
                 >
                   Learn more
                   <svg
@@ -287,7 +287,7 @@ const IndustrialAutomationControl = () => {
           <div className="flex justify-center mt-10">
             <Link
               href="#contact"
-              className="inline-flex items-center px-6 py-3 border border-blue-400 hover:bg-blue-600/20 text-blue-400 font-medium rounded-lg transition-all duration-300 transform hover:scale-105 group text-sm"
+              className="inline-flex items-center px-6 py-3 bg-blue-900 hover:bg-blue-800 text-white font-medium rounded-lg transition-all duration-300 transform hover:scale-105 group text-sm"
             >
               Discuss Your Automation Needs
               <svg
@@ -307,44 +307,6 @@ const IndustrialAutomationControl = () => {
           </div>
         </div>
       </div>
-
-      {/* Background Elements */}
-      <div className="absolute top-0 right-0 w-64 sm:w-80 lg:w-96 h-64 sm:h-80 lg:h-96 bg-blue-500/10 rounded-full blur-[100px]" />
-      <div className="absolute bottom-0 left-0 w-56 sm:w-64 lg:w-72 h-56 sm:h-64 lg:h-72 bg-cyan-500/10 rounded-full blur-[100px]" />
-
-      {/* Circuit Pattern */}
-      <svg
-        className="absolute top-0 left-0 w-full h-full opacity-5 pointer-events-none"
-        viewBox="0 0 1200 1200"
-        preserveAspectRatio="none"
-      >
-        <pattern
-          id="circuit-pattern"
-          x="0"
-          y="0"
-          width="60"
-          height="60"
-          patternUnits="userSpaceOnUse"
-        >
-          <path
-            d="M0 30h30m0 0h30M30 0v30m0 0v30"
-            stroke="currentColor"
-            strokeWidth="1"
-            className="text-blue-400/50"
-            fill="none"
-          />
-          <circle cx="30" cy="30" r="3" className="fill-cyan-400/50" />
-          <circle cx="0" cy="0" r="2" className="fill-blue-400/50" />
-          <circle cx="60" cy="60" r="2" className="fill-blue-400/50" />
-        </pattern>
-        <rect
-          x="0"
-          y="0"
-          width="1200"
-          height="1200"
-          fill="url(#circuit-pattern)"
-        />
-      </svg>
     </section>
   );
 };

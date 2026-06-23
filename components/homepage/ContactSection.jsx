@@ -3,8 +3,8 @@
 import { useState } from "react";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import AnimatedSection from "@/components/animation/AnimatedSection";
-import emailjs from "@emailjs/browser";
-import { trackLead } from "../../app/lib/conversionsApi";
+import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { app } from "@/app/lib/firebase";
 
 const ContactSection = () => {
   const [formData, setFormData] = useState({
@@ -28,59 +28,35 @@ const ContactSection = () => {
     setIsSubmitting(true);
     setSubmitStatus(null);
 
-    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
-    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
-    const autoReplyTemplateId =
-      process.env.NEXT_PUBLIC_EMAILJS_AUTOREPLY_TEMPLATE_ID;
-    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
-
-    const templateParams = {
-      from_name: formData.name,
-      from_email: formData.email,
-      company: formData.company || "Not provided",
-      message: formData.message,
-      to_name: "Lumora Ventures Team",
-    };
-
     try {
-      // 1. Send Admin Notification
-      await emailjs.send(serviceId, templateId, templateParams, publicKey);
+      // Save to Firebase Firestore
+      const db = getFirestore(app);
+      await addDoc(collection(db, "contact_leads"), {
+        name: formData.name,
+        email: formData.email,
+        company: formData.company || null,
+        message: formData.message,
+        source: "homepage",
+        createdAt: serverTimestamp(),
+        status: "new",
+      });
 
-      // 2. Send Auto-Reply (Only if the ID exists in .env)
-      if (autoReplyTemplateId) {
-        await emailjs.send(
-          serviceId,
-          autoReplyTemplateId,
-          templateParams,
-          publicKey,
-        );
-      }
-
-      // Track Lead conversion event
-      try {
-        const nameParts = formData.name.trim().split(' ');
-        await trackLead({
+      // Send email notification (non-blocking)
+      fetch("/api/send-email", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: formData.name,
           email: formData.email,
-          phone: null,
-          firstName: nameParts[0] || null,
-          lastName: nameParts.length > 1 ? nameParts.slice(1).join(' ') : null,
-          value: 0,
-          currency: 'USD',
-          contentName: 'Homepage Contact Lead',
-        });
-      } catch (conversionError) {
-        console.warn('Conversion API tracking failed:', conversionError);
-      }
+          service: formData.company ? `Company: ${formData.company}` : "Homepage Contact",
+          message: formData.message,
+        }),
+      }).catch(() => {});
 
       setSubmitStatus("success");
-      setFormData({
-        name: "",
-        email: "",
-        company: "",
-        message: "",
-      });
+      setFormData({ name: "", email: "", company: "", message: "" });
     } catch (error) {
-      console.error("EmailJS Error:", error);
+      console.error("Contact form error:", error);
       setSubmitStatus("error");
     } finally {
       setIsSubmitting(false);

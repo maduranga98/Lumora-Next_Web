@@ -434,6 +434,65 @@ exports.createSubscription = onCall(
   },
 );
 
+// Send contact form email notification
+exports.sendContactEmail = onCall(
+  {
+    region: "us-central1",
+    timeoutSeconds: 60,
+    secrets: ["EMAIL_USER", "EMAIL_PASS"],
+  },
+  async (request) => {
+    const { name, email, service, message, formSource } = request.data || {};
+
+    if (!name || !email || !service || !message) {
+      throw new HttpsError("invalid-argument", "Missing required fields");
+    }
+
+    const transporter = await createTransporter();
+    if (!transporter) {
+      throw new HttpsError("internal", "Email service is not configured");
+    }
+
+    const emailFrom = process.env.EMAIL_USER || "notifications@lumoraventures.com";
+    const date = new Date().toLocaleString("en-US", {
+      timeZone: "Asia/Colombo",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    const mailOptions = {
+      from: `Lumora Ventures <${emailFrom}>`,
+      to: "lumoraventures@gmail.com",
+      subject: `New Contact Form Submission: ${service}`,
+      html: `
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e0e0e0; border-radius: 5px;">
+          <h2 style="color: #3b82f6; border-bottom: 2px solid #3b82f6; padding-bottom: 10px;">New Contact Form Submission</h2>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Service:</strong> ${service}</p>
+          ${formSource ? `<p><strong>Source:</strong> ${formSource}</p>` : ""}
+          <p><strong>Date:</strong> ${date}</p>
+          <h3 style="margin-top: 20px; color: #4b5563;">Message:</h3>
+          <p style="background-color: #f9fafb; padding: 15px; border-radius: 5px; white-space: pre-line;">${message}</p>
+          <p style="margin-top: 30px; font-size: 0.9em; color: #6b7280;">This message was sent from the Lumora Ventures contact form.</p>
+        </div>
+      `,
+    };
+
+    try {
+      await transporter.sendMail(mailOptions);
+      logger.info("Contact form email sent successfully");
+      return { success: true };
+    } catch (error) {
+      logger.error("Error sending contact form email:", error);
+      throw new HttpsError("internal", "Failed to send email");
+    }
+  },
+);
+
 // Health check function with secrets access
 exports.healthCheck = onCall(
   {

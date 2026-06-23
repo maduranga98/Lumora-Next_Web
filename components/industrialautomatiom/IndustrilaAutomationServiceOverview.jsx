@@ -198,7 +198,7 @@ const ServiceOverview = () => {
           <div className="relative bg-blue-900 rounded-xl p-8 lg:p-12 overflow-hidden">
             <div className="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between">
               <div className="mb-8 lg:mb-0">
-                <h2 className="text-2xl lg:text-3xl font-bold text-white mb-4">
+                <h2 className="text-2xl lg:text-3xl font-bold text-white mb-4 lg:mb-0">
                   Ready for Industry 5.0 Automation Transformation?
                 </h2>
                 <p className="text-lg text-blue-100 max-w-2xl">

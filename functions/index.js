@@ -181,7 +181,6 @@ exports.createSubscription = onCall(
     memory: "1GiB", // Increase memory allocation
     minInstances: 0, // Ensure cold starts are allowed
     concurrency: 5, // Only allow 5 concurrent executions to avoid overload
-    secrets: ["STRIPE_SECRET_KEY", "EMAIL_USER", "EMAIL_PASS"], // Specify which secrets to access
   },
   async (request) => {
     try {
@@ -497,7 +496,6 @@ exports.healthCheck = onCall(
   {
     region: "us-central1",
     timeoutSeconds: 10,
-    secrets: ["STRIPE_SECRET_KEY", "EMAIL_USER", "EMAIL_PASS"], // Add this line
   },
   async (request) => {
     logger.info("Health check function called");

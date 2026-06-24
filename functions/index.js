@@ -181,7 +181,6 @@ exports.createSubscription = onCall(
     memory: "1GiB",
     minInstances: 0,
     concurrency: 5,
-    secrets: ["EMAIL_USER", "EMAIL_PASS", "STRIPE_SECRET_KEY"],
   },
   async (request) => {
     try {
@@ -439,7 +438,6 @@ exports.sendContactEmail = onCall(
   {
     region: "us-central1",
     timeoutSeconds: 60,
-    secrets: ["EMAIL_USER", "EMAIL_PASS"],
   },
   async (request) => {
     const { name, email, service, message, formSource } = request.data || {};
@@ -498,7 +496,6 @@ exports.healthCheck = onCall(
   {
     region: "us-central1",
     timeoutSeconds: 10,
-    secrets: ["EMAIL_USER", "EMAIL_PASS", "STRIPE_SECRET_KEY"],
   },
   async (request) => {
     logger.info("Health check function called");

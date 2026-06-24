@@ -19,10 +19,12 @@ export async function POST(request) {
     // NOTE: For production, you should use an App Password for Gmail
     // or a dedicated email service like SendGrid, Mailgun, AWS SES, etc.
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
       auth: {
-        user: process.env.EMAIL_USER, // Configure in .env.local
-        pass: process.env.EMAIL_PASS, // App password, not regular password
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
       },
     });
 
@@ -49,9 +51,9 @@ export async function POST(request) {
 
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error("Email sending failed:", error);
+    console.error("Email sending failed:", error.message, error.code);
     return NextResponse.json(
-      { error: "Failed to send email" },
+      { error: "Failed to send email", detail: error.message },
       { status: 500 }
     );
   }

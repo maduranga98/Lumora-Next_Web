@@ -6,10 +6,16 @@ import Link from "next/link";
 import Image from "next/image";
 import Script from "next/script";
 
+const stats = [
+  { value: "99.95%", label: "Uptime Guarantee" },
+  { value: "200%", label: "ROI in 18 Months" },
+  { value: "24/7", label: "Expert Support" },
+  { value: "50+", label: "Plants Automated" },
+];
+
 const IndustrialAutomationHero = () => {
   const [isMounted, setIsMounted] = useState(false);
 
-  // Schema.org structured data for the hero section
   const heroSchema = {
     "@context": "https://schema.org",
     "@type": "WebPageElement",
@@ -23,7 +29,6 @@ const IndustrialAutomationHero = () => {
       "Lumora Ventures delivers cutting-edge industrial automation solutions that redefine productivity and operational excellence.",
   };
 
-  // Handle client-side rendering
   useEffect(() => {
     setIsMounted(true);
   }, []);
@@ -31,26 +36,18 @@ const IndustrialAutomationHero = () => {
   const scrollToSection = (sectionId, e) => {
     if (e) e.preventDefault();
     if (!isMounted) return;
-
     const element = document.getElementById(sectionId);
     if (element) {
-      const navHeight = 80; // navbar height
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.scrollY - navHeight;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: "smooth",
-      });
-
-      // Update URL hash for better SEO and shareability
+      const navHeight = 80;
+      const offsetPosition =
+        element.getBoundingClientRect().top + window.scrollY - navHeight;
+      window.scrollTo({ top: offsetPosition, behavior: "smooth" });
       window.history.pushState(null, "", `#${sectionId}`);
     }
   };
 
   return (
     <>
-      {/* Add structured data for search engines */}
       <Script
         id="hero-schema"
         type="application/ld+json"
@@ -59,240 +56,182 @@ const IndustrialAutomationHero = () => {
 
       <section
         id="home"
-        className="relative min-h-screen overflow-hidden"
+        className="relative min-h-screen overflow-hidden bg-slate-950"
         aria-labelledby="hero-heading"
       >
-        {/* Background Image */}
+        {/* Background Image with stronger overlay */}
         <div className="absolute inset-0" aria-hidden="true">
           <Image
             src="/images/hero-industrial-automation.webp"
             alt=""
             fill
             priority
-            className="object-cover"
+            className="object-cover opacity-30"
           />
-          {/* Dark overlay for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-900/85 via-blue-800/80 to-slate-900/90" />
+          <div className="absolute inset-0 bg-gradient-to-br from-slate-950/95 via-blue-950/80 to-slate-900/95" />
         </div>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-32 md:pt-36 pb-12 sm:pb-16 md:pb-20 lg:pb-24 flex items-center min-h-screen">
-          <div className="grid lg:grid-cols-2 gap-8 md:gap-12 items-center w-full">
-            {/* Text Content with semantic structure */}
-            <div className="text-center lg:text-left">
-              <motion.h1
-                id="hero-heading"
-                className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold text-white mb-4 sm:mb-6 leading-tight"
-                initial={{ opacity: 0, y: 30 }}
-                animate={isMounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                transition={{ duration: 0.6, delay: 0.1, ease: [0.25, 0.1, 0.25, 1] }}
-              >
-                Industrial Evolution Through{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">
-                  Smart Automation Solutions
-                </span>
-              </motion.h1>
+        {/* Animated grid pattern */}
+        <div
+          className="absolute inset-0 opacity-10"
+          aria-hidden="true"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(59,130,246,0.4) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.4) 1px, transparent 1px)",
+            backgroundSize: "60px 60px",
+          }}
+        />
 
-              <motion.p
-                className="text-base sm:text-lg md:text-xl lg:text-xl xl:text-xl xl:text-2xl text-blue-100 mb-6 sm:mb-8 max-w-xl lg:max-w-2xl mx-auto lg:mx-0"
-                initial={{ opacity: 0, y: 30 }}
-                animate={isMounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                transition={{ duration: 0.6, delay: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
-              >
-                Lumora Ventures delivers cutting-edge industrial automation
-                solutions that redefine productivity, efficiency, and
-                operational excellence for manufacturing facilities.
-              </motion.p>
+        {/* Glow orbs */}
+        <div
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl pointer-events-none"
+          aria-hidden="true"
+        />
+        <div
+          className="absolute bottom-1/3 right-1/4 w-80 h-80 bg-cyan-500/15 rounded-full blur-3xl pointer-events-none"
+          aria-hidden="true"
+        />
 
-              <motion.div
-                className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-                initial={{ opacity: 0, y: 30 }}
-                animate={isMounted ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-                transition={{ duration: 0.6, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
-              >
-                <Link
-                  href="#contact"
-                  onClick={(e) => scrollToSection("contact", e)}
-                  className="px-6 sm:px-8 py-3 sm:py-4 bg-blue-600 hover:bg-blue-700 text-white font-medium sm:font-semibold rounded-lg transition-all duration-300 transform hover:scale-105 flex items-center justify-center gap-2 group text-sm sm:text-base md:text-lg xl:text-xl"
-                  aria-label="Contact us to revolutionize your manufacturing plant"
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-28 sm:pt-32 md:pt-36 pb-16 flex items-center min-h-screen">
+          <div className="w-full">
+            {/* Badge */}
+            <motion.div
+              className="flex justify-center lg:justify-start mb-6"
+              initial={{ opacity: 0, y: 20 }}
+              animate={isMounted ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.5 }}
+            >
+              <span className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-blue-500/40 bg-blue-500/10 text-blue-300 text-sm font-medium backdrop-blur-sm">
+                <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+                Industry 5.0 — Next-Gen Automation
+              </span>
+            </motion.div>
+
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
+              {/* Text Content */}
+              <div className="text-center lg:text-left">
+                <motion.h1
+                  id="hero-heading"
+                  className="text-4xl sm:text-5xl md:text-6xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 leading-[1.1]"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isMounted ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.6, delay: 0.1 }}
                 >
-                  Revolutionize Your Plant
-                  <svg
-                    className="w-4 h-4 sm:w-5 sm:h-5 xl:w-6 xl:h-6 transition-transform group-hover:translate-x-1"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    aria-hidden="true"
+                  Industrial Evolution
+                  <br />
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-cyan-400 to-blue-300">
+                    Through Smart Automation
+                  </span>
+                </motion.h1>
+
+                <motion.p
+                  className="text-lg sm:text-xl text-slate-400 mb-8 max-w-xl lg:max-w-2xl mx-auto lg:mx-0 leading-relaxed"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isMounted ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.6, delay: 0.25 }}
+                >
+                  Lumora Ventures delivers cutting-edge industrial automation
+                  solutions that redefine productivity, efficiency, and
+                  operational excellence for manufacturing facilities.
+                </motion.p>
+
+                <motion.div
+                  className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={isMounted ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.6, delay: 0.4 }}
+                >
+                  <Link
+                    href="#contact"
+                    onClick={(e) => scrollToSection("contact", e)}
+                    className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-500 hover:to-cyan-500 text-white font-semibold rounded-xl transition-all duration-300 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 hover:shadow-xl flex items-center justify-center gap-2 text-base"
+                    aria-label="Contact us to revolutionize your manufacturing plant"
                   >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    />
-                  </svg>
-                </Link>
+                    Revolutionize Your Plant
+                    <svg
+                      className="w-5 h-5 transition-transform group-hover:translate-x-1"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                      aria-hidden="true"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17 8l4 4m0 0l-4 4m4-4H3"
+                      />
+                    </svg>
+                  </Link>
 
-                <Link
-                  href="#automation"
-                  onClick={(e) => scrollToSection("automation", e)}
-                  className="px-6 sm:px-8 py-3 sm:py-4 border border-blue-500 text-blue-500 hover:bg-blue-500/10 font-medium sm:font-semibold rounded-lg transition-all duration-300 text-sm sm:text-base md:text-lg xl:text-xl"
-                  aria-label="Learn more about our industrial automation solutions"
-                >
-                  Explore Solutions
-                </Link>
+                  <Link
+                    href="#automation"
+                    onClick={(e) => scrollToSection("automation", e)}
+                    className="px-8 py-4 border border-slate-600 hover:border-blue-500/60 text-slate-300 hover:text-white hover:bg-white/5 font-semibold rounded-xl transition-all duration-300 text-base backdrop-blur-sm"
+                    aria-label="Explore our industrial automation solutions"
+                  >
+                    Explore Solutions
+                  </Link>
+                </motion.div>
+              </div>
+
+              {/* Stats Grid */}
+              <motion.div
+                className="grid grid-cols-2 gap-4"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={isMounted ? { opacity: 1, scale: 1 } : {}}
+                transition={{ duration: 0.8, delay: 0.5 }}
+                role="img"
+                aria-label="Industrial automation performance metrics"
+              >
+                {stats.map((stat, i) => (
+                  <div
+                    key={i}
+                    className="relative group bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-6 hover:border-blue-500/40 hover:bg-white/8 transition-all duration-300"
+                  >
+                    <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-600/5 to-cyan-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true" />
+                    <div className="relative z-10">
+                      <div className="text-3xl xl:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400 mb-1">
+                        {stat.value}
+                      </div>
+                      <div className="text-slate-400 text-sm font-medium">
+                        {stat.label}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+
+                {/* Dashboard visual */}
+                <div className="col-span-2 relative bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl p-5 overflow-hidden">
+                  <div className="text-slate-400 text-xs font-medium mb-3 uppercase tracking-wider">
+                    System Performance
+                  </div>
+                  <div className="flex items-end gap-2 h-16">
+                    {[65, 80, 55, 90, 75, 95, 70, 88, 60, 92].map((h, i) => (
+                      <div
+                        key={i}
+                        className="flex-1 rounded-t-sm bg-gradient-to-t from-blue-600 to-cyan-400 opacity-80"
+                        style={{ height: `${h}%` }}
+                      />
+                    ))}
+                  </div>
+                  <div className="mt-3 flex items-center justify-between">
+                    <span className="text-white text-2xl font-bold">89%</span>
+                    <span className="text-green-400 text-sm font-medium flex items-center gap-1">
+                      <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
+                        <path fillRule="evenodd" d="M5.293 9.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 7.414V15a1 1 0 11-2 0V7.414L6.707 9.707a1 1 0 01-1.414 0z" clipRule="evenodd" />
+                      </svg>
+                      +12% this month
+                    </span>
+                  </div>
+                </div>
               </motion.div>
             </div>
-
-            {/* Illustration - with semantic description */}
-            <motion.div
-              className="relative h-[280px] sm:h-[320px] md:h-[400px] lg:h-[500px] xl:h-[600px] 2xl:h-[700px] mx-auto lg:mx-0 max-w-[500px] xl:max-w-[600px] 2xl:max-w-[700px] w-full mt-8 lg:mt-0"
-              role="img"
-              aria-label="Industrial automation dashboard visualization showing performance metrics, network connectivity, and IoT device integration"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={isMounted ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.95 }}
-              transition={{ duration: 0.8, delay: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
-            >
-              {/* Bar Chart Dashboard */}
-              <div className="absolute top-0 left-0 w-40 sm:w-48 md:w-56 lg:w-64 xl:w-72 2xl:w-80 h-32 sm:h-36 md:h-40 lg:h-48 xl:h-52 2xl:h-56 bg-black/40 backdrop-blur-lg border border-blue-400/30 rounded-lg p-3 sm:p-4 transform -rotate-6 transition-transform hover:rotate-3">
-                <div className="flex justify-between items-end h-full">
-                  {[65, 85, 70, 95, 80].map((height, i) => (
-                    <div
-                      key={i}
-                      className="w-5 sm:w-6 md:w-7 lg:w-8 xl:w-9 2xl:w-10 bg-gradient-to-t from-blue-500 to-cyan-400 rounded-t"
-                      style={{ height: `${height}%` }}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              {/* Network Visualization */}
-              <div className="absolute top-12 sm:top-16 md:top-20 right-0 w-40 sm:w-48 md:w-56 lg:w-72 xl:w-80 2xl:w-96 h-40 sm:h-48 md:h-56 lg:h-72 xl:h-80 2xl:h-96 rounded-full border-2 border-blue-400/40 flex items-center justify-center animate-pulse">
-                <div className="absolute w-full h-full">
-                  {[...Array(8)].map((_, i) => (
-                    <div
-                      key={i}
-                      className="absolute w-5 sm:w-6 md:w-7 lg:w-8 xl:w-9 2xl:w-10 h-5 sm:h-6 md:h-7 lg:h-8 xl:h-9 2xl:h-10 bg-blue-500/40 rounded-full backdrop-blur-sm border border-blue-400/60"
-                      style={{
-                        top: `${50 + 40 * Math.sin((i * Math.PI) / 4)}%`,
-                        left: `${50 + 40 * Math.cos((i * Math.PI) / 4)}%`,
-                        transform: "translate(-50%, -50%)",
-                      }}
-                    >
-                      <div className="absolute w-full h-full rounded-full border-2 border-cyan-400/40 animate-ping" />
-                    </div>
-                  ))}
-                </div>
-                <div className="w-10 sm:w-12 md:w-14 lg:w-16 xl:w-20 2xl:w-24 h-10 sm:h-12 md:h-14 lg:h-16 xl:h-20 2xl:h-24 bg-gradient-to-br from-blue-600 to-cyan-500 rounded-full shadow-lg shadow-blue-500/50" />
-              </div>
-
-              {/* Performance Metrics Card */}
-              <div className="absolute bottom-0 left-5 sm:left-8 md:left-10 w-40 sm:w-48 md:w-56 lg:w-64 xl:w-72 2xl:w-80 h-28 sm:h-32 md:h-36 lg:h-40 xl:h-44 2xl:h-48 bg-black/50 backdrop-blur-lg border border-cyan-400/30 rounded-lg p-3 sm:p-4 transform rotate-3 transition-transform hover:-rotate-2">
-                <div className="flex gap-1 sm:gap-1.5 md:gap-2 mb-2 sm:mb-3">
-                  {[40, 60, 45, 80, 65, 90, 75].map((height, i) => (
-                    <div
-                      key={i}
-                      className="w-3 sm:w-4 md:w-5 lg:w-6 xl:w-7 2xl:w-8 bg-cyan-400/70 rounded"
-                      style={{ height: `${height}%` }}
-                    />
-                  ))}
-                </div>
-                <div className="text-white/60 text-xs sm:text-sm xl:text-base 2xl:text-lg mb-1 sm:mb-2">
-                  Overall Performance
-                </div>
-                <div className="text-xl sm:text-2xl md:text-3xl xl:text-4xl 2xl:text-5xl font-bold text-white mb-1">
-                  89%
-                </div>
-                <div className="h-1.5 sm:h-2 xl:h-2.5 2xl:h-3 w-full bg-gray-700 rounded overflow-hidden">
-                  <div className="h-full w-[89%] bg-gradient-to-r from-blue-500 to-cyan-400" />
-                </div>
-              </div>
-
-              {/* IoT Device Icons */}
-              <div className="absolute bottom-20 sm:bottom-24 md:bottom-28 lg:bottom-32 right-20 sm:right-24 md:right-28 lg:right-32 w-8 sm:w-10 md:w-12 h-8 sm:h-10 md:h-12 bg-blue-600/20 rounded-lg flex items-center justify-center">
-                <svg
-                  className="w-5 sm:w-6 md:w-7 lg:w-8 h-5 sm:h-6 md:h-7 lg:h-8 text-blue-400"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  aria-hidden="true"
-                  role="img"
-                >
-                  <title>IoT Device Icon</title>
-                  <desc>
-                    Icon representing an IoT device in an industrial automation
-                    network
-                  </desc>
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                  />
-                </svg>
-              </div>
-
-              {/* Connection Lines */}
-              <svg
-                className="absolute top-0 left-0 w-full h-full pointer-events-none"
-                viewBox="0 0 600 600"
-                aria-hidden="true"
-              >
-                <title>Network Connection Lines</title>
-                <desc>
-                  Decorative lines showing network connections between
-                  industrial automation components
-                </desc>
-                <path
-                  d="M100,100 Q300,200 500,400"
-                  className="stroke-blue-400/30 fill-none"
-                  strokeWidth="2"
-                  strokeDasharray="5,5"
-                />
-                <path
-                  d="M300,50 Q450,250 200,500"
-                  className="stroke-cyan-400/30 fill-none"
-                  strokeWidth="2"
-                  strokeDasharray="5,5"
-                />
-              </svg>
-            </motion.div>
           </div>
         </div>
 
-        {/* Decorative 3D Elements - marked as decorative */}
-        <div
-          className="absolute top-10 sm:top-16 md:top-20 left-4 sm:left-6 md:left-10 -z-10 opacity-20"
-          aria-hidden="true"
-        >
-          <div className="relative w-16 sm:w-24 md:w-32 h-16 sm:h-24 md:h-32">
-            <div className="absolute inset-0 border-2 border-blue-500 rounded-lg transform -rotate-12" />
-            <div className="absolute inset-2 sm:inset-3 md:inset-4 border-2 border-cyan-400 rounded-lg transform rotate-12" />
-          </div>
-        </div>
-
-        {/* Circuit Pattern - marked as decorative */}
-        <svg
-          className="absolute bottom-0 right-0 w-1/3 opacity-5"
-          viewBox="0 0 400 400"
-          xmlns="http://www.w3.org/2000/svg"
-          aria-hidden="true"
-        >
-          <title>Circuit Pattern</title>
-          <desc>
-            Decorative circuit board pattern representing industrial automation
-            technology
-          </desc>
-          <path
-            d="M0 200h50m50 0h50m0 0h50m0 0h50M200 0v50m0 50v50m0 0v50m0 0v50"
-            stroke="currentColor"
-            strokeWidth="2"
-            className="text-blue-500"
-          />
-          <circle cx="100" cy="200" r="10" className="fill-blue-500" />
-          <circle cx="200" cy="100" r="10" className="fill-cyan-400" />
-          <circle cx="300" cy="200" r="10" className="fill-blue-500" />
-          <circle cx="200" cy="300" r="10" className="fill-cyan-400" />
-        </svg>
+        {/* Bottom fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-950 to-transparent pointer-events-none" aria-hidden="true" />
       </section>
     </>
   );

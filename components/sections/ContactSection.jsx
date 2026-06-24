@@ -74,11 +74,9 @@ export default function ContactSection() {
 
       // Send email notification
       try {
-        await fetch("/api/send-email", {
+        const emailRes = await fetch("/api/send-email", {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             name: formData.name,
             email: formData.email,
@@ -86,16 +84,15 @@ export default function ContactSection() {
             message: `Phone: ${formData.phone || "Not provided"}\n\n${
               formData.message || "No additional message"
             }`,
-            // Additional metadata
             formSource: "Google My Business Page",
           }),
         });
+        if (!emailRes.ok) {
+          const errData = await emailRes.json();
+          console.error("Email API error:", errData);
+        }
       } catch (emailError) {
-        // Log error but don't fail the submission
-        console.warn(
-          "Email notification failed but data was saved:",
-          emailError
-        );
+        console.error("Email notification failed:", emailError);
       }
 
       // Track Lead conversion event

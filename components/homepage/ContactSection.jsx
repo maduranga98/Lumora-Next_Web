@@ -41,7 +41,7 @@ const ContactSection = () => {
         status: "new",
       });
 
-      // Send email notification (non-blocking)
+      // Send email notification
       fetch("/api/send-email", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -51,7 +51,12 @@ const ContactSection = () => {
           service: formData.company ? `Company: ${formData.company}` : "Homepage Contact",
           message: formData.message,
         }),
-      }).catch(() => {});
+      })
+        .then((res) => res.json().then((data) => ({ ok: res.ok, data })))
+        .then(({ ok, data }) => {
+          if (!ok) console.error("Email API error:", data);
+        })
+        .catch((err) => console.error("Email fetch failed:", err));
 
       setSubmitStatus("success");
       setFormData({ name: "", email: "", company: "", message: "" });

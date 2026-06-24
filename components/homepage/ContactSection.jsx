@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Mail, Phone, MapPin, Send } from "lucide-react";
 import AnimatedSection from "@/components/animation/AnimatedSection";
 import { getFirestore, collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { getFunctions, httpsCallable } from "firebase/functions";
 import { app } from "@/app/lib/firebase";
 
 const ContactSection = () => {
@@ -41,22 +42,16 @@ const ContactSection = () => {
         status: "new",
       });
 
-      // Send email notification
-      fetch("/api/send-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: formData.name,
-          email: formData.email,
-          service: formData.company ? `Company: ${formData.company}` : "Homepage Contact",
-          message: formData.message,
-        }),
-      })
-        .then((res) => res.json().then((data) => ({ ok: res.ok, data })))
-        .then(({ ok, data }) => {
-          if (!ok) console.error("Email API error:", data);
-        })
-        .catch((err) => console.error("Email fetch failed:", err));
+      // Send email notification via Firebase Function
+      const functions = getFunctions(app);
+      const sendContactEmail = httpsCallable(functions, "sendContactEmail");
+      sendContactEmail({
+        name: formData.name,
+        email: formData.email,
+        service: formData.company ? `Company: ${formData.company}` : "Homepage Contact",
+        message: formData.message,
+        formSource: "Homepage",
+      }).catch((err) => console.error("Email function failed:", err));
 
       setSubmitStatus("success");
       setFormData({ name: "", email: "", company: "", message: "" });

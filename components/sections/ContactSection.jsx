@@ -3,7 +3,8 @@
 
 import React, { useState, useEffect } from "react";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { db } from "../../app/lib/firebase"; // Adjust path to your Firebase config
+import { getFunctions, httpsCallable } from "firebase/functions";
+import { db, app } from "../../app/lib/firebase";
 import { trackLead } from "../../app/lib/conversionsApi";
 
 export default function ContactSection() {
@@ -72,25 +73,19 @@ export default function ContactSection() {
         source: "Google My Business Page",
       });
 
-      // Send email notification
+      // Send email notification via Firebase Function
       try {
-        const emailRes = await fetch("/api/send-email", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            name: formData.name,
-            email: formData.email,
-            service: `${formData.service} - Business: ${formData.business}`,
-            message: `Phone: ${formData.phone || "Not provided"}\n\n${
-              formData.message || "No additional message"
-            }`,
-            formSource: "Google My Business Page",
-          }),
+        const functions = getFunctions(app);
+        const sendContactEmail = httpsCallable(functions, "sendContactEmail");
+        await sendContactEmail({
+          name: formData.name,
+          email: formData.email,
+          service: `${formData.service} - Business: ${formData.business}`,
+          message: `Phone: ${formData.phone || "Not provided"}\n\n${
+            formData.message || "No additional message"
+          }`,
+          formSource: "Google My Business Page",
         });
-        if (!emailRes.ok) {
-          const errData = await emailRes.json();
-          console.error("Email API error:", errData);
-        }
       } catch (emailError) {
         console.error("Email notification failed:", emailError);
       }

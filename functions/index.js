@@ -485,8 +485,8 @@ exports.sendContactEmail = onCall(
       logger.info("Contact form email sent successfully");
       return { success: true };
     } catch (error) {
-      logger.error("Error sending contact form email:", error);
-      throw new HttpsError("internal", "Failed to send email");
+      logger.error("Error sending contact form email:", error.message, "code:", error.code, "response:", error.response);
+      throw new HttpsError("internal", `Failed to send email: ${error.message} (code: ${error.code})`);
     }
   },
 );

@@ -2,7 +2,6 @@
 "use client";
 
 import { useEffect } from "react";
-import Script from "next/script";
 import ContactUs from "@/components/industrialautomatiom/IndustrialAutomationcontactUs";
 import IndustrialAutomationControl from "@/components/industrialautomatiom/IndustrialAutomationControl";
 import IndustrialAutomationHero from "@/components/industrialautomatiom/IndustrialAutomationHero";
@@ -93,14 +92,16 @@ export default function IndustrialAutomationPage() {
 
   return (
     <>
-      {/* Add structured data for search engines */}
-      <Script
+      {/* Structured data rendered inline so it is present in the static
+          HTML for search engine crawlers (next/script injects after
+          hydration, which non-JS crawlers never see) */}
+      <script
         id="service-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
       />
 
-      <Script
+      <script
         id="breadcrumb-schema"
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}

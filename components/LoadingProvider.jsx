@@ -3,6 +3,7 @@
 import {
   useState,
   useEffect,
+  useRef,
   createContext,
   useContext,
   Suspense,
@@ -16,13 +17,24 @@ const LoadingContext = createContext({
   setIsLoading: () => {},
 });
 
-// Component that uses useSearchParams
-function LoadingProviderContent({ children, setIsLoading }) {
+// Route-change listener. Renders nothing — it only toggles the loading
+// overlay on client-side navigations. It lives in its own Suspense boundary
+// because useSearchParams() opts its subtree out of static rendering; page
+// content must stay outside so it is present in the exported HTML for
+// crawlers and users without JavaScript.
+function RouteChangeListener({ setIsLoading }) {
   const pathname = usePathname();
   const searchParams = useSearchParams();
+  const isFirstRender = useRef(true);
 
-  // Reset loading state when route changes
   useEffect(() => {
+    // Skip the initial page load — the static HTML already shows the
+    // content, so covering it with a loader only hurts SEO and UX.
+    if (isFirstRender.current) {
+      isFirstRender.current = false;
+      return;
+    }
+
     setIsLoading(true);
 
     const timer = setTimeout(() => {
@@ -32,7 +44,7 @@ function LoadingProviderContent({ children, setIsLoading }) {
     return () => clearTimeout(timer);
   }, [pathname, searchParams, setIsLoading]);
 
-  return children;
+  return null;
 }
 
 // Professional Loading Screen
@@ -150,11 +162,11 @@ export function LoadingProvider({ children }) {
 
   return (
     <LoadingContext.Provider value={{ isLoading, setIsLoading }}>
-      <Suspense fallback={<LoadingScreen />}>
-        <LoadingProviderContent setIsLoading={setIsLoading}>
-          {children}
-        </LoadingProviderContent>
+      <Suspense fallback={null}>
+        <RouteChangeListener setIsLoading={setIsLoading} />
       </Suspense>
+
+      {children}
 
       {isLoading && <LoadingScreen />}
     </LoadingContext.Provider>

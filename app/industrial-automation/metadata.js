@@ -1,7 +1,8 @@
 // app/industrial-automation/metadata.js
 
 export const metadata = {
-  title: "Industrial Automation Services | Lumora Ventures",
+  // The root layout's title template appends "| Lumora Ventures"
+  title: "Industrial Automation Services",
   description:
     "Comprehensive industrial automation solutions including control systems, R&D development, and maintenance services for manufacturing facilities. Boost efficiency and reduce costs.",
   keywords: [
